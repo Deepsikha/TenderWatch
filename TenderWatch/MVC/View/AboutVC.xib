@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutVC" customModule="TenderWatch" customModuleProvider="target">
+            <connections>
+                <outlet property="txtAbout" destination="LUq-ud-kfd" id="hJn-1w-eoU"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WvX-Us-9hG">
+                    <rect key="frame" x="23" y="34" width="70" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="7Q6-Zw-VWG"/>
+                        <constraint firstAttribute="height" constant="22" id="HJr-ar-Ist"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Back" image="left-arr.png">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="handleBtnBack:" destination="-1" eventType="touchUpInside" id="TWM-9y-2h2"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rjt-ct-a9H">
+                    <rect key="frame" x="245" y="34" width="59" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="0gD-7P-2iN"/>
+                        <constraint firstAttribute="width" constant="59" id="7Ar-bA-5IV"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="Save">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="handleBtnSave:" destination="-1" eventType="touchUpInside" id="qRx-2B-3gH"/>
+                    </connections>
+                </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LUq-ud-kfd">
+                    <rect key="frame" x="16" y="68" width="288" height="180"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="180" id="sgQ-cV-aH5"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Rjt-ct-a9H" secondAttribute="trailing" constant="16" id="6g0-2G-kjH"/>
+                <constraint firstItem="WvX-Us-9hG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="6lT-GE-WV8"/>
+                <constraint firstItem="LUq-ud-kfd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="SzM-bb-rhX"/>
+                <constraint firstAttribute="trailing" secondItem="LUq-ud-kfd" secondAttribute="trailing" constant="16" id="bYQ-2e-cPI"/>
+                <constraint firstItem="WvX-Us-9hG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="gZ7-3M-6pX"/>
+                <constraint firstItem="Rjt-ct-a9H" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="hxo-Wh-sXt"/>
+                <constraint firstItem="LUq-ud-kfd" firstAttribute="top" secondItem="Rjt-ct-a9H" secondAttribute="bottom" constant="12" id="iWi-RX-yd1"/>
+            </constraints>
+            <point key="canvasLocation" x="90" y="137"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="left-arr.png" width="22" height="22"/>
+    </resources>
+</document>

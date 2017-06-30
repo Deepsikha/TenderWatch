@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterCountryVC" customModule="TenderWatch" customModuleProvider="target">
+            <connections>
+                <outlet property="btnChoose" destination="mhX-QE-IpN" id="TLC-Gf-Z5k"/>
+                <outlet property="tblvw" destination="PNa-a1-sFh" id="Ac5-7b-Bz5"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PNa-a1-sFh">
+                    <rect key="frame" x="20" y="75" width="280" height="426"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhX-QE-IpN">
+                    <rect key="frame" x="75" y="509" width="170" height="30"/>
+                    <color key="backgroundColor" red="1" green="0.38962250949999999" blue="0.57158309220000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="Choose">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="handleBtnChoose:" destination="-1" eventType="touchUpInside" id="flW-wW-zAG"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Thy-vX-sjF">
+                    <rect key="frame" x="23" y="34" width="62" height="22"/>
+                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Back" image="left-arr.png">
+                        <color key="titleColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                    </state>
+                    <connections>
+                        <action selector="bck:" destination="-1" eventType="touchUpInside" id="tNM-eM-Jxb"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="mhX-QE-IpN" firstAttribute="top" secondItem="PNa-a1-sFh" secondAttribute="bottom" constant="8" id="7x8-mW-cEv"/>
+                <constraint firstAttribute="bottom" secondItem="mhX-QE-IpN" secondAttribute="bottom" constant="29" id="B7H-db-5UE"/>
+                <constraint firstItem="PNa-a1-sFh" firstAttribute="top" secondItem="Thy-vX-sjF" secondAttribute="bottom" constant="19" id="Gbk-38-Zdv"/>
+                <constraint firstAttribute="trailing" secondItem="PNa-a1-sFh" secondAttribute="trailing" constant="20" id="MHB-iB-8E7"/>
+                <constraint firstItem="Thy-vX-sjF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="U70-UQ-bta"/>
+                <constraint firstItem="mhX-QE-IpN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="75" id="jv8-hb-rDJ"/>
+                <constraint firstItem="PNa-a1-sFh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="mah-bs-OZZ"/>
+                <constraint firstItem="Thy-vX-sjF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="qb8-nS-oL2"/>
+                <constraint firstAttribute="trailing" secondItem="mhX-QE-IpN" secondAttribute="trailing" constant="75" id="t74-Uz-VVC"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="left-arr.png" width="22" height="22"/>
+    </resources>
+</document>

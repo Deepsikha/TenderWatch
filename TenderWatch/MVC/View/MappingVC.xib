@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MappingVC" customModule="TenderWatch" customModuleProvider="target">
+            <connections>
+                <outlet property="btnBack" destination="OQ5-Hz-nWP" id="kif-11-XYL"/>
+                <outlet property="btnMenu" destination="1eg-bz-Qr1" id="UcR-B2-fV2"/>
+                <outlet property="tblMappings" destination="Szm-cU-9NC" id="xjW-eI-84N"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQ5-Hz-nWP">
+                    <rect key="frame" x="23" y="34" width="70" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="Xf1-J9-VAU"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Back" image="left-arr.png">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="handleBtnBack:" destination="-1" eventType="touchUpInside" id="ETN-ef-Ihf"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1eg-bz-Qr1">
+                    <rect key="frame" x="16" y="14.5" width="30" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="J9u-hc-Hie"/>
+                        <constraint firstAttribute="height" constant="48" id="VbU-dI-OEt"/>
+                    </constraints>
+                    <state key="normal" image="menu.png"/>
+                    <connections>
+                        <action selector="handleBtnMenu:" destination="-1" eventType="touchUpInside" id="erk-Kv-zn0"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Szm-cU-9NC">
+                    <rect key="frame" x="16" y="91" width="304" height="477"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="OQ5-Hz-nWP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="3B8-IP-e7h"/>
+                <constraint firstItem="OQ5-Hz-nWP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="CEF-wN-UE3"/>
+                <constraint firstItem="Szm-cU-9NC" firstAttribute="top" secondItem="OQ5-Hz-nWP" secondAttribute="bottom" constant="35" id="O9o-V9-Onl"/>
+                <constraint firstItem="Szm-cU-9NC" firstAttribute="top" secondItem="1eg-bz-Qr1" secondAttribute="bottom" constant="28.5" id="WAD-vv-8LZ"/>
+                <constraint firstAttribute="bottom" secondItem="Szm-cU-9NC" secondAttribute="bottom" id="Wrt-fY-cva"/>
+                <constraint firstAttribute="trailing" secondItem="Szm-cU-9NC" secondAttribute="trailing" id="YYe-1x-0PA"/>
+                <constraint firstItem="1eg-bz-Qr1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Yuw-5Q-3Np"/>
+                <constraint firstItem="Szm-cU-9NC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="cHc-Ib-Mp3"/>
+                <constraint firstItem="1eg-bz-Qr1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14.5" id="hlq-U4-YKA"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="left-arr.png" width="22" height="22"/>
+        <image name="menu.png" width="22" height="22"/>
+    </resources>
+</document>

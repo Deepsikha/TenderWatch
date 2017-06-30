@@ -1,0 +1,39 @@
+//
+//  Select.swift
+//  TenderWatch
+//
+//  Created by devloper65 on 6/29/17.
+//  Copyright © 2017 lanetteam. All rights reserved.
+//
+
+import UIKit
+import ObjectMapper
+
+class Select: NSObject, Mappable {
+
+    var userId : String?
+    var selections = [Selections]()
+    required init?(map: Map) {
+        super.init()
+        mapping(map:map)
+    }
+    func mapping(map: Map) {
+        userId <- map["userId"]
+        selections <- map["selections"]
+    }
+}
+
+class Selections: NSObject, Mappable {
+    var countryId : String?
+    var categoryId: [String]?
+    
+    required init?(map: Map) {
+        super.init()
+        mapping(map:map)
+    }
+    
+    func mapping(map: Map) {
+        countryId <- map["countryId"]
+        categoryId <- map["categoryId"]
+    }
+}

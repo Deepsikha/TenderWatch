@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TenderWatchVC" customModule="TenderWatch" customModuleProvider="target">
+            <connections>
+                <outlet property="btnMenu" destination="D4J-ZA-zjz" id="vTr-ab-a0c"/>
+                <outlet property="tblTenderList" destination="3tO-Yo-Oel" id="qNo-1B-4jE"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tender Watch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAG-m2-yUY">
+                    <rect key="frame" x="86" y="24" width="148" height="29"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4J-ZA-zjz">
+                    <rect key="frame" x="16" y="14.5" width="30" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="6Qu-2f-7u3"/>
+                    </constraints>
+                    <state key="normal" image="menu.png"/>
+                    <connections>
+                        <action selector="handleBtnMenu:" destination="-1" eventType="touchUpInside" id="R8f-Ep-ZdO"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="85" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3tO-Yo-Oel">
+                    <rect key="frame" x="0.0" y="90" width="320" height="478"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="hAG-m2-yUY" secondAttribute="trailing" constant="86" id="1tA-K1-6z1"/>
+                <constraint firstItem="3tO-Yo-Oel" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9Jw-tX-BbS"/>
+                <constraint firstItem="D4J-ZA-zjz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14.5" id="K2O-Yy-FNf"/>
+                <constraint firstItem="D4J-ZA-zjz" firstAttribute="centerY" secondItem="hAG-m2-yUY" secondAttribute="centerY" id="NL3-2g-E7i"/>
+                <constraint firstItem="hAG-m2-yUY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="24" id="PUm-Kj-Ymh"/>
+                <constraint firstItem="3tO-Yo-Oel" firstAttribute="top" secondItem="D4J-ZA-zjz" secondAttribute="bottom" constant="27.5" id="Ppi-hV-wZn"/>
+                <constraint firstItem="3tO-Yo-Oel" firstAttribute="top" secondItem="hAG-m2-yUY" secondAttribute="bottom" constant="37" id="RBv-pb-Pcr"/>
+                <constraint firstAttribute="trailing" secondItem="3tO-Yo-Oel" secondAttribute="trailing" id="SMs-eE-2So"/>
+                <constraint firstItem="D4J-ZA-zjz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="UP1-se-ITU"/>
+                <constraint firstAttribute="bottom" secondItem="3tO-Yo-Oel" secondAttribute="bottom" id="V5o-yO-eZE"/>
+                <constraint firstItem="hAG-m2-yUY" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="zs4-9Q-xBP"/>
+            </constraints>
+            <point key="canvasLocation" x="-40" y="-16"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="menu.png" width="22" height="22"/>
+    </resources>
+</document>
