@@ -102,20 +102,20 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //                    map.categoryId.append(ch!)
 //                    self.select.selections.append(map)
 //                }
-                if let filteredArray = addCC.filter({$0.countryId == id})
-                {
-                    if (filteredArray.count > 0)
-                    {
-                        let newObject:addCountryObj = filteredArray.first!
-                        self.lastindexpath = (objMessageListArray?.index(of: newObject))!
-                    }
-                }
-                
-                if addCC.filter(<#T##isIncluded: (addCountryObj) throws -> Bool##(addCountryObj) throws -> Bool#>) {
-                    
-                } else {
-                    addCC
-                }
+//                if let filteredArray = addCC.filter({$0.countryId == id})
+//                {
+//                    if (filteredArray.count > 0)
+//                    {
+//                        let newObject:addCountryObj = filteredArray.first!
+//                        self.lastindexpath = (objMessageListArray?.index(of: newObject))!
+//                    }
+//                }
+//
+//                if addCC.filter(<#T##isIncluded: (addCountryObj) throws -> Bool##(addCountryObj) throws -> Bool#>) {
+//                    
+//                } else {
+//                    addCC
+//                }
             } else {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 if RulesVC.arrCountry.contains(cell.countryName.text!) {
@@ -126,25 +126,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-//        {
-//            "userId":"594ce471aab7b71e209e5b45",
-//            "selections":[
-//            {
-//            "countryId":"5950ef1fb8b3a71b4ce68a0b",
-//            "categoryId":[
-//            "5950eea5518d6524ac0f3f28",
-//            "5950ee6a518d6524ac0f3f27"
-//            ]
-//            },
-//            {
-//            "countryId":"5950ef56b8b3a71b4ce68a0c",
-//            "categoryId":[
-//            "5950ee44518d6524ac0f3f26",
-//            "5950edfe518d6524ac0f3f25"
-//            ]
-//            }
-//            ]
-//        }
     }
     
     

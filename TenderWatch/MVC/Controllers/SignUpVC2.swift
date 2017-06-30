@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import RSKImageCropper
 import IQKeyboardManager
+import ObjectMapper
 
 class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, RSKImageCropViewControllerDelegate, UITextFieldDelegate {
     
@@ -27,7 +28,8 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     static var cName: String!
     var image: UIImage!
-    
+    var parameters : [String : Any]!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         IQKeyboardManager.shared().previousNextDisplayMode = .alwaysShow
@@ -53,6 +55,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.back.isHidden = true
             self.opnDrawr.isHidden = false
             self.lblName.isHidden = false
+            self.btnnext.setTitle("Update", for: .normal)
         } else {
             self.back.isHidden = false
             self.opnDrawr.isHidden = true
@@ -135,18 +138,22 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     }
     
     @IBAction func handleBtnnext(_ sender: Any) {
-        if !(isValidNumber(self.phonenum.text!, length: 10)) {
-            MessageManager.showAlert(nil, "Invalid Number")
-        } else if (self.proflPic.currentImage == self.image) {
-            MessageManager.showAlert(nil, "Choose a profile picture")
+        if (USER?.authenticationToken != nil) {
+            self.register((USER?._id)!)
         } else {
-            if (appDelegate.isClient)! {
-                self.navigationController?.pushViewController(RulesVC(), animated: true)
+            if !(isValidNumber(self.phonenum.text!, length: 10)) {
+                MessageManager.showAlert(nil, "Invalid Number")
+            } else if (self.proflPic.currentImage == self.image) {
+                MessageManager.showAlert(nil, "Choose a profile picture")
             } else {
-                self.navigationController?.pushViewController(MappingVC(), animated: true)
+                if (appDelegate.isClient)! {
+                    self.navigationController?.pushViewController(RulesVC(), animated: true)
+                } else {
+                    self.navigationController?.pushViewController(MappingVC(), animated: true)
+                }
+                signUpUser.contactNo = self.phonenum.text!
+                signUpUser.occupation = self.occupation.text!
             }
-            signUpUser.contactNo = self.phonenum.text!
-            signUpUser.occupation = self.occupation.text!
         }
     }
     
@@ -182,6 +189,134 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     }
     @IBAction func handleAboutMe(_ sender: Any) {
         self.navigationController?.pushViewController(AboutVC(), animated: true)
+    }
+    
+    func register(_ id: String) {
+        
+        if (appDelegate.isClient)! {
+            self.parameters = ["email" : signUpUser.email,
+                               "password" : signUpUser.password,
+                               "country": signUpUser.country,
+                               "contactNo": signUpUser.contactNo,
+                               "occupation": signUpUser.occupation,
+                               "aboutMe": signUpUser.aboutMe,
+                               "role" : signUpUser.role] as [String : Any]
+        } else {
+            self.parameters = ["email" :  signUpUser.email,
+                               "password" : signUpUser.password,
+                               "country": signUpUser.country,
+                               "contactNo": signUpUser.contactNo,
+                               "occupation": signUpUser.occupation,
+                               "aboutMe": signUpUser.aboutMe,
+                               "role" : signUpUser.role] as [String : Any]
+        }
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            if signUpUser.photo != nil
+            {
+                let dated :NSDate = NSDate()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
+                dateFormatter.timeZone = NSTimeZone(name: "GMT")! as TimeZone
+                
+                let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
+                
+                multipartFormData.append(signUpUser.photo!, withName: "fileset",fileName: imgname, mimeType: "image/jpg")
+            }
+            for (key, value) in self.parameters {
+                multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
+            }
+        }, usingThreshold: 0, to: "http://192.168.200.22:4040/api/users/\(id)", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(String(describing: USER?.authenticationToken))!"]) { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (progress) in
+                    print("Upload Progress: \(progress.fractionCompleted)")
+                })
+                
+                upload.responseJSON { resp in
+                    if (resp.result.value != nil) {
+                        print(resp.result.value!)
+                        if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
+                            MessageManager.showAlert(nil, "Invalid Credentials")
+                        } else {
+                            
+                            //Set User remaining
+                            // if (USER?.authenticationToken != nil) {
+                            
+                            let data = (resp.result.value as! NSObject).value(forKey: "user")!
+                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
+                            let token = (resp.result.value as! NSObject).value(forKey: "token")!
+                            USER?.authenticationToken = token as? String
+                            appDelegate.setHomeViewController()
+                            //                             self.navigationController?.pushViewController(TenderWatchVC(), animated: true)
+                            // self.user = user
+                            // USER = user
+                            
+                            
+                            // }
+                        }
+                    }
+                }
+                
+            case .failure(let encodingError):
+                print(encodingError)
+            }
+        }
+        
+//        Alamofire.upload(multipartFormData: { multipartFormData in
+//            if signUpUser.photo != nil
+//            {
+//                let dated :NSDate = NSDate()
+//                let dateFormatter = DateFormatter()
+//                dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
+//                dateFormatter.timeZone = NSTimeZone(name: "GMT")! as TimeZone
+//                
+//                let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
+//                
+//                multipartFormData.append(signUpUser.photo!, withName: "fileset",fileName: imgname, mimeType: "image/jpg")
+//            }
+//            for (key, value) in self.parameters {
+//                multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
+//            }
+//        },
+//                         to:"http://192.168.200.22:4040/api/users/\(id)"),
+//        { (result) in
+//            switch result {
+//            case .success(let upload, _, _):
+//                
+//                upload.uploadProgress(closure: { (progress) in
+//                    print("Upload Progress: \(progress.fractionCompleted)")
+//                })
+//                
+//                upload.responseJSON { resp in
+//                    if (resp.result.value != nil) {
+//                        print(resp.result.value!)
+//                        if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
+//                            MessageManager.showAlert(nil, "Invalid Credentials")
+//                        } else {
+//                            
+//                            //Set User remaining
+//                            // if (USER?.authenticationToken != nil) {
+//                            
+//                            let data = (resp.result.value as! NSObject).value(forKey: "user")!
+//                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
+//                            let token = (resp.result.value as! NSObject).value(forKey: "token")!
+//                            USER?.authenticationToken = token as? String
+//                            appDelegate.setHomeViewController()
+//                            //                             self.navigationController?.pushViewController(TenderWatchVC(), animated: true)
+//                            // self.user = user
+//                            // USER = user
+//                            
+//                            
+//                            // }
+//                        }
+//                    }
+//                }
+//                
+//            case .failure(let encodingError):
+//                print(encodingError)
+//            }
+//        }
     }
     
 }
