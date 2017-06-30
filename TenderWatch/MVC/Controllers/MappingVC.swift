@@ -18,6 +18,9 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var sectionTitleList = [String]()
     var country = [Country]()
     var category = [Category]()
+    var select = [String : [String]]()
+    
+    
     
     var map = Selections()
     
@@ -116,6 +119,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //                } else {
 //                    addCC
 //                }
+
             } else {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 if RulesVC.arrCountry.contains(cell.countryName.text!) {
@@ -126,6 +130,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
+
     }
     
     

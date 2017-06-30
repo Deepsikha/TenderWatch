@@ -42,6 +42,8 @@
 		5C31506C1F03AADB00C96182 /* UploadTenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C31506A1F03AADB00C96182 /* UploadTenderVC.swift */; };
 		5C31506F1F03AAFB00C96182 /* UploadTenderVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C31506E1F03AAFB00C96182 /* UploadTenderVC.xib */; };
 		5C34B6F61EFA181B0062B987 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34B6F41EFA181B0062B987 /* ChangePasswordVC.swift */; };
+		5C36CD6F1F067BD00088D21E /* plus1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C36CD6E1F067BD00088D21E /* plus1.png */; };
+		5C36CD711F067D4D0088D21E /* Tender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C36CD701F067D4D0088D21E /* Tender.swift */; };
 		5CF289B31EFB8C8A00F3EC79 /* RegisterCountryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF289B11EFB8C8A00F3EC79 /* RegisterCountryVC.swift */; };
 		5CF289B61EFB8CA700F3EC79 /* RegisterCountryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CF289B51EFB8CA700F3EC79 /* RegisterCountryVC.xib */; };
 		5CF289B91EFBB21A00F3EC79 /* RegisterCountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF289B71EFBB21A00F3EC79 /* RegisterCountryCell.swift */; };
@@ -220,6 +222,8 @@
 		5C31506A1F03AADB00C96182 /* UploadTenderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadTenderVC.swift; sourceTree = "<group>"; };
 		5C31506E1F03AAFB00C96182 /* UploadTenderVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadTenderVC.xib; sourceTree = "<group>"; };
 		5C34B6F41EFA181B0062B987 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
+		5C36CD6E1F067BD00088D21E /* plus1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus1.png; sourceTree = "<group>"; };
+		5C36CD701F067D4D0088D21E /* Tender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tender.swift; sourceTree = "<group>"; };
 		5CF289B01EFB659200F3EC79 /* TenderWatch-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TenderWatch-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CF289B11EFB8C8A00F3EC79 /* RegisterCountryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCountryVC.swift; sourceTree = "<group>"; };
 		5CF289B51EFB8CA700F3EC79 /* RegisterCountryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterCountryVC.xib; sourceTree = "<group>"; };
@@ -515,6 +519,7 @@
 		27A28ECA1EF777D800E7B53B /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				5C36CD6E1F067BD00088D21E /* plus1.png */,
 				7DCEB0431EFE28E6002A776C /* fav@1x.png */,
 				7DCEB0441EFE28E6002A776C /* fav@2x.png */,
 				7DCEB0451EFE28E6002A776C /* fav@3x.png */,
@@ -644,6 +649,7 @@
 				7D7A13B01F050A1A0092E3DF /* Country.swift */,
 				7D176AFD1EFA13A700B05C99 /* User.swift */,
 				7D7A13B51F051A900092E3DF /* Select.swift */,
+				5C36CD701F067D4D0088D21E /* Tender.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -789,6 +795,7 @@
 			files = (
 				7DCEB03F1EFE28D3002A776C /* chabox@3x.png in Resources */,
 				7DCEB0401EFE28D3002A776C /* chaboxcheked@1x.png in Resources */,
+				5C36CD6F1F067BD00088D21E /* plus1.png in Resources */,
 				7D176AF91EFA0E3900B05C99 /* TenderListCell.xib in Resources */,
 				7DF57A8D1EFCE2A600127B04 /* SelectCategoryVC.xib in Resources */,
 				27EF449A1EF8BD5F00CCBCA0 /* SignInVC.xib in Resources */,
@@ -1056,6 +1063,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D03943B1EFB61FF00B494EF /* DrawerVisualState.swift in Sources */,
+				5C36CD711F067D4D0088D21E /* Tender.swift in Sources */,
 				7D176AFE1EFA13A700B05C99 /* User.swift in Sources */,
 				27A28ECC1EF7780000E7B53B /* AppConstant.swift in Sources */,
 				5CF289B91EFBB21A00F3EC79 /* RegisterCountryCell.swift in Sources */,
