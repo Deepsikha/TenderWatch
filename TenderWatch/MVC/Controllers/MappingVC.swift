@@ -15,10 +15,11 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var btnMenu: UIButton!
     @IBOutlet weak var tblMappings: UITableView!
     
-    
     var sectionTitleList = [String]()
     var country = [Country]()
     var category = [Category]()
+    
+    var map = Selections()
     
     var sendList = NSMutableDictionary()
     override func viewDidLoad() {
@@ -84,23 +85,37 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 let country1 = tableView.headerView(forSection: indexPath.section)?.textLabel?.text
                 let category1 = cell.countryName.text!
-                let id = (self.country.filter {$0.countryName == country1})[0].countryName
-                print(id)
-                var arr = [[:]]
-                var dictionaryA = [
-                    "a": "1",
-                    "b": "2",
-                    "c": "3",
-                    ]
-                var dictionaryB = [
-                    "a": "4",
-                    "b": "5",
-                    "c": "6",
-                    ]
-                var myArray = [[ : ]]
-                myArray.append(dictionaryA) // < [!] Expected declaration
-                myArray.append(dictionaryB)
-                print(myArray)
+                let id = (self.country.filter {$0.countryName == country1})[0].countryId
+                let ch = (self.category.filter {$0.categoryName == category1})[0].categoryId
+                
+//                if self.select.selections.contains(map) {
+//                    if (map.countryId == id!) {
+//                        map.categoryId.append(ch!)
+//                    } else {
+//                        map = Selections()
+//                        map.countryId = id!
+//                        map.categoryId.append(ch!)
+//                        select.selections.append(map)
+//                    }
+//                } else {
+//                    map.countryId = id!
+//                    map.categoryId.append(ch!)
+//                    self.select.selections.append(map)
+//                }
+                if let filteredArray = addCC.filter({$0.countryId == id})
+                {
+                    if (filteredArray.count > 0)
+                    {
+                        let newObject:addCountryObj = filteredArray.first!
+                        self.lastindexpath = (objMessageListArray?.index(of: newObject))!
+                    }
+                }
+                
+                if addCC.filter(<#T##isIncluded: (addCountryObj) throws -> Bool##(addCountryObj) throws -> Bool#>) {
+                    
+                } else {
+                    addCC
+                }
             } else {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 if RulesVC.arrCountry.contains(cell.countryName.text!) {

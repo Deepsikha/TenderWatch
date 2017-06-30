@@ -11,7 +11,7 @@ import ObjectMapper
 
 class Category: NSObject,Mappable {
     
-    var categoryId : Int?
+    var categoryId : String?
     var categoryName: String?
     
     required init?(map: Map)
@@ -21,7 +21,7 @@ class Category: NSObject,Mappable {
     }
     func mapping(map: Map)
     {
-        categoryId <- map["categoryId"]
+        categoryId <- map["_id"]
         categoryName <- map["categoryName"]
     }
 }

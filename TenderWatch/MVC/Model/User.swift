@@ -9,7 +9,6 @@
 import Foundation
 import ObjectMapper
 
-
 enum RollType : String {
     case contractor = "contractor"
     case client = "client"

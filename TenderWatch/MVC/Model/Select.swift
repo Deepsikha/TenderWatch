@@ -9,31 +9,45 @@
 import UIKit
 import ObjectMapper
 
+var addCC = [addCountryObj]()
+
 class Select: NSObject, Mappable {
 
-    var userId : String?
     var selections = [Selections]()
     required init?(map: Map) {
         super.init()
         mapping(map:map)
     }
+    override init() {
+        super.init()
+    }
+    
     func mapping(map: Map) {
-        userId <- map["userId"]
         selections <- map["selections"]
     }
 }
 
 class Selections: NSObject, Mappable {
+    
     var countryId : String?
-    var categoryId: [String]?
+    var categoryId: [String] = []
     
     required init?(map: Map) {
         super.init()
         mapping(map:map)
+    }
+    
+    override init() {
+        super.init()
     }
     
     func mapping(map: Map) {
         countryId <- map["countryId"]
         categoryId <- map["categoryId"]
     }
+}
+
+class addCountryObj: NSObject {
+    var countryId: String = ""
+    var categoryId: [String] = []
 }

@@ -59,15 +59,13 @@ class RulesVC: UIViewController {
         }
     }
     
-
     //MARK:-email password firstName lastName role profilePhoto
 //    email, firstName, lastName, password, profilePhoto, country, category, contactNo, occupation, aboutMe, role
     func register() {
         let arrCountry = RulesVC.arrCountry.joined(separator: ",")
         let arrCategory = RulesVC.arrCategory.joined(separator: ",")
+        
         if (appDelegate.isClient)! {
-
-            
             self.parameters = ["email" : signUpUser.email,
                               "password" : signUpUser.password,
                               "country": signUpUser.country,
@@ -81,11 +79,10 @@ class RulesVC: UIViewController {
                               "country": signUpUser.country,
                               "contactNo": signUpUser.contactNo,
                               "occupation": signUpUser.occupation,
-                              "arrCategory": arrCategory,
-                              "arrCoutry": arrCountry,
                               "aboutMe": signUpUser.aboutMe,
                               "role" : signUpUser.role] as [String : Any]
         }
+        
         Alamofire.upload(multipartFormData: { multipartFormData in
             if signUpUser.photo != nil
             {

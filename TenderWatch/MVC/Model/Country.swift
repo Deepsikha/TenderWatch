@@ -11,7 +11,7 @@ import ObjectMapper
 
 class Country: NSObject,Mappable {
     
-    var countryCode: Int?
+    var countryCode: String?
     var countryId : String?
     var countryName : String?
     var isoCode: String?
@@ -24,7 +24,7 @@ class Country: NSObject,Mappable {
     
     func mapping(map: Map)
     {
-        countryId   <- map["countryId"]
+        countryId   <- map["_id"]
         countryName <- map["countryName"]
         countryCode <- map["countryCode"]
         isoCode     <- map["isoCode"]
