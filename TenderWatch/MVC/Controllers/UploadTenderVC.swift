@@ -46,6 +46,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     var desc: String!
     var photo: Data!
     
+    var tap: UITapGestureRecognizer!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerNib()
@@ -55,7 +56,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         
         //tapHandler
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
+        self.tap = UITapGestureRecognizer(target: self, action: #selector(self.taphandler))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
     }
