@@ -27,16 +27,16 @@ class Tender: NSObject, Mappable {
             mapping(map:map)
         }
         func mapping(map: Map) {
-            country <- map["country"]
-            category <- map["category"]
-            tenderName <- map["tenderName"]
-            desc <- map["description"]
-            email <- map["email"]
-            landlineNo <- map["landlineNo"]
-            contactNo <- map["contactNo"]
-            address <- map["address"]
-            exp <- map["expiryDate"]
-            tenderPhoto <- map["tenderPhoto"]
+            country         <- map["country"]
+            category        <- map["category"]
+            tenderName      <- map["tenderName"]
+            desc            <- map["description"]
+            email           <- map["email"]
+            landlineNo      <- map["landlineNo"]
+            contactNo       <- map["contactNo"]
+            address         <- map["address"]
+            exp             <- map["expiryDate"]
+            tenderPhoto     <- map["tenderPhoto"]
         }
 
     

@@ -49,14 +49,16 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
-        
+        if !(USER?.role == RollType.client) {
         let fav = UITableViewRowAction(style: .normal, title: "Favourites") { action, index in
             print("Edit button tapped")
         }
         fav.backgroundColor = UIColor.blue
         
-        
         return [fav]
+        } else {
+            return []
+        }
     }
     
     @IBAction func handleBtnMenu(_ sender: Any) {

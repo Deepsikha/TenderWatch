@@ -208,6 +208,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         self.tblMappings.reloadData()
     }
-    
+
 }
 

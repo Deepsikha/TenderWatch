@@ -8,44 +8,56 @@
 
 import UIKit
 import Alamofire
+import ObjectMapper
+import RSKImageCropper
 
-class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate {
+class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, RSKImageCropViewControllerDelegate {
 
     @IBOutlet weak var opnDrwr: UIButton!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var txfTenderTitle: UITextField!
     
+    @IBOutlet weak var vwScroll: UIScrollView!
+    @IBOutlet weak var btnImage: UIButton!
     @IBOutlet weak var lblDropdown: UILabel!
-
     @IBOutlet weak var lblDropdownCat: UILabel!
-    
     @IBOutlet weak var tenderDetail: UITextView!
-    
     @IBOutlet weak var btnSelectCountry: UIButton!
-
     @IBOutlet weak var btnSelectCategory: UIButton!
-
     @IBOutlet weak var btnContact: UIButton!
-    
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var vwSelectCountry: UIView!
-    
     @IBOutlet weak var vwSelectCategory: UIView!
     @IBOutlet weak var vwMain: UIView!
-    
     @IBOutlet weak var tempView: UIView!
-    
     @IBOutlet var vwContactPopup: UIView!
     @IBOutlet var tblOptions: UITableView!
     
     var arrDropDown = [String]()
     var tender = [Tender]()
-
+    var country = [Country]()
+    var category = [Category]()
+    var picker: UIImagePickerController!
     var isCountry = true
+    
+    var cId: String! //for country
+    var ctId: String! //for categoty
+    var tenderTitle: String!
+    var desc: String!
+    var photo: Data!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerNib()
+        
+        picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        
+        //tapHandler
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +67,14 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if isCountry {
+            self.tblOptions.frame = CGRect(x: self.vwSelectCountry.frame.origin.x, y: self.vwScroll.frame.origin.y + self.vwSelectCountry.frame.origin.y + self.vwSelectCountry.frame.height, width: self.vwSelectCountry.frame.width, height: 220)
+        } else {
+                self.tblOptions.frame = CGRect(x: self.vwSelectCategory.frame.origin.x, y: self.vwScroll.frame.origin.y + self.vwSelectCategory.frame.origin.y + self.vwSelectCategory.frame.height, width: self.vwSelectCategory.frame.width, height: 220)
+        }
     }
     
     func registerNib(){
@@ -76,21 +96,39 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
         self.tblOptions.dataSource = self
         self.tblOptions.delegate = self
-        tblOptions.register(UINib(nibName: "MappingCell",bundle: nil), forCellReuseIdentifier: "Dropdowncell")
         
-        let tapHappen = UITapGestureRecognizer(target: self, action: #selector(hideDropDown))
-        self.tempView.addGestureRecognizer(tapHappen)
+        self.txfTenderTitle.delegate = self
+        self.tenderDetail.delegate = self
+        
+        tblOptions.register(UINib(nibName: "MappingCell",bundle: nil), forCellReuseIdentifier: "MappingCell")
+        
     }
     
-    func hideDropDown(){
-        if (self.tempView.subviews.contains(self.tblOptions)) {
-            self.tblOptions.removeFromSuperview()
-            lblDropdown.text = "▼"
-            lblDropdownCat.text = "▼"
-            removeTempView()
-
-            
+    //MARK: TextField Delegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if (self.country.count == 0) && (self.category.count == 0) {
+            MessageManager.showAlert(nil, "Select Country & Category First")
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.tenderTitle = textField.text!
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        self.tenderTitle = textField.text!
+        return true
+    }
+    //MARK: TextView Delegate
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.desc = textView.text!
     }
     // MARK:- Table view
     
@@ -99,30 +137,72 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrDropDown.count
+        if isCountry {
+            return self.country.count
+        } else {
+            return self.category.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Dropdowncell") as! MappingCell
-
-        cell.lblCategory.text = arrDropDown[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MappingCell") as! MappingCell
+        if isCountry {
+            let country = self.country[indexPath.row]
+            cell.lblCategory.text = country.countryName!
+        } else {
+            let category = self.category[indexPath.row]
+            cell.lblCategory.text = category.categoryName!
+        }
         
         return cell
         
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! MappingCell
         if (isCountry) {
-            btnSelectCountry.titleLabel?.text = arrDropDown[indexPath.row]
+            btnSelectCountry.setTitle(cell.lblCategory.text!, for: .normal)
             lblDropdown.text = "▼"
-            removeTempView()
-
+            self.cId = self.country.filter{$0.countryName == cell.lblCategory.text!}[0].countryId
         }else{
-            btnSelectCategory.titleLabel?.text = arrDropDown[indexPath.row]
+            btnSelectCategory.setTitle(cell.lblCategory.text!, for: .normal)
             lblDropdownCat.text = "▼"
-            removeTempView()
+            self.ctId = self.category.filter {$0.categoryName == cell.lblCategory.text!}[0].categoryId
         }
         self.tblOptions.removeFromSuperview()
     }
+    
+    //MARK: Image Delegate
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image : UIImage = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
+        
+        picker.dismiss(animated: false, completion: { () -> Void in
+            
+            var imageCropVC : RSKImageCropViewController!
+            
+            imageCropVC = RSKImageCropViewController(image: image, cropMode: RSKImageCropMode.square)
+            
+            imageCropVC.delegate = self
+            
+            self.navigationController?.pushViewController(imageCropVC, animated: true)
+            
+        })
+        
+    }
+    
+    //Mark:- Crop delegates
+    
+    func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
+        self.btnImage.setImage(croppedImage, for: .normal)
+        let imgData = UIImageJPEGRepresentation(croppedImage, 0.2)
+        self.photo = imgData
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
     // MARK:- IBActions
     
     @IBAction func handleOpenDrwr(_ sender: Any) {
@@ -131,28 +211,23 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @IBAction func btnSelectCountry(_ sender: Any) {
         self.isCountry = true
-        addTempView();
-        if (self.vwMain.subviews.contains(self.tblOptions)) {
-            self.tblOptions.removeFromSuperview()
-        }
         lblDropdown.text = "▲"
-        self.tblOptions.frame = CGRect(x: self.vwSelectCountry.frame.origin.x, y: self.vwSelectCountry.frame.origin.y + 40, width: self.vwSelectCountry.frame.width, height: 200)
-        self.tempView.addSubview(self.tblOptions)
-        arrDropDown = ["Austrailia","brazil","india","Usa"]
-        tblOptions.reloadData()
+        
+        self.view.addSubview(self.tblOptions)
+        if self.country.count == 0 {
+            self.fetchCoutry()
+        }
+        self.tblOptions.reloadData()
     }
     
     @IBAction func btnSelectCategory(_ sender: Any) {
         self.isCountry = false
-        addTempView();
         lblDropdownCat.text = "▲"
-        if (self.vwMain.subviews.contains(self.tblOptions)) {
-            self.tblOptions.removeFromSuperview()
+        self.view.addSubview(self.tblOptions)
+        if self.category.count == 0 {
+            self.fetchCategory()
         }
-        self.tblOptions.frame = CGRect(x: self.vwSelectCategory.frame.origin.x, y: self.vwSelectCategory.frame.origin.y + 40, width: self.vwSelectCountry.frame.width, height: 200)
-        self.tempView.addSubview(self.tblOptions)
-        arrDropDown = ["dev","web","design","testing"]
-        tblOptions.reloadData()
+        self.tblOptions.reloadData()
     }
     
     @IBAction func btnShowContactPopup(_ sender: Any) {
@@ -163,20 +238,132 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBAction func btnDoneHidePopup(_ sender: Any) {
         self.vwContactPopup.removeFromSuperview()
     }
+    
     @IBAction func sbmt(_ sender: Any) {
-        APIManager.shared.requestForPOST(url: "api/tender", isTokenEmbeded: true, params: [:], successHandler: { (true, resp) in
-        print(resp)
-     }) { (error) in
-        print(error)
-        }
+        self.submit()
     }
-
-    // tap gesture
-    func addTempView(){
-        self.tempView.isHidden = false
+    @IBAction func handleBtnImage(_ sender: Any) {
+        let option = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
+        
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
+            
+        }
+        
+        let galleryAction = UIAlertAction(title: "Gallery", style: .default) { (action) in
+            self.present(self.picker, animated: true, completion: nil)
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+        })
+        
+        option.addAction(cameraAction)
+        option.addAction(galleryAction)
+        option.addAction(cancelAction)
+        self.present(option, animated: true, completion: nil)
     }
     
-    func removeTempView(){
-        self.tempView.isHidden = true
+    func submit() {
+        let param: Parameters = [  "country":self.cId!,
+                       "category":self.ctId!,
+                       "tenderName":self.tenderTitle!,
+                       "description":self.desc!,
+                       "email":"tender@gmail.com",
+                       "landlineNo":"tender@gmail.com",
+                       "contactNo":"tender@gmail.com",
+                       "address":"tender@gmail.com"]
+//        APIManager.shared.callRequestedAPI(url: "tender", method: .post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"], params: param, successHandler: { (true, resp) in
+//            print(resp)
+//        }) { (error) in
+//            print(error)
+//        }
+        
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            if self.photo != nil
+            {
+                let dated :NSDate = NSDate()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
+                dateFormatter.timeZone = NSTimeZone(name: "GMT")! as TimeZone
+                
+                let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
+                multipartFormData.append(self.photo!, withName: "fileset",fileName: imgname, mimeType: "image/jpg")
+            }
+            for (key, value) in param {
+                multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
+            }
+        }, usingThreshold: 0, to: "http://192.168.200.22:4040/api/tender", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (progress) in
+                    print("Upload Progress: \(progress.fractionCompleted)")
+                })
+                
+                upload.responseJSON { resp in
+                    if (resp.result.value != nil) {
+                        print(resp.result.value!)
+                        if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
+                            MessageManager.showAlert(nil, "Invalid Credentials")
+                        } else {
+                            let data = (resp.result.value as! NSObject)
+                            //data parsing remianing because of unique response
+                            //                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
+                            
+                            appDelegate.setHomeViewController()
+                        }
+                    }
+                }
+                
+            case .failure(let encodingError):
+                print(encodingError)
+            }
+        }
+    }
+    
+    func fetchCoutry()
+    {
+        self.startActivityIndicator()
+        APIManager.shared.requestForGET(url: "auth/country", isTokenEmbeded: false, successHandler: { (finish, res) in
+            if res.result.value != nil
+            {
+                let data = (res.result.value as! NSObject)
+                self.country = Mapper<Country>().mapArray(JSONObject: data)!
+                self.country = self.country.sorted(by: { (a, b) -> Bool in
+                    a.countryName! < b.countryName!
+                })
+                self.stopActivityIndicator()
+                self.tblOptions.reloadData()
+            }
+        }) { (erroMessage) in
+            
+        }
+    }
+    
+    func fetchCategory()
+    {
+        self.startActivityIndicator()
+        APIManager.shared.requestForGET(url: "auth/category", isTokenEmbeded: false, successHandler: { (finish, res) in
+            if res.result.value != nil
+            {
+                let data = (res.result.value as! NSObject)
+                self.category = Mapper<Category>().mapArray(JSONObject: data)!
+                self.category = self.category.sorted(by: { (a, b) -> Bool in
+                    a.categoryName! < b.categoryName!
+                })
+                self.stopActivityIndicator()
+                self.tblOptions.reloadData()
+            }
+            
+        }) { (erroMessage) in
+            
+        }
+    }
+    
+    func taphandler()
+    {
+        self.view.subviews.last?.removeFromSuperview()
+        self.view.removeGestureRecognizer(tap)
     }
 }

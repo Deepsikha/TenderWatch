@@ -45,7 +45,7 @@ class User: NSObject,NSCoding, Mappable {
         createdAt = aDecoder.decodeObject(forKey: "createdAt") as? String
         profilePhoto = aDecoder.decodeObject(forKey: "profilePhoto") as? String
         role = RollType(rawValue: (aDecoder.decodeObject(forKey: "role") as! String))
-        role = aDecoder.decodeObject(forKey: "role") as? RollType
+//        role = aDecoder.decodeObject(forKey: "role") as? RollType
         isActive = aDecoder.decodeObject(forKey: "isActive") as? Bool
         authenticationToken = aDecoder.decodeObject(forKey: "token") as? String
     }

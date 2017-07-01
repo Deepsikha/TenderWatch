@@ -36,8 +36,10 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         self.phonenum.delegate = self
         self.occupation.delegate = self
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         self.mainvw.addGestureRecognizer(tap)
+        
         picker = UIImagePickerController()
         picker.delegate = self
         picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
@@ -138,25 +140,26 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     }
     
     @IBAction func handleBtnnext(_ sender: Any) {
-        if (USER?.authenticationToken != nil) {
-            self.register((USER?._id)!)
+        if !(isValidNumber(self.phonenum.text!, length: 10)) {
+            MessageManager.showAlert(nil, "Invalid Number")
+        } else if (self.proflPic.currentImage == self.image) {
+            MessageManager.showAlert(nil, "Choose a profile picture")
         } else {
-            if !(isValidNumber(self.phonenum.text!, length: 10)) {
-                MessageManager.showAlert(nil, "Invalid Number")
-            } else if (self.proflPic.currentImage == self.image) {
-                MessageManager.showAlert(nil, "Choose a profile picture")
+            if (USER?.authenticationToken != nil) {
+                signUpUser.contactNo = self.phonenum.text!
+                signUpUser.occupation = self.occupation.text!
+                self.update((USER?._id)!)
             } else {
                 if (appDelegate.isClient)! {
                     self.navigationController?.pushViewController(RulesVC(), animated: true)
                 } else {
                     self.navigationController?.pushViewController(MappingVC(), animated: true)
                 }
-                signUpUser.contactNo = self.phonenum.text!
-                signUpUser.occupation = self.occupation.text!
             }
-        }
+            
     }
-    
+}
+
     @IBAction func setProfilePic(_ sender: Any) {
         let option = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
         
@@ -191,24 +194,20 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.navigationController?.pushViewController(AboutVC(), animated: true)
     }
     
-    func register(_ id: String) {
+    func update(_ id: String) {
         
         if (appDelegate.isClient)! {
-            self.parameters = ["email" : signUpUser.email,
-                               "password" : signUpUser.password,
-                               "country": signUpUser.country,
+            self.parameters = ["country": signUpUser.country,
                                "contactNo": signUpUser.contactNo,
                                "occupation": signUpUser.occupation,
                                "aboutMe": signUpUser.aboutMe,
-                               "role" : signUpUser.role] as [String : Any]
+                               "role" : "client"] as [String : Any]
         } else {
-            self.parameters = ["email" :  signUpUser.email,
-                               "password" : signUpUser.password,
-                               "country": signUpUser.country,
+            self.parameters = ["country": signUpUser.country,
                                "contactNo": signUpUser.contactNo,
                                "occupation": signUpUser.occupation,
                                "aboutMe": signUpUser.aboutMe,
-                               "role" : signUpUser.role] as [String : Any]
+                               "role" : "contractor"] as [String : Any]
         }
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             if signUpUser.photo != nil
@@ -225,7 +224,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             for (key, value) in self.parameters {
                 multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
             }
-        }, usingThreshold: 0, to: "http://192.168.200.22:4040/api/users/\(id)", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(String(describing: USER?.authenticationToken))!"]) { (result) in
+        }, usingThreshold: 0, to: "http://192.168.200.22:4040/api/users/\(id)", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
             switch result {
             case .success(let upload, _, _):
                 
@@ -239,21 +238,11 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                         if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
                             MessageManager.showAlert(nil, "Invalid Credentials")
                         } else {
+                            let data = (resp.result.value as! NSObject)
+                            //data parsing remianing because of unique response
+//                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
                             
-                            //Set User remaining
-                            // if (USER?.authenticationToken != nil) {
-                            
-                            let data = (resp.result.value as! NSObject).value(forKey: "user")!
-                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
-                            let token = (resp.result.value as! NSObject).value(forKey: "token")!
-                            USER?.authenticationToken = token as? String
                             appDelegate.setHomeViewController()
-                            //                             self.navigationController?.pushViewController(TenderWatchVC(), animated: true)
-                            // self.user = user
-                            // USER = user
-                            
-                            
-                            // }
                         }
                     }
                 }
@@ -262,61 +251,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 print(encodingError)
             }
         }
-        
-//        Alamofire.upload(multipartFormData: { multipartFormData in
-//            if signUpUser.photo != nil
-//            {
-//                let dated :NSDate = NSDate()
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
-//                dateFormatter.timeZone = NSTimeZone(name: "GMT")! as TimeZone
-//                
-//                let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
-//                
-//                multipartFormData.append(signUpUser.photo!, withName: "fileset",fileName: imgname, mimeType: "image/jpg")
-//            }
-//            for (key, value) in self.parameters {
-//                multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
-//            }
-//        },
-//                         to:"http://192.168.200.22:4040/api/users/\(id)"),
-//        { (result) in
-//            switch result {
-//            case .success(let upload, _, _):
-//                
-//                upload.uploadProgress(closure: { (progress) in
-//                    print("Upload Progress: \(progress.fractionCompleted)")
-//                })
-//                
-//                upload.responseJSON { resp in
-//                    if (resp.result.value != nil) {
-//                        print(resp.result.value!)
-//                        if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
-//                            MessageManager.showAlert(nil, "Invalid Credentials")
-//                        } else {
-//                            
-//                            //Set User remaining
-//                            // if (USER?.authenticationToken != nil) {
-//                            
-//                            let data = (resp.result.value as! NSObject).value(forKey: "user")!
-//                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
-//                            let token = (resp.result.value as! NSObject).value(forKey: "token")!
-//                            USER?.authenticationToken = token as? String
-//                            appDelegate.setHomeViewController()
-//                            //                             self.navigationController?.pushViewController(TenderWatchVC(), animated: true)
-//                            // self.user = user
-//                            // USER = user
-//                            
-//                            
-//                            // }
-//                        }
-//                    }
-//                }
-//                
-//            case .failure(let encodingError):
-//                print(encodingError)
-//            }
-//        }
     }
+    
     
 }
