@@ -43,6 +43,7 @@ class HomeVC: UIViewController {
         signUpUser.role = "client"
         self.navigationController?.pushViewController(SignInVC(), animated: true)
     }
+    
     /*
     // MARK: - Navigation
 

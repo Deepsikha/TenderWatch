@@ -271,9 +271,9 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                        "tenderName":self.tenderTitle!,
                        "description":self.desc!,
                        "email":"tender@gmail.com",
-                       "landlineNo":"tender@gmail.com",
-                       "contactNo":"tender@gmail.com",
-                       "address":"tender@gmail.com"]
+                       "landlineNo":"2522833",
+                       "contactNo":"3648365448",
+                       "address":"nthg"]
 //        APIManager.shared.callRequestedAPI(url: "tender", method: .post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"], params: param, successHandler: { (true, resp) in
 //            print(resp)
 //        }) { (error) in

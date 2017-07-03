@@ -22,6 +22,8 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         self.tblTenderList.dataSource = self
         
         self.tblTenderList.register(UINib(nibName:"TenderListCell",bundle: nil), forCellReuseIdentifier: "TenderListCell")
+        
+        self.getTender()
         // Do any additional setup after loading the view.
     }
     
@@ -63,6 +65,10 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
+    }
+    
+    func getTender() {
+        //API call
     }
     
 }
