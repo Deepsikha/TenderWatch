@@ -38,6 +38,21 @@ class Tender: NSObject, Mappable {
             exp             <- map["expiryDate"]
             tenderPhoto     <- map["tenderPhoto"]
         }
+}
 
+class UploadTender: NSObject {
     
+    var cId: String = "" //for country
+    var ctId: String = "" //for categoty
+    var tenderTitle = ""
+    var desc = ""
+    var photo: Data!
+    var email = ""
+    var contactNo = ""
+    var landLineNo = ""
+    var address = ""
+    
+    override init() {
+        super.init()
+    }
 }

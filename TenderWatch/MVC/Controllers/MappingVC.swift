@@ -171,8 +171,8 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.splitDataInToSection()
                 self.stopActivityIndicator()
             }
-        }) { (erroMessage) in
-            
+        }) { (errorMessage) in
+            print(errorMessage)
         }
     }
     
@@ -188,8 +188,8 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.tblMappings.reloadData()
             }
             
-        }) { (erroMessage) in
-            
+        }) { (errorMessage) in
+            print(errorMessage)
         }
     }
     

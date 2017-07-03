@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -187,10 +187,9 @@ TW9iaWxlIE51bWJlcgM
                                         <constraint firstAttribute="width" secondItem="pBS-qX-iFs" secondAttribute="height" multiplier="1:1" id="5X1-qd-Xfk"/>
                                     </constraints>
                                 </imageView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Md-Xm-qMB">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Md-Xm-qMB">
                                     <rect key="frame" x="72" y="10" width="160" height="30"/>
                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
-                                    <inset key="titleEdgeInsets" minX="-90" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="About Me">
                                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
@@ -206,11 +205,11 @@ TW9iaWxlIE51bWJlcgM
                                 <constraint firstItem="pBS-qX-iFs" firstAttribute="top" secondItem="zbi-QC-r5v" secondAttribute="top" constant="13" id="MiQ-iy-tRx"/>
                                 <constraint firstItem="pBS-qX-iFs" firstAttribute="leading" secondItem="zbi-QC-r5v" secondAttribute="leading" constant="8" id="Qq0-35-9nB"/>
                                 <constraint firstItem="1ar-hh-ZC4" firstAttribute="leading" secondItem="zbi-QC-r5v" secondAttribute="leading" id="ScK-OP-s9N"/>
-                                <constraint firstAttribute="height" constant="50" id="V8H-qr-KDa"/>
                                 <constraint firstItem="1ar-hh-ZC4" firstAttribute="top" secondItem="pBS-qX-iFs" secondAttribute="bottom" constant="11" id="abO-s1-fz9"/>
                                 <constraint firstItem="1Md-Xm-qMB" firstAttribute="leading" secondItem="pBS-qX-iFs" secondAttribute="trailing" constant="39" id="gJE-Br-H9v"/>
                                 <constraint firstAttribute="trailing" secondItem="1Md-Xm-qMB" secondAttribute="trailing" constant="8" id="hvz-Vl-SIg"/>
                                 <constraint firstItem="1Md-Xm-qMB" firstAttribute="top" secondItem="zbi-QC-r5v" secondAttribute="top" constant="10" id="uun-dl-ilr"/>
+                                <constraint firstAttribute="width" secondItem="zbi-QC-r5v" secondAttribute="height" multiplier="24:5" id="yyG-ct-4S0"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -219,15 +218,15 @@ TW9iaWxlIE51bWJlcgM
                         <constraint firstItem="BGa-yF-pZX" firstAttribute="top" secondItem="tEh-Ep-TDr" secondAttribute="bottom" constant="10" id="2FH-se-srW"/>
                         <constraint firstAttribute="trailing" secondItem="tEh-Ep-TDr" secondAttribute="trailing" constant="20" id="5LJ-iR-RXn"/>
                         <constraint firstAttribute="trailing" secondItem="MMs-c3-1GY" secondAttribute="trailing" constant="20" id="6qx-8b-Ifb"/>
+                        <constraint firstItem="zbi-QC-r5v" firstAttribute="leading" secondItem="xjY-4E-cbw" secondAttribute="leading" constant="20" id="6xD-Hv-Mbz"/>
                         <constraint firstAttribute="trailing" secondItem="BGa-yF-pZX" secondAttribute="trailing" constant="20" id="Des-ua-D54"/>
-                        <constraint firstItem="zbi-QC-r5v" firstAttribute="leading" secondItem="MMs-c3-1GY" secondAttribute="leading" id="XXg-gZ-ooy"/>
                         <constraint firstItem="zbi-QC-r5v" firstAttribute="top" secondItem="MMs-c3-1GY" secondAttribute="bottom" constant="10" id="d7W-yc-Z3d"/>
-                        <constraint firstItem="zbi-QC-r5v" firstAttribute="trailing" secondItem="MMs-c3-1GY" secondAttribute="trailing" id="daE-Ve-YXz"/>
                         <constraint firstItem="MMs-c3-1GY" firstAttribute="leading" secondItem="xjY-4E-cbw" secondAttribute="leading" constant="20" id="g2z-ad-G7P"/>
                         <constraint firstItem="BGa-yF-pZX" firstAttribute="leading" secondItem="xjY-4E-cbw" secondAttribute="leading" constant="20" id="gXq-km-OUD"/>
                         <constraint firstAttribute="width" secondItem="xjY-4E-cbw" secondAttribute="height" multiplier="28:27" constant="20.740740740740762" id="ims-ea-Ojr"/>
                         <constraint firstItem="MMs-c3-1GY" firstAttribute="top" secondItem="BGa-yF-pZX" secondAttribute="bottom" constant="10" id="jbh-89-ZfE"/>
                         <constraint firstAttribute="bottom" secondItem="MMs-c3-1GY" secondAttribute="bottom" constant="70" id="pHj-kg-ERJ"/>
+                        <constraint firstAttribute="trailing" secondItem="zbi-QC-r5v" secondAttribute="trailing" constant="20" id="u7s-bA-oLh"/>
                         <constraint firstItem="tEh-Ep-TDr" firstAttribute="leading" secondItem="xjY-4E-cbw" secondAttribute="leading" constant="20" id="utU-qD-hi4"/>
                     </constraints>
                 </view>

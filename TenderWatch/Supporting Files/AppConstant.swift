@@ -9,17 +9,6 @@
 import UIKit
 import Foundation
 
-func isNetworkConnected() {
-    
-//    let hostReachability: Reachability = Reachability.forInternetConnection()
-//    let networkStatus: NetworkStatus = hostReachability.currentReachabilityStatus()
-//    
-//    let status: Int = Int(networkStatus)
-//    
-//    return !(status == NotReachable)
-    
-}
-
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
 struct ScreenSize

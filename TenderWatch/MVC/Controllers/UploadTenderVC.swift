@@ -12,7 +12,7 @@ import ObjectMapper
 import RSKImageCropper
 
 class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, RSKImageCropViewControllerDelegate {
-
+    
     @IBOutlet weak var opnDrwr: UIButton!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var txfTenderTitle: UITextField!
@@ -33,18 +33,21 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet var vwContactPopup: UIView!
     @IBOutlet var tblOptions: UITableView!
     
+    @IBOutlet weak var txfEmail: UITextField!
+    @IBOutlet weak var txfMobileNo: UITextField!
+    @IBOutlet weak var txfLandLineNo: UITextField!
+    @IBOutlet weak var txtvwAddress: UITextView!
+    @IBOutlet weak var btnSave: UIButton!
+    
+    
     var arrDropDown = [String]()
     var tender = [Tender]()
     var country = [Country]()
     var category = [Category]()
+    var uploadTender = UploadTender()
     var picker: UIImagePickerController!
     var isCountry = true
     
-    var cId: String! //for country
-    var ctId: String! //for categoty
-    var tenderTitle: String!
-    var desc: String!
-    var photo: Data!
     
     var tap: UITapGestureRecognizer!
     override func viewDidLoad() {
@@ -60,9 +63,9 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
-         self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -74,18 +77,22 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         if isCountry {
             self.tblOptions.frame = CGRect(x: self.vwSelectCountry.frame.origin.x, y: self.vwScroll.frame.origin.y + self.vwSelectCountry.frame.origin.y + self.vwSelectCountry.frame.height, width: self.vwSelectCountry.frame.width, height: 220)
         } else {
-                self.tblOptions.frame = CGRect(x: self.vwSelectCategory.frame.origin.x, y: self.vwScroll.frame.origin.y + self.vwSelectCategory.frame.origin.y + self.vwSelectCategory.frame.height, width: self.vwSelectCategory.frame.width, height: 220)
+            self.tblOptions.frame = CGRect(x: self.vwSelectCategory.frame.origin.x, y: self.vwScroll.frame.origin.y + self.vwSelectCategory.frame.origin.y + self.vwSelectCategory.frame.height, width: self.vwSelectCategory.frame.width, height: 220)
         }
+        self.vwContactPopup.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
     }
+    
     
     func registerNib(){
         
         self.vwSelectCountry.layer.cornerRadius = 5
         self.vwSelectCategory.layer.cornerRadius = 5
-        self.vwContactPopup.layer.cornerRadius = 5
         self.txfTenderTitle.layer.cornerRadius = 5
         self.btnContact.layer.cornerRadius = 5
+        self.vwContactPopup.layer.cornerRadius = 5
+        
         self.btnSubmit.cornerRedius()
+        self.btnSave.cornerRedius()
         
         // control design formation
         self.tenderDetail.layer.cornerRadius = 5
@@ -94,12 +101,17 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.txfTenderTitle.layer.borderColor = UIColor.lightGray.cgColor
         self.txfTenderTitle.layer.borderWidth = 1
         
-    
+        
         self.tblOptions.dataSource = self
         self.tblOptions.delegate = self
         
         self.txfTenderTitle.delegate = self
         self.tenderDetail.delegate = self
+        
+        self.txfEmail.delegate = self
+        self.txfMobileNo.delegate = self
+        self.txfLandLineNo.delegate = self
+        self.txtvwAddress.delegate = self
         
         tblOptions.register(UINib(nibName: "MappingCell",bundle: nil), forCellReuseIdentifier: "MappingCell")
         
@@ -113,23 +125,73 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.tenderTitle = textField.text!
+        if textField == self.txfEmail {
+            textField.resignFirstResponder()
+            self.txfMobileNo.becomeFirstResponder()
+        } else if textField == self.txfMobileNo {
+            textField.resignFirstResponder()
+            self.txfLandLineNo.becomeFirstResponder()
+        } else if textField == self.txfLandLineNo {
+            textField.resignFirstResponder()
+            self.txtvwAddress.becomeFirstResponder()
+        } else if textField == self.txfTenderTitle {
+            textField.resignFirstResponder()
+            self.tenderDetail.becomeFirstResponder()
+        }
         return true
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        self.tenderTitle = textField.text!
+        if textField == self.txfEmail {
+            self.uploadTender.email = textField.text!
+        } else if textField == self.txfMobileNo {
+            self.uploadTender.contactNo = textField.text!
+        } else if textField == self.txfLandLineNo {
+            self.uploadTender.landLineNo = textField.text!
+        } else if textField == self.txfTenderTitle {
+            self.uploadTender.tenderTitle = textField.text!
+        }
         return true
     }
+    
     //MARK: TextView Delegate
     
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        
-        return true
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView == self.txtvwAddress {
+            if !(self.txtvwAddress.text.isEmpty) {
+                if textView.text == "Address" {
+                    textView.text = ""
+                    textView.textColor = UIColor.black
+                }
+            }
+        } else if textView == self.tenderDetail {
+            if !(self.txtvwAddress.text.isEmpty) {
+                if textView.text == "Enter description of Tender" {
+                    textView.text = ""
+                    textView.textColor = UIColor.black
+                }
+            }
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        self.desc = textView.text!
+        if (textView == self.tenderDetail) {
+            if textView.text.isEmpty {
+                textView.text = "Enter description of Tender"
+                textView.textColor = UIColor.lightGray
+                self.uploadTender.desc = ""
+            } else {
+                self.uploadTender.desc = textView.text!
+            }
+        } else if (textView == self.txtvwAddress) {
+            if textView.text.isEmpty {
+                textView.text = "Address"
+                textView.textColor = UIColor.lightGray
+                self.uploadTender.address = ""
+            } else {
+                self.uploadTender.address = textView.text!
+            }
+        }
     }
     // MARK:- Table view
     
@@ -164,11 +226,11 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         if (isCountry) {
             btnSelectCountry.setTitle(cell.lblCategory.text!, for: .normal)
             lblDropdown.text = "▼"
-            self.cId = self.country.filter{$0.countryName == cell.lblCategory.text!}[0].countryId
+            self.uploadTender.cId = self.country.filter{$0.countryName! == cell.lblCategory.text!}[0].countryId!
         }else{
             btnSelectCategory.setTitle(cell.lblCategory.text!, for: .normal)
             lblDropdownCat.text = "▼"
-            self.ctId = self.category.filter {$0.categoryName == cell.lblCategory.text!}[0].categoryId
+            self.uploadTender.ctId = self.category.filter {$0.categoryName! == cell.lblCategory.text!}[0].categoryId!
         }
         self.tblOptions.removeFromSuperview()
     }
@@ -200,7 +262,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
         self.btnImage.setImage(croppedImage, for: .normal)
         let imgData = UIImageJPEGRepresentation(croppedImage, 0.2)
-        self.photo = imgData
+        self.uploadTender.photo = imgData
         _ = self.navigationController?.popViewController(animated: true)
     }
     
@@ -232,8 +294,11 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func btnShowContactPopup(_ sender: Any) {
-        self.vwContactPopup.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+        //        if (self.country.count == 0) && (self.category.count == 0) {
+        //            MessageManager.showAlert(nil, "Select Country & Category First")
+        //        } else {
         self.view.addSubview(vwContactPopup)
+        //        }
     }
     
     @IBAction func btnDoneHidePopup(_ sender: Any) {
@@ -243,6 +308,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBAction func sbmt(_ sender: Any) {
         self.submit()
     }
+    
     @IBAction func handleBtnImage(_ sender: Any) {
         let option = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
         
@@ -265,60 +331,86 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.present(option, animated: true, completion: nil)
     }
     
+    @IBAction func handleBtnSave(_ sender: Any) {
+        if !(self.txfEmail.text?.isEmpty)! || !(self.txfMobileNo.text?.isEmpty)! || !(self.txfLandLineNo.text?.isEmpty)! || !(self.txtvwAddress.text == "Address") {
+            if !(self.txfEmail.text?.isEmpty)! && !(isValidEmail(strEmail: self.txfEmail.text!)) {
+                MessageManager.showAlert(nil, "Enter valid Email")
+            } else if !(self.txfEmail.text?.isEmpty)! && !(isValidNumber(self.txfMobileNo.text!, length: 10)) {
+                MessageManager.showAlert(nil, "Enter valid Number")
+            } else {
+                self.vwContactPopup.removeFromSuperview()
+            }
+        } else {
+            MessageManager.showAlert(nil, "at least one Field Manadatory")
+        }
+    }
+    
+    //MARK: Custom Method
     func submit() {
-        let param: Parameters = [  "country":self.cId!,
-                       "category":self.ctId!,
-                       "tenderName":self.tenderTitle!,
-                       "description":self.desc!,
-                       "email":"tender@gmail.com",
-                       "landlineNo":"2522833",
-                       "contactNo":"3648365448",
-                       "address":"nthg"]
-//        APIManager.shared.callRequestedAPI(url: "tender", method: .post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"], params: param, successHandler: { (true, resp) in
-//            print(resp)
-//        }) { (error) in
-//            print(error)
-//        }
-        
-        Alamofire.upload(multipartFormData: { (multipartFormData) in
-            if self.photo != nil
-            {
-                let dated :NSDate = NSDate()
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
-                dateFormatter.timeZone = NSTimeZone(name: "GMT")! as TimeZone
-                
-                let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
-                multipartFormData.append(self.photo!, withName: "fileset",fileName: imgname, mimeType: "image/jpg")
-            }
-            for (key, value) in param {
-                multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
-            }
-        }, usingThreshold: 0, to: "http://192.168.200.22:4040/api/tender", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
-            switch result {
-            case .success(let upload, _, _):
-                
-                upload.uploadProgress(closure: { (progress) in
-                    print("Upload Progress: \(progress.fractionCompleted)")
-                })
-                
-                upload.responseJSON { resp in
-                    if (resp.result.value != nil) {
-                        print(resp.result.value!)
-                        if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
-                            MessageManager.showAlert(nil, "Invalid Credentials")
-                        } else {
-                            let data = (resp.result.value as! NSObject)
-                            //data parsing remianing because of unique response
-                            //                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
-                            
-                            appDelegate.setHomeViewController()
+        if !(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && (self.txfTenderTitle.text?.isEmpty)! {
+            let param: Parameters = [  "country":self.uploadTender.cId,
+                                       "category":self.uploadTender.ctId,
+                                       "tenderName":self.uploadTender.tenderTitle,
+                                       "description":self.uploadTender.desc,
+                                       "email": self.uploadTender.email,
+                                       "landlineNo": self.uploadTender.landLineNo,
+                                       "contactNo": self.uploadTender.contactNo,
+                                       "address": self.uploadTender.address]
+            if isNetworkReachable() {
+                Alamofire.upload(multipartFormData: { (multipartFormData) in
+                    if self.uploadTender.photo != nil
+                    {
+                        let dated :NSDate = NSDate()
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
+                        dateFormatter.timeZone = NSTimeZone(name: "GMT")! as TimeZone
+                        
+                        let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
+                        multipartFormData.append(self.uploadTender.photo!, withName: "fileset",fileName: imgname, mimeType: "image/jpg")
+                    }
+                    for (key, value) in param {
+                        multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
+                    }
+                }, usingThreshold: 0, to: "http://192.168.200.22:4040/api/tender", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
+                    switch result {
+                    case .success(let upload, _, _):
+                        
+                        upload.uploadProgress(closure: { (progress) in
+                            print("Upload Progress: \(progress.fractionCompleted)")
+                        })
+                        
+                        upload.responseJSON { resp in
+                            if (resp.result.value != nil) {
+                                print(resp.result.value!)
+                                if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
+                                    MessageManager.showAlert(nil, "Invalid Credentials")
+                                } else {
+                                    let data = (resp.result.value as! NSObject)
+                                    print(data)
+                                    //data parsing remianing because of unique response
+                                    //                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
+                                    
+                                    appDelegate.setHomeViewController()
+                                }
+                            }
                         }
+                        
+                    case .failure(let encodingError):
+                        print(encodingError)
                     }
                 }
-                
-            case .failure(let encodingError):
-                print(encodingError)
+            } else {
+                MessageManager.showAlert(nil, "No Internet")
+            }
+            
+            
+        } else {
+            if self.uploadTender.cId.isEmpty {
+                MessageManager.showAlert(nil, "Select Country")
+            } else if self.uploadTender.ctId.isEmpty {
+                MessageManager.showAlert(nil, "Select Category")
+            } else {
+                MessageManager.showAlert(nil, "Enter Title")
             }
         }
     }
@@ -337,8 +429,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 self.stopActivityIndicator()
                 self.tblOptions.reloadData()
             }
-        }) { (erroMessage) in
-            
+        }) { (errorMessage) in
+            print(errorMessage)
         }
     }
     
@@ -357,8 +449,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 self.tblOptions.reloadData()
             }
             
-        }) { (erroMessage) in
-            
+        }) { (errorMessage) in
+            print(errorMessage)
         }
     }
     

@@ -29,7 +29,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     static var cName: String!
     var image: UIImage!
     var parameters : [String : Any]!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         IQKeyboardManager.shared().previousNextDisplayMode = .alwaysShow
@@ -157,9 +157,9 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 }
             }
             
+        }
     }
-}
-
+    
     @IBAction func setProfilePic(_ sender: Any) {
         let option = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
         
@@ -209,49 +209,52 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                "aboutMe": signUpUser.aboutMe,
                                "role" : "contractor"] as [String : Any]
         }
-        Alamofire.upload(multipartFormData: { (multipartFormData) in
-            if signUpUser.photo != nil
-            {
-                let dated :NSDate = NSDate()
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
-                dateFormatter.timeZone = NSTimeZone(name: "GMT")! as TimeZone
-                
-                let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
-                
-                multipartFormData.append(signUpUser.photo!, withName: "fileset",fileName: imgname, mimeType: "image/jpg")
-            }
-            for (key, value) in self.parameters {
-                multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
-            }
-        }, usingThreshold: 0, to: "http://192.168.200.22:4040/api/users/\(id)", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
-            switch result {
-            case .success(let upload, _, _):
-                
-                upload.uploadProgress(closure: { (progress) in
-                    print("Upload Progress: \(progress.fractionCompleted)")
-                })
-                
-                upload.responseJSON { resp in
-                    if (resp.result.value != nil) {
-                        print(resp.result.value!)
-                        if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
-                            MessageManager.showAlert(nil, "Invalid Credentials")
-                        } else {
-                            let data = (resp.result.value as! NSObject)
-                            //data parsing remianing because of unique response
-//                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
-                            
-                            appDelegate.setHomeViewController()
+        if isNetworkReachable() {
+            Alamofire.upload(multipartFormData: { (multipartFormData) in
+                if signUpUser.photo != nil
+                {
+                    let dated :NSDate = NSDate()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
+                    dateFormatter.timeZone = NSTimeZone(name: "GMT")! as TimeZone
+                    
+                    let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
+                    
+                    multipartFormData.append(signUpUser.photo!, withName: "fileset",fileName: imgname, mimeType: "image/jpg")
+                }
+                for (key, value) in self.parameters {
+                    multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
+                }
+            }, usingThreshold: 0, to: "http://192.168.200.22:4040/api/users/\(id)", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
+                switch result {
+                case .success(let upload, _, _):
+                    
+                    upload.uploadProgress(closure: { (progress) in
+                        print("Upload Progress: \(progress.fractionCompleted)")
+                    })
+                    
+                    upload.responseJSON { resp in
+                        if (resp.result.value != nil) {
+                            print(resp.result.value!)
+                            if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
+                                MessageManager.showAlert(nil, "Invalid Credentials")
+                            } else {
+                                let data = (resp.result.value as! NSObject)
+                                //data parsing remianing because of unique response
+                                //                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
+                                
+                                appDelegate.setHomeViewController()
+                            }
                         }
                     }
+                    
+                case .failure(let encodingError):
+                    print(encodingError)
                 }
-                
-            case .failure(let encodingError):
-                print(encodingError)
             }
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
         }
+        
     }
-    
-    
 }

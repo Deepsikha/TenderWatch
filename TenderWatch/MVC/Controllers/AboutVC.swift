@@ -34,7 +34,7 @@ class AboutVC: UIViewController, UITextViewDelegate {
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if(signUpUser.aboutMe.isEmpty) {
+        if (signUpUser.aboutMe.isEmpty) {
         if txtAbout.textColor == UIColor.lightGray {
             txtAbout.text = ""
             txtAbout.textColor = UIColor.black

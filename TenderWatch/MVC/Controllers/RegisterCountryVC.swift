@@ -10,7 +10,7 @@ import UIKit
 import ObjectMapper
 
 class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+    
     @IBOutlet weak var tblvw: UITableView!
     
     var country = [Country]()
@@ -27,7 +27,7 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
         self.btnChoose.cornerRedius()
         self.navigationController?.isNavigationBarHidden = true
     }
-   
+    
     //MARK :- Table Delegate
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -70,21 +70,25 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
     
     func fetchCoutry()
     {
-        self.startActivityIndicator()
-        APIManager.shared.requestForGET(url: "auth/country", isTokenEmbeded: false, successHandler: { (finish, res) in
-            if res.result.value != nil
-            {
-                let data = (res.result.value as! NSObject)
-                self.country = Mapper<Country>().mapArray(JSONObject: data)!
-                self.country = self.country.sorted(by: { (a, b) -> Bool in
-                    a.countryName! < b.countryName!
-                })
-                self.stopActivityIndicator()
-                self.tblvw.reloadData()
+        if isNetworkReachable() {
+            self.startActivityIndicator()
+            APIManager.shared.requestForGET(url: "auth/country", isTokenEmbeded: false, successHandler: { (finish, res) in
+                if res.result.value != nil
+                {
+                    let data = (res.result.value as! NSObject)
+                    self.country = Mapper<Country>().mapArray(JSONObject: data)!
+                    self.country = self.country.sorted(by: { (a, b) -> Bool in
+                        a.countryName! < b.countryName!
+                    })
+                    self.stopActivityIndicator()
+                    self.tblvw.reloadData()
+                }
+            }) { (erroMessage) in
+                
             }
-        }) { (erroMessage) in
-            
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
         }
     }
-
+    
 }

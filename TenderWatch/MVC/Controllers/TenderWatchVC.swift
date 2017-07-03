@@ -8,6 +8,7 @@
 
 import UIKit
 import ObjectMapper
+import Alamofire
 
 class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -68,7 +69,32 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
     
     func getTender() {
-        //API call
+        if isNetworkReachable() {
+            //Api Call
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
+        }
+    }
+    
+    func addFavorite() {
+        if isNetworkReachable() {
+            Alamofire.request("http://192.168.200.22:4040/api/favourite", method: .post, parameters: ["tender" : "Tender_Id"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+                if(resp.result.value != nil) {
+                    if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "Error" {
+                        
+                    } else {
+                        print(resp.result.value!)
+                        let data = (resp.result.value as! NSObject)
+//                        self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
+                        
+                        self.tblTenderList.reloadData()
+                    }
+                }
+            }
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
+        }
+
     }
     
 }

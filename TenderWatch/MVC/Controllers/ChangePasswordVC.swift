@@ -24,7 +24,7 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
         super.viewDidLoad()
         
         IQKeyboardManager.shared().previousNextDisplayMode = .alwaysHide
-
+        
         txtOldPassword.delegate = self
         txtNewPassword.delegate = self
         txtConfirmPassword.delegate = self
@@ -48,10 +48,10 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
             txtNewPassword.becomeFirstResponder()
             
         }else if textField == txtNewPassword{
-          txtNewPassword.resignFirstResponder()
-          txtConfirmPassword.becomeFirstResponder()
+            txtNewPassword.resignFirstResponder()
+            txtConfirmPassword.becomeFirstResponder()
         }else{
-          txtConfirmPassword.resignFirstResponder()
+            txtConfirmPassword.resignFirstResponder()
         }
         return true
     }
@@ -83,12 +83,13 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
         if (USER?.authenticationToken != nil) {
             
             let param = ["oldPassword" :  (txtOldPassword.text)!, "newPassword" :  (txtNewPassword.text)!]
-        
+            
             let headers: HTTPHeaders = [
                 "Authorization": "Bearer \(USER!.authenticationToken!)",
                 "Accept": "application/json"
             ]
             if !((self.txtNewPassword.text?.isEmpty)!) && (self.txtNewPassword.text == self.txtConfirmPassword.text) {
+                if isNetworkReachable() {
                     Alamofire.request(BASE_URL+CHANGE_PASSWORD, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (resp) in
                         let data = resp.result.value as! NSObject
                         if(data.value(forKey: "message") as! String) != "Old password is wrong!!!" {
@@ -108,9 +109,12 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
                             MessageManager.showAlert(nil, "Old password is wrong!!!")
                         }
                     })
+                } else {
+                    MessageManager.showAlert(nil, "No Internet")
+                }
+            } else {
+                MessageManager.showAlert(nil, "Old Password is required")
             }
-        } else {
-            MessageManager.showAlert(nil, "Old Password is required")
         }
     }
     
@@ -118,8 +122,8 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
     }
     
-//    @IBAction func bck(_ sender: Any) {
-//        self.navigationController?.popViewController(animated: true)
-//    }
+    //    @IBAction func bck(_ sender: Any) {
+    //        self.navigationController?.popViewController(animated: true)
+    //    }
     
 }
