@@ -12,10 +12,10 @@ import Alamofire
 
 class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-    var user: User!
     @IBOutlet var btnMenu: UIButton!
     @IBOutlet var tblTenderList: UITableView!
     
+    var tender = [Tender]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,11 +42,16 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.tender.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: "TenderListCell", for: indexPath) as! TenderListCell
+        
+        let tender = self.tender[indexPath.row]
+        cell.lblName.text = tender.email
+        cell.lblCountry.text = tender.country
+        cell.lblTender.text = tender.tenderName
         
         return cell
     }
@@ -71,6 +76,20 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     func getTender() {
         if isNetworkReachable() {
             //Api Call
+            //end point
+            Alamofire.request("\(BASE_URL)", method: .post, parameters: ["tender" : "Tender_Id"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+                if(resp.result.value != nil) {
+                    if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "Error" {
+                        
+                    } else {
+                        print(resp.result.value!)
+                        let data = (resp.result.value as! NSObject)
+                        self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
+                        
+                        self.tblTenderList.reloadData()
+                    }
+                }
+            }
         } else {
             MessageManager.showAlert(nil, "No Internet")
         }
@@ -78,16 +97,12 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     func addFavorite() {
         if isNetworkReachable() {
-            Alamofire.request("http://192.168.200.22:4040/api/favourite", method: .post, parameters: ["tender" : "Tender_Id"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+            Alamofire.request("\(BASE_URL)favourite", method: .post, parameters: ["tender" : "Tender_Id"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "Error" {
-                        
+                        MessageManager.showAlert(nil, "can't add to favorite")
                     } else {
-                        print(resp.result.value!)
-                        let data = (resp.result.value as! NSObject)
-//                        self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
-                        
-                        self.tblTenderList.reloadData()
+                        MessageManager.showAlert(nil, "Added Succesfully")
                     }
                 }
             }

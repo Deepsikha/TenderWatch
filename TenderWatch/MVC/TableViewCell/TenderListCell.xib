@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -45,19 +45,19 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="db7-5w-a5T">
-                        <rect key="frame" x="179.5" y="6" width="34.5" height="21"/>
+                        <rect key="frame" x="180" y="6" width="133" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Australia" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nr0-Mc-Z5c">
-                        <rect key="frame" x="179.5" y="29" width="68" height="21"/>
+                        <rect key="frame" x="180" y="29" width="127" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIr-PH-ATl">
-                        <rect key="frame" x="181" y="50" width="131" height="28"/>
+                        <rect key="frame" x="181" y="50" width="131" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="131" id="0Ub-R8-8tf"/>
                         </constraints>
@@ -68,31 +68,24 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="ZZZ-KN-ek4" firstAttribute="top" secondItem="O6X-Le-fdQ" secondAttribute="bottom" constant="1" id="08J-HM-Iyk"/>
-                    <constraint firstAttribute="bottom" secondItem="eIr-PH-ATl" secondAttribute="bottom" constant="7" id="0lQ-a3-Rbz"/>
-                    <constraint firstItem="ZZZ-KN-ek4" firstAttribute="top" secondItem="O6X-Le-fdQ" secondAttribute="bottom" constant="1" id="1Nu-b4-oBF"/>
+                    <constraint firstAttribute="bottom" secondItem="eIr-PH-ATl" secondAttribute="bottom" constant="13.5" id="0lQ-a3-Rbz"/>
                     <constraint firstAttribute="bottomMargin" secondItem="FrU-nr-aJa" secondAttribute="bottom" id="9Dr-ZD-Yi4"/>
-                    <constraint firstItem="db7-5w-a5T" firstAttribute="leading" secondItem="atu-Pz-ezp" secondAttribute="trailing" constant="46" id="ASb-ju-RXW"/>
                     <constraint firstItem="nr0-Mc-Z5c" firstAttribute="top" secondItem="db7-5w-a5T" secondAttribute="bottom" constant="2" id="E7n-C7-1Ub"/>
                     <constraint firstAttribute="topMargin" secondItem="FrU-nr-aJa" secondAttribute="top" id="FCm-LG-7Wx"/>
-                    <constraint firstAttribute="trailing" secondItem="db7-5w-a5T" secondAttribute="trailing" constant="106" id="PdS-FJ-Vm9"/>
+                    <constraint firstAttribute="trailing" secondItem="db7-5w-a5T" secondAttribute="trailing" constant="7" id="PdS-FJ-Vm9"/>
                     <constraint firstItem="atu-Pz-ezp" firstAttribute="leading" secondItem="FrU-nr-aJa" secondAttribute="trailing" constant="7" id="SUa-gZ-6Vh"/>
                     <constraint firstItem="db7-5w-a5T" firstAttribute="leading" secondItem="atu-Pz-ezp" secondAttribute="trailing" constant="46" id="UMH-ce-L4b"/>
-                    <constraint firstItem="O6X-Le-fdQ" firstAttribute="top" secondItem="atu-Pz-ezp" secondAttribute="bottom" constant="1" id="Uc8-5X-OdA"/>
                     <constraint firstAttribute="bottomMargin" secondItem="ZZZ-KN-ek4" secondAttribute="bottom" constant="6" id="VfS-v4-dqy"/>
-                    <constraint firstItem="nr0-Mc-Z5c" firstAttribute="leading" secondItem="O6X-Le-fdQ" secondAttribute="trailing" constant="30" id="ZB0-lX-Yh1"/>
                     <constraint firstItem="ZZZ-KN-ek4" firstAttribute="leading" secondItem="FrU-nr-aJa" secondAttribute="trailing" constant="7" id="ZQ3-VU-PRv"/>
                     <constraint firstItem="O6X-Le-fdQ" firstAttribute="leading" secondItem="FrU-nr-aJa" secondAttribute="trailing" constant="7" id="emh-RF-ePu"/>
                     <constraint firstItem="eIr-PH-ATl" firstAttribute="top" secondItem="nr0-Mc-Z5c" secondAttribute="bottom" id="fPU-Rz-MLH"/>
-                    <constraint firstItem="nr0-Mc-Z5c" firstAttribute="top" secondItem="db7-5w-a5T" secondAttribute="bottom" constant="2" id="fhn-9G-Jlp"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="nr0-Mc-Z5c" secondAttribute="bottom" constant="27" id="jRG-SX-bB1"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="nr0-Mc-Z5c" secondAttribute="trailing" constant="64.5" id="jil-vn-j9J"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="nr0-Mc-Z5c" secondAttribute="trailing" constant="5" id="jil-vn-j9J"/>
                     <constraint firstItem="eIr-PH-ATl" firstAttribute="leading" secondItem="ZZZ-KN-ek4" secondAttribute="trailing" constant="29" id="kXV-Ft-022"/>
                     <constraint firstItem="db7-5w-a5T" firstAttribute="top" secondItem="9qI-3X-SE3" secondAttribute="top" constant="6" id="lFI-3d-1qv"/>
                     <constraint firstAttribute="trailing" secondItem="eIr-PH-ATl" secondAttribute="trailing" constant="8" id="lFa-oY-hRa"/>
                     <constraint firstAttribute="leadingMargin" secondItem="FrU-nr-aJa" secondAttribute="leading" id="rmS-ou-FHm"/>
                     <constraint firstItem="atu-Pz-ezp" firstAttribute="top" secondItem="9qI-3X-SE3" secondAttribute="top" constant="6" id="s8B-ib-E3o"/>
                     <constraint firstItem="O6X-Le-fdQ" firstAttribute="top" secondItem="atu-Pz-ezp" secondAttribute="bottom" constant="1" id="stF-UM-hiQ"/>
-                    <constraint firstItem="eIr-PH-ATl" firstAttribute="leading" secondItem="ZZZ-KN-ek4" secondAttribute="trailing" constant="29" id="vVN-Dx-Ifw"/>
                     <constraint firstItem="nr0-Mc-Z5c" firstAttribute="leading" secondItem="O6X-Le-fdQ" secondAttribute="trailing" constant="30" id="xVT-5x-6KX"/>
                 </constraints>
             </tableViewCellContentView>

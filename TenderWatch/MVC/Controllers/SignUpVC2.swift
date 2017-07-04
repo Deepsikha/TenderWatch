@@ -225,7 +225,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 for (key, value) in self.parameters {
                     multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
                 }
-            }, usingThreshold: 0, to: "http://192.168.200.22:4040/api/users/\(id)", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
+            }, usingThreshold: 0, to: "\(BASE_URL)users/\(id)", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
                 switch result {
                 case .success(let upload, _, _):
                     

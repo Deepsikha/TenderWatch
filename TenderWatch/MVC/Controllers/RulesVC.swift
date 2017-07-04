@@ -98,7 +98,7 @@ class RulesVC: UIViewController {
                     multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
                 }
             },
-                             to:"http://192.168.200.22:4040/api/auth/register")
+                             to:"\(BASE_URL)auth/register")
             { (result) in
                 switch result {
                 case .success(let upload, _, _):

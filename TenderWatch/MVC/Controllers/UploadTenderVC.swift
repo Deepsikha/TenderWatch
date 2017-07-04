@@ -371,7 +371,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                     for (key, value) in param {
                         multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
                     }
-                }, usingThreshold: 0, to: "http://192.168.200.22:4040/api/tender", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
+                }, usingThreshold: 0, to: "\(BASE_URL)tender", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
                     switch result {
                     case .success(let upload, _, _):
                         

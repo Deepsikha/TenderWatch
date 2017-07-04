@@ -19,7 +19,8 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         btnContractor.cornerRedius()
-        btnClient.cornerRedius()        // Do any additional setup after loading the view.
+        btnClient.cornerRedius()
+        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {

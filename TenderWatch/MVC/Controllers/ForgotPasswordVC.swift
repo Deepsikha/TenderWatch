@@ -42,7 +42,7 @@ class ForgotPasswordVC: UIViewController {
     func forgot() {
         let parameters = ["email" : self.txfEmail.text!]
         if isNetworkReachable() {
-            Alamofire.request("http://192.168.200.22:4040/api/auth/forgot", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (resp) in
+            Alamofire.request("\(BASE_URL)auth/forgot", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     print(resp.result.value!)
                     MessageManager.showAlert(nil, "Password sent your register email address")
