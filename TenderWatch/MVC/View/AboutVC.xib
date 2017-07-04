@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutVC" customModule="TenderWatch" customModuleProvider="target">
             <connections>
+                <outlet property="lblCharLimit" destination="B3M-AL-A8w" id="Qmw-PI-flQ"/>
                 <outlet property="txtAbout" destination="LUq-ud-kfd" id="hJn-1w-eoU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -57,11 +58,23 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000/1000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B3M-AL-A8w">
+                    <rect key="frame" x="123" y="35" width="74" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="74" id="It2-Xg-jye"/>
+                        <constraint firstAttribute="height" constant="21" id="qSq-jR-Rmr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="B3M-AL-A8w" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="2Pl-Hw-AUk"/>
                 <constraint firstAttribute="trailing" secondItem="Rjt-ct-a9H" secondAttribute="trailing" constant="16" id="6g0-2G-kjH"/>
                 <constraint firstItem="WvX-Us-9hG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="6lT-GE-WV8"/>
+                <constraint firstItem="B3M-AL-A8w" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="35" id="CZA-h9-GHA"/>
                 <constraint firstItem="LUq-ud-kfd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="SzM-bb-rhX"/>
                 <constraint firstAttribute="trailing" secondItem="LUq-ud-kfd" secondAttribute="trailing" constant="16" id="bYQ-2e-cPI"/>
                 <constraint firstItem="WvX-Us-9hG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="gZ7-3M-6pX"/>

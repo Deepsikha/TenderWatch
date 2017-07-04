@@ -14,6 +14,9 @@ class AboutVC: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var txtAbout: UITextView!
     
+    @IBOutlet weak var lblCharLimit: UILabel!
+    var limitLength = 1000
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         txtAbout.delegate = self
@@ -62,5 +65,29 @@ class AboutVC: UIViewController, UITextViewDelegate {
         signUpUser.aboutMe = self.txtAbout.text!
         self.navigationController?.popViewController(animated: false)
     }
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let text = txtAbout.text else { return true }
+        
+        let newLength = text.characters.count + text.characters.count - range.length
+        if(newLength <= limitLength){
+            self.lblCharLimit.text = "\(1000 - newLength)"+"/1000"
+            return true
+        }else{
+            return false
+        }
 
+    }
+    
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        
+//        guard let text = txtAbout.text else { return true }
+//        
+//        let newLength = text.characters.count + string.characters.count - range.length
+//        if(newLength <= limitLength){
+//            self.lblCharLimit.text = "\(1000 - newLength)"+"/1000"
+//            return true
+//        }else{
+//            return false
+//        }
+//    }
 }
