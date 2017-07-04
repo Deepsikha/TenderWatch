@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NMc-rx-8aW">
-                    <rect key="frame" x="29" y="61" width="275" height="419"/>
+                    <rect key="frame" x="29" y="63" width="275" height="419"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
@@ -52,8 +52,8 @@
                 <constraint firstItem="lOv-mX-AMb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14.5" id="ZLC-wL-dT8"/>
                 <constraint firstItem="SCC-Hy-p5k" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ZVG-8G-gXo"/>
                 <constraint firstItem="lOv-mX-AMb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="hfv-q2-W3o"/>
-                <constraint firstAttribute="bottom" secondItem="NMc-rx-8aW" secondAttribute="bottom" id="mh2-ud-ssD"/>
-                <constraint firstItem="NMc-rx-8aW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="61" id="vkq-vq-RQE"/>
+                <constraint firstAttribute="bottom" secondItem="NMc-rx-8aW" secondAttribute="bottom" constant="-2" id="mh2-ud-ssD"/>
+                <constraint firstItem="NMc-rx-8aW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="63" id="vkq-vq-RQE"/>
             </constraints>
         </view>
     </objects>

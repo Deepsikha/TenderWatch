@@ -79,7 +79,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         if isNetworkReachable() {
             //Api Call
             //end point
-            Alamofire.request("\(BASE_URL)", method: .post, parameters: ["tender" : "Tender_Id"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+            Alamofire.request("\(BASE_URL)", method: .post, parameters: ["tender" : "595b794a56bb930f1dfead1f"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "Error" {
                         

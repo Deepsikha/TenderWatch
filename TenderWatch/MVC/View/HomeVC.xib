@@ -33,7 +33,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lookingfor.png" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-BL-l8T">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="postten.png" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-BL-l8T">
                     <rect key="frame" x="124" y="105" width="70" height="70"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="GJd-BL-l8T" secondAttribute="height" multiplier="1:1" id="BnQ-lk-FSC"/>
@@ -68,7 +68,7 @@
                         <constraint firstAttribute="height" constant="2" id="zI9-1X-E7H"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="postten.png" translatesAutoresizingMaskIntoConstraints="NO" id="QV4-HU-JN5">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lookingfor.png" translatesAutoresizingMaskIntoConstraints="NO" id="QV4-HU-JN5">
                     <rect key="frame" x="124" y="300" width="70" height="70"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="QV4-HU-JN5" secondAttribute="height" multiplier="1:1" id="7lS-k5-mB3"/>

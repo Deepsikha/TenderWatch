@@ -38,7 +38,7 @@
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="85" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3tO-Yo-Oel">
-                    <rect key="frame" x="0.0" y="90" width="320" height="390"/>
+                    <rect key="frame" x="0.0" y="63" width="320" height="417"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
@@ -49,8 +49,8 @@
                 <constraint firstItem="D4J-ZA-zjz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14.5" id="K2O-Yy-FNf"/>
                 <constraint firstItem="D4J-ZA-zjz" firstAttribute="centerY" secondItem="hAG-m2-yUY" secondAttribute="centerY" id="NL3-2g-E7i"/>
                 <constraint firstItem="hAG-m2-yUY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="24" id="PUm-Kj-Ymh"/>
-                <constraint firstItem="3tO-Yo-Oel" firstAttribute="top" secondItem="D4J-ZA-zjz" secondAttribute="bottom" constant="27.5" id="Ppi-hV-wZn"/>
-                <constraint firstItem="3tO-Yo-Oel" firstAttribute="top" secondItem="hAG-m2-yUY" secondAttribute="bottom" constant="37" id="RBv-pb-Pcr"/>
+                <constraint firstItem="3tO-Yo-Oel" firstAttribute="top" secondItem="D4J-ZA-zjz" secondAttribute="bottom" constant="0.5" id="Ppi-hV-wZn"/>
+                <constraint firstItem="3tO-Yo-Oel" firstAttribute="top" secondItem="hAG-m2-yUY" secondAttribute="bottom" constant="10" id="RBv-pb-Pcr"/>
                 <constraint firstAttribute="trailing" secondItem="3tO-Yo-Oel" secondAttribute="trailing" id="SMs-eE-2So"/>
                 <constraint firstItem="D4J-ZA-zjz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="UP1-se-ITU"/>
                 <constraint firstAttribute="bottom" secondItem="3tO-Yo-Oel" secondAttribute="bottom" id="V5o-yO-eZE"/>

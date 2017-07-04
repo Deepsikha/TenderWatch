@@ -23,7 +23,7 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         self.tblFavorite.register(UINib(nibName: "TenderListCell", bundle: nil), forCellReuseIdentifier: "TenderListCell")
         
-        self.getFavorite()
+//        self.getFavorite()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +42,8 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tender.count
+        return 10
+//        return self.tender.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

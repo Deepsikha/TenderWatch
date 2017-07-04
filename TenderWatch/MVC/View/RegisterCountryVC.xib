@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PNa-a1-sFh">
-                    <rect key="frame" x="20" y="75" width="280" height="338"/>
+                    <rect key="frame" x="20" y="63" width="280" height="338"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
@@ -49,9 +49,9 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="mhX-QE-IpN" firstAttribute="top" secondItem="PNa-a1-sFh" secondAttribute="bottom" constant="8" id="7x8-mW-cEv"/>
+                <constraint firstItem="mhX-QE-IpN" firstAttribute="top" secondItem="PNa-a1-sFh" secondAttribute="bottom" constant="20" id="7x8-mW-cEv"/>
                 <constraint firstAttribute="bottom" secondItem="mhX-QE-IpN" secondAttribute="bottom" constant="29" id="B7H-db-5UE"/>
-                <constraint firstItem="PNa-a1-sFh" firstAttribute="top" secondItem="Thy-vX-sjF" secondAttribute="bottom" constant="19" id="Gbk-38-Zdv"/>
+                <constraint firstItem="PNa-a1-sFh" firstAttribute="top" secondItem="Thy-vX-sjF" secondAttribute="bottom" constant="7" id="Gbk-38-Zdv"/>
                 <constraint firstAttribute="trailing" secondItem="PNa-a1-sFh" secondAttribute="trailing" constant="20" id="MHB-iB-8E7"/>
                 <constraint firstItem="Thy-vX-sjF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="U70-UQ-bta"/>
                 <constraint firstItem="mhX-QE-IpN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="75" id="jv8-hb-rDJ"/>
