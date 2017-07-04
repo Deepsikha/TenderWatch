@@ -335,7 +335,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         if !(self.txfEmail.text?.isEmpty)! || !(self.txfMobileNo.text?.isEmpty)! || !(self.txfLandLineNo.text?.isEmpty)! || !(self.txtvwAddress.text == "Address") {
             if !(self.txfEmail.text?.isEmpty)! && !(isValidEmail(strEmail: self.txfEmail.text!)) {
                 MessageManager.showAlert(nil, "Enter valid Email")
-            } else if !(self.txfEmail.text?.isEmpty)! && !(isValidNumber(self.txfMobileNo.text!, length: 10)) {
+            } else if !(self.txfMobileNo.text?.isEmpty)! && !(isValidNumber(self.txfMobileNo.text!, length: 10)) {
                 MessageManager.showAlert(nil, "Enter valid Number")
             } else {
                 self.vwContactPopup.removeFromSuperview()
@@ -347,7 +347,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     //MARK: Custom Method
     func submit() {
-        if !(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && (self.txfTenderTitle.text?.isEmpty)! {
+        if !(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)! {
             let param: Parameters = [  "country":self.uploadTender.cId,
                                        "category":self.uploadTender.ctId,
                                        "tenderName":self.uploadTender.tenderTitle,
@@ -402,8 +402,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             } else {
                 MessageManager.showAlert(nil, "No Internet")
             }
-            
-            
         } else {
             if self.uploadTender.cId.isEmpty {
                 MessageManager.showAlert(nil, "Select Country")
@@ -415,8 +413,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     }
     
-    func fetchCoutry()
-    {
+    func fetchCoutry() {
         self.startActivityIndicator()
         APIManager.shared.requestForGET(url: "auth/country", isTokenEmbeded: false, successHandler: { (finish, res) in
             if res.result.value != nil
@@ -434,8 +431,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     }
     
-    func fetchCategory()
-    {
+    func fetchCategory() {
         self.startActivityIndicator()
         APIManager.shared.requestForGET(url: "auth/category", isTokenEmbeded: false, successHandler: { (finish, res) in
             if res.result.value != nil
@@ -454,8 +450,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     }
     
-    func taphandler()
-    {
+    func taphandler() {
         self.view.subviews.last?.removeFromSuperview()
         self.view.removeGestureRecognizer(tap)
     }

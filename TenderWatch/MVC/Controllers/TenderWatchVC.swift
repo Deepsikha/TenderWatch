@@ -24,7 +24,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         
         self.tblTenderList.register(UINib(nibName:"TenderListCell",bundle: nil), forCellReuseIdentifier: "TenderListCell")
         
-        self.getTender()
+//        self.getTender()
         // Do any additional setup after loading the view.
     }
     
@@ -42,16 +42,17 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tender.count
+//        return self.tender.count
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: "TenderListCell", for: indexPath) as! TenderListCell
         
-        let tender = self.tender[indexPath.row]
-        cell.lblName.text = tender.email
-        cell.lblCountry.text = tender.country
-        cell.lblTender.text = tender.tenderName
+//        let tender = self.tender[indexPath.row]
+//        cell.lblName.text = tender.email
+//        cell.lblCountry.text = tender.country
+//        cell.lblTender.text = tender.tenderName
         
         return cell
     }
@@ -60,6 +61,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         if !(USER?.role == RollType.client) {
         let fav = UITableViewRowAction(style: .normal, title: "Favourites") { action, index in
             print("Edit button tapped")
+            self.addFavorite()
         }
         fav.backgroundColor = UIColor.blue
         
@@ -85,7 +87,6 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                         print(resp.result.value!)
                         let data = (resp.result.value as! NSObject)
                         self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
-                        
                         self.tblTenderList.reloadData()
                     }
                 }
@@ -99,7 +100,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         if isNetworkReachable() {
             Alamofire.request("\(BASE_URL)favourite", method: .post, parameters: ["tender" : "Tender_Id"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
-                    if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "Error" {
+                    if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error" {
                         MessageManager.showAlert(nil, "can't add to favorite")
                     } else {
                         MessageManager.showAlert(nil, "Added Succesfully")
@@ -109,6 +110,5 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         } else {
             MessageManager.showAlert(nil, "No Internet")
         }
-
     }
 }
