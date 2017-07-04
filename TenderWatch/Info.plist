@@ -24,6 +24,8 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>For setting profile pic</string>
+	<key>NSCameraUsageDescription</key>
+	<string>For setting profile pic</string>
 	<key>UILaunchStoryboardName</key>
 	<string>SignUPVC</string>
 	<key>UIRequiredDeviceCapabilities</key>

@@ -56,7 +56,6 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    
     //MARK: IBActions
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
@@ -66,7 +65,7 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if isNetworkReachable() {
         Alamofire.request("\(BASE_URL)favourite/getFavourites", method: .post, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
             if(resp.result.value != nil) {
-                if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "Error" {
+                if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error" {
                     
                 } else {
                     print(resp.result.value!)

@@ -81,7 +81,15 @@ func callRequestedAPI(url: String,method: HTTPMethod, headers: HTTPHeaders?,para
             var errorMsg: String
             if (res.response?.statusCode) != nil
             {
-                errorMsg = "\(res.response!.statusCode)"
+                if (res.response?.statusCode == 400) {
+                    errorMsg = "Bad Request"
+                } else if (res.response?.statusCode == 401) {
+                    errorMsg = "Invalid Credentials"
+                } else if (res.response?.statusCode == 404) {
+                    errorMsg = "User Not exist!!!"
+                } else {
+                    errorMsg = "\(res.response!.statusCode)"
+                }
             }
             else {
                 errorMsg = "Unknown Error"

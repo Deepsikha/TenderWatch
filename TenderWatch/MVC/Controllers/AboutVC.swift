@@ -36,6 +36,11 @@ class AboutVC: UIViewController, UITextViewDelegate {
         }
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        self.txtAbout.resignFirstResponder()
+    }
+    
+    //MARK: textView Delegate
     func textViewDidBeginEditing(_ textView: UITextView) {
         if (signUpUser.aboutMe.isEmpty) {
         if txtAbout.textColor == UIColor.lightGray {
@@ -53,18 +58,6 @@ class AboutVC: UIViewController, UITextViewDelegate {
             }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.txtAbout.resignFirstResponder()
-    }
-    
-    @IBAction func handleBtnBack(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
-
-    @IBAction func handleBtnSave(_ sender: Any) {
-        signUpUser.aboutMe = self.txtAbout.text!
-        self.navigationController?.popViewController(animated: false)
-    }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let text = txtAbout.text else { return true }
         
@@ -75,7 +68,17 @@ class AboutVC: UIViewController, UITextViewDelegate {
         }else{
             return false
         }
+    }
+    
+    //MARK: IBActions
+    
+    @IBAction func handleBtnBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
 
+    @IBAction func handleBtnSave(_ sender: Any) {
+        signUpUser.aboutMe = self.txtAbout.text!
+        self.navigationController?.popViewController(animated: false)
     }
     
 //    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -90,4 +93,5 @@ class AboutVC: UIViewController, UITextViewDelegate {
 //            return false
 //        }
 //    }
+    
 }

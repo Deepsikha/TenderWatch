@@ -42,7 +42,6 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         picker = UIImagePickerController()
         picker.delegate = self
-        picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         image = self.proflPic.currentImage
         
     }
@@ -58,6 +57,8 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.opnDrawr.isHidden = false
             self.lblName.isHidden = false
             self.btnnext.setTitle("Update", for: .normal)
+            
+            self.phonenum.text = USER?.email
         } else {
             self.back.isHidden = false
             self.opnDrawr.isHidden = true
@@ -164,10 +165,14 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         let option = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
         
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
-            
+            self.picker.sourceType = UIImagePickerControllerSourceType.camera
+            self.present(self.picker, animated: true, completion: nil)
+
         }
         
         let galleryAction = UIAlertAction(title: "Gallery", style: .default) { (action) in
+            self.picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+
             self.present(self.picker, animated: true, completion: nil)
             
         }
@@ -255,6 +260,13 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         } else {
             MessageManager.showAlert(nil, "No Internet")
         }
-        
+    }
+    
+    func getInfo() {
+        if isNetworkReachable() {
+            
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
+        }
     }
 }
