@@ -111,5 +111,4 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         }
 
     }
-    
 }
