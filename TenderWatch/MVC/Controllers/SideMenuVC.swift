@@ -40,15 +40,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         self.lblName.text =  USER?.firstName //"Demo User" //remaining
         if (USER?.authenticationToken != nil) {
-//            let url = "192.168.200.22:4040/api/users/images?url=\((user.self as! User).profilePhoto!)"
-//            Alamofire.request("http://192.168.200.22:4040/api/users/images?url=/images/mike.jpg", method: .get, parameters: [:], encoding: JSONEncoding.default, headers: ["Authorization": AppDelegate.apiToken!]).responseData(completionHandler: { (resp) in
-//                if (resp.result.value != nil) {
-//                    print(resp.result.value!)
-//                }
-//            })
-            
-            self.imgProPic.image = UIImage(named: "avtar")
-        } else {
+            self.lblName.text = USER?.email
             self.imgProPic.image = UIImage(named: "avtar")
         }
         

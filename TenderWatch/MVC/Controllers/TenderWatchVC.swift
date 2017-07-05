@@ -78,9 +78,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     func getTender() {
         if isNetworkReachable() {
-            //Api Call
-            //end point192.168.200.22:4040/api/tender/getTenders
-            Alamofire.request("\(BASE_URL)tender/getTenders", method: .post, parameters: ["role" : "client"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+            Alamofire.request("\(BASE_URL)tender/getTenders", method: .post, parameters: ["role" : "\(USER?.role?.rawValue as! String)"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     print(resp.result.value!)
                     let data = (resp.result.value as! NSObject)

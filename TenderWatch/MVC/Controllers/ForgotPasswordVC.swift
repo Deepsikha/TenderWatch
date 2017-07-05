@@ -9,14 +9,16 @@
 import UIKit
 import Alamofire
 
-class ForgotPasswordVC: UIViewController {
+class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var txfEmail: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        txfEmail.becomeFirstResponder()
         
+        txfEmail.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -29,7 +31,14 @@ class ForgotPasswordVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: TextField Delegate
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    //MARK: IBActions
     @IBAction func handleBtnBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
