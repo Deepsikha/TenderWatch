@@ -306,7 +306,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
          //selectedIndexArray.removeAll()
         
       }
-        
+        self.navigationController?.pushViewController(RulesVC(), animated: true)
     }
     func splitDataInToSection() {
         

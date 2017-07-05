@@ -24,9 +24,7 @@
 		27A28ECC1EF7780000E7B53B /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A28ECB1EF7780000E7B53B /* AppConstant.swift */; };
 		27A28ED01EF77BB300E7B53B /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A28ECE1EF77BB300E7B53B /* HomeVC.swift */; };
 		27A28ED71EF7896700E7B53B /* avtar.png in Resources */ = {isa = PBXBuildFile; fileRef = 27A28ED61EF7896700E7B53B /* avtar.png */; };
-		27EF447E1EF7A8BB00CCBCA0 /* SelectCountryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EF447C1EF7A8BB00CCBCA0 /* SelectCountryVC.swift */; };
 		27EF448B1EF7C04A00CCBCA0 /* HomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27EF44891EF7C04A00CCBCA0 /* HomeVC.xib */; };
-		27EF448C1EF7C04A00CCBCA0 /* SelectCountryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27EF448A1EF7C04A00CCBCA0 /* SelectCountryVC.xib */; };
 		27EF44921EF8BD5600CCBCA0 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EF448F1EF8BD5600CCBCA0 /* PaymentVC.swift */; };
 		27EF44931EF8BD5600CCBCA0 /* RulesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EF44901EF8BD5600CCBCA0 /* RulesVC.swift */; };
 		27EF44941EF8BD5600CCBCA0 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EF44911EF8BD5600CCBCA0 /* SignInVC.swift */; };
@@ -152,8 +150,6 @@
 		7DCEB0661EFE3E38002A776C /* AboutVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEB0651EFE3E38002A776C /* AboutVC.xib */; };
 		7DCEB0691EFE593F002A776C /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEB0671EFE593F002A776C /* ForgotPasswordVC.swift */; };
 		7DCEB06C1EFE598C002A776C /* ForgotPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEB06B1EFE598C002A776C /* ForgotPasswordVC.xib */; };
-		7DF57A8A1EFCE28600127B04 /* SelectCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF57A881EFCE28600127B04 /* SelectCategoryVC.swift */; };
-		7DF57A8D1EFCE2A600127B04 /* SelectCategoryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF57A8C1EFCE2A600127B04 /* SelectCategoryVC.xib */; };
 		84020549E387AE73235873C3 /* Pods_TenderWatchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A52F7E1FD1B862E142B82F61 /* Pods_TenderWatchUITests.framework */; };
 		D31578A73DF49D96ECE536D1 /* Pods_TenderWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26AE8EB22C3106F7765969E5 /* Pods_TenderWatch.framework */; };
 		D596C57ACA935DF7DF86855C /* Pods_TenderWatchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F228BED95255A806449442C /* Pods_TenderWatchTests.framework */; };
@@ -202,9 +198,7 @@
 		27A28ECE1EF77BB300E7B53B /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		27A28ED41EF784F000E7B53B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27A28ED61EF7896700E7B53B /* avtar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avtar.png; sourceTree = "<group>"; };
-		27EF447C1EF7A8BB00CCBCA0 /* SelectCountryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCountryVC.swift; sourceTree = "<group>"; };
 		27EF44891EF7C04A00CCBCA0 /* HomeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeVC.xib; sourceTree = "<group>"; };
-		27EF448A1EF7C04A00CCBCA0 /* SelectCountryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectCountryVC.xib; sourceTree = "<group>"; };
 		27EF448F1EF8BD5600CCBCA0 /* PaymentVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
 		27EF44901EF8BD5600CCBCA0 /* RulesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesVC.swift; sourceTree = "<group>"; };
 		27EF44911EF8BD5600CCBCA0 /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
@@ -335,8 +329,6 @@
 		7DCEB0651EFE3E38002A776C /* AboutVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutVC.xib; sourceTree = "<group>"; };
 		7DCEB0671EFE593F002A776C /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		7DCEB06B1EFE598C002A776C /* ForgotPasswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordVC.xib; sourceTree = "<group>"; };
-		7DF57A881EFCE28600127B04 /* SelectCategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCategoryVC.swift; sourceTree = "<group>"; };
-		7DF57A8C1EFCE2A600127B04 /* SelectCategoryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectCategoryVC.xib; sourceTree = "<group>"; };
 		89EB1A7577007745F5DB3DA3 /* Pods-TenderWatchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatchUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatchUITests/Pods-TenderWatchUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		908FAB3820B36BBF106958AA /* Pods-TenderWatchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatchTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatchTests/Pods-TenderWatchTests.release.xcconfig"; sourceTree = "<group>"; };
 		A52F7E1FD1B862E142B82F61 /* Pods_TenderWatchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenderWatchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -450,25 +442,23 @@
 		27A28EBF1EF776F000E7B53B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				27EF44AB1EF8BE0900CCBCA0 /* SignUpVC2.swift */,
-				27EF448F1EF8BD5600CCBCA0 /* PaymentVC.swift */,
-				27EF44901EF8BD5600CCBCA0 /* RulesVC.swift */,
+				27A28ECE1EF77BB300E7B53B /* HomeVC.swift */,
 				27EF44911EF8BD5600CCBCA0 /* SignInVC.swift */,
 				27A28EC01EF776F000E7B53B /* SignUpVC.swift */,
-				27A28ECE1EF77BB300E7B53B /* HomeVC.swift */,
-				27EF447C1EF7A8BB00CCBCA0 /* SelectCountryVC.swift */,
-				7B4A06A21EF8F2B800359E16 /* TenderWatchVC.swift */,
+				27EF44AB1EF8BE0900CCBCA0 /* SignUpVC2.swift */,
 				5CF289B11EFB8C8A00F3EC79 /* RegisterCountryVC.swift */,
-				5C34B6F41EFA181B0062B987 /* ChangePasswordVC.swift */,
+				7D7A13A51F04EB540092E3DF /* MappingVC.swift */,
+				27EF44901EF8BD5600CCBCA0 /* RulesVC.swift */,
 				7D0394431EFB63B500B494EF /* SideMenuVC.swift */,
-				7DF57A881EFCE28600127B04 /* SelectCategoryVC.swift */,
+				7B4A06A21EF8F2B800359E16 /* TenderWatchVC.swift */,
+				5C34B6F41EFA181B0062B987 /* ChangePasswordVC.swift */,
+				5C31506A1F03AADB00C96182 /* UploadTenderVC.swift */,
 				7DCEB0611EFE3DF4002A776C /* AboutVC.swift */,
 				7DCEB0671EFE593F002A776C /* ForgotPasswordVC.swift */,
 				7D2E22461F00B98400A0783E /* SubscriptionVC.swift */,
-				5C31506A1F03AADB00C96182 /* UploadTenderVC.swift */,
 				0CE01BEA1F039E3100111940 /* FavoriteVC.swift */,
 				0CE01BF01F03A03100111940 /* NotificationVC.swift */,
-				7D7A13A51F04EB540092E3DF /* MappingVC.swift */,
+				27EF448F1EF8BD5600CCBCA0 /* PaymentVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -484,7 +474,6 @@
 				7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */,
 				7DCEB06B1EFE598C002A776C /* ForgotPasswordVC.xib */,
 				7DCEB0651EFE3E38002A776C /* AboutVC.xib */,
-				7DF57A8C1EFCE2A600127B04 /* SelectCategoryVC.xib */,
 				5CF289B51EFB8CA700F3EC79 /* RegisterCountryVC.xib */,
 				7D0394471EFB63D300B494EF /* SideMenuVC.xib */,
 				7B4A06A61EF8F2E000359E16 /* TenderWatchVC.xib */,
@@ -493,7 +482,6 @@
 				27EF44961EF8BD5F00CCBCA0 /* RulesVC.xib */,
 				27EF44971EF8BD5F00CCBCA0 /* SignInVC.xib */,
 				27EF44891EF7C04A00CCBCA0 /* HomeVC.xib */,
-				27EF448A1EF7C04A00CCBCA0 /* SelectCountryVC.xib */,
 				27A28EC31EF776F000E7B53B /* SignUpVC.xib */,
 			);
 			path = View;
@@ -798,7 +786,6 @@
 				7DCEB0401EFE28D3002A776C /* chaboxcheked@1x.png in Resources */,
 				5C36CD6F1F067BD00088D21E /* plus1.png in Resources */,
 				7D176AF91EFA0E3900B05C99 /* TenderListCell.xib in Resources */,
-				7DF57A8D1EFCE2A600127B04 /* SelectCategoryVC.xib in Resources */,
 				27EF449A1EF8BD5F00CCBCA0 /* SignInVC.xib in Resources */,
 				7D946AD81EFCAC1E00C258E1 /* mail@2x.png in Resources */,
 				7D946AE81EFCAC1E00C258E1 /* upload@3x.png in Resources */,
@@ -829,7 +816,6 @@
 				7D946AC71EFCAC1E00C258E1 /* check@3x.png in Resources */,
 				7D946B001EFCDB1400C258E1 /* menu@3x.png in Resources */,
 				7D946ADB1EFCAC1E00C258E1 /* mobile@2x.png in Resources */,
-				27EF448C1EF7C04A00CCBCA0 /* SelectCountryVC.xib in Resources */,
 				7DCEB0601EFE28E6002A776C /* userthree@3x.png in Resources */,
 				7D946ACD1EFCAC1E00C258E1 /* flag@3x.png in Resources */,
 				7D946AE41EFCAC1E00C258E1 /* ticket@2x.png in Resources */,
@@ -1069,7 +1055,6 @@
 				27A28ECC1EF7780000E7B53B /* AppConstant.swift in Sources */,
 				5CF289B91EFBB21A00F3EC79 /* RegisterCountryCell.swift in Sources */,
 				0CE01BEC1F039E3100111940 /* FavoriteVC.swift in Sources */,
-				7DF57A8A1EFCE28600127B04 /* SelectCategoryVC.swift in Sources */,
 				27A28ED01EF77BB300E7B53B /* HomeVC.swift in Sources */,
 				7D7A13B61F051A900092E3DF /* Select.swift in Sources */,
 				7D176AF81EFA0E3900B05C99 /* TenderListCell.swift in Sources */,
@@ -1083,7 +1068,6 @@
 				7D2E22521F00C53200A0783E /* SubscriptionCell.swift in Sources */,
 				5C31506C1F03AADB00C96182 /* UploadTenderVC.swift in Sources */,
 				7D03944B1EFB65E800B494EF /* SideMenuCell.swift in Sources */,
-				27EF447E1EF7A8BB00CCBCA0 /* SelectCountryVC.swift in Sources */,
 				7D2E22481F00B98500A0783E /* SubscriptionVC.swift in Sources */,
 				7D0394451EFB63B500B494EF /* SideMenuVC.swift in Sources */,
 				5C34B6F61EFA181B0062B987 /* ChangePasswordVC.swift in Sources */,

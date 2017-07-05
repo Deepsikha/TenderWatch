@@ -36,7 +36,7 @@
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1eg-bz-Qr1">
-                    <rect key="frame" x="16" y="14.5" width="30" height="48"/>
+                    <rect key="frame" x="16" y="15" width="30" height="48"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="30" id="J9u-hc-Hie"/>
                         <constraint firstAttribute="height" constant="48" id="VbU-dI-OEt"/>
@@ -51,10 +51,25 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ciW-0P-JkR">
+                    <rect key="frame" x="245" y="34" width="59" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="3vn-i5-74i"/>
+                        <constraint firstAttribute="width" constant="59" id="rGW-5q-qFW"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="Save">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="btnSave:" destination="-1" eventType="touchUpInside" id="AMS-El-oRy"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="OQ5-Hz-nWP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="3B8-IP-e7h"/>
+                <constraint firstAttribute="trailing" secondItem="ciW-0P-JkR" secondAttribute="trailing" constant="16" id="87A-dr-AIj"/>
                 <constraint firstItem="OQ5-Hz-nWP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="CEF-wN-UE3"/>
                 <constraint firstItem="Szm-cU-9NC" firstAttribute="top" secondItem="OQ5-Hz-nWP" secondAttribute="bottom" constant="11" id="O9o-V9-Onl"/>
                 <constraint firstItem="Szm-cU-9NC" firstAttribute="top" secondItem="1eg-bz-Qr1" secondAttribute="bottom" constant="4.5" id="WAD-vv-8LZ"/>
@@ -62,6 +77,7 @@
                 <constraint firstAttribute="trailing" secondItem="Szm-cU-9NC" secondAttribute="trailing" id="YYe-1x-0PA"/>
                 <constraint firstItem="1eg-bz-Qr1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Yuw-5Q-3Np"/>
                 <constraint firstItem="Szm-cU-9NC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="cHc-Ib-Mp3"/>
+                <constraint firstItem="ciW-0P-JkR" firstAttribute="baseline" secondItem="OQ5-Hz-nWP" secondAttribute="baseline" id="gSx-3p-Boo"/>
                 <constraint firstItem="1eg-bz-Qr1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14.5" id="hlq-U4-YKA"/>
             </constraints>
         </view>

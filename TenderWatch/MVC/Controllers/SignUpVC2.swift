@@ -159,6 +159,8 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 } else {
                     self.navigationController?.pushViewController(MappingVC(), animated: true)
                 }
+                signUpUser.contactNo = self.phonenum.text!
+                signUpUser.occupation = self.occupation.text!
             }
             
         }

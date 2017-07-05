@@ -8,7 +8,7 @@
 
 import Foundation
 
-var BASE_URL = "http://192.168.200.34:4040/api/"
+var BASE_URL = "http://192.168.200.96:4040/api/"
 
 var LOGIN = "auth/login"
 var CHANGE_PASSWORD = "users/changePassword/"+(USER?._id)!

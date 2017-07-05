@@ -66,6 +66,7 @@ class UserManager {
         UserDefaults.standard.removeObject(forKey: kUser)
         UserDefaults.standard.synchronize()
         self.user = nil
+        USER = nil
         appDelegate.setUpRootVc()
     }
     

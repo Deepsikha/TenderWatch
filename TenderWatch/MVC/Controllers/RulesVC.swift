@@ -12,9 +12,6 @@ import ObjectMapper
 
 class RulesVC: UIViewController {
     
-    static var arrCountry: [String] = []
-    static var arrCategory: [String] = []
-    
     var user: User!
     
     var window: UIWindow!
@@ -61,8 +58,7 @@ class RulesVC: UIViewController {
     
     //MARK:- Custom Method
     func register() {
-        let arrCountry = RulesVC.arrCountry.joined(separator: ",")
-        let arrCategory = RulesVC.arrCategory.joined(separator: ",")
+        
         
         if (appDelegate.isClient)! {
             self.parameters = ["email" : signUpUser.email,
@@ -93,10 +89,20 @@ class RulesVC: UIViewController {
                     
                     let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
                     
-                    multipartFormData.append(signUpUser.photo!, withName: "fileset",fileName: imgname, mimeType: "image/jpg")
+                    multipartFormData.append(signUpUser.photo!, withName: "image",fileName: imgname, mimeType: "image/jpg")
                 }
+//                for (key, value) in self.parameters {
+//                    multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
+//                }
                 for (key, value) in self.parameters {
-                    multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
+                    
+                    if let stringValue = value as? String {
+                        multipartFormData.append(stringValue.data(using: String.Encoding.utf8)!, withName: key)
+                    }
+                    else if let dictionaryValue = value as? [String : Any] {
+                        let dataDictionary: Data = NSKeyedArchiver.archivedData(withRootObject: dictionaryValue)
+                        multipartFormData.append(dataDictionary, withName: key)
+                    }
                 }
             },
                              to:"\(BASE_URL)auth/register")

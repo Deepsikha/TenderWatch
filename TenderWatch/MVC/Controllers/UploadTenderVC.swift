@@ -49,8 +49,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     var picker: UIImagePickerController!
     var isCountry = true
     
-    
     var tap: UITapGestureRecognizer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerNib()

@@ -108,10 +108,6 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let nav = UINavigationController(rootViewController: MappingVC())
             appDelegate.drawerController.centerViewController = nav
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
-        }  else if item == "Add/Remove Categories" {
-            let nav = UINavigationController(rootViewController: SelectCategoryVC())
-            appDelegate.drawerController.centerViewController = nav
-            appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if  item == "Upload Tender" {
             let nav = UINavigationController(rootViewController: UploadTenderVC())
             appDelegate.drawerController.centerViewController = nav
