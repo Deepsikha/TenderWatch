@@ -39,6 +39,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var txtvwAddress: UITextView!
     @IBOutlet weak var btnSave: UIButton!
     
+    @IBOutlet weak var const_vwMain_height: NSLayoutConstraint!
     
     var arrDropDown = [String]()
     var tender = [Tender]()
@@ -82,7 +83,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.tblOptions.frame = CGRect(x: self.vwSelectCategory.frame.origin.x, y: self.vwScroll.frame.origin.y + self.vwSelectCategory.frame.origin.y + self.vwSelectCategory.frame.height, width: self.vwSelectCategory.frame.width, height: 220)
         }
         self.vwContactPopup.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-       
+            let widthVwmain = btnImage.frame.size.height
+            const_vwMain_height.constant = 507 + widthVwmain
     }
     
     
@@ -94,6 +96,10 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.btnContact.layer.cornerRadius = 5
         self.vwContactPopup.layer.cornerRadius = 5
         
+        self.btnImage.layer.borderWidth = 1
+        self.btnImage.layer.borderColor = UIColor.lightGray.cgColor
+        self.btnImage.layer.cornerRadius = 5
+
         self.btnSubmit.cornerRedius()
         self.btnSave.cornerRedius()
         
@@ -219,7 +225,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             let category = self.category[indexPath.row]
             cell.lblCategory.text = category.categoryName!
         }
-        
         return cell
         
     }
@@ -253,7 +258,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.navigationController?.pushViewController(imageCropVC, animated: true)
             
         })
-        
     }
     
     //Mark:- Crop delegates
