@@ -59,9 +59,9 @@ class AboutVC: UIViewController, UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard let text = txtAbout.text else { return true }
+        guard let aboutStr = txtAbout.text else { return true }
+        let newLength = aboutStr.characters.count + text.characters.count - range.length
         
-        let newLength = text.characters.count + text.characters.count - range.length
         if(newLength <= limitLength){
             self.lblCharLimit.text = "\(1000 - newLength)"+"/1000"
             return true
@@ -77,8 +77,15 @@ class AboutVC: UIViewController, UITextViewDelegate {
     }
 
     @IBAction func handleBtnSave(_ sender: Any) {
-        signUpUser.aboutMe = self.txtAbout.text!
-        self.navigationController?.popViewController(animated: false)
+        if(self.txtAbout.text.characters.count > 0){
+            signUpUser.aboutMe = self.txtAbout.text!
+            self.navigationController?.popViewController(animated: false)
+
+        }else{
+            let alert = UIAlertController(title: "Error", message: "Enter some information about yourself", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
 //    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
