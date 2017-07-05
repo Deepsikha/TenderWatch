@@ -118,9 +118,11 @@ class RulesVC: UIViewController {
                                 // if (USER?.authenticationToken != nil) {
                                 
                                 let data = (resp.result.value as! NSObject).value(forKey: "user")!
-                                USER = Mapper<User>().map(JSON: data as! [String : Any])!
+                                let user:User? = Mapper<User>().map(JSON: data as! [String : Any])!
                                 let token = (resp.result.value as! NSObject).value(forKey: "token")!
-                                USER?.authenticationToken = token as? String
+                                user?.authenticationToken = token as? String
+                                UserManager.shared.user = user
+                                USER = user
                                 appDelegate.setHomeViewController()
                                 //                             self.navigationController?.pushViewController(TenderWatchVC(), animated: true)
                                 // self.user = user

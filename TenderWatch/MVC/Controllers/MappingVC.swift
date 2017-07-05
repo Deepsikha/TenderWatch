@@ -18,8 +18,12 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var sectionTitleList = [String]()
     var country = [Country]()
     var category = [Category]()
+    var selectedDictionary : Dictionary<String, [String]> = [:]
+    var countryCatDict : Dictionary< String, [Category]> = [:]
+    var temp : Dictionary< String, [Bool]> = [:]
     var select = [String : [String]]()
     
+    var selectedIndexArray:[IndexPath] = []
     
     
     var map = Selections()
@@ -33,6 +37,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tblMappings.register(UINib(nibName: "RegisterCountryCell", bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
     
         self.tblMappings.tableFooterView = UIView()
+       
         //taphandle
         //        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         //        tap.cancelsTouchesInView = false
@@ -45,6 +50,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.navigationController?.isNavigationBarHidden = true
         self.fetchCoutry()
         self.fetchCategory()
+       
         if(USER?.authenticationToken != nil) {
             self.btnBack.isHidden = true
             self.btnMenu.isHidden = false
@@ -54,19 +60,44 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    
+    func makeCountryDic()
+    {
+        
+        if  country.count != 0{
+            for i in 0...country.count - 1{
+                countryCatDict[country[i].countryId!] = category
+            }
+        }
+    
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.country.count
+        
+        return self.countryCatDict.count //self.country.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.category.count
+        let aryForCounting:[Category] = self.countryCatDict[country[section].countryId!]!
+        return aryForCounting.count
+       // return self.category.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
+        var arrMapping = self.countryCatDict[country[indexPath.section].countryId!]
+        let arrList = arrMapping?[indexPath.row]
+        cell.countryName.text =  arrList?.categoryName//self.category[indexPath.row].categoryName
+        if (selectedIndexArray.contains(indexPath))//(arrList?.isSelected)!
+        {
+            cell.imgTick.isHidden = false
+        }
+        else
+        {
+            cell.imgTick.isHidden = true
+        }
         
-        cell.countryName.text = self.category[indexPath.row].categoryName
         
         return cell
         
@@ -75,61 +106,98 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
         print(indexPath.section)
-        let cell = tableView.cellForRow(at: indexPath) as! RegisterCountryCell
-        if (USER?.authenticationToken == nil) {
-            if (cell.imgTick.isHidden) {
-                cell.imgTick.isHidden = !cell.imgTick.isHidden
-            } else {
-                cell.imgTick.isHidden = !cell.imgTick.isHidden
-            }
-            
-        } else {
-            if (cell.imgTick.isHidden) {
-                cell.imgTick.isHidden = !cell.imgTick.isHidden
-                let country1 = tableView.headerView(forSection: indexPath.section)?.textLabel?.text
-                let category1 = cell.countryName.text!
-                let id = (self.country.filter {$0.countryName == country1})[0].countryId
-                let ch = (self.category.filter {$0.categoryName == category1})[0].categoryId
-                
-//                if self.select.selections.contains(map) {
-//                    if (map.countryId == id!) {
-//                        map.categoryId.append(ch!)
-//                    } else {
-//                        map = Selections()
-//                        map.countryId = id!
-//                        map.categoryId.append(ch!)
-//                        select.selections.append(map)
-//                    }
-//                } else {
-//                    map.countryId = id!
-//                    map.categoryId.append(ch!)
-//                    self.select.selections.append(map)
-//                }
-//                if let filteredArray = addCC.filter({$0.countryId == id})
-//                {
-//                    if (filteredArray.count > 0)
-//                    {
-//                        let newObject:addCountryObj = filteredArray.first!
-//                        self.lastindexpath = (objMessageListArray?.index(of: newObject))!
-//                    }
-//                }
-//
-//                if addCC.filter(<#T##isIncluded: (addCountryObj) throws -> Bool##(addCountryObj) throws -> Bool#>) {
-//                    
-//                } else {
-//                    addCC
-//                }
-
-            } else {
-                cell.imgTick.isHidden = !cell.imgTick.isHidden
-                if RulesVC.arrCountry.contains(cell.countryName.text!) {
-                    
-                    if let itemToRemoveIndex = RulesVC.arrCountry.index(of: cell.countryName.text!) {
-                        RulesVC.arrCountry.remove(at: itemToRemoveIndex)
-                    }
-                }
-            }
+//        var arrMapping = self.countryCatDict[country[indexPath.section].countryId!]
+//        let arrList = arrMapping?[indexPath.row]
+//        var temp = [Category]()
+//        self.selectedDictionary[country[indexPath.section].countryId!] = [arrList]
+//        temp = arrMapping!
+//        temp[indexPath.row].isSelected = !(arrMapping?[indexPath.row].isSelected)!
+//        self.countryCatDict[country[indexPath.section].countryId!] = temp
+        
+        if (selectedIndexArray.contains(indexPath))
+        {
+            selectedIndexArray.remove(at: selectedIndexArray.index(of: indexPath)!)
         }
+        else
+        {
+            let countryName = country[indexPath.section].countryName!
+            print("name:",countryName)
+            selectedIndexArray.append(indexPath)
+            
+        }
+        tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+//        tableView.reloadSections(NSIndexSet(index:indexPath.section) as IndexSet, with: UITableViewRowAnimation.none)
+        
+        // arrList?.isSelected = !(arrList?.isSelected)!
+       // category[indexPath.row].isSelected = !category[indexPath.row].isSelected!
+       // tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+//        let cell = tableView.cellForRow(at: indexPath) as! RegisterCountryCell
+//        if (UserManager.shared.user?.authenticationToken == nil) {
+//            category[indexPath.row].isSelected = !category[indexPath.row].isSelected!
+//            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+//            
+////            if category[indexPath.row].isSelected!
+////            {
+////                cell.imgTick.isHidden = category[indexPath.row].isSelected!
+////                category[indexPath.row].isSelected
+////
+////            }
+////            else{
+////                cell.imgTick.isHidden = category[indexPath.row].isSelected!
+////            }
+////            if (cell.imgTick.isHidden) {
+////                cell.imgTick.isHidden = !cell.imgTick.isHidden
+////            } else {
+////                cell.imgTick.isHidden = !cell.imgTick.isHidden
+////            }
+//            
+//        } else {
+//            if (cell.imgTick.isHidden) {
+//                cell.imgTick.isHidden = !cell.imgTick.isHidden
+//                let country1 = tableView.headerView(forSection: indexPath.section)?.textLabel?.text
+//                let category1 = cell.countryName.text!
+//                let id = (self.country.filter {$0.countryName == country1})[0].countryId
+//                let ch = (self.category.filter {$0.categoryName == category1})[0].categoryId
+//                
+////                if self.select.selections.contains(map) {
+////                    if (map.countryId == id!) {
+////                        map.categoryId.append(ch!)
+////                    } else {
+////                        map = Selections()
+////                        map.countryId = id!
+////                        map.categoryId.append(ch!)
+////                        select.selections.append(map)
+////                    }
+////                } else {
+////                    map.countryId = id!
+////                    map.categoryId.append(ch!)
+////                    self.select.selections.append(map)
+////                }
+////                if let filteredArray = addCC.filter({$0.countryId == id})
+////                {
+////                    if (filteredArray.count > 0)
+////                    {
+////                        let newObject:addCountryObj = filteredArray.first!
+////                        self.lastindexpath = (objMessageListArray?.index(of: newObject))!
+////                    }
+////                }
+////
+////                if addCC.filter(<#T##isIncluded: (addCountryObj) throws -> Bool##(addCountryObj) throws -> Bool#>) {
+////                    
+////                } else {
+////                    addCC
+////                }
+//
+//            } else {
+//                cell.imgTick.isHidden = !cell.imgTick.isHidden
+//                if RulesVC.arrCountry.contains(cell.countryName.text!) {
+//                    
+//                    if let itemToRemoveIndex = RulesVC.arrCountry.index(of: cell.countryName.text!) {
+//                        RulesVC.arrCountry.remove(at: itemToRemoveIndex)
+//                    }
+//                }
+//            }
+//        }
 
     }
     
@@ -185,6 +253,8 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let data = (res.result.value as! NSObject)
                 self.category = Mapper<Category>().mapArray(JSONObject: data)!
                 self.stopActivityIndicator()
+                self.makeCountryDic()
+                print(self.countryCatDict)
                 self.tblMappings.reloadData()
             }
             
@@ -193,6 +263,52 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    @IBAction func btnSave(_ sender: Any) {
+      select.removeAll()
+      if selectedIndexArray.count > 0
+      {
+            for i in 0...selectedIndexArray.count-1
+            {
+                var indexPath = selectedIndexArray[i] as IndexPath
+                var arrMapping = self.countryCatDict[country[indexPath.section].countryId!]
+                if select.keys.contains(country[indexPath.section].countryId!)
+                {
+                    var tmp = select[country[indexPath.section].countryId!]
+                     let arrList = arrMapping?[indexPath.row]
+                    tmp?.append((arrList?.categoryId)!)
+                    select[country[indexPath.section].countryId!]?.removeAll()
+                    select[country[indexPath.section].countryId!] = tmp
+                    
+                
+                }
+                else
+                {
+                    let arrList = arrMapping?[indexPath.row]
+                    var tmp = [String]()
+                    tmp.append((arrList?.categoryId)!)
+                    select[country[indexPath.section].countryId!] = tmp
+
+                }
+              
+                
+//                let arrList = arrMapping?[indexPath.row]
+//                print(arrMapping,arrList)
+//                
+//                var a = arrMapping?.map({ (obj) -> String in
+//                    return obj.categoryName!
+//                })
+//                select[country[indexPath.section].countryId!] = a
+              //  let arrList = arrMapping?[indexPath.row]
+                
+
+          }
+          print("dictionary:->",select)
+         signUpUser.selections = select
+         //selectedIndexArray.removeAll()
+        
+      }
+        
+    }
     func splitDataInToSection() {
         
         var sectionTitle: String = ""
@@ -206,7 +322,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.sectionTitleList.append(sectionTitle)
             }
         }
-        self.tblMappings.reloadData()
+       // self.tblMappings.reloadData()
     }
 
 }

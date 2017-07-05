@@ -84,5 +84,6 @@ class signUpUserData: NSObject {
     var occupation = ""
     var aboutMe = ""
     var role = ""
+    var selections: [String : [String]] = [:]
     
 }

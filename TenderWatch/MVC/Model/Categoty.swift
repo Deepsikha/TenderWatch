@@ -9,10 +9,20 @@
 import Foundation
 import ObjectMapper
 
+
+
+
+//class MappingDictionary: NSObject
+//{
+//    var countryName : [Category] = []
+//
+//
+//}
 class Category: NSObject,Mappable {
     
     var categoryId : String?
     var categoryName: String?
+    var isSelected : Bool?
     
     required init?(map: Map)
     {
@@ -23,5 +33,6 @@ class Category: NSObject,Mappable {
     {
         categoryId <- map["_id"]
         categoryName <- map["categoryName"]
+        isSelected = false
     }
 }
