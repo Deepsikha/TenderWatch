@@ -27,15 +27,25 @@ class AboutVC: UIViewController, UITextViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         self.navigationController?.isNavigationBarHidden = true
-        if(signUpUser.aboutMe.isEmpty) {
-            txtAbout.text = "Enter some information about yourself"
-            txtAbout.textColor = UIColor.lightGray
+        if (USER?.authenticationToken != nil) {
+            if (USER?.aboutMe?.isEmpty)! {
+                txtAbout.text = "Enter somr information about yourself"
+                txtAbout.textColor = UIColor.lightGray
+            } else {
+                txtAbout.text = USER?.aboutMe!
+            }
         } else {
-        self.txtAbout.text = signUpUser.aboutMe
+            if(signUpUser.aboutMe.isEmpty) {
+                txtAbout.text = "Enter some information about yourself"
+                txtAbout.textColor = UIColor.lightGray
+            } else {
+                self.txtAbout.text = signUpUser.aboutMe
+            }
         }
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.txtAbout.resignFirstResponder()
     }
@@ -50,13 +60,13 @@ class AboutVC: UIViewController, UITextViewDelegate {
         }
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-
-        if txtAbout.text.isEmpty {
-            txtAbout.text = "Enter some information about yourself"
-            txtAbout.textColor = UIColor.lightGray
-            }
-    }
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//
+//        if txtAbout.text.isEmpty {
+//            txtAbout.text = "Enter some information about yourself"
+//            txtAbout.textColor = UIColor.lightGray
+//            }
+//    }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let aboutStr = txtAbout.text else { return true }
@@ -82,23 +92,10 @@ class AboutVC: UIViewController, UITextViewDelegate {
             self.navigationController?.popViewController(animated: false)
 
         }else{
-            let alert = UIAlertController(title: "Error", message: "Enter some information about yourself", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            MessageManager.showAlert(nil, "Enter some information about yourself")
+            self.txtAbout.delegate = self
+            self.txtAbout.reloadInputViews()
         }
     }
-    
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        
-//        guard let text = txtAbout.text else { return true }
-//        
-//        let newLength = text.characters.count + string.characters.count - range.length
-//        if(newLength <= limitLength){
-//            self.lblCharLimit.text = "\(1000 - newLength)"+"/1000"
-//            return true
-//        }else{
-//            return false
-//        }
-//    }
     
 }

@@ -279,7 +279,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     select[country[indexPath.section].countryId!]?.removeAll()
                     select[country[indexPath.section].countryId!] = tmp
                     
-                
                 }
                 else
                 {

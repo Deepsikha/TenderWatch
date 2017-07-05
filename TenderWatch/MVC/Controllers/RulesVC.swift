@@ -79,7 +79,8 @@ class RulesVC: UIViewController {
                                "contactNo": signUpUser.contactNo,
                                "occupation": signUpUser.occupation,
                                "aboutMe": signUpUser.aboutMe,
-                               "role" : signUpUser.role] as [String : Any]
+                               "role" : signUpUser.role,
+                               "selections": signUpUser.selections] as [String : Any]
         }
         if isNetworkReachable() {
             Alamofire.upload(multipartFormData: { multipartFormData in

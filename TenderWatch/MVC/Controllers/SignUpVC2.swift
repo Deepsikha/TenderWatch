@@ -58,7 +58,10 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.lblName.isHidden = false
             self.btnnext.setTitle("Update", for: .normal)
             
-            self.phonenum.text = USER?.email
+            self.phonenum.text = USER?.contactNo
+            self.btnCountry.setTitle(USER?.country, for: .normal)
+            self.occupation.text = USER?.occupation
+            
         } else {
             self.back.isHidden = false
             self.opnDrawr.isHidden = true
@@ -195,9 +198,12 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.navigationController?.popViewController(animated: true)
         }
     }
+    
     @IBAction func handleAboutMe(_ sender: Any) {
         self.navigationController?.pushViewController(AboutVC(), animated: true)
     }
+    
+    //MARK: Custom Method
     
     func update(_ id: String) {
         
@@ -257,14 +263,6 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                     print(encodingError)
                 }
             }
-        } else {
-            MessageManager.showAlert(nil, "No Internet")
-        }
-    }
-    
-    func getInfo() {
-        if isNetworkReachable() {
-            
         } else {
             MessageManager.showAlert(nil, "No Internet")
         }

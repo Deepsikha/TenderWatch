@@ -56,8 +56,8 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             SideMenuVC.arrSideMenuIcon = ["home","upload","userthree","password", "bell", "logout"]
             SideMenuVC.arrSideMenuLbl = ["Home", "Upload Tender", "Edit Profile", "Change Password", "Notifications", "Logout"]
         } else {
-            SideMenuVC.arrSideMenuIcon = ["home","dollar","flag", "ticket", "userthree","password", "fav", "bell", "logout"]
-            SideMenuVC.arrSideMenuLbl = ["Home", "Subscription Details", "Add/Remove Countries", "Add/Remove Categories", "Edit Profile", "Change Password", "Favorites", "Notifications", "Logout"]
+            SideMenuVC.arrSideMenuIcon = ["home","dollar","flag", "userthree","password", "fav", "bell", "logout"]
+            SideMenuVC.arrSideMenuLbl = ["Home", "Subscription Details", "Add/Remove Countries", "Edit Profile", "Change Password", "Favorites", "Notifications", "Logout"]
         }
         self.tblSideMenu.reloadData()
     }

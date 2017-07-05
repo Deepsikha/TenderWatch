@@ -61,6 +61,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         //tapHandler
         self.tap = UITapGestureRecognizer(target: self, action: #selector(self.taphandler))
         tap.cancelsTouchesInView = false
+        
+        
         self.view.addGestureRecognizer(tap)
     }
     
@@ -80,6 +82,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.tblOptions.frame = CGRect(x: self.vwSelectCategory.frame.origin.x, y: self.vwScroll.frame.origin.y + self.vwSelectCategory.frame.origin.y + self.vwSelectCategory.frame.height, width: self.vwSelectCategory.frame.width, height: 220)
         }
         self.vwContactPopup.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+       
     }
     
     

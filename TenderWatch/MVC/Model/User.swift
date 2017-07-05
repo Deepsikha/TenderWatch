@@ -16,16 +16,23 @@ enum RollType : String {
 
 class User: NSObject,NSCoding, Mappable {
     
+    var authenticationToken: String?
+
     var _id: String?
     var email: String?
+    var profilePhoto: String?
+    
+    var country: String?
+    var contactNo: String?
+    var occupation: String?
+    var aboutMe: String?
+    var role: RollType?
+    var createdAt: String?
+    var isActive: Bool?
+
     var firstName: String?
     var lastName: String?
-    var createdAt: String?
-    var profilePhoto: String?
-    var role: RollType?
-    var isActive: Bool?
     var password: String?
-    var authenticationToken: String?
     
     required init?(map: Map) {
         super.init()
@@ -38,39 +45,57 @@ class User: NSObject,NSCoding, Mappable {
     
     required init(coder aDecoder: NSCoder) {
         super.init()
+        authenticationToken = aDecoder.decodeObject(forKey: "token") as? String
+
         _id = aDecoder.decodeObject(forKey: "_id") as? String
         email = aDecoder.decodeObject(forKey: "email") as? String
+        profilePhoto = aDecoder.decodeObject(forKey: "profilePhoto") as? String
+        country = aDecoder.decodeObject(forKey: "country") as? String
+        contactNo = aDecoder.decodeObject(forKey: "contactNo") as? String
+        occupation = aDecoder.decodeObject(forKey: "occupation") as? String
+        aboutMe = aDecoder.decodeObject(forKey: "aboutMe") as? String
+        role = RollType(rawValue: (aDecoder.decodeObject(forKey: "role") as! String))
+        createdAt = aDecoder.decodeObject(forKey: "createdAt") as? String
+        isActive = aDecoder.decodeObject(forKey: "isActive") as? Bool
+
         firstName = aDecoder.decodeObject(forKey: "firstName") as? String
         lastName = aDecoder.decodeObject(forKey: "lastName") as? String
-        createdAt = aDecoder.decodeObject(forKey: "createdAt") as? String
-        profilePhoto = aDecoder.decodeObject(forKey: "profilePhoto") as? String
-        role = RollType(rawValue: (aDecoder.decodeObject(forKey: "role") as! String))
 //        role = aDecoder.decodeObject(forKey: "role") as? RollType
-        isActive = aDecoder.decodeObject(forKey: "isActive") as? Bool
-        authenticationToken = aDecoder.decodeObject(forKey: "token") as? String
     }
     
     func encode(with aCoder: NSCoder) {
+        aCoder.encode(authenticationToken, forKey: "token")
+
         aCoder.encode(_id, forKey: "_id")
         aCoder.encode(email, forKey: "email")
+        aCoder.encode(profilePhoto, forKey: "profilePhoto")
+        aCoder.encode(country, forKey: "country")
+        aCoder.encode(contactNo, forKey: "contactNo")
+        aCoder.encode(occupation, forKey: "occupation")
+        aCoder.encode(aboutMe, forKey: "aboutMe")
+        aCoder.encode(role?.rawValue, forKey: "role")
+        aCoder.encode(createdAt, forKey: "createdAt")
+        aCoder.encode(isActive, forKey: "isActive")
+        
         aCoder.encode(firstName, forKey: "firstName")
         aCoder.encode(lastName, forKey: "lastName")
-        aCoder.encode(createdAt, forKey: "createdAt")
-        aCoder.encode(profilePhoto, forKey: "profilePhoto")
-        aCoder.encode(role?.rawValue, forKey: "role")
-        aCoder.encode(isActive, forKey: "isActive")
-        aCoder.encode(authenticationToken, forKey: "token")
+        
     }
     
     func mapping(map: Map) {
         _id                     <- map["_id"]
         email                   <- map["email"]
-        firstName               <- map["firstName"]
-        lastName                <- map["lastName"]
+        profilePhoto            <- map["profilePhoto"]
+        country                 <- map["country"]
+        contactNo               <- map["contactNo"]
+        occupation              <- map["occupation"]
+        aboutMe                 <- map["aboutMe"]
+        role                    <- (map["role"],EnumTransform<RollType>())
         createdAt               <- map["createdAt"]
         isActive                <- map["isActive"]
-        profilePhoto            <- map["profilePhoto"]
-        role                    <- (map["role"],EnumTransform<RollType>())
+
+        firstName               <- map["firstName"]
+        lastName                <- map["lastName"]
         password                <- map["password"]
     }
 }
