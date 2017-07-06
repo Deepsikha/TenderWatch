@@ -48,6 +48,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     var uploadTender = UploadTender()
     var picker: UIImagePickerController!
     var isCountry = true
+    var isDropDownActive = false
     
     var tap: UITapGestureRecognizer!
     
@@ -241,6 +242,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.uploadTender.ctId = self.category.filter {$0.categoryName! == cell.lblCategory.text!}[0].categoryId!
         }
         self.tblOptions.removeFromSuperview()
+        isDropDownActive = false
     }
     
     //MARK: Image Delegate
@@ -280,24 +282,40 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func btnSelectCountry(_ sender: Any) {
-        self.isCountry = true
-        lblDropdown.text = "▲"
-        
-        self.view.addSubview(self.tblOptions)
-        if self.country.count == 0 {
-            self.fetchCoutry()
+        if isDropDownActive == false{
+            self.isCountry = true
+            lblDropdown.text = "▲"
+            
+            self.view.addSubview(self.tblOptions)
+            if self.country.count == 0 {
+                self.fetchCoutry()
+            }
+            self.tblOptions.reloadData()
+            self.isDropDownActive = true
+        }else{
+            lblDropdown.text = "▼"
+            tblOptions.removeFromSuperview()
+            self.isDropDownActive = false
         }
-        self.tblOptions.reloadData()
+        
     }
     
     @IBAction func btnSelectCategory(_ sender: Any) {
-        self.isCountry = false
-        lblDropdownCat.text = "▲"
-        self.view.addSubview(self.tblOptions)
-        if self.category.count == 0 {
-            self.fetchCategory()
-        }
-        self.tblOptions.reloadData()
+        if isDropDownActive == false{
+            self.isCountry = false
+            lblDropdownCat.text = "▲"
+            self.view.addSubview(self.tblOptions)
+            if self.category.count == 0 {
+                self.fetchCategory()
+            }
+            self.tblOptions.reloadData()
+             self.isDropDownActive = true
+        }else{
+            lblDropdownCat.text = "▼"
+            tblOptions.removeFromSuperview()
+            self.isDropDownActive = false
+    }
+       
     }
     
     @IBAction func btnShowContactPopup(_ sender: Any) {
