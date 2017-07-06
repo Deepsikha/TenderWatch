@@ -9,8 +9,8 @@
 import UIKit
 import ObjectMapper
 
-var addCC = [addCountryObj]()
-
+//var addCC = [addCountryObj]()
+//
 class Select: NSObject, Mappable {
 
     var selections = [Selections]()
@@ -47,7 +47,7 @@ class Selections: NSObject, Mappable {
     }
 }
 
-class addCountryObj: NSObject {
-    var countryId: String = ""
-    var categoryId: [String] = []
-}
+//class addCountryObj: NSObject {
+//    var countryId: String = ""
+//    var categoryId: [String] = []
+//}

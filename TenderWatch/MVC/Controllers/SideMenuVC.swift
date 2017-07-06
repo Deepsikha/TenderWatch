@@ -106,7 +106,6 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Edit Profile" {
             DispatchQueue.main.async {
-                
             let nav = UINavigationController(rootViewController: SignUpVC2())
             appDelegate.drawerController.centerViewController = nav
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)

@@ -44,7 +44,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tender.count
-        //        return 10
+//                return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,16 +59,20 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
-        if !(USER?.role == RollType.client) {
+        if !(USER?.role?.rawValue == RollType.client.rawValue) {
             let fav = UITableViewRowAction(style: .normal, title: "Favourites") { action, index in
                 print("Edit button tapped")
                 self.addFavorite()
             }
             fav.backgroundColor = UIColor.blue
-            
             return [fav]
         } else {
-            return []
+            let dlt = UITableViewRowAction(style: .normal, title: "Delete", handler: { (action, index) in
+                print("Delete button tapped")
+                self.deleteTender(index.row)
+            })
+            dlt.backgroundColor = UIColor.red
+            return [dlt]
         }
     }
     
@@ -78,22 +82,27 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     func getTender() {
         if isNetworkReachable() {
+            self.startActivityIndicator()
             Alamofire.request("\(BASE_URL)tender/getTenders", method: .post, parameters: ["role" : "\(USER?.role?.rawValue as! String)"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     print(resp.result.value!)
                     let data = (resp.result.value as! NSObject)
                     self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
                     self.tblTenderList.reloadData()
+                    self.stopActivityIndicator()
                 }
                 print(resp.result)
+                self.stopActivityIndicator()
             }
         } else {
             MessageManager.showAlert(nil, "No Internet")
+            self.stopActivityIndicator()
         }
     }
     
     func addFavorite() {
         if isNetworkReachable() {
+            self.startActivityIndicator()
             Alamofire.request("\(BASE_URL)favourite", method: .post, parameters: ["tender" : "Tender_Id"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error" {
@@ -101,10 +110,17 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                     } else {
                         MessageManager.showAlert(nil, "Added Succesfully")
                     }
+                    self.stopActivityIndicator()
                 }
             }
         } else {
             MessageManager.showAlert(nil, "No Internet")
+            self.stopActivityIndicator()
         }
+    }
+    
+    func deleteTender(_ index: Int) {
+        self.tender.remove(at: index)
+        self.tblTenderList.reloadData()
     }
 }

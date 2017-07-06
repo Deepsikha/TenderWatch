@@ -17,6 +17,7 @@ class RulesVC: UIViewController {
     var window: UIWindow!
     @IBOutlet weak var btnChk: UIButton!
     @IBOutlet var btnBack: UIButton!
+    @IBOutlet weak var btnSignUp: UIButton!
   
     let checkedImage = UIImage(named: "chaboxcheked")! as UIImage
     let uncheckedImage = UIImage(named: "chabox")! as UIImage
@@ -50,7 +51,7 @@ class RulesVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func nxt(_ sender: Any) {
+    @IBAction func handleBtnSignUp(_ sender: Any) {
         if (isChecked) {
             self.register()
         }
@@ -58,7 +59,6 @@ class RulesVC: UIViewController {
     
     //MARK:- Custom Method
     func register() {
-        
         
         if (appDelegate.isClient)! {
             self.parameters = ["email" : signUpUser.email,
@@ -79,6 +79,8 @@ class RulesVC: UIViewController {
                                "selections": signUpUser.selections] as [String : Any]
         }
         if isNetworkReachable() {
+            self.btnSignUp.isEnabled = false
+            self.startActivityIndicator()
             Alamofire.upload(multipartFormData: { multipartFormData in
                 if signUpUser.photo != nil
                 {
@@ -119,11 +121,13 @@ class RulesVC: UIViewController {
                             print(resp.result.value!)
                             if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
                                 MessageManager.showAlert(nil, "Invalid Credentials")
+                                self.stopActivityIndicator()
                             } else {
                                 
                                 //Set User remaining
                                 // if (USER?.authenticationToken != nil) {
-                                
+                                self.btnSignUp.isEnabled = true
+                                self.stopActivityIndicator()
                                 let data = (resp.result.value as! NSObject).value(forKey: "user")!
                                 let user:User? = Mapper<User>().map(JSON: data as! [String : Any])!
                                 let token = (resp.result.value as! NSObject).value(forKey: "token")!
@@ -137,6 +141,7 @@ class RulesVC: UIViewController {
                                 
                                 
                                 // }
+
                             }
                         }
                     }
@@ -147,6 +152,8 @@ class RulesVC: UIViewController {
             }
         } else {
             MessageManager.showAlert(nil, "No Internet")
+            self.btnSignUp.isEnabled = true
+            self.stopActivityIndicator()
         }
     }
 }

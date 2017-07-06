@@ -35,9 +35,9 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tblMappings.dataSource = self
         
         self.tblMappings.register(UINib(nibName: "RegisterCountryCell", bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
-    
+        
         self.tblMappings.tableFooterView = UIView()
-       
+        
         //taphandle
         //        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         //        tap.cancelsTouchesInView = false
@@ -50,7 +50,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.navigationController?.isNavigationBarHidden = true
         self.fetchCoutry()
         self.fetchCategory()
-       
+        
         if(USER?.authenticationToken != nil) {
             self.btnBack.isHidden = true
             self.btnMenu.isHidden = false
@@ -69,7 +69,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 countryCatDict[country[i].countryId!] = category
             }
         }
-    
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -80,7 +80,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let aryForCounting:[Category] = self.countryCatDict[country[section].countryId!]!
         return aryForCounting.count
-       // return self.category.count
+        // return self.category.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,7 +98,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.imgTick.isHidden = true
         }
         
-        
         return cell
         
     }
@@ -106,13 +105,13 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
         print(indexPath.section)
-//        var arrMapping = self.countryCatDict[country[indexPath.section].countryId!]
-//        let arrList = arrMapping?[indexPath.row]
-//        var temp = [Category]()
-//        self.selectedDictionary[country[indexPath.section].countryId!] = [arrList]
-//        temp = arrMapping!
-//        temp[indexPath.row].isSelected = !(arrMapping?[indexPath.row].isSelected)!
-//        self.countryCatDict[country[indexPath.section].countryId!] = temp
+        //        var arrMapping = self.countryCatDict[country[indexPath.section].countryId!]
+        //        let arrList = arrMapping?[indexPath.row]
+        //        var temp = [Category]()
+        //        self.selectedDictionary[country[indexPath.section].countryId!] = [arrList]
+        //        temp = arrMapping!
+        //        temp[indexPath.row].isSelected = !(arrMapping?[indexPath.row].isSelected)!
+        //        self.countryCatDict[country[indexPath.section].countryId!] = temp
         
         if (selectedIndexArray.contains(indexPath))
         {
@@ -126,79 +125,79 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         }
         tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
-//        tableView.reloadSections(NSIndexSet(index:indexPath.section) as IndexSet, with: UITableViewRowAnimation.none)
+        //        tableView.reloadSections(NSIndexSet(index:indexPath.section) as IndexSet, with: UITableViewRowAnimation.none)
         
         // arrList?.isSelected = !(arrList?.isSelected)!
-       // category[indexPath.row].isSelected = !category[indexPath.row].isSelected!
-       // tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
-//        let cell = tableView.cellForRow(at: indexPath) as! RegisterCountryCell
-//        if (UserManager.shared.user?.authenticationToken == nil) {
-//            category[indexPath.row].isSelected = !category[indexPath.row].isSelected!
-//            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
-//            
-////            if category[indexPath.row].isSelected!
-////            {
-////                cell.imgTick.isHidden = category[indexPath.row].isSelected!
-////                category[indexPath.row].isSelected
-////
-////            }
-////            else{
-////                cell.imgTick.isHidden = category[indexPath.row].isSelected!
-////            }
-////            if (cell.imgTick.isHidden) {
-////                cell.imgTick.isHidden = !cell.imgTick.isHidden
-////            } else {
-////                cell.imgTick.isHidden = !cell.imgTick.isHidden
-////            }
-//            
-//        } else {
-//            if (cell.imgTick.isHidden) {
-//                cell.imgTick.isHidden = !cell.imgTick.isHidden
-//                let country1 = tableView.headerView(forSection: indexPath.section)?.textLabel?.text
-//                let category1 = cell.countryName.text!
-//                let id = (self.country.filter {$0.countryName == country1})[0].countryId
-//                let ch = (self.category.filter {$0.categoryName == category1})[0].categoryId
-//                
-////                if self.select.selections.contains(map) {
-////                    if (map.countryId == id!) {
-////                        map.categoryId.append(ch!)
-////                    } else {
-////                        map = Selections()
-////                        map.countryId = id!
-////                        map.categoryId.append(ch!)
-////                        select.selections.append(map)
-////                    }
-////                } else {
-////                    map.countryId = id!
-////                    map.categoryId.append(ch!)
-////                    self.select.selections.append(map)
-////                }
-////                if let filteredArray = addCC.filter({$0.countryId == id})
-////                {
-////                    if (filteredArray.count > 0)
-////                    {
-////                        let newObject:addCountryObj = filteredArray.first!
-////                        self.lastindexpath = (objMessageListArray?.index(of: newObject))!
-////                    }
-////                }
-////
-////                if addCC.filter(<#T##isIncluded: (addCountryObj) throws -> Bool##(addCountryObj) throws -> Bool#>) {
-////                    
-////                } else {
-////                    addCC
-////                }
-//
-//            } else {
-//                cell.imgTick.isHidden = !cell.imgTick.isHidden
-//                if RulesVC.arrCountry.contains(cell.countryName.text!) {
-//                    
-//                    if let itemToRemoveIndex = RulesVC.arrCountry.index(of: cell.countryName.text!) {
-//                        RulesVC.arrCountry.remove(at: itemToRemoveIndex)
-//                    }
-//                }
-//            }
-//        }
-
+        // category[indexPath.row].isSelected = !category[indexPath.row].isSelected!
+        // tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+        //        let cell = tableView.cellForRow(at: indexPath) as! RegisterCountryCell
+        //        if (UserManager.shared.user?.authenticationToken == nil) {
+        //            category[indexPath.row].isSelected = !category[indexPath.row].isSelected!
+        //            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+        //
+        ////            if category[indexPath.row].isSelected!
+        ////            {
+        ////                cell.imgTick.isHidden = category[indexPath.row].isSelected!
+        ////                category[indexPath.row].isSelected
+        ////
+        ////            }
+        ////            else{
+        ////                cell.imgTick.isHidden = category[indexPath.row].isSelected!
+        ////            }
+        ////            if (cell.imgTick.isHidden) {
+        ////                cell.imgTick.isHidden = !cell.imgTick.isHidden
+        ////            } else {
+        ////                cell.imgTick.isHidden = !cell.imgTick.isHidden
+        ////            }
+        //
+        //        } else {
+        //            if (cell.imgTick.isHidden) {
+        //                cell.imgTick.isHidden = !cell.imgTick.isHidden
+        //                let country1 = tableView.headerView(forSection: indexPath.section)?.textLabel?.text
+        //                let category1 = cell.countryName.text!
+        //                let id = (self.country.filter {$0.countryName == country1})[0].countryId
+        //                let ch = (self.category.filter {$0.categoryName == category1})[0].categoryId
+        //
+        ////                if self.select.selections.contains(map) {
+        ////                    if (map.countryId == id!) {
+        ////                        map.categoryId.append(ch!)
+        ////                    } else {
+        ////                        map = Selections()
+        ////                        map.countryId = id!
+        ////                        map.categoryId.append(ch!)
+        ////                        select.selections.append(map)
+        ////                    }
+        ////                } else {
+        ////                    map.countryId = id!
+        ////                    map.categoryId.append(ch!)
+        ////                    self.select.selections.append(map)
+        ////                }
+        ////                if let filteredArray = addCC.filter({$0.countryId == id})
+        ////                {
+        ////                    if (filteredArray.count > 0)
+        ////                    {
+        ////                        let newObject:addCountryObj = filteredArray.first!
+        ////                        self.lastindexpath = (objMessageListArray?.index(of: newObject))!
+        ////                    }
+        ////                }
+        ////
+        ////                if addCC.filter(<#T##isIncluded: (addCountryObj) throws -> Bool##(addCountryObj) throws -> Bool#>) {
+        ////
+        ////                } else {
+        ////                    addCC
+        ////                }
+        //
+        //            } else {
+        //                cell.imgTick.isHidden = !cell.imgTick.isHidden
+        //                if RulesVC.arrCountry.contains(cell.countryName.text!) {
+        //
+        //                    if let itemToRemoveIndex = RulesVC.arrCountry.index(of: cell.countryName.text!) {
+        //                        RulesVC.arrCountry.remove(at: itemToRemoveIndex)
+        //                    }
+        //                }
+        //            }
+        //        }
+        
     }
     
     
@@ -223,50 +222,10 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
     }
     
-   
-    
-    func fetchCoutry()
-    {
-        self.startActivityIndicator()
-        APIManager.shared.requestForGET(url: "auth/country", isTokenEmbeded: false, successHandler: { (finish, res) in
-            if res.result.value != nil
-            {
-                let data = (res.result.value as! NSObject)
-                self.country = Mapper<Country>().mapArray(JSONObject: data)!
-                self.country = self.country.sorted(by: { (a, b) -> Bool in
-                    a.countryName! < b.countryName!
-                })
-                self.splitDataInToSection()
-                self.stopActivityIndicator()
-            }
-        }) { (errorMessage) in
-            print(errorMessage)
-        }
-    }
-    
-    func fetchCategory()
-    {
-        self.startActivityIndicator()
-        APIManager.shared.requestForGET(url: "auth/category", isTokenEmbeded: false, successHandler: { (finish, res) in
-            if res.result.value != nil
-            {
-                let data = (res.result.value as! NSObject)
-                self.category = Mapper<Category>().mapArray(JSONObject: data)!
-                self.stopActivityIndicator()
-                self.makeCountryDic()
-                print(self.countryCatDict)
-                self.tblMappings.reloadData()
-            }
-            
-        }) { (errorMessage) in
-            print(errorMessage)
-        }
-    }
-    
     @IBAction func btnSave(_ sender: Any) {
-      select.removeAll()
-      if selectedIndexArray.count > 0
-      {
+        select.removeAll()
+        if selectedIndexArray.count > 0
+        {
             for i in 0...selectedIndexArray.count-1
             {
                 var indexPath = selectedIndexArray[i] as IndexPath
@@ -274,7 +233,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 if select.keys.contains(country[indexPath.section].countryId!)
                 {
                     var tmp = select[country[indexPath.section].countryId!]
-                     let arrList = arrMapping?[indexPath.row]
+                    let arrList = arrMapping?[indexPath.row]
                     tmp?.append((arrList?.categoryId)!)
                     select[country[indexPath.section].countryId!]?.removeAll()
                     select[country[indexPath.section].countryId!] = tmp
@@ -286,28 +245,67 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     var tmp = [String]()
                     tmp.append((arrList?.categoryId)!)
                     select[country[indexPath.section].countryId!] = tmp
-
+                    
                 }
-              
-                
-//                let arrList = arrMapping?[indexPath.row]
-//                print(arrMapping,arrList)
-//                
-//                var a = arrMapping?.map({ (obj) -> String in
-//                    return obj.categoryName!
-//                })
-//                select[country[indexPath.section].countryId!] = a
-              //  let arrList = arrMapping?[indexPath.row]
-                
-
-          }
-          print("dictionary:->",select)
-         signUpUser.selections = select
-         //selectedIndexArray.removeAll()
-        
-      }
+            }
+            print("dictionary:->",select)
+            signUpUser.selections = select
+            //selectedIndexArray.removeAll()
+            
+        }
         self.navigationController?.pushViewController(RulesVC(), animated: true)
     }
+    
+    
+    func fetchCoutry()
+    {
+        if isNetworkReachable() {
+            self.startActivityIndicator()
+            APIManager.shared.requestForGET(url: "auth/country", isTokenEmbeded: false, successHandler: { (finish, res) in
+                if res.result.value != nil
+                {
+                    let data = (res.result.value as! NSObject)
+                    self.country = Mapper<Country>().mapArray(JSONObject: data)!
+                    self.country = self.country.sorted(by: { (a, b) -> Bool in
+                        a.countryName! < b.countryName!
+                    })
+                    self.splitDataInToSection()
+                    self.stopActivityIndicator()
+                }
+            }) { (errorMessage) in
+                print(errorMessage)
+            }
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
+            self.stopActivityIndicator()
+        }
+    }
+    
+    func fetchCategory()
+    {
+        if isNetworkReachable() {
+            self.startActivityIndicator()
+            APIManager.shared.requestForGET(url: "auth/category", isTokenEmbeded: false, successHandler: { (finish, res) in
+                if res.result.value != nil
+                {
+                    let data = (res.result.value as! NSObject)
+                    self.category = Mapper<Category>().mapArray(JSONObject: data)!
+                    self.stopActivityIndicator()
+                    self.makeCountryDic()
+                    print(self.countryCatDict)
+                    self.tblMappings.reloadData()
+                }
+                
+            }) { (errorMessage) in
+                print(errorMessage)
+            }
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
+            self.stopActivityIndicator()
+        }
+    }
+    
+    
     func splitDataInToSection() {
         
         var sectionTitle: String = ""
@@ -321,8 +319,8 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.sectionTitleList.append(sectionTitle)
             }
         }
-       // self.tblMappings.reloadData()
+        // self.tblMappings.reloadData()
     }
-
+    
 }
 

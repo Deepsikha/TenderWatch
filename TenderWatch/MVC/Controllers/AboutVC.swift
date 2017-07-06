@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 class AboutVC: UIViewController, UITextViewDelegate {
     
@@ -27,7 +28,9 @@ class AboutVC: UIViewController, UITextViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        IQKeyboardManager.shared().previousNextDisplayMode = .alwaysHide
+//        IQKeyboardManager.shared().disabledToolbarClasses.add(AboutVC.self)
+
         self.navigationController?.isNavigationBarHidden = true
         if (USER?.authenticationToken != nil) {
             if (USER?.aboutMe?.isEmpty)! {
@@ -46,6 +49,9 @@ class AboutVC: UIViewController, UITextViewDelegate {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        
+    }
     override func viewWillDisappear(_ animated: Bool) {
         self.txtAbout.resignFirstResponder()
     }

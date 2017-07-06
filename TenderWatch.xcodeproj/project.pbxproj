@@ -466,23 +466,23 @@
 		27A28EC21EF776F000E7B53B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7D7A13A91F04EBAE0092E3DF /* MappingVC.xib */,
-				5C31506E1F03AAFB00C96182 /* UploadTenderVC.xib */,
-				0CE01BF41F03A07900111940 /* NotificationVC.xib */,
-				0CE01BEE1F039E5100111940 /* FavoriteVC.xib */,
-				277AC06D1F03A9EE00C1CBC5 /* ChangePasswordVC.xib */,
-				7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */,
-				7DCEB06B1EFE598C002A776C /* ForgotPasswordVC.xib */,
-				7DCEB0651EFE3E38002A776C /* AboutVC.xib */,
+				27EF44891EF7C04A00CCBCA0 /* HomeVC.xib */,
+				27EF44971EF8BD5F00CCBCA0 /* SignInVC.xib */,
+				27A28EC31EF776F000E7B53B /* SignUpVC.xib */,
+				27EF4FBE1EF8BE7300CCBCA0 /* SignUpVC2.xib */,
 				5CF289B51EFB8CA700F3EC79 /* RegisterCountryVC.xib */,
+				7D7A13A91F04EBAE0092E3DF /* MappingVC.xib */,
+				27EF44961EF8BD5F00CCBCA0 /* RulesVC.xib */,
 				7D0394471EFB63D300B494EF /* SideMenuVC.xib */,
 				7B4A06A61EF8F2E000359E16 /* TenderWatchVC.xib */,
-				27EF4FBE1EF8BE7300CCBCA0 /* SignUpVC2.xib */,
+				277AC06D1F03A9EE00C1CBC5 /* ChangePasswordVC.xib */,
+				5C31506E1F03AAFB00C96182 /* UploadTenderVC.xib */,
+				7DCEB0651EFE3E38002A776C /* AboutVC.xib */,
+				7DCEB06B1EFE598C002A776C /* ForgotPasswordVC.xib */,
+				7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */,
+				0CE01BEE1F039E5100111940 /* FavoriteVC.xib */,
+				0CE01BF41F03A07900111940 /* NotificationVC.xib */,
 				27EF44951EF8BD5F00CCBCA0 /* PaymentVC.xib */,
-				27EF44961EF8BD5F00CCBCA0 /* RulesVC.xib */,
-				27EF44971EF8BD5F00CCBCA0 /* SignInVC.xib */,
-				27EF44891EF7C04A00CCBCA0 /* HomeVC.xib */,
-				27A28EC31EF776F000E7B53B /* SignUpVC.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";

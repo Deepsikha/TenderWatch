@@ -20,6 +20,7 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
         tblvw.delegate = self
         tblvw.dataSource = self
         tblvw.register(UINib(nibName: "RegisterCountryCell", bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
+        self.tblvw.tableFooterView = UIView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,7 +51,7 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
         if(cell.imgTick.isHidden){
             cell.imgTick.isHidden = !cell.imgTick.isHidden
         }
-        SignUpVC2.cName = self.country[indexPath.row].countryName
+        signUpUser.country = self.country[indexPath.row].countryName!
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -83,8 +84,8 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
                     self.stopActivityIndicator()
                     self.tblvw.reloadData()
                 }
-            }) { (erroMessage) in
-                
+            }) { (errorMessage) in
+                print(errorMessage)
             }
         } else {
             MessageManager.showAlert(nil, "No Internet")

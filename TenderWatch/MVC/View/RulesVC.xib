@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="btnBack" destination="XIT-fI-plB" id="t12-N4-4St"/>
                 <outlet property="btnChk" destination="xBu-c2-hUY" id="mif-vn-7fw"/>
+                <outlet property="btnSignUp" destination="PcS-WD-EYF" id="rk2-Ba-1C4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -33,7 +34,7 @@
                         <constraint firstAttribute="height" constant="40" id="sWP-kb-lp3"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                    <state key="normal" title="Next">
+                    <state key="normal" title="Submit">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -42,7 +43,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="nxt:" destination="-1" eventType="touchUpInside" id="fJp-k1-Zzk"/>
+                        <action selector="handleBtnSignUp:" destination="-1" eventType="touchUpInside" id="QTj-h1-vov"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I Agree" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upb-J9-TqC">

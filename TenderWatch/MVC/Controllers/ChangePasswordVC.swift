@@ -90,6 +90,7 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
             ]
             if !((self.txtNewPassword.text?.isEmpty)!) && (self.txtNewPassword.text == self.txtConfirmPassword.text) {
                 if isNetworkReachable() {
+                    self.startActivityIndicator()
                     Alamofire.request(BASE_URL+CHANGE_PASSWORD, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (resp) in
                         let data = resp.result.value as! NSObject
                         if(data.value(forKey: "message") as! String) != "Old password is wrong!!!" {
@@ -98,6 +99,7 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
                             self.txtNewPassword.text = ""
                             self.txtOldPassword.text = ""
                             MessageManager.showAlert(nil, "Password is Successfully Changed ")
+                            self.stopActivityIndicator()
                             let nav = UINavigationController(rootViewController: TenderWatchVC())
                             appDelegate.drawerController.centerViewController = nav
                             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
@@ -107,10 +109,13 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
                             self.txtOldPassword.text = ""
                             self.txtOldPassword.becomeFirstResponder()
                             MessageManager.showAlert(nil, "Old password is wrong!!!")
+                            self.stopActivityIndicator()
                         }
                     })
                 } else {
                     MessageManager.showAlert(nil, "No Internet")
+                    self.stopActivityIndicator()
+
                 }
             } else {
                 MessageManager.showAlert(nil, "Old Password is required")

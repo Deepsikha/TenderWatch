@@ -26,7 +26,6 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBOutlet var opnDrawr: UIButton!
     @IBOutlet weak var lblName: UILabel!
     
-    static var cName: String!
     var image: UIImage!
     var parameters : [String : Any]!
     
@@ -52,6 +51,8 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+
         if (USER?.authenticationToken != nil) {
             self.back.isHidden = true
             self.opnDrawr.isHidden = false
@@ -66,14 +67,12 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.back.isHidden = false
             self.opnDrawr.isHidden = true
             self.lblName.isHidden = true
-        }
-        
-        
-        
-        self.navigationController?.isNavigationBarHidden = true
-        if (SignUpVC2.cName != nil) {
-            self.btnCountry.setTitle(SignUpVC2.cName!, for: .normal)
-            signUpUser.country = SignUpVC2.cName!
+            
+            if (signUpUser.country.isEmpty) {
+                self.btnCountry.setTitle("Country", for: .normal)
+            } else {
+                self.btnCountry.setTitle(signUpUser.country, for: .normal)
+            }
         }
     }
     

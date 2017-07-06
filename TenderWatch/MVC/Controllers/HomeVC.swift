@@ -25,6 +25,7 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        signUpUser =  signUpUserData()
     }
     
     override func didReceiveMemoryWarning() {

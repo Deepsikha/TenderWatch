@@ -111,4 +111,21 @@ class signUpUserData: NSObject {
     var role = ""
     var selections: [String : [String]] = [:]
     
+    override init() {
+        super.init()
+    }
+    
+    func clear() {
+        email = ""
+        password = ""
+        photo = Data()
+        country = ""
+        contactNo = ""
+        occupation = ""
+        aboutMe = ""
+        role = ""
+        selections = [:]
+        
+    }
+    
 }

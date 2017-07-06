@@ -111,7 +111,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.txfTenderTitle.layer.borderColor = UIColor.lightGray.cgColor
         self.txfTenderTitle.layer.borderWidth = 1
         
-        
         self.tblOptions.dataSource = self
         self.tblOptions.delegate = self
         
@@ -124,7 +123,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.txtvwAddress.delegate = self
         
         tblOptions.register(UINib(nibName: "MappingCell",bundle: nil), forCellReuseIdentifier: "MappingCell")
-        
     }
     
     //MARK: TextField Delegate
@@ -319,11 +317,11 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func btnShowContactPopup(_ sender: Any) {
-        //        if (self.country.count == 0) && (self.category.count == 0) {
-        //            MessageManager.showAlert(nil, "Select Country & Category First")
-        //        } else {
+                if (self.country.count == 0) && (self.category.count == 0) {
+                    MessageManager.showAlert(nil, "Select Country & Category First")
+                } else {
         self.view.addSubview(vwContactPopup)
-        //        }
+        }
     }
     
     @IBAction func btnDoneHidePopup(_ sender: Any) {
@@ -382,6 +380,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                                        "contactNo": self.uploadTender.contactNo,
                                        "address": self.uploadTender.address]
             if isNetworkReachable() {
+                self.startActivityIndicator()
                 Alamofire.upload(multipartFormData: { (multipartFormData) in
                     if self.uploadTender.photo != nil
                     {
@@ -391,7 +390,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                         dateFormatter.timeZone = NSTimeZone(name: "GMT")! as TimeZone
                         
                         let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
-                        multipartFormData.append(self.uploadTender.photo!, withName: "fileset",fileName: imgname, mimeType: "image/jpg")
+                        multipartFormData.append(self.uploadTender.photo!, withName: "image",fileName: imgname, mimeType: "image/jpg")
                     }
                     for (key, value) in param {
                         multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
@@ -414,7 +413,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                                     print(data)
                                     //data parsing remianing because of unique response
                                     //                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
-                                    
+                                    self.stopActivityIndicator()
                                     appDelegate.setHomeViewController()
                                 }
                             }
@@ -426,6 +425,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 }
             } else {
                 MessageManager.showAlert(nil, "No Internet")
+                self.stopActivityIndicator()
             }
         } else {
             if self.uploadTender.cId.isEmpty {

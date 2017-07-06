@@ -175,7 +175,9 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="jQl-Cj-XlD"/>
                                     </constraints>
-                                    <state key="normal" title="Contact"/>
+                                    <state key="normal" title="Contact">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
                                     <connections>
                                         <action selector="btnShowContactPopup:" destination="-1" eventType="touchUpInside" id="VNa-F1-53t"/>
                                     </connections>
@@ -197,7 +199,7 @@
                                         <constraint firstAttribute="height" constant="40" id="YTU-uu-HWY"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                    <state key="normal" title="Submit">
+                                    <state key="normal" title="Upload Tender">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
@@ -475,6 +477,11 @@ TW9iaWxlIE51bWJlcgM
                         <constraint firstAttribute="trailing" secondItem="54z-Co-fQ3" secondAttribute="trailing" constant="20" id="srj-yq-iKQ"/>
                         <constraint firstItem="54z-Co-fQ3" firstAttribute="leading" secondItem="C7X-a4-ExG" secondAttribute="leading" constant="20" id="zfX-VF-LJi"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
