@@ -385,7 +385,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                     for (key, value) in param {
                         multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
                     }
-                }, usingThreshold: 0, to: "\(BASE_URL)tender", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
+                }, usingThreshold: 0, to: UPLOAD_TENDER, method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
                     switch result {
                     case .success(let upload, _, _):
                         
@@ -430,7 +430,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func fetchCoutry() {
         self.startActivityIndicator()
-        APIManager.shared.requestForGET(url: "auth/country", isTokenEmbeded: false, successHandler: { (finish, res) in
+        APIManager.shared.requestForGET(url: COUNTRY, isTokenEmbeded: false, successHandler: { (finish, res) in
             if res.result.value != nil
             {
                 let data = (res.result.value as! NSObject)
@@ -448,7 +448,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func fetchCategory() {
         self.startActivityIndicator()
-        APIManager.shared.requestForGET(url: "auth/category", isTokenEmbeded: false, successHandler: { (finish, res) in
+        APIManager.shared.requestForGET(url: CATEGORY, isTokenEmbeded: false, successHandler: { (finish, res) in
             if res.result.value != nil
             {
                 let data = (res.result.value as! NSObject)

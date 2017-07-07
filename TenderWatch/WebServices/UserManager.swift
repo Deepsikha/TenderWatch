@@ -20,7 +20,7 @@ class UserManager {
             static let instance = UserManager()
         }
         return Static.instance
-}
+    }
     var user: User? {
         set(newUser) {
             guard newUser != nil else {
@@ -37,12 +37,12 @@ class UserManager {
                 let user = NSKeyedUnarchiver.unarchiveObject(with: data) as? User {
                 return user
             }
-          return nil
+            return nil
         }
     }
-
+    
     func signInUser(with params: Parameters,successHandler: @escaping (User?) -> (), failureHandler: @escaping FailureHandler) {
-     
+        
         APIManager.shared.requestForPOST(url: LOGIN, isTokenEmbeded: false, params: params, successHandler: { (finish, response) in
             if response.result.value != nil
             {

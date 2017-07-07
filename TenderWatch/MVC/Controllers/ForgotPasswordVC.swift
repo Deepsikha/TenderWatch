@@ -52,7 +52,7 @@ class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
         let parameters = ["email" : self.txfEmail.text!]
         if isNetworkReachable() {
             self.startActivityIndicator()
-            Alamofire.request("\(BASE_URL)auth/forgot", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (resp) in
+            Alamofire.request(FORGOT, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     print(resp.result.value!)
                     MessageManager.showAlert(nil, "Password sent your register email address")

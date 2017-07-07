@@ -64,7 +64,7 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func getFavorite() {
         if isNetworkReachable() {
             self.startActivityIndicator()
-            Alamofire.request("\(BASE_URL)favourite/getFavourites", method: .post, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+            Alamofire.request(FAVORITE, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error" {
                         

@@ -93,7 +93,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     func getTender() {
         if isNetworkReachable() {
             self.startActivityIndicator()
-            Alamofire.request("\(BASE_URL)tender/getTenders", method: .post, parameters: ["role" : "\(USER?.role?.rawValue as! String)"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+            Alamofire.request(GET_TENDER, method: .post, parameters: ["role" : "\(USER?.role?.rawValue as! String)"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     print(resp.result.value!)
                     let data = (resp.result.value as! NSObject)

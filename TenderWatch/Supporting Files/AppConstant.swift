@@ -54,6 +54,7 @@ func hexStringToUIColor (hex:String) -> UIColor {
 }
 
 extension UIView {
+    
     func addTopBorderWithColor(color: UIColor, width: CGFloat) {
         let border = CALayer()
         border.backgroundColor = color.cgColor

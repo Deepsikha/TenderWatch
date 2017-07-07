@@ -8,7 +8,17 @@
 
 import Foundation
 
-var BASE_URL = "http://192.168.200.96:4040/api/"
+var BASE_URL: String = "http://192.168.200.96:4040/api/"
 
-var LOGIN = "auth/login"
-var CHANGE_PASSWORD = "users/changePassword/"+(USER?._id)!
+var LOGIN: String = "auth/login"
+var SIGNUP: String = (BASE_URL)+"auth/register"
+var FORGOT: String = (BASE_URL)+"auth/forgot"
+
+var GET_TENDER: String = (BASE_URL)+"tender/getTenders"
+var UPDATE: String = (BASE_URL)+"users/"+(USER?._id)!
+var CHANGE_PASSWORD: String = (BASE_URL)+"users/changePassword/"+(USER?._id)!
+var UPLOAD_TENDER: String = (BASE_URL)+"tender"
+var FAVORITE: String = (BASE_URL)+"favourite/getFavourites"
+
+var CATEGORY: String = "auth/category"
+var COUNTRY: String = "auth/country"

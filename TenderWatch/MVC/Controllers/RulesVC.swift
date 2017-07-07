@@ -29,6 +29,7 @@ class RulesVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        self.btnSignUp.cornerRedius()
     }
     
     override func didReceiveMemoryWarning() {
@@ -107,7 +108,7 @@ class RulesVC: UIViewController {
                     }
                 }
             },
-                             to:"\(BASE_URL)auth/register")
+                             to: SIGNUP)
             { (result) in
                 switch result {
                 case .success(let upload, _, _):

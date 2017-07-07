@@ -69,7 +69,7 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
             if !((self.txtNewPassword.text?.isEmpty)!) && (self.txtNewPassword.text == self.txtConfirmPassword.text) {
                 if isNetworkReachable() {
                     self.startActivityIndicator()
-                    Alamofire.request(BASE_URL+CHANGE_PASSWORD, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (resp) in
+                    Alamofire.request(CHANGE_PASSWORD, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (resp) in
                         let data = resp.result.value as! NSObject
                         if(data.value(forKey: "message") as! String) != "Old password is wrong!!!" {
                             USER?.password = self.txtNewPassword.text

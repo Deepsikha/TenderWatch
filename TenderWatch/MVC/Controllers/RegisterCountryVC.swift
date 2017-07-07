@@ -75,7 +75,7 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
     {
         if isNetworkReachable() {
             self.startActivityIndicator()
-            APIManager.shared.requestForGET(url: "auth/country", isTokenEmbeded: false, successHandler: { (finish, res) in
+            APIManager.shared.requestForGET(url: COUNTRY, isTokenEmbeded: false, successHandler: { (finish, res) in
                 if res.result.value != nil
                 {
                     let data = (res.result.value as! NSObject)

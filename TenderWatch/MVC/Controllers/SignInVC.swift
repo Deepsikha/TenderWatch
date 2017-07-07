@@ -29,6 +29,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        self.btnSignIn.cornerRedius()
     }
     
     override func didReceiveMemoryWarning() {

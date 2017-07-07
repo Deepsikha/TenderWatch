@@ -42,7 +42,7 @@ class APIManager {
         }
         callRequestedAPI(url: url, method: .post, headers: header, params: params, successHandler: successHandler, failureHandler: failureHandler)
     }
-
+    
     func requestForGET(url: String,isTokenEmbeded: Bool,successHandler: @escaping SuccessHandler, failureHandler: @escaping FailureHandler){
         
         guard isNetworkReachable() else {
@@ -62,42 +62,42 @@ class APIManager {
         }
         callRequestedAPI(url: url, method: .get, headers: header, params: nil, successHandler: successHandler, failureHandler: failureHandler)
     }
-  
-
-
-func callRequestedAPI(url: String,method: HTTPMethod, headers: HTTPHeaders?,params: Parameters?, successHandler: @escaping SuccessHandler, failureHandler: @escaping FailureHandler) {
-  
-    Alamofire.request(BASE_URL+url, method: method, parameters:params , encoding: JSONEncoding.default, headers: headers).responseJSON { (res) in
+    
+    
+    
+    func callRequestedAPI(url: String,method: HTTPMethod, headers: HTTPHeaders?,params: Parameters?, successHandler: @escaping SuccessHandler, failureHandler: @escaping FailureHandler) {
         
-        guard res.error == nil else {
-            failureHandler(res.error!.localizedDescription)
-            return
-        }
-        if res.response?.statusCode == 200
-        {
-            successHandler(true,res)
-        }
-        else{
-            var errorMsg: String
-            if (res.response?.statusCode) != nil
+        Alamofire.request(BASE_URL+url, method: method, parameters:params , encoding: JSONEncoding.default, headers: headers).responseJSON { (res) in
+            
+            guard res.error == nil else {
+                failureHandler(res.error!.localizedDescription)
+                return
+            }
+            if res.response?.statusCode == 200
             {
-                if (res.response?.statusCode == 400) {
-                    errorMsg = "Bad Request"
-                } else if (res.response?.statusCode == 401) {
-                    errorMsg = "Invalid Credentials"
-                } else if (res.response?.statusCode == 404) {
-                    errorMsg = "User Not exist!!!"
-                } else {
-                    errorMsg = "\(res.response!.statusCode)"
+                successHandler(true,res)
+            }
+            else{
+                var errorMsg: String
+                if (res.response?.statusCode) != nil
+                {
+                    if (res.response?.statusCode == 400) {
+                        errorMsg = "Bad Request"
+                    } else if (res.response?.statusCode == 401) {
+                        errorMsg = "Invalid Credentials"
+                    } else if (res.response?.statusCode == 404) {
+                        errorMsg = "User Not exist!!!"
+                    } else {
+                        errorMsg = "\(res.response!.statusCode)"
+                    }
                 }
+                else {
+                    errorMsg = "Unknown Error"
+                }
+                failureHandler(errorMsg)
             }
-            else {
-                errorMsg = "Unknown Error"
-            }
-            failureHandler(errorMsg)
         }
     }
-}
     
 }//Class
 

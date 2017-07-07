@@ -28,7 +28,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PcS-WD-EYF">
-                    <rect key="frame" x="51" y="390" width="218" height="40"/>
+                    <rect key="frame" x="40" y="390" width="240" height="40"/>
                     <color key="backgroundColor" red="1" green="0.38962250949999999" blue="0.57158309220000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="sWP-kb-lp3"/>
@@ -37,11 +37,6 @@
                     <state key="normal" title="Submit">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="20"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="handleBtnSignUp:" destination="-1" eventType="touchUpInside" id="QTj-h1-vov"/>
                     </connections>
@@ -80,9 +75,9 @@
                 <constraint firstAttribute="bottom" secondItem="PcS-WD-EYF" secondAttribute="bottom" constant="50" id="1g2-s7-G7K"/>
                 <constraint firstAttribute="trailing" secondItem="upb-J9-TqC" secondAttribute="trailing" constant="157" id="40f-dA-J0p"/>
                 <constraint firstItem="xBu-c2-hUY" firstAttribute="top" secondItem="upb-J9-TqC" secondAttribute="top" id="4oH-xg-TA3"/>
-                <constraint firstAttribute="trailing" secondItem="PcS-WD-EYF" secondAttribute="trailing" constant="51" id="C4g-k1-Ltf"/>
+                <constraint firstAttribute="trailing" secondItem="PcS-WD-EYF" secondAttribute="trailing" constant="40" id="C4g-k1-Ltf"/>
                 <constraint firstAttribute="trailing" secondItem="D68-5B-CQy" secondAttribute="trailing" constant="16" id="CvG-ui-3NJ"/>
-                <constraint firstItem="PcS-WD-EYF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="51" id="QQY-Dj-0zR"/>
+                <constraint firstItem="PcS-WD-EYF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="QQY-Dj-0zR"/>
                 <constraint firstItem="upb-J9-TqC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="103" id="afL-28-41U"/>
                 <constraint firstItem="D68-5B-CQy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="beT-0x-N55"/>
                 <constraint firstItem="XIT-fI-plB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="cOa-j0-11w"/>

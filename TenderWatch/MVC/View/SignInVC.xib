@@ -87,11 +87,6 @@
                                     </fragment>
                                 </attributedString>
                             </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="19"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="btnHandleSignIn:" destination="-1" eventType="touchUpInside" id="4JX-Ar-DjN"/>
                             </connections>

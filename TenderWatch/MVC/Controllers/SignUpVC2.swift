@@ -148,7 +148,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             if (USER?.authenticationToken != nil) {
                 signUpUser.contactNo = self.phonenum.text!
                 signUpUser.occupation = self.occupation.text!
-                self.update((USER?._id)!)
+                self.update()
             } else {
                 if (appDelegate.isClient)! {
                     self.navigationController?.pushViewController(RulesVC(), animated: true)
@@ -202,7 +202,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     }
     
     //MARK:- Custom Method
-    func update(_ id: String) {
+    func update() {
         
         if (appDelegate.isClient)! {
             self.parameters = ["country": signUpUser.country,
@@ -233,7 +233,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 for (key, value) in self.parameters {
                     multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
                 }
-            }, usingThreshold: 0, to: "\(BASE_URL)users/\(id)", method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
+            }, usingThreshold: 0, to: UPDATE, method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
                 switch result {
                 case .success(let upload, _, _):
                     
