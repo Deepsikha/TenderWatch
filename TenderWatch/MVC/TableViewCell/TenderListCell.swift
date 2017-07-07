@@ -9,7 +9,7 @@
 import UIKit
 
 class TenderListCell: UITableViewCell {
-
+    
     @IBOutlet var imgProfile: UIImageView!
     @IBOutlet var lblName: UILabel!
     @IBOutlet var lblCountry: UILabel!
@@ -18,7 +18,7 @@ class TenderListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     
     override func layoutSubviews() {
         self.imgProfile.layer.masksToBounds = true;

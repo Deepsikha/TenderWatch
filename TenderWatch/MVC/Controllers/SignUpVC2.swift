@@ -32,6 +32,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         IQKeyboardManager.shared().previousNextDisplayMode = .alwaysShow
         
         self.phonenum.delegate = self
@@ -53,7 +54,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
-
+        
         if (USER?.authenticationToken != nil) {
             self.back.isHidden = true
             self.opnDrawr.isHidden = false
@@ -83,8 +84,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         }
     }
     
-    //MARK :- TextField Delegate
-    
+    //MARK:- TextField Delegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if (textField == self.phonenum) {
             textField.keyboardType = UIKeyboardType.numberPad
@@ -105,7 +105,6 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     }
     
     //Mark:- Picker Delegate
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image : UIImage = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
         
@@ -124,7 +123,6 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     }
     
     //Mark:- Crop delegates
-    
     func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
         _ = self.navigationController?.popViewController(animated: true)
     }
@@ -136,15 +134,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         _ = self.navigationController?.popViewController(animated: true)
     }
     
-    //MARK:- Custom Method
-    
-    func tapHandler() {
-        self.occupation.resignFirstResponder()
-        self.phonenum.resignFirstResponder()
-    }
-    
-    //MARK: - Button CLick
-    
+    //MARK:- IBActions
     @IBAction func selectCountry(_ sender: Any) {
         self.navigationController?.pushViewController(RegisterCountryVC(), animated: true)
     }
@@ -178,12 +168,12 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
             self.picker.sourceType = UIImagePickerControllerSourceType.camera
             self.present(self.picker, animated: true, completion: nil)
-
+            
         }
         
         let galleryAction = UIAlertAction(title: "Gallery", style: .default) { (action) in
             self.picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-
+            
             self.present(self.picker, animated: true, completion: nil)
             
         }
@@ -211,8 +201,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.navigationController?.pushViewController(AboutVC(), animated: true)
     }
     
-    //MARK: Custom Method
-    
+    //MARK:- Custom Method
     func update(_ id: String) {
         
         if (appDelegate.isClient)! {
@@ -274,5 +263,10 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         } else {
             MessageManager.showAlert(nil, "No Internet")
         }
+    }
+    
+    func tapHandler() {
+        self.occupation.resignFirstResponder()
+        self.phonenum.resignFirstResponder()
     }
 }

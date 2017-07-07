@@ -22,13 +22,10 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var countryCatDict : Dictionary< String, [Category]> = [:]
     var temp : Dictionary< String, [Bool]> = [:]
     var select = [String : [String]]()
-    
     var selectedIndexArray:[IndexPath] = []
-    
-    
     var map = Selections()
-    
     var sendList = NSMutableDictionary()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tblMappings.delegate = self
@@ -60,18 +57,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    
-    func makeCountryDic()
-    {
-        
-        if  country.count != 0{
-            for i in 0...country.count - 1{
-                countryCatDict[country[i].countryId!] = category
-            }
-        }
-        
-    }
-    
+    //MARK:- TableView Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return self.countryCatDict.count //self.country.count
@@ -214,6 +200,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return index
     }
     
+    //MARK:- IBActions
     @IBAction func handleBtnBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -256,6 +243,15 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.navigationController?.pushViewController(RulesVC(), animated: true)
     }
     
+    //MARK:- Custom Method
+    func makeCountryDic()
+    {
+        if  country.count != 0{
+            for i in 0...country.count - 1{
+                countryCatDict[country[i].countryId!] = category
+            }
+        }
+    }
     
     func fetchCoutry()
     {

@@ -12,30 +12,30 @@ import ObjectMapper
 
 class RulesVC: UIViewController {
     
-    var user: User!
-    
-    var window: UIWindow!
     @IBOutlet weak var btnChk: UIButton!
     @IBOutlet var btnBack: UIButton!
     @IBOutlet weak var btnSignUp: UIButton!
-  
+    
     let checkedImage = UIImage(named: "chaboxcheked")! as UIImage
     let uncheckedImage = UIImage(named: "chabox")! as UIImage
     var isChecked: Bool = false
     var parameters : [String : Any]!
+    var user: User!
+    var window: UIWindow!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    //MARK:- IBActions
     @IBAction func handleBtnChk(_ sender: Any) {
         if(isChecked == true) {
             self.btnChk.setImage(uncheckedImage, for: .normal)
@@ -93,9 +93,9 @@ class RulesVC: UIViewController {
                     
                     multipartFormData.append(signUpUser.photo!, withName: "image",fileName: imgname, mimeType: "image/jpg")
                 }
-//                for (key, value) in self.parameters {
-//                    multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
-//                }
+                //                for (key, value) in self.parameters {
+                //                    multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
+                //                }
                 for (key, value) in self.parameters {
                     
                     if let stringValue = value as? String {
@@ -141,7 +141,7 @@ class RulesVC: UIViewController {
                                 
                                 
                                 // }
-
+                                
                             }
                         }
                     }

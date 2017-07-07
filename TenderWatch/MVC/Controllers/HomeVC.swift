@@ -9,7 +9,7 @@
 import UIKit
 
 class HomeVC: UIViewController {
-
+    
     @IBOutlet weak var btnContractor: UIButton!
     @IBOutlet weak var lblFirst: UILabel!
     @IBOutlet weak var lblSecond: UILabel!
@@ -32,7 +32,8 @@ class HomeVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    //MARK:- IBActions
     @IBAction func btnContractorClick(_ sender: Any) {
         appDelegate.isClient = false
         signUpUser.role = "contractor"
@@ -45,15 +46,4 @@ class HomeVC: UIViewController {
         signUpUser.role = "client"
         self.navigationController?.pushViewController(SignInVC(), animated: true)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

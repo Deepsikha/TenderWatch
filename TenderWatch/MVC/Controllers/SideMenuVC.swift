@@ -21,16 +21,16 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.tblSideMenu.dataSource = self
         self.tblSideMenu.delegate = self
+        
         tblSideMenu.register(UINib(nibName:"SideMenuCell",bundle: nil), forCellReuseIdentifier: "SideMenuCell")
         self.tblSideMenu.tableFooterView = UIView()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        
         self.navigationController?.navigationBar.isHidden = true
         self.evo_drawerController?.navigationController?.navigationBar.isHidden = true
         self.tblSideMenu.reloadData()
@@ -68,8 +68,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.didReceiveMemoryWarning()
     }
     
-    // MARK:- TableView Method(s)
-    
+    //MARK:- TableView Delefgate
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -92,8 +91,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.reDirect(item: item!)
     }
     
-    // MARK:- IBOutlet Method(s)
-    
+    // MARK:- custom Method
     func reDirect(item: String){
         if  item == "Home" {
             let nav = UINavigationController(rootViewController: TenderWatchVC())

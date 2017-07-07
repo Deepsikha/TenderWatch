@@ -9,7 +9,7 @@
 import UIKit
 
 class SignUpVC: UIViewController, UITextFieldDelegate {
-
+    
     @IBOutlet weak var vwEmail: UIView!
     @IBOutlet weak var vwPassword: UIView!
     @IBOutlet weak var vwConfirmPassword: UIView!
@@ -36,10 +36,8 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     override func viewWillLayoutSubviews() {
         self.btnSignUp.cornerRedius()
     }
-
     
-    //MARK :- TextField Delegate
-    
+    //MARK:- TextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == self.txtEmail) {
             if (textField.text != "") {
@@ -66,8 +64,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    //MARK :- Button Click
-    
+    //MARK:- IBActions
     @IBAction func handleBtnBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -96,15 +93,4 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func handleBtnSignUpGmail(_ sender: Any) {
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

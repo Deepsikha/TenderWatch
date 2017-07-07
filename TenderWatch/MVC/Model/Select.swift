@@ -9,10 +9,8 @@
 import UIKit
 import ObjectMapper
 
-//var addCC = [addCountryObj]()
-//
 class Select: NSObject, Mappable {
-
+    
     var selections = [Selections]()
     required init?(map: Map) {
         super.init()
@@ -46,8 +44,3 @@ class Selections: NSObject, Mappable {
         categoryId <- map["categoryId"]
     }
 }
-
-//class addCountryObj: NSObject {
-//    var countryId: String = ""
-//    var categoryId: [String] = []
-//}

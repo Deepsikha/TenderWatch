@@ -11,26 +11,24 @@ import IQKeyboardManager
 
 class AboutVC: UIViewController, UITextViewDelegate {
     
-    
-
     @IBOutlet weak var txtAbout: UITextView!
-    
     @IBOutlet weak var lblCharLimit: UILabel!
+    
     var limitLength = 1000
     
     override func viewDidLoad() {
         super.viewDidLoad()
         txtAbout.delegate = self
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         IQKeyboardManager.shared().previousNextDisplayMode = .alwaysHide
-//        IQKeyboardManager.shared().disabledToolbarClasses.add(AboutVC.self)
-
+        //        IQKeyboardManager.shared().disabledToolbarClasses.add(AboutVC.self)
+        
         self.navigationController?.isNavigationBarHidden = true
         if (USER?.authenticationToken != nil) {
             if (USER?.aboutMe?.isEmpty)! {
@@ -50,29 +48,29 @@ class AboutVC: UIViewController, UITextViewDelegate {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.txtAbout.resignFirstResponder()
     }
     
-    //MARK: textView Delegate
+    //MARK:- textView Delegate
     func textViewDidBeginEditing(_ textView: UITextView) {
         if (signUpUser.aboutMe.isEmpty) {
-        if txtAbout.textColor == UIColor.lightGray {
-            txtAbout.text = ""
-            txtAbout.textColor = UIColor.black
+            if txtAbout.textColor == UIColor.lightGray {
+                txtAbout.text = ""
+                txtAbout.textColor = UIColor.black
             }
         }
     }
     
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//
-//        if txtAbout.text.isEmpty {
-//            txtAbout.text = "Enter some information about yourself"
-//            txtAbout.textColor = UIColor.lightGray
-//            }
-//    }
+    //    func textViewDidEndEditing(_ textView: UITextView) {
+    //
+    //        if txtAbout.text.isEmpty {
+    //            txtAbout.text = "Enter some information about yourself"
+    //            txtAbout.textColor = UIColor.lightGray
+    //            }
+    //    }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let aboutStr = txtAbout.text else { return true }
@@ -86,17 +84,16 @@ class AboutVC: UIViewController, UITextViewDelegate {
         }
     }
     
-    //MARK: IBActions
-    
+    //MARK:- IBActions
     @IBAction func handleBtnBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-
+    
     @IBAction func handleBtnSave(_ sender: Any) {
         if(self.txtAbout.text.characters.count > 0){
             signUpUser.aboutMe = self.txtAbout.text!
             self.navigationController?.popViewController(animated: false)
-
+            
         }else{
             MessageManager.showAlert(nil, "Enter some information about yourself")
             self.txtAbout.delegate = self

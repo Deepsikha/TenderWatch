@@ -17,6 +17,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     @IBOutlet var tblTenderList: UITableView!
     
     var tender = [Tender]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,8 +25,8 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         self.tblTenderList.dataSource = self
         
         self.tblTenderList.register(UINib(nibName:"TenderListCell",bundle: nil), forCellReuseIdentifier: "TenderListCell")
-        
         self.tblTenderList.tableFooterView = UIView()
+        
         self.getTender()
         // Do any additional setup after loading the view.
     }
@@ -39,13 +40,14 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK:- TableView Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tender.count
-//                return 10
+        //                return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,7 +60,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         
         cell.imgProfile.sd_setShowActivityIndicatorView(true)
         cell.imgProfile.sd_setIndicatorStyle(.gray)
-//        (tender.tenderPhoto)!
+        //        (tender.tenderPhoto)!
         cell.imgProfile.sd_setImage(with: URL(string: "https://camo.mybb.com/e01de90be6012adc1b1701dba899491a9348ae79/687474703a2f2f7777772e6a71756572797363726970742e6e65742f696d616765732f53696d706c6573742d526573706f6e736976652d6a51756572792d496d6167652d4c69676874626f782d506c7567696e2d73696d706c652d6c69676874626f782e6a7067"), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
         })
         return cell
@@ -82,10 +84,12 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         }
     }
     
+    //MARK:- IBActions
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
     }
     
+    //MARK:- Custom Method
     func getTender() {
         if isNetworkReachable() {
             self.startActivityIndicator()

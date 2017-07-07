@@ -9,7 +9,7 @@
 import UIKit
 
 class SideMenuCell: UITableViewCell {
-
+    
     @IBOutlet var imgIcon: UIImageView!
     @IBOutlet var lblMenu: UILabel!
     
@@ -17,7 +17,7 @@ class SideMenuCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func prepareForReuse() {
         self.imgIcon.image = nil
         self.lblMenu.text = ""
@@ -25,7 +25,7 @@ class SideMenuCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     

@@ -17,7 +17,7 @@ enum RollType : String {
 class User: NSObject,NSCoding, Mappable {
     
     var authenticationToken: String?
-
+    
     var _id: String?
     var email: String?
     var profilePhoto: String?
@@ -29,7 +29,7 @@ class User: NSObject,NSCoding, Mappable {
     var role: RollType?
     var createdAt: String?
     var isActive: Bool?
-
+    
     var firstName: String?
     var lastName: String?
     var password: String?
@@ -46,7 +46,7 @@ class User: NSObject,NSCoding, Mappable {
     required init(coder aDecoder: NSCoder) {
         super.init()
         authenticationToken = aDecoder.decodeObject(forKey: "token") as? String
-
+        
         _id = aDecoder.decodeObject(forKey: "_id") as? String
         email = aDecoder.decodeObject(forKey: "email") as? String
         profilePhoto = aDecoder.decodeObject(forKey: "profilePhoto") as? String
@@ -57,15 +57,15 @@ class User: NSObject,NSCoding, Mappable {
         role = RollType(rawValue: (aDecoder.decodeObject(forKey: "role") as! String))
         createdAt = aDecoder.decodeObject(forKey: "createdAt") as? String
         isActive = aDecoder.decodeObject(forKey: "isActive") as? Bool
-
+        
         firstName = aDecoder.decodeObject(forKey: "firstName") as? String
         lastName = aDecoder.decodeObject(forKey: "lastName") as? String
-//        role = aDecoder.decodeObject(forKey: "role") as? RollType
+        //        role = aDecoder.decodeObject(forKey: "role") as? RollType
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(authenticationToken, forKey: "token")
-
+        
         aCoder.encode(_id, forKey: "_id")
         aCoder.encode(email, forKey: "email")
         aCoder.encode(profilePhoto, forKey: "profilePhoto")
@@ -93,7 +93,7 @@ class User: NSObject,NSCoding, Mappable {
         role                    <- (map["role"],EnumTransform<RollType>())
         createdAt               <- map["createdAt"]
         isActive                <- map["isActive"]
-
+        
         firstName               <- map["firstName"]
         lastName                <- map["lastName"]
         password                <- map["password"]
@@ -113,19 +113,5 @@ class signUpUserData: NSObject {
     
     override init() {
         super.init()
-    }
-    
-    func clear() {
-        email = ""
-        password = ""
-        photo = Data()
-        country = ""
-        contactNo = ""
-        occupation = ""
-        aboutMe = ""
-        role = ""
-        selections = [:]
-        
-    }
-    
+    }    
 }

@@ -12,9 +12,10 @@ import ObjectMapper
 class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tblvw: UITableView!
-    
-    var country = [Country]()
     @IBOutlet var btnChoose: UIButton!
+
+    var country = [Country]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tblvw.delegate = self
@@ -29,8 +30,7 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
         self.navigationController?.isNavigationBarHidden = true
     }
     
-    //MARK :- Table Delegate
-    
+    //MARK:- TableView Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -60,7 +60,8 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
             cell.imgTick.isHidden = !cell.imgTick.isHidden
         }
     }
-    //MARK :-  Button CLick
+    
+    //MARK:-  IBActions
     @IBAction func bck(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -69,6 +70,7 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
         self.navigationController?.popViewController(animated: true)
     }
     
+    //MARK:- Custom Method
     func fetchCoutry()
     {
         if isNetworkReachable() {

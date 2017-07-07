@@ -15,10 +15,10 @@ class Country: NSObject,Mappable {
     var countryId : String?
     var countryName : String?
     var isoCode: String?
-
+    
     required init?(map: Map)
     {
-       super.init()
+        super.init()
         mapping(map:map)
     }
     

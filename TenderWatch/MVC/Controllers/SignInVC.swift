@@ -25,7 +25,6 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         
         self.txfEmail.delegate = self
         self.txfPassword.delegate = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,8 +35,8 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    //MARK: TextField Delegate
     
+    //MARK:- TextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == self.txfEmail) {
             textField.resignFirstResponder()
@@ -49,8 +48,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    //MARK: - Button CLick
-    
+    //MARK:- IBActions
     @IBAction func handleBtnBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }

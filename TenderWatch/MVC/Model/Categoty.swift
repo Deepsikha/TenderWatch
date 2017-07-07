@@ -9,15 +9,6 @@
 import Foundation
 import ObjectMapper
 
-
-
-
-//class MappingDictionary: NSObject
-//{
-//    var countryName : [Category] = []
-//
-//
-//}
 class Category: NSObject,Mappable {
     
     var categoryId : String?

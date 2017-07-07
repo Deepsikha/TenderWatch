@@ -16,7 +16,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var opnDrwr: UIButton!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var txfTenderTitle: UITextField!
-    
     @IBOutlet weak var vwScroll: UIScrollView!
     @IBOutlet weak var btnImage: UIButton!
     @IBOutlet weak var lblDropdown: UILabel!
@@ -32,13 +31,11 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var tempView: UIView!
     @IBOutlet var vwContactPopup: UIView!
     @IBOutlet var tblOptions: UITableView!
-    
     @IBOutlet weak var txfEmail: UITextField!
     @IBOutlet weak var txfMobileNo: UITextField!
     @IBOutlet weak var txfLandLineNo: UITextField!
     @IBOutlet weak var txtvwAddress: UITextView!
     @IBOutlet weak var btnSave: UIButton!
-    
     @IBOutlet weak var const_vwMain_height: NSLayoutConstraint!
     
     var arrDropDown = [String]()
@@ -49,7 +46,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     var picker: UIImagePickerController!
     var isCountry = true
     var isDropDownActive = false
-    
     var tap: UITapGestureRecognizer!
     
     override func viewDidLoad() {
@@ -63,7 +59,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         //tapHandler
         self.tap = UITapGestureRecognizer(target: self, action: #selector(self.taphandler))
         tap.cancelsTouchesInView = false
-        
         
         self.view.addGestureRecognizer(tap)
     }
@@ -84,48 +79,11 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.tblOptions.frame = CGRect(x: self.vwSelectCategory.frame.origin.x, y: self.vwScroll.frame.origin.y + self.vwSelectCategory.frame.origin.y + self.vwSelectCategory.frame.height, width: self.vwSelectCategory.frame.width, height: 220)
         }
         self.vwContactPopup.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-            let widthVwmain = btnImage.frame.size.height
-            const_vwMain_height.constant = 507 + widthVwmain
+        let widthVwmain = btnImage.frame.size.height
+        const_vwMain_height.constant = 507 + widthVwmain
     }
     
-    
-    func registerNib(){
-        
-        self.vwSelectCountry.layer.cornerRadius = 5
-        self.vwSelectCategory.layer.cornerRadius = 5
-        self.txfTenderTitle.layer.cornerRadius = 5
-        self.btnContact.layer.cornerRadius = 5
-        self.vwContactPopup.layer.cornerRadius = 5
-        
-        self.btnImage.layer.borderWidth = 1
-        self.btnImage.layer.borderColor = UIColor.lightGray.cgColor
-        self.btnImage.layer.cornerRadius = 5
-
-        self.btnSubmit.cornerRedius()
-        self.btnSave.cornerRedius()
-        
-        // control design formation
-        self.tenderDetail.layer.cornerRadius = 5
-        self.tenderDetail.layer.borderColor = UIColor.lightGray.cgColor
-        self.tenderDetail.layer.borderWidth = 1
-        self.txfTenderTitle.layer.borderColor = UIColor.lightGray.cgColor
-        self.txfTenderTitle.layer.borderWidth = 1
-        
-        self.tblOptions.dataSource = self
-        self.tblOptions.delegate = self
-        
-        self.txfTenderTitle.delegate = self
-        self.tenderDetail.delegate = self
-        
-        self.txfEmail.delegate = self
-        self.txfMobileNo.delegate = self
-        self.txfLandLineNo.delegate = self
-        self.txtvwAddress.delegate = self
-        
-        tblOptions.register(UINib(nibName: "MappingCell",bundle: nil), forCellReuseIdentifier: "MappingCell")
-    }
-    
-    //MARK: TextField Delegate
+    //MARK:- TextField Delegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if (self.country.count == 0) && (self.category.count == 0) {
             MessageManager.showAlert(nil, "Select Country & Category First")
@@ -162,8 +120,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         return true
     }
     
-    //MARK: TextView Delegate
-    
+    //MARK:- TextView Delegate
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView == self.txtvwAddress {
             if !(self.txtvwAddress.text.isEmpty) {
@@ -201,8 +158,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             }
         }
     }
-    // MARK:- Table view
     
+    // MARK:- Tableview Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -243,7 +200,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         isDropDownActive = false
     }
     
-    //MARK: Image Delegate
+    //MARK:- Image Delegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image : UIImage = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
         
@@ -261,7 +218,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     //Mark:- Crop delegates
-    
     func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
         _ = self.navigationController?.popViewController(animated: true)
     }
@@ -274,7 +230,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     // MARK:- IBActions
-    
     @IBAction func handleOpenDrwr(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
     }
@@ -307,20 +262,20 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 self.fetchCategory()
             }
             self.tblOptions.reloadData()
-             self.isDropDownActive = true
+            self.isDropDownActive = true
         }else{
             lblDropdownCat.text = "▼"
             tblOptions.removeFromSuperview()
             self.isDropDownActive = false
-    }
-       
+        }
+        
     }
     
     @IBAction func btnShowContactPopup(_ sender: Any) {
-                if (self.country.count == 0) && (self.category.count == 0) {
-                    MessageManager.showAlert(nil, "Select Country & Category First")
-                } else {
-        self.view.addSubview(vwContactPopup)
+        if (self.country.count == 0) && (self.category.count == 0) {
+            MessageManager.showAlert(nil, "Select Country & Category First")
+        } else {
+            self.view.addSubview(vwContactPopup)
         }
     }
     
@@ -368,7 +323,42 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     }
     
-    //MARK: Custom Method
+    //MARK:- Custom Method
+    func registerNib(){
+        
+        self.vwSelectCountry.layer.cornerRadius = 5
+        self.vwSelectCategory.layer.cornerRadius = 5
+        self.txfTenderTitle.layer.cornerRadius = 5
+        self.btnContact.layer.cornerRadius = 5
+        
+        self.btnImage.layer.borderWidth = 1
+        self.btnImage.layer.borderColor = UIColor.lightGray.cgColor
+        self.btnImage.layer.cornerRadius = 5
+        
+        self.btnSubmit.cornerRedius()
+        self.btnSave.cornerRedius()
+        
+        // control design formation
+        self.tenderDetail.layer.cornerRadius = 5
+        self.tenderDetail.layer.borderColor = UIColor.lightGray.cgColor
+        self.tenderDetail.layer.borderWidth = 1
+        self.txfTenderTitle.layer.borderColor = UIColor.lightGray.cgColor
+        self.txfTenderTitle.layer.borderWidth = 1
+        
+        self.tblOptions.dataSource = self
+        self.tblOptions.delegate = self
+        
+        self.txfTenderTitle.delegate = self
+        self.tenderDetail.delegate = self
+        
+        self.txfEmail.delegate = self
+        self.txfMobileNo.delegate = self
+        self.txfLandLineNo.delegate = self
+        self.txtvwAddress.delegate = self
+        
+        tblOptions.register(UINib(nibName: "MappingCell",bundle: nil), forCellReuseIdentifier: "MappingCell")
+    }
+    
     func submit() {
         if !(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)! {
             let param: Parameters = [  "country":self.uploadTender.cId,

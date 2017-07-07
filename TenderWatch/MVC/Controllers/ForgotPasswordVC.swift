@@ -16,8 +16,8 @@ class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        txfEmail.becomeFirstResponder()
         
+        txfEmail.becomeFirstResponder()
         txfEmail.delegate = self
         // Do any additional setup after loading the view.
     }
@@ -31,14 +31,13 @@ class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: TextField Delegate
-    
+    //MARK:- TextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    //MARK: IBActions
+    //MARK:- IBActions
     @IBAction func handleBtnBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -48,6 +47,7 @@ class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //MARK:- Custom Method
     func forgot() {
         let parameters = ["email" : self.txfEmail.text!]
         if isNetworkReachable() {
@@ -63,16 +63,4 @@ class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
             MessageManager.showAlert(nil, "No Internet")
         }
     }
-
-
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destinationViewController.
- // Pass the selected object to the new view controller.
- }
- */
-
 }

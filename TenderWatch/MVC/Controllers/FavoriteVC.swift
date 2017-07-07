@@ -15,6 +15,7 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tblFavorite: UITableView!
     
     var tender = [Tender]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,8 +23,7 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tblFavorite.dataSource = self
         
         self.tblFavorite.register(UINib(nibName: "TenderListCell", bundle: nil), forCellReuseIdentifier: "TenderListCell")
-        
-//        self.getFavorite()
+        //        self.getFavorite()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,7 +35,7 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // Dispose of any resources that can be recreated.
     }
     
-    //Table Delegate
+    //MARK:- TableView Delegate
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -43,7 +43,7 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
-//        return self.tender.count
+        //        return self.tender.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,7 +56,7 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    //MARK: IBActions
+    //MARK:- IBActions
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
     }
@@ -65,32 +65,21 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if isNetworkReachable() {
             self.startActivityIndicator()
             Alamofire.request("\(BASE_URL)favourite/getFavourites", method: .post, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
-            if(resp.result.value != nil) {
-                if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error" {
-                    
-                } else {
-                    print(resp.result.value!)
-                    let data = (resp.result.value as! NSObject)
-                    self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
-                    
-                    self.tblFavorite.reloadData()
-                    self.stopActivityIndicator()
+                if(resp.result.value != nil) {
+                    if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error" {
+                        
+                    } else {
+                        print(resp.result.value!)
+                        let data = (resp.result.value as! NSObject)
+                        self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
+                        
+                        self.tblFavorite.reloadData()
+                        self.stopActivityIndicator()
+                    }
                 }
             }
-        }
         } else {
             MessageManager.showAlert(nil, "No Internet")
         }
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
