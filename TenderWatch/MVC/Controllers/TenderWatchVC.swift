@@ -9,6 +9,7 @@
 import UIKit
 import ObjectMapper
 import Alamofire
+import SDWebImage
 
 class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -50,11 +51,16 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: "TenderListCell", for: indexPath) as! TenderListCell
         
-        //        let tender = self.tender[indexPath.row]
-        //        cell.lblName.text = tender.email
-        //        cell.lblCountry.text = tender.country
-        //        cell.lblTender.text = tender.tenderName
+        let tender = self.tender[indexPath.row]
+        cell.lblName.text = tender.email
+        cell.lblCountry.text = tender.country
+        cell.lblTender.text = tender.tenderName
         
+        cell.imgProfile.sd_setShowActivityIndicatorView(true)
+        cell.imgProfile.sd_setIndicatorStyle(.gray)
+//        (tender.tenderPhoto)!
+        cell.imgProfile.sd_setImage(with: URL(string: "https://camo.mybb.com/e01de90be6012adc1b1701dba899491a9348ae79/687474703a2f2f7777772e6a71756572797363726970742e6e65742f696d616765732f53696d706c6573742d526573706f6e736976652d6a51756572792d496d6167652d4c69676874626f782d506c7567696e2d73696d706c652d6c69676874626f782e6a7067"), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+        })
         return cell
     }
     

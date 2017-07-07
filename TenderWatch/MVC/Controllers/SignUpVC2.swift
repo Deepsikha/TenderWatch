@@ -11,6 +11,7 @@ import Alamofire
 import RSKImageCropper
 import IQKeyboardManager
 import ObjectMapper
+import SDWebImage
 
 class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, RSKImageCropViewControllerDelegate, UITextFieldDelegate {
     
@@ -62,6 +63,12 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.phonenum.text = USER?.contactNo
             self.btnCountry.setTitle(USER?.country, for: .normal)
             self.occupation.text = USER?.occupation
+            
+            self.proflPic.imageView?.sd_setShowActivityIndicatorView(true)
+            self.proflPic.imageView?.sd_setIndicatorStyle(.gray)
+            
+            self.proflPic.imageView?.sd_setImage(with: URL(string: (USER?.profilePhoto)!), placeholderImage: image, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+            })
             
         } else {
             self.back.isHidden = false
@@ -232,7 +239,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                     
                     let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
                     
-                    multipartFormData.append(signUpUser.photo!, withName: "fileset",fileName: imgname, mimeType: "image/jpg")
+                    multipartFormData.append(signUpUser.photo!, withName: "image",fileName: imgname, mimeType: "image/jpg")
                 }
                 for (key, value) in self.parameters {
                     multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)

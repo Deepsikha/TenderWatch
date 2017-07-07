@@ -10,6 +10,7 @@ target 'TenderWatch' do
     pod 'Alamofire'
     pod 'RSKImageCropper'
     pod 'IQKeyboardManager'
+    pod 'SDWebImage'
     
   target 'TenderWatchTests' do
     inherit! :search_paths

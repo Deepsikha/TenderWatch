@@ -135,20 +135,20 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //            category[indexPath.row].isSelected = !category[indexPath.row].isSelected!
         //            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
         //
-        ////            if category[indexPath.row].isSelected!
-        ////            {
-        ////                cell.imgTick.isHidden = category[indexPath.row].isSelected!
-        ////                category[indexPath.row].isSelected
-        ////
-        ////            }
-        ////            else{
-        ////                cell.imgTick.isHidden = category[indexPath.row].isSelected!
-        ////            }
-        ////            if (cell.imgTick.isHidden) {
-        ////                cell.imgTick.isHidden = !cell.imgTick.isHidden
-        ////            } else {
-        ////                cell.imgTick.isHidden = !cell.imgTick.isHidden
-        ////            }
+        //            if category[indexPath.row].isSelected!
+        //            {
+        //                cell.imgTick.isHidden = category[indexPath.row].isSelected!
+        //                category[indexPath.row].isSelected
+        //
+        //            }
+        //            else{
+        //                cell.imgTick.isHidden = category[indexPath.row].isSelected!
+        //            }
+        //            if (cell.imgTick.isHidden) {
+        //                cell.imgTick.isHidden = !cell.imgTick.isHidden
+        //            } else {
+        //                cell.imgTick.isHidden = !cell.imgTick.isHidden
+        //            }
         //
         //        } else {
         //            if (cell.imgTick.isHidden) {
@@ -158,34 +158,34 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //                let id = (self.country.filter {$0.countryName == country1})[0].countryId
         //                let ch = (self.category.filter {$0.categoryName == category1})[0].categoryId
         //
-        ////                if self.select.selections.contains(map) {
-        ////                    if (map.countryId == id!) {
-        ////                        map.categoryId.append(ch!)
-        ////                    } else {
-        ////                        map = Selections()
-        ////                        map.countryId = id!
-        ////                        map.categoryId.append(ch!)
-        ////                        select.selections.append(map)
-        ////                    }
-        ////                } else {
-        ////                    map.countryId = id!
-        ////                    map.categoryId.append(ch!)
-        ////                    self.select.selections.append(map)
-        ////                }
-        ////                if let filteredArray = addCC.filter({$0.countryId == id})
-        ////                {
-        ////                    if (filteredArray.count > 0)
-        ////                    {
-        ////                        let newObject:addCountryObj = filteredArray.first!
-        ////                        self.lastindexpath = (objMessageListArray?.index(of: newObject))!
-        ////                    }
-        ////                }
-        ////
-        ////                if addCC.filter(<#T##isIncluded: (addCountryObj) throws -> Bool##(addCountryObj) throws -> Bool#>) {
-        ////
-        ////                } else {
-        ////                    addCC
-        ////                }
+        //                if self.select.selections.contains(map) {
+        //                    if (map.countryId == id!) {
+        //                        map.categoryId.append(ch!)
+        //                    } else {
+        //                        map = Selections()
+        //                        map.countryId = id!
+        //                        map.categoryId.append(ch!)
+        //                        select.selections.append(map)
+        //                    }
+        //                } else {
+        //                    map.countryId = id!
+        //                    map.categoryId.append(ch!)
+        //                    self.select.selections.append(map)
+        //                }
+        //                if let filteredArray = addCC.filter({$0.countryId == id})
+        //                {
+        //                    if (filteredArray.count > 0)
+        //                    {
+        //                        let newObject:addCountryObj = filteredArray.first!
+        //                        self.lastindexpath = (objMessageListArray?.index(of: newObject))!
+        //                    }
+        //                }
+        //
+        //                if addCC.filter(<#T##isIncluded: (addCountryObj) throws -> Bool##(addCountryObj) throws -> Bool#>) {
+        //
+        //                } else {
+        //                    addCC
+        //                }
         //
         //            } else {
         //                cell.imgTick.isHidden = !cell.imgTick.isHidden
