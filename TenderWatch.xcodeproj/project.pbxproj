@@ -56,8 +56,6 @@
 		7D0394481EFB63D300B494EF /* SideMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0394471EFB63D300B494EF /* SideMenuVC.xib */; };
 		7D03944B1EFB65E800B494EF /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0394491EFB65E800B494EF /* SideMenuCell.swift */; };
 		7D03944C1EFB65E800B494EF /* SideMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D03944A1EFB65E800B494EF /* SideMenuCell.xib */; };
-		7D176AF81EFA0E3900B05C99 /* TenderListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D176AF61EFA0E3900B05C99 /* TenderListCell.swift */; };
-		7D176AF91EFA0E3900B05C99 /* TenderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D176AF71EFA0E3900B05C99 /* TenderListCell.xib */; };
 		7D176AFE1EFA13A700B05C99 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D176AFD1EFA13A700B05C99 /* User.swift */; };
 		7D2E22481F00B98500A0783E /* SubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E22461F00B98400A0783E /* SubscriptionVC.swift */; };
 		7D2E224B1F00B9A800A0783E /* SubscriptionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */; };
@@ -70,6 +68,8 @@
 		7D7A13B11F050A1A0092E3DF /* Categoty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7A13AF1F050A1A0092E3DF /* Categoty.swift */; };
 		7D7A13B21F050A1A0092E3DF /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7A13B01F050A1A0092E3DF /* Country.swift */; };
 		7D7A13B61F051A900092E3DF /* Select.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7A13B51F051A900092E3DF /* Select.swift */; };
+		7D7C46811F0F922700FCE530 /* TenderListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7C467F1F0F922700FCE530 /* TenderListCell.swift */; };
+		7D7C46821F0F922700FCE530 /* TenderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7C46801F0F922700FCE530 /* TenderListCell.xib */; };
 		7D946A9A1EFBBD4E00C258E1 /* RegisterCountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D946A991EFBBD4E00C258E1 /* RegisterCountryCell.xib */; };
 		7D946AC21EFCAC1E00C258E1 /* bell@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D946A9B1EFCAC1E00C258E1 /* bell@1x.png */; };
 		7D946AC31EFCAC1E00C258E1 /* bell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D946A9C1EFCAC1E00C258E1 /* bell@2x.png */; };
@@ -235,8 +235,6 @@
 		7D0394471EFB63D300B494EF /* SideMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuVC.xib; sourceTree = "<group>"; };
 		7D0394491EFB65E800B494EF /* SideMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		7D03944A1EFB65E800B494EF /* SideMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuCell.xib; sourceTree = "<group>"; };
-		7D176AF61EFA0E3900B05C99 /* TenderListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenderListCell.swift; sourceTree = "<group>"; };
-		7D176AF71EFA0E3900B05C99 /* TenderListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TenderListCell.xib; sourceTree = "<group>"; };
 		7D176AFD1EFA13A700B05C99 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7D2E22461F00B98400A0783E /* SubscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionVC.swift; sourceTree = "<group>"; };
 		7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionVC.xib; sourceTree = "<group>"; };
@@ -249,6 +247,8 @@
 		7D7A13AF1F050A1A0092E3DF /* Categoty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categoty.swift; sourceTree = "<group>"; };
 		7D7A13B01F050A1A0092E3DF /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		7D7A13B51F051A900092E3DF /* Select.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Select.swift; sourceTree = "<group>"; };
+		7D7C467F1F0F922700FCE530 /* TenderListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenderListCell.swift; sourceTree = "<group>"; };
+		7D7C46801F0F922700FCE530 /* TenderListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TenderListCell.xib; sourceTree = "<group>"; };
 		7D946A991EFBBD4E00C258E1 /* RegisterCountryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterCountryCell.xib; sourceTree = "<group>"; };
 		7D946A9B1EFCAC1E00C258E1 /* bell@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell@1x.png"; sourceTree = "<group>"; };
 		7D946A9C1EFCAC1E00C258E1 /* bell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell@2x.png"; sourceTree = "<group>"; };
@@ -595,8 +595,6 @@
 		27EF44801EF7ADC300CCBCA0 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				7D176AF61EFA0E3900B05C99 /* TenderListCell.swift */,
-				7D176AF71EFA0E3900B05C99 /* TenderListCell.xib */,
 				7D0394491EFB65E800B494EF /* SideMenuCell.swift */,
 				7D03944A1EFB65E800B494EF /* SideMenuCell.xib */,
 				5CF289B71EFBB21A00F3EC79 /* RegisterCountryCell.swift */,
@@ -605,6 +603,8 @@
 				7D2E22511F00C53200A0783E /* SubscriptionCell.xib */,
 				7D7A13AB1F04F0130092E3DF /* MappingCell.swift */,
 				7D7A13AC1F04F0130092E3DF /* MappingCell.xib */,
+				7D7C467F1F0F922700FCE530 /* TenderListCell.swift */,
+				7D7C46801F0F922700FCE530 /* TenderListCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -785,7 +785,6 @@
 				7DCEB03F1EFE28D3002A776C /* chabox@3x.png in Resources */,
 				7DCEB0401EFE28D3002A776C /* chaboxcheked@1x.png in Resources */,
 				5C36CD6F1F067BD00088D21E /* plus1.png in Resources */,
-				7D176AF91EFA0E3900B05C99 /* TenderListCell.xib in Resources */,
 				27EF449A1EF8BD5F00CCBCA0 /* SignInVC.xib in Resources */,
 				7D946AD81EFCAC1E00C258E1 /* mail@2x.png in Resources */,
 				7D946AE81EFCAC1E00C258E1 /* upload@3x.png in Resources */,
@@ -805,6 +804,7 @@
 				7DCEB0531EFE28E6002A776C /* fav@2x.png in Resources */,
 				7D946AD41EFCAC1E00C258E1 /* logout@1x.png in Resources */,
 				7D946AFF1EFCDB1400C258E1 /* menu@2x.png in Resources */,
+				7D7C46821F0F922700FCE530 /* TenderListCell.xib in Resources */,
 				7DCEB03B1EFE28D3002A776C /* boxright@2x.png in Resources */,
 				7D946AC91EFCAC1E00C258E1 /* dollar@2x.png in Resources */,
 				7D946AF31EFCB07A00C258E1 /* right-arr@2x.png in Resources */,
@@ -1057,7 +1057,6 @@
 				0CE01BEC1F039E3100111940 /* FavoriteVC.swift in Sources */,
 				27A28ED01EF77BB300E7B53B /* HomeVC.swift in Sources */,
 				7D7A13B61F051A900092E3DF /* Select.swift in Sources */,
-				7D176AF81EFA0E3900B05C99 /* TenderListCell.swift in Sources */,
 				27EF44941EF8BD5600CCBCA0 /* SignInVC.swift in Sources */,
 				275211FD1F02565400DADAC9 /* APIConstant.swift in Sources */,
 				0CE01BF21F03A03100111940 /* NotificationVC.swift in Sources */,
@@ -1079,6 +1078,7 @@
 				27EF44921EF8BD5600CCBCA0 /* PaymentVC.swift in Sources */,
 				7D7A13B21F050A1A0092E3DF /* Country.swift in Sources */,
 				7D7A13A71F04EB540092E3DF /* MappingVC.swift in Sources */,
+				7D7C46811F0F922700FCE530 /* TenderListCell.swift in Sources */,
 				7D7A13B11F050A1A0092E3DF /* Categoty.swift in Sources */,
 				7DCEB0631EFE3DF4002A776C /* AboutVC.swift in Sources */,
 				7D7A13AD1F04F0130092E3DF /* MappingCell.swift in Sources */,

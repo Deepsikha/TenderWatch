@@ -2,14 +2,14 @@
 //  TenderListCell.swift
 //  TenderWatch
 //
-//  Created by devloper65 on 6/21/17.
+//  Created by devloper65 on 7/7/17.
 //  Copyright © 2017 lanetteam. All rights reserved.
 //
 
 import UIKit
 
 class TenderListCell: UITableViewCell {
-    
+
     @IBOutlet var imgProfile: UIImageView!
     @IBOutlet var lblName: UILabel!
     @IBOutlet var lblCountry: UILabel!
@@ -18,7 +18,6 @@ class TenderListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
     
     override func layoutSubviews() {
         self.imgProfile.layer.masksToBounds = true;

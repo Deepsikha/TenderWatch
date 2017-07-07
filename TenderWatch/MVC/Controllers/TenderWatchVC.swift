@@ -54,9 +54,9 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         let  cell = tableView.dequeueReusableCell(withIdentifier: "TenderListCell", for: indexPath) as! TenderListCell
         
         let tender = self.tender[indexPath.row]
-        cell.lblName.text = tender.email
+        cell.lblName.text = (tender.email == "") ? "example@gmail.com" : tender.email
         cell.lblCountry.text = tender.country
-        cell.lblTender.text = tender.tenderName
+        cell.lblTender.text = tender.exp
         
         cell.imgProfile.sd_setShowActivityIndicatorView(true)
         cell.imgProfile.sd_setIndicatorStyle(.gray)
