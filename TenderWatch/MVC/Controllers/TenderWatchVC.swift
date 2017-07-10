@@ -47,7 +47,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tender.count
-        //                return 10
+        //                        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,8 +56,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         let tender = self.tender[indexPath.row]
         cell.lblName.text = (tender.email == "") ? "example@gmail.com" : tender.email
         cell.lblCountry.text = tender.country
-        cell.lblTender.text = tender.exp
-        
+        cell.lblTender.text = tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!)
         cell.imgProfile.sd_setShowActivityIndicatorView(true)
         cell.imgProfile.sd_setIndicatorStyle(.gray)
         //        (tender.tenderPhoto)!
@@ -84,6 +83,14 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         }
     }
     
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
+        return 15
+    }
+    
     //MARK:- IBActions
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
@@ -95,11 +102,15 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             self.startActivityIndicator()
             Alamofire.request(GET_TENDER, method: .post, parameters: ["role" : "\(USER?.role?.rawValue as! String)"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
+                    if resp.result.value is NSDictionary {
+                        MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
+                    } else {
                     print(resp.result.value!)
                     let data = (resp.result.value as! NSObject)
                     self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
                     self.tblTenderList.reloadData()
                     self.stopActivityIndicator()
+                }
                 }
                 print(resp.result)
                 self.stopActivityIndicator()
@@ -128,6 +139,8 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             self.stopActivityIndicator()
         }
     }
+    
+    
     
     func deleteTender(_ index: Int) {
         self.tender.remove(at: index)

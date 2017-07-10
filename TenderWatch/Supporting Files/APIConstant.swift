@@ -8,7 +8,7 @@
 
 import Foundation
 
-var BASE_URL: String = "http://192.168.200.96:4040/api/"
+var BASE_URL: String = "http://192.168.200.75:4040/api/"
 
 var LOGIN: String = "auth/login"
 var SIGNUP: String = (BASE_URL)+"auth/register"

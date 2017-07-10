@@ -103,7 +103,7 @@ class User: NSObject,NSCoding, Mappable {
 class signUpUserData: NSObject {
     var email = ""
     var password = ""
-    var photo: Data?
+    var photo = Data()
     var country = ""
     var contactNo = ""
     var occupation = ""

@@ -61,6 +61,7 @@ class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
             }
         } else {
             MessageManager.showAlert(nil, "No Internet")
+            self.stopActivityIndicator()
         }
     }
 }

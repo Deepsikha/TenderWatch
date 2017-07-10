@@ -55,7 +55,7 @@ class UploadTender: NSObject {
     var ctId: String = "" //for categoty
     var tenderTitle = ""
     var desc = ""
-    var photo: Data!
+    var photo = Data()
     var email = ""
     var contactNo = ""
     var landLineNo = ""

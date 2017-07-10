@@ -56,6 +56,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         picker.delegate = self
         picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         
+        self.tblOptions.tableFooterView = UIView()
         //tapHandler
         self.tap = UITapGestureRecognizer(target: self, action: #selector(self.taphandler))
         tap.cancelsTouchesInView = false
@@ -225,7 +226,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
         self.btnImage.setImage(croppedImage, for: .normal)
         let imgData = UIImageJPEGRepresentation(croppedImage, 0.2)
-        self.uploadTender.photo = imgData
+        self.uploadTender.photo = imgData!
         _ = self.navigationController?.popViewController(animated: true)
     }
     
@@ -372,7 +373,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             if isNetworkReachable() {
                 self.startActivityIndicator()
                 Alamofire.upload(multipartFormData: { (multipartFormData) in
-                    if self.uploadTender.photo != nil
+                    if !(self.uploadTender.photo.isEmpty)
                     {
                         let dated :NSDate = NSDate()
                         let dateFormatter = DateFormatter()
@@ -380,7 +381,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                         dateFormatter.timeZone = NSTimeZone(name: "GMT")! as TimeZone
                         
                         let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
-                        multipartFormData.append(self.uploadTender.photo!, withName: "image",fileName: imgname, mimeType: "image/jpg")
+                        multipartFormData.append(self.uploadTender.photo, withName: "image",fileName: imgname, mimeType: "image/jpg")
                     }
                     for (key, value) in param {
                         multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
@@ -397,7 +398,9 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                             if (resp.result.value != nil) {
                                 print(resp.result.value!)
                                 if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
-                                    MessageManager.showAlert(nil, "Invalid Credentials")
+                                    let err = (resp.result.value as! NSObject).value(forKey: "error") as! String
+                                    MessageManager.showAlert(nil, "\(err)")
+                                    self.stopActivityIndicator()
                                 } else {
                                     let data = (resp.result.value as! NSObject)
                                     print(data)
@@ -406,11 +409,14 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                                     self.stopActivityIndicator()
                                     appDelegate.setHomeViewController()
                                 }
+                            } else {
+                                self.stopActivityIndicator()
                             }
                         }
                         
                     case .failure(let encodingError):
                         print(encodingError)
+                        self.stopActivityIndicator()
                     }
                 }
             } else {
@@ -427,6 +433,12 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             }
         }
     }
+    
+//    ==========
+//    -    Remove constraint from server side -Tender title unique
+//    -    Resolve swipe delete issue in home screen of the Client
+//    -     Landline, about me and address icons
+//    -    Make tender image optional in Tender upload
     
     func fetchCoutry() {
         self.startActivityIndicator()

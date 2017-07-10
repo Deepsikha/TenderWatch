@@ -43,7 +43,16 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         picker = UIImagePickerController()
         picker.delegate = self
-        image = self.proflPic.currentImage
+        
+        self.proflPic.imageView?.sd_setShowActivityIndicatorView(true)
+        self.proflPic.imageView?.sd_setIndicatorStyle(.gray)
+        if (USER?.value(forKey: "profilePhoto") != nil) {
+            self.proflPic.imageView?.sd_setImage(with: URL(string: (USER?.profilePhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+            })
+        } else {
+            self.proflPic.setImage(UIImage(named : "avtar"), for: .normal)
+        }
+
         
     }
     
@@ -65,11 +74,6 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.btnCountry.setTitle(USER?.country, for: .normal)
             self.occupation.text = USER?.occupation
             
-            self.proflPic.imageView?.sd_setShowActivityIndicatorView(true)
-            self.proflPic.imageView?.sd_setIndicatorStyle(.gray)
-            
-            self.proflPic.imageView?.sd_setImage(with: URL(string: (USER?.profilePhoto)!), placeholderImage: image, options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-            })
             
         } else {
             self.back.isHidden = false
@@ -130,7 +134,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
         self.proflPic.setImage(croppedImage, for: .normal)
         let imgData = UIImageJPEGRepresentation(croppedImage, 0.2)
-        signUpUser.photo = imgData
+        signUpUser.photo = imgData!
         _ = self.navigationController?.popViewController(animated: true)
     }
     
@@ -142,14 +146,15 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBAction func handleBtnnext(_ sender: Any) {
         if !(isValidNumber(self.phonenum.text!, length: 10)) {
             MessageManager.showAlert(nil, "Invalid Number")
-        } else if (self.proflPic.currentImage == self.image) {
-            MessageManager.showAlert(nil, "Choose a profile picture")
         } else {
             if (USER?.authenticationToken != nil) {
-                signUpUser.contactNo = self.phonenum.text!
-                signUpUser.occupation = self.occupation.text!
+                USER?.contactNo = self.phonenum.text!
+                USER?.occupation = self.occupation.text!
+                USER?.aboutMe = (USER?.aboutMe)!
+                USER?.country = (self.btnCountry.titleLabel?.text)!
                 self.update()
             } else {
+                
                 if (appDelegate.isClient)! {
                     self.navigationController?.pushViewController(RulesVC(), animated: true)
                 } else {
@@ -205,21 +210,21 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     func update() {
         
         if (appDelegate.isClient)! {
-            self.parameters = ["country": signUpUser.country,
-                               "contactNo": signUpUser.contactNo,
-                               "occupation": signUpUser.occupation,
-                               "aboutMe": signUpUser.aboutMe,
+            self.parameters = ["country": USER?.country!,
+                               "contactNo": USER?.contactNo!,
+                               "occupation": USER?.occupation!,
+                               "aboutMe": USER?.aboutMe!,
                                "role" : "client"] as [String : Any]
         } else {
-            self.parameters = ["country": signUpUser.country,
-                               "contactNo": signUpUser.contactNo,
-                               "occupation": signUpUser.occupation,
-                               "aboutMe": signUpUser.aboutMe,
+            self.parameters = ["country": USER?.country!,
+                               "contactNo": USER?.contactNo!,
+                               "occupation": USER?.occupation!,
+                               "aboutMe": USER?.aboutMe!,
                                "role" : "contractor"] as [String : Any]
         }
         if isNetworkReachable() {
             Alamofire.upload(multipartFormData: { (multipartFormData) in
-                if signUpUser.photo != nil
+                if !(signUpUser.photo.isEmpty)
                 {
                     let dated :NSDate = NSDate()
                     let dateFormatter = DateFormatter()
@@ -228,7 +233,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                     
                     let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
                     
-                    multipartFormData.append(signUpUser.photo!, withName: "image",fileName: imgname, mimeType: "image/jpg")
+                    multipartFormData.append(signUpUser.photo, withName: "image",fileName: imgname, mimeType: "image/jpg")
                 }
                 for (key, value) in self.parameters {
                     multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)

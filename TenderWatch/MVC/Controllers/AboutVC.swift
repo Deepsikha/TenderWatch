@@ -63,14 +63,14 @@ class AboutVC: UIViewController, UITextViewDelegate {
             }
         }
     }
-    
-    //    func textViewDidEndEditing(_ textView: UITextView) {
-    //
-    //        if txtAbout.text.isEmpty {
-    //            txtAbout.text = "Enter some information about yourself"
-    //            txtAbout.textColor = UIColor.lightGray
-    //            }
-    //    }
+
+//        func textViewDidEndEditing(_ textView: UITextView) {
+//    
+//            if txtAbout.text.isEmpty {
+//                txtAbout.text = "Enter some information about yourself"
+//                txtAbout.textColor = UIColor.lightGray
+//                }
+//        }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let aboutStr = txtAbout.text else { return true }
@@ -91,7 +91,11 @@ class AboutVC: UIViewController, UITextViewDelegate {
     
     @IBAction func handleBtnSave(_ sender: Any) {
         if(self.txtAbout.text.characters.count > 0){
-            signUpUser.aboutMe = self.txtAbout.text!
+            if (USER?.authenticationToken?.isEmpty)! {
+                signUpUser.aboutMe = self.txtAbout.text!
+            } else {
+                USER?.aboutMe = self.txtAbout.text!
+            }
             self.navigationController?.popViewController(animated: false)
             
         }else{

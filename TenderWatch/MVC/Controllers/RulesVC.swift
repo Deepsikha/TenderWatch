@@ -83,7 +83,7 @@ class RulesVC: UIViewController {
             self.btnSignUp.isEnabled = false
             self.startActivityIndicator()
             Alamofire.upload(multipartFormData: { multipartFormData in
-                if signUpUser.photo != nil
+                if !(signUpUser.photo.isEmpty)
                 {
                     let dated :NSDate = NSDate()
                     let dateFormatter = DateFormatter()
@@ -92,7 +92,7 @@ class RulesVC: UIViewController {
                     
                     let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
                     
-                    multipartFormData.append(signUpUser.photo!, withName: "image",fileName: imgname, mimeType: "image/jpg")
+                    multipartFormData.append(signUpUser.photo, withName: "image",fileName: imgname, mimeType: "image/jpg")
                 }
                 //                for (key, value) in self.parameters {
                 //                    multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
@@ -121,7 +121,8 @@ class RulesVC: UIViewController {
                         if (resp.result.value != nil) {
                             print(resp.result.value!)
                             if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
-                                MessageManager.showAlert(nil, "Invalid Credentials")
+                                let err = (resp.result.value as! NSObject).value(forKey: "error") as! String
+                                MessageManager.showAlert(nil, "\(err)")
                                 self.stopActivityIndicator()
                             } else {
                                 
