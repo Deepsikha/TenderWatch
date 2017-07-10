@@ -83,12 +83,8 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         }
     }
     
-    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
-        return 15
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return tableView.isEditing ? UITableViewCellEditingStyle.none : UITableViewCellEditingStyle.delete
     }
     
     //MARK:- IBActions
@@ -105,12 +101,12 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                     if resp.result.value is NSDictionary {
                         MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
                     } else {
-                    print(resp.result.value!)
-                    let data = (resp.result.value as! NSObject)
-                    self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
-                    self.tblTenderList.reloadData()
-                    self.stopActivityIndicator()
-                }
+                        print(resp.result.value!)
+                        let data = (resp.result.value as! NSObject)
+                        self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
+                        self.tblTenderList.reloadData()
+                        self.stopActivityIndicator()
+                    }
                 }
                 print(resp.result)
                 self.stopActivityIndicator()
@@ -139,8 +135,6 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             self.stopActivityIndicator()
         }
     }
-    
-    
     
     func deleteTender(_ index: Int) {
         self.tender.remove(at: index)

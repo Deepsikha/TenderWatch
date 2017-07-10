@@ -434,12 +434,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     }
     
-//    ==========
-//    -    Remove constraint from server side -Tender title unique
-//    -    Resolve swipe delete issue in home screen of the Client
-//    -     Landline, about me and address icons
-//    -    Make tender image optional in Tender upload
-    
     func fetchCoutry() {
         self.startActivityIndicator()
         APIManager.shared.requestForGET(url: COUNTRY, isTokenEmbeded: false, successHandler: { (finish, res) in

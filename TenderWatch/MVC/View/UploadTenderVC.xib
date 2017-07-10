@@ -332,7 +332,7 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings.png" translatesAutoresizingMaskIntoConstraints="NO" id="uq1-iM-ZCK">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="occupation.png" translatesAutoresizingMaskIntoConstraints="NO" id="uq1-iM-ZCK">
                                     <rect key="frame" x="8" y="13" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="uq1-iM-ZCK" secondAttribute="height" multiplier="1:1" id="0Dj-Bx-fdg"/>
@@ -415,7 +415,7 @@ TW9iaWxlIE51bWJlcgM
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mobile.png" translatesAutoresizingMaskIntoConstraints="NO" id="tgr-9k-fad">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location.png" translatesAutoresizingMaskIntoConstraints="NO" id="tgr-9k-fad">
                                     <rect key="frame" x="8" y="13" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="tgr-9k-fad" secondAttribute="height" multiplier="1:1" id="YLm-hs-T7a"/>
@@ -499,10 +499,11 @@ TW9iaWxlIE51bWJlcgM
         </view>
     </objects>
     <resources>
+        <image name="location.png" width="21" height="21"/>
         <image name="mail.png" width="22" height="22"/>
         <image name="menu.png" width="22" height="22"/>
         <image name="mobile.png" width="22" height="22"/>
+        <image name="occupation.png" width="21" height="21"/>
         <image name="plus1.png" width="128" height="128"/>
-        <image name="settings.png" width="22" height="22"/>
     </resources>
 </document>
