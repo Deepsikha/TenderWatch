@@ -73,7 +73,6 @@ class SignInVC: UIViewController, UITextFieldDelegate {
                           "password" : self.txfPassword.text!,
                           "role" : signUpUser.role]
         print(parameters)
-        
         startActivityIndicator()
         UserManager.shared.signInUser(with: parameters, successHandler: { (user) in
             print("Logged In")

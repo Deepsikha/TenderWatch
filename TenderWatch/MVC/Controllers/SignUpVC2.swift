@@ -44,14 +44,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         picker = UIImagePickerController()
         picker.delegate = self
         
-        self.proflPic.imageView?.sd_setShowActivityIndicatorView(true)
-        self.proflPic.imageView?.sd_setIndicatorStyle(.gray)
-        if (USER?.value(forKey: "profilePhoto") != nil) {
-            self.proflPic.imageView?.sd_setImage(with: URL(string: (USER?.profilePhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-            })
-        } else {
-            self.proflPic.setImage(UIImage(named : "avtar"), for: .normal)
-        }
+        
 
         
     }
@@ -73,7 +66,14 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.phonenum.text = USER?.contactNo
             self.btnCountry.setTitle(USER?.country, for: .normal)
             self.occupation.text = USER?.occupation
-            
+            self.proflPic.imageView?.sd_setShowActivityIndicatorView(true)
+            self.proflPic.imageView?.sd_setIndicatorStyle(.gray)
+            if (USER?.value(forKey: "profilePhoto") != nil) {
+                self.proflPic.imageView?.sd_setImage(with: URL(string: (USER?.profilePhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                })
+            } else {
+                self.proflPic.setImage(UIImage(named : "avtar"), for: .normal)
+            }
             
         } else {
             self.back.isHidden = false

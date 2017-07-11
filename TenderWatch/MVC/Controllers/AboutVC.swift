@@ -91,7 +91,7 @@ class AboutVC: UIViewController, UITextViewDelegate {
     
     @IBAction func handleBtnSave(_ sender: Any) {
         if(self.txtAbout.text.characters.count > 0){
-            if (USER?.authenticationToken?.isEmpty)! {
+            if (USER?.authenticationToken == nil) {
                 signUpUser.aboutMe = self.txtAbout.text!
             } else {
                 USER?.aboutMe = self.txtAbout.text!

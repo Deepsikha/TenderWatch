@@ -135,7 +135,8 @@ extension UIViewController {
     func startActivityIndicator(
         _ style: UIActivityIndicatorViewStyle = .gray,
         location: CGPoint? = nil) {
-        
+        self.view.isUserInteractionEnabled = false
+
         //Set the position - defaults to `center` if no`location`
         
         //argument is provided
@@ -161,7 +162,7 @@ extension UIViewController {
             activityIndicator.tag = self.activityIndicatorTag
             //Set the location
             
-            activityIndicator.center =  CGPoint(x:ScreenSize.SCREEN_WIDTH/2, y:ScreenSize.SCREEN_HEIGHT/2 - 64)
+            activityIndicator.center =  CGPoint(x:ScreenSize.SCREEN_WIDTH/2, y:ScreenSize.SCREEN_HEIGHT/2)
             activityIndicator.hidesWhenStopped = true
             //Start animating and add the view
             
@@ -181,6 +182,7 @@ extension UIViewController {
                 { $0.tag == self.activityIndicatorTag}).first as? UIActivityIndicatorView {
                 activityIndicator.stopAnimating()
                 activityIndicator.removeFromSuperview()
+                self.view.isUserInteractionEnabled = true
             }
         })
     }
