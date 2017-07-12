@@ -15,6 +15,7 @@ var SIGNUP: String = (BASE_URL)+"auth/register"
 var FORGOT: String = (BASE_URL)+"auth/forgot"
 
 var GET_TENDER: String = (BASE_URL)+"tender/getTenders"
+var DELETE_TENDER: String = (BASE_URL)+"tender/"
 var UPDATE: String = (BASE_URL)+"users/"+(USER?._id)!
 var CHANGE_PASSWORD: String = (BASE_URL)+"users/changePassword/"+(USER?._id)!
 var UPLOAD_TENDER: String = (BASE_URL)+"tender"

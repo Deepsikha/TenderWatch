@@ -22,7 +22,6 @@ class TenderListCell: UITableViewCell {
     override func layoutSubviews() {
         self.imgProfile.layer.masksToBounds = true;
         self.imgProfile.layer.cornerRadius = self.imgProfile.frame.width/2.0
-        self.imgProfile.layer.borderWidth = 1.0
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

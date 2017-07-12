@@ -55,13 +55,17 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         
         let tender = self.tender[indexPath.row]
         cell.lblName.text = (tender.email == "") ? "example@gmail.com" : tender.email
-        cell.lblCountry.text = tender.country
+        cell.lblCountry.text = tender.tenderName
         cell.lblTender.text = tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!)
         cell.imgProfile.sd_setShowActivityIndicatorView(true)
         cell.imgProfile.sd_setIndicatorStyle(.gray)
         //        (tender.tenderPhoto)!
-        cell.imgProfile.sd_setImage(with: URL(string: "https://camo.mybb.com/e01de90be6012adc1b1701dba899491a9348ae79/687474703a2f2f7777772e6a71756572797363726970742e6e65742f696d616765732f53696d706c6573742d526573706f6e736976652d6a51756572792d496d6167652d4c69676874626f782d506c7567696e2d73696d706c652d6c69676874626f782e6a7067"), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-        })
+        if (tender.tenderPhoto != nil) {
+            cell.imgProfile.sd_setImage(with: URL(string: (tender.tenderPhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+            })
+        } else {
+            cell.imgProfile.image = UIImage(named: "avtar")
+        }
         return cell
     }
     
@@ -137,7 +141,25 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
     
     func deleteTender(_ index: Int) {
-        self.tender.remove(at: index)
-        self.tblTenderList.reloadData()
+       
+        if isNetworkReachable() {
+            self.stopActivityIndicator()
+            Alamofire.request(DELETE_TENDER+tender[index].id! , method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+                if(resp.result.value != nil) {
+                    if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error" {
+                        MessageManager.showAlert(nil, "can't add to favorite")
+                    } else {
+                        self.tender.remove(at: index)
+                        self.tblTenderList.reloadData()
+                        MessageManager.showAlert(nil, "delete Succesfully")
+                    }
+                    self.stopActivityIndicator()
+                }
+            }
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
+        }
+        
+        
     }
 }

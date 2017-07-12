@@ -44,19 +44,6 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         picker = UIImagePickerController()
         picker.delegate = self
         
-        
-
-        
-    }
-    
-    override func viewDidLayoutSubviews() {
-        self.btnnext.cornerRedius()
-        proflPic.layer.cornerRadius = proflPic.frame.width / 2
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
-        
         if (USER?.authenticationToken != nil) {
             self.back.isHidden = true
             self.opnDrawr.isHidden = false
@@ -90,6 +77,19 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 self.btnCountry.setTitle(signUpUser.country, for: .normal)
             }
         }
+
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.btnnext.cornerRedius()
+        proflPic.layer.cornerRadius = proflPic.frame.width / 2
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+        
+        
     }
     
     //MARK:- TextField Delegate
@@ -257,8 +257,9 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                 MessageManager.showAlert(nil, "Invalid Credentials")
                             } else {
                                 let data = (resp.result.value as! NSObject)
-                                //data parsing remianing because of unique response
-                                //                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
+                                let token = USER?.authenticationToken
+                                USER = Mapper<User>().map(JSON: data as! [String : Any])!
+                                USER?.authenticationToken = token
                                 
                                 appDelegate.setHomeViewController()
                             }

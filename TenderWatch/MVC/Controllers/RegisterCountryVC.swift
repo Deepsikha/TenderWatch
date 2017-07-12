@@ -42,7 +42,10 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tblvw.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
         cell.countryName.text = self.country[indexPath.row].countryName
-        
+        if (cell.countryName.text == signUpUser.country) {
+            cell.imgTick.isHidden = false
+            tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+        }
         return cell
     }
     
