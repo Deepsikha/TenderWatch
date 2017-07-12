@@ -408,6 +408,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                                     //                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
                                     self.stopActivityIndicator()
                                     appDelegate.setHomeViewController()
+                                    MessageManager.showAlert(nil, "Successfully uploaded")
+
                                 }
                             } else {
                                 self.stopActivityIndicator()

@@ -66,34 +66,42 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
                 "Authorization": "Bearer \(USER!.authenticationToken!)",
                 "Accept": "application/json"
             ]
-            if !((self.txtNewPassword.text?.isEmpty)!) && (self.txtNewPassword.text == self.txtConfirmPassword.text) {
-                if isNetworkReachable() {
-                    self.startActivityIndicator()
-                    Alamofire.request(CHANGE_PASSWORD, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (resp) in
-                        let data = resp.result.value as! NSObject
-                        if(data.value(forKey: "message") as! String) != "Old password is wrong!!!" {
-                            USER?.password = self.txtNewPassword.text
-                            self.txtConfirmPassword.text = ""
-                            self.txtNewPassword.text = ""
-                            self.txtOldPassword.text = ""
-                            MessageManager.showAlert(nil, "Password is Successfully Changed ")
-                            self.stopActivityIndicator()
-                            let nav = UINavigationController(rootViewController: TenderWatchVC())
-                            appDelegate.drawerController.centerViewController = nav
-                            appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
-                        } else {
-                            self.txtConfirmPassword.text = ""
-                            self.txtNewPassword.text = ""
-                            self.txtOldPassword.text = ""
-                            self.txtOldPassword.becomeFirstResponder()
-                            MessageManager.showAlert(nil, "Old password is wrong!!!")
-                            self.stopActivityIndicator()
-                        }
-                    })
+            if !((self.txtOldPassword.text?.isEmpty)!) {
+                if !((self.txtNewPassword.text?.isEmpty)!) && (self.txtNewPassword.text == self.txtConfirmPassword.text) {
+                    if isNetworkReachable() {
+                        self.startActivityIndicator()
+                        Alamofire.request(CHANGE_PASSWORD, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (resp) in
+                            let data = resp.result.value as! NSObject
+                            if(data.value(forKey: "message") as! String) != "Old password is wrong!!!" {
+                                USER?.password = self.txtNewPassword.text
+                                self.txtConfirmPassword.text = ""
+                                self.txtNewPassword.text = ""
+                                self.txtOldPassword.text = ""
+                                MessageManager.showAlert(nil, "Password is Successfully Changed ")
+                                self.stopActivityIndicator()
+                                let nav = UINavigationController(rootViewController: TenderWatchVC())
+                                appDelegate.drawerController.centerViewController = nav
+                                appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
+                            } else {
+                                self.txtConfirmPassword.text = ""
+                                self.txtNewPassword.text = ""
+                                self.txtOldPassword.text = ""
+                                self.txtOldPassword.becomeFirstResponder()
+                                MessageManager.showAlert(nil, "Old password is wrong!!!")
+                                self.stopActivityIndicator()
+                            }
+                        })
+                    } else {
+                        MessageManager.showAlert(nil, "No Internet")
+                        self.stopActivityIndicator()
+                        
+                    }
                 } else {
-                    MessageManager.showAlert(nil, "No Internet")
-                    self.stopActivityIndicator()
-
+                    if (self.txtNewPassword.text?.isEmpty)! {
+                        MessageManager.showAlert(nil, "NewPassword can't Empty")
+                    } else {
+                        MessageManager.showAlert(nil, "Confirm Password can't Match")
+                    }
                 }
             } else {
                 MessageManager.showAlert(nil, "Old Password is required")
@@ -101,6 +109,7 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
         }
     }
     
+//    -    Logo design
     @IBAction func handleBtnBack(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
     }

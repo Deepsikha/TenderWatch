@@ -78,6 +78,7 @@
 		7D2B1C7C1F13B6CE0084F71A /* mob@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2B1C761F13B6CE0084F71A /* mob@1x.png */; };
 		7D2B1C7D1F13B6CE0084F71A /* mob@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2B1C771F13B6CE0084F71A /* mob@2x.png */; };
 		7D2B1C7E1F13B6CE0084F71A /* mob@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2B1C781F13B6CE0084F71A /* mob@3x.png */; };
+		7D2B1C821F14E7BC0084F71A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D2B1C811F14E7BC0084F71A /* GoogleService-Info.plist */; };
 		7D2E22481F00B98500A0783E /* SubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E22461F00B98400A0783E /* SubscriptionVC.swift */; };
 		7D2E224B1F00B9A800A0783E /* SubscriptionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */; };
 		7D2E22521F00C53200A0783E /* SubscriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E22501F00C53200A0783E /* SubscriptionCell.swift */; };
@@ -278,6 +279,7 @@
 		7D2B1C761F13B6CE0084F71A /* mob@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mob@1x.png"; sourceTree = "<group>"; };
 		7D2B1C771F13B6CE0084F71A /* mob@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mob@2x.png"; sourceTree = "<group>"; };
 		7D2B1C781F13B6CE0084F71A /* mob@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mob@3x.png"; sourceTree = "<group>"; };
+		7D2B1C811F14E7BC0084F71A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7D2E22461F00B98400A0783E /* SubscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionVC.swift; sourceTree = "<group>"; };
 		7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionVC.xib; sourceTree = "<group>"; };
 		7D2E22501F00C53200A0783E /* SubscriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionCell.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 		279004251EF766DC00EB198C /* TenderWatch */ = {
 			isa = PBXGroup;
 			children = (
+				7D2B1C811F14E7BC0084F71A /* GoogleService-Info.plist */,
 				5CF289B01EFB659200F3EC79 /* TenderWatch-Bridging-Header.h */,
 				27A28ED41EF784F000E7B53B /* Info.plist */,
 				275211F61F022AD000DADAC9 /* WebServices */,
@@ -893,6 +896,7 @@
 				27A28EC51EF776F000E7B53B /* SignUpVC.xib in Resources */,
 				7DCEB0591EFE28E6002A776C /* postten@2x.png in Resources */,
 				7D946AC71EFCAC1E00C258E1 /* check@3x.png in Resources */,
+				7D2B1C821F14E7BC0084F71A /* GoogleService-Info.plist in Resources */,
 				7D946B001EFCDB1400C258E1 /* menu@3x.png in Resources */,
 				7D946ADB1EFCAC1E00C258E1 /* mobile@2x.png in Resources */,
 				7DCEB0601EFE28E6002A776C /* userthree@3x.png in Resources */,
@@ -1324,11 +1328,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.citrus.org;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tenderWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7b242932-bdcc-479c-abf6-c89a85f10109";
 				PROVISIONING_PROFILE_SPECIFIER = dev_citrus_prov;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1344,11 +1348,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.citrus.org;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tenderWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7b242932-bdcc-479c-abf6-c89a85f10109";
 				PROVISIONING_PROFILE_SPECIFIER = dev_citrus_prov;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

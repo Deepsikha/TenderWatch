@@ -11,6 +11,8 @@ target 'TenderWatch' do
     pod 'RSKImageCropper'
     pod 'IQKeyboardManager'
     pod 'SDWebImage'
+    pod 'Google/SignIn'
+
     
   target 'TenderWatchTests' do
     inherit! :search_paths

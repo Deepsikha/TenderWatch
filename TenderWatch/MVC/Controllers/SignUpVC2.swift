@@ -62,7 +62,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.opnDrawr.isHidden = false
             self.lblName.isHidden = false
             self.btnnext.setTitle("Update", for: .normal)
-            
+            //
             self.phonenum.text = USER?.contactNo
             self.btnCountry.setTitle(USER?.country, for: .normal)
             self.occupation.text = USER?.occupation
@@ -70,11 +70,15 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.proflPic.imageView?.sd_setIndicatorStyle(.gray)
             if (USER?.value(forKey: "profilePhoto") != nil) {
                 self.proflPic.imageView?.sd_setImage(with: URL(string: (USER?.profilePhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                    if image == nil {
+                        self.proflPic.setImage(UIImage(named: "avtar"), for: .normal)
+                    } else {
+                        self.proflPic.setImage(image, for: .normal)
+                    }
                 })
             } else {
                 self.proflPic.setImage(UIImage(named : "avtar"), for: .normal)
             }
-            
         } else {
             self.back.isHidden = false
             self.opnDrawr.isHidden = true
@@ -214,13 +218,13 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                "contactNo": USER?.contactNo!,
                                "occupation": USER?.occupation!,
                                "aboutMe": USER?.aboutMe!,
-                               "role" : "client"] as [String : Any]
+                               "role" : "client"]
         } else {
             self.parameters = ["country": USER?.country!,
                                "contactNo": USER?.contactNo!,
                                "occupation": USER?.occupation!,
                                "aboutMe": USER?.aboutMe!,
-                               "role" : "contractor"] as [String : Any]
+                               "role" : "contractor"] as! [String : String]
         }
         if isNetworkReachable() {
             Alamofire.upload(multipartFormData: { (multipartFormData) in

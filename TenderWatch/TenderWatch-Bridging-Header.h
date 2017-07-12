@@ -9,4 +9,5 @@
 #ifndef TenderWatch_Bridging_Header_h
 #define TenderWatch_Bridging_Header_h
 
+#import <Google/SignIn.h>
 #endif /* TenderWatch_Bridging_Header_h */

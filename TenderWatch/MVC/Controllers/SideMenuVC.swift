@@ -36,8 +36,6 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tblSideMenu.reloadData()
         
         self.imgProPic.layer.cornerRadius = self.imgProPic.frame.width / 2
-        self.imgProPic.layer.borderColor = UIColor.black.cgColor
-        self.imgProPic.layer.borderWidth = 2
 
         self.lblName.text =  USER?.firstName //"Demo User" //remaining
         if (USER?.authenticationToken != nil) {
@@ -62,7 +60,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             SideMenuVC.arrSideMenuIcon = ["home","upload","userthree","password", "bell", "logout"]
             SideMenuVC.arrSideMenuLbl = ["Home", "Upload Tender", "Edit Profile", "Change Password", "Notifications", "Logout"]
         } else {
-            SideMenuVC.arrSideMenuIcon = ["home","dollar","flag", "userthree","password", "fav", "bell", "logout"]
+            SideMenuVC.arrSideMenuIcon = ["home","dollar","country", "userthree","password", "fav", "bell", "logout"]
             SideMenuVC.arrSideMenuLbl = ["Home", "Subscription Details", "Add/Remove Countries", "Edit Profile", "Change Password", "Favorites", "Notifications", "Logout"]
         }
         self.tblSideMenu.reloadData()

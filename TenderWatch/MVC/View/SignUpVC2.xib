@@ -158,7 +158,7 @@
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BGa-yF-pZX">
                             <rect key="frame" x="20" y="62.5" width="226" height="47"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mob.png" translatesAutoresizingMaskIntoConstraints="NO" id="5hp-LA-Ph6">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mobile.png" translatesAutoresizingMaskIntoConstraints="NO" id="5hp-LA-Ph6">
                                     <rect key="frame" x="8" y="12.5" width="22" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="22" id="3Td-XL-0C1"/>
@@ -343,7 +343,7 @@ TW9iaWxlIE51bWJlcgM
         <image name="country.png" width="21" height="21"/>
         <image name="left-arr.png" width="22" height="22"/>
         <image name="menu.png" width="22" height="22"/>
-        <image name="mob.png" width="21" height="21"/>
+        <image name="mobile.png" width="22" height="22"/>
         <image name="occupation.png" width="21" height="21"/>
         <image name="plus.png" width="800" height="800"/>
         <image name="right-arr.png" width="22" height="22"/>

@@ -35,6 +35,9 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         self.tblMappings.tableFooterView = UIView()
         
+        self.fetchCoutry()
+        self.fetchCategory()
+        
         //taphandle
         //        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         //        tap.cancelsTouchesInView = false
@@ -45,9 +48,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
-        self.fetchCoutry()
-        self.fetchCategory()
-        
+       
         if(USER?.authenticationToken != nil) {
             self.btnBack.isHidden = true
             self.btnMenu.isHidden = false

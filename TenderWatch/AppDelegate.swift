@@ -8,15 +8,23 @@
 
 import UIKit
 import IQKeyboardManager
+import UserNotifications
+import Google
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+
     var window: UIWindow?
     var drawerController = DrawerController()
     var isClient: Bool?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        var configureError: NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        assert(configureError == nil, "Error configuring Google services: \(String(describing: configureError))")
+        
+        GIDSignIn.sharedInstance().delegate = self
         
         if USER?.authenticationToken != nil
         {
@@ -35,26 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func setHomeViewController()
-    {
-        // Override point for customization after application launch.
-        let leftSideDrawerViewController = SideMenuVC(nibName: "SideMenuVC", bundle: nil)
-        let centerViewController = TenderWatchVC(nibName: "TenderWatchVC", bundle: nil)
-        
-        let navigationController = UINavigationController(rootViewController: centerViewController)
-        navigationController.restorationIdentifier = "ExampleCenterNavigationControllerRestorationKey"
-        
-        let leftSideNavController = UINavigationController(rootViewController: leftSideDrawerViewController)
-        leftSideNavController.restorationIdentifier = "ExampleLeftNavigationControllerRestorationKey"
-        
-        self.drawerController = DrawerController(centerViewController: navigationController, leftDrawerViewController: leftSideNavController)
-        self.drawerController.showsShadows = true
-        
-        self.drawerController.restorationIdentifier = "Drawer"
-        self.drawerController.maximumRightDrawerWidth = 150.0
-        self.drawerController.closeDrawerGestureModeMask = .all
-        self.window?.rootViewController = self.drawerController
-        self.window?.makeKeyAndVisible()
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
     }
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
@@ -92,6 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
     func application(_ application: UIApplication, viewControllerWithRestorationIdentifierPath identifierComponents: [Any], coder: NSCoder) -> UIViewController? {
         if let key = identifierComponents.last as? String {
             if key == "Drawer" {
@@ -124,6 +115,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return nil
     }
     
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print(deviceToken)
+    }
+    
+    //MARK:- SignIn Delegate
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if (error == nil) {
+            //send token or signupUserdata to server
+            // Perform any operations on signed in user here.
+            let userId = user.userID
+            print()// For client-side use only!
+            let idToken = user.authentication.idToken // Safe to send to the server
+            let fullName = user.profile.name
+            let givenName = user.profile.givenName
+            let familyName = user.profile.familyName
+            let email = user.profile.email
+            // ...
+        } else {
+            print("\(error.localizedDescription)")
+        }
+    }
+    
     // MARK:- Custom Method(s)
     
     func setUpRootVc() {
@@ -138,5 +156,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         nav.setNavigationBarHidden(true, animated: false)
         nav.pushViewController(vc, animated: false)
     }
+    
+    func setHomeViewController()
+    {
+        // Override point for customization after application launch.
+        let leftSideDrawerViewController = SideMenuVC(nibName: "SideMenuVC", bundle: nil)
+        let centerViewController = TenderWatchVC(nibName: "TenderWatchVC", bundle: nil)
+        
+        let navigationController = UINavigationController(rootViewController: centerViewController)
+        navigationController.restorationIdentifier = "ExampleCenterNavigationControllerRestorationKey"
+        
+        let leftSideNavController = UINavigationController(rootViewController: leftSideDrawerViewController)
+        leftSideNavController.restorationIdentifier = "ExampleLeftNavigationControllerRestorationKey"
+        
+        self.drawerController = DrawerController(centerViewController: navigationController, leftDrawerViewController: leftSideNavController)
+        self.drawerController.showsShadows = true
+        
+        self.drawerController.restorationIdentifier = "Drawer"
+        self.drawerController.maximumRightDrawerWidth = 150.0
+        self.drawerController.closeDrawerGestureModeMask = .all
+        self.window?.rootViewController = self.drawerController
+        self.window?.makeKeyAndVisible()
+    }
+    
 }
 

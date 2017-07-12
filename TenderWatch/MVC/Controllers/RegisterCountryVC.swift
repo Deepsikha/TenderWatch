@@ -88,9 +88,11 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
                 }
             }) { (errorMessage) in
                 print(errorMessage)
+                self.stopActivityIndicator()
             }
         } else {
             MessageManager.showAlert(nil, "No Internet")
+            self.stopActivityIndicator()
         }
     }
     

@@ -92,7 +92,7 @@ class RulesVC: UIViewController {
                     
                     let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
                     
-                    multipartFormData.append(signUpUser.photo, withName: "image",fileName: imgname, mimeType: "image/jpg")
+                    multipartFormData.append(signUpUser.photo, withName: "image",fileName: imgname, mimeType: "image/jpeg")
                 }
                 //                for (key, value) in self.parameters {
                 //                    multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
@@ -103,8 +103,8 @@ class RulesVC: UIViewController {
                         multipartFormData.append(stringValue.data(using: String.Encoding.utf8)!, withName: key)
                     }
                     else if let dictionaryValue = value as? [String : Any] {
-                        let dataDictionary: Data = NSKeyedArchiver.archivedData(withRootObject: dictionaryValue)
-                        multipartFormData.append(dataDictionary, withName: key)
+                        let data = try? JSONSerialization.data(withJSONObject: dictionaryValue, options: JSONSerialization.WritingOptions.prettyPrinted)
+                        multipartFormData.append(data!, withName: key)
                     }
                 }
             },
@@ -156,6 +156,6 @@ class RulesVC: UIViewController {
             MessageManager.showAlert(nil, "No Internet")
             self.btnSignUp.isEnabled = true
             self.stopActivityIndicator()
-        }
+        }        
     }
 }

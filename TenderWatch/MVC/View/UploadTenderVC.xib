@@ -299,7 +299,7 @@
                                     </constraints>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pqb-ao-ujV">
-                                    <rect key="frame" x="72" y="10" width="160" height="30"/>
+                                    <rect key="frame" x="58" y="10" width="174" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                 </textField>
@@ -307,7 +307,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="pqb-ao-ujV" secondAttribute="trailing" constant="8" id="03Y-0w-jyf"/>
-                                <constraint firstItem="pqb-ao-ujV" firstAttribute="leading" secondItem="K9W-ee-Bar" secondAttribute="trailing" constant="39" id="HFB-AP-vs2"/>
+                                <constraint firstItem="pqb-ao-ujV" firstAttribute="leading" secondItem="K9W-ee-Bar" secondAttribute="trailing" constant="25" id="HFB-AP-vs2"/>
                                 <constraint firstAttribute="trailing" secondItem="Bel-In-PPh" secondAttribute="trailing" id="PP5-pE-CdZ"/>
                                 <constraint firstAttribute="bottom" secondItem="Bel-In-PPh" secondAttribute="bottom" constant="6" id="TFZ-2S-Xef"/>
                                 <constraint firstItem="K9W-ee-Bar" firstAttribute="leading" secondItem="54z-Co-fQ3" secondAttribute="leading" constant="8" id="aXK-BS-Mhl"/>
@@ -332,14 +332,14 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="occupation.png" translatesAutoresizingMaskIntoConstraints="NO" id="uq1-iM-ZCK">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="landline.png" translatesAutoresizingMaskIntoConstraints="NO" id="uq1-iM-ZCK">
                                     <rect key="frame" x="8" y="13" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="uq1-iM-ZCK" secondAttribute="height" multiplier="1:1" id="0Dj-Bx-fdg"/>
                                     </constraints>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Land Line Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VaL-CG-Drb">
-                                    <rect key="frame" x="72" y="10" width="160" height="30"/>
+                                    <rect key="frame" x="58" y="10" width="174" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next"/>
                                 </textField>
@@ -349,7 +349,7 @@
                                 <constraint firstAttribute="width" secondItem="Gvk-PE-lhU" secondAttribute="height" multiplier="24:5" id="0lb-bR-VbM"/>
                                 <constraint firstItem="DiA-2e-rmu" firstAttribute="top" secondItem="VaL-CG-Drb" secondAttribute="bottom" constant="3" id="CaT-T7-AdD"/>
                                 <constraint firstItem="DiA-2e-rmu" firstAttribute="top" secondItem="uq1-iM-ZCK" secondAttribute="bottom" constant="5" id="Qrn-Ya-hQW"/>
-                                <constraint firstItem="VaL-CG-Drb" firstAttribute="leading" secondItem="uq1-iM-ZCK" secondAttribute="trailing" constant="39" id="RlH-8y-LSM"/>
+                                <constraint firstItem="VaL-CG-Drb" firstAttribute="leading" secondItem="uq1-iM-ZCK" secondAttribute="trailing" constant="25" id="RlH-8y-LSM"/>
                                 <constraint firstItem="DiA-2e-rmu" firstAttribute="leading" secondItem="Gvk-PE-lhU" secondAttribute="leading" id="buS-iQ-CgM"/>
                                 <constraint firstAttribute="trailing" secondItem="VaL-CG-Drb" secondAttribute="trailing" constant="8" id="eWb-Mo-62W"/>
                                 <constraint firstItem="uq1-iM-ZCK" firstAttribute="top" secondItem="Gvk-PE-lhU" secondAttribute="top" constant="13" id="nqX-pk-qvz"/>
@@ -379,7 +379,7 @@
                                     </constraints>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vVC-xU-AGI">
-                                    <rect key="frame" x="72" y="10" width="160" height="30"/>
+                                    <rect key="frame" x="58" y="10" width="174" height="30"/>
                                     <string key="placeholder" base64-UTF8="YES">
 TW9iaWxlIE51bWJlcgM
 </string>
@@ -392,7 +392,7 @@ TW9iaWxlIE51bWJlcgM
                                 <constraint firstItem="vUH-TL-vKl" firstAttribute="leading" secondItem="BGN-N4-MVL" secondAttribute="leading" constant="8" id="7kU-3g-bdS"/>
                                 <constraint firstAttribute="trailing" secondItem="VoQ-86-LDj" secondAttribute="trailing" id="AEJ-YC-Hl6"/>
                                 <constraint firstItem="vUH-TL-vKl" firstAttribute="top" secondItem="BGN-N4-MVL" secondAttribute="top" constant="13" id="C37-ou-Wzi"/>
-                                <constraint firstItem="vVC-xU-AGI" firstAttribute="leading" secondItem="vUH-TL-vKl" secondAttribute="trailing" constant="39" id="NKQ-BO-zwT"/>
+                                <constraint firstItem="vVC-xU-AGI" firstAttribute="leading" secondItem="vUH-TL-vKl" secondAttribute="trailing" constant="25" id="NKQ-BO-zwT"/>
                                 <constraint firstItem="VoQ-86-LDj" firstAttribute="top" secondItem="vVC-xU-AGI" secondAttribute="bottom" constant="3" id="NvZ-II-Hbc"/>
                                 <constraint firstAttribute="bottom" secondItem="VoQ-86-LDj" secondAttribute="bottom" constant="6" id="Rs8-28-F2o"/>
                                 <constraint firstItem="VoQ-86-LDj" firstAttribute="leading" secondItem="BGN-N4-MVL" secondAttribute="leading" id="TKr-cZ-dDA"/>
@@ -422,7 +422,7 @@ TW9iaWxlIE51bWJlcgM
                                     </constraints>
                                 </imageView>
                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Address" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xbx-0G-S9d">
-                                    <rect key="frame" x="72" y="10" width="160" height="30"/>
+                                    <rect key="frame" x="58" y="10" width="174" height="30"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="textColor" red="0.80487298969999999" green="0.80485785009999999" blue="0.82320630549999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -434,7 +434,7 @@ TW9iaWxlIE51bWJlcgM
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="WBh-x3-gVv" secondAttribute="trailing" id="3mA-MR-F0h"/>
                                 <constraint firstItem="WBh-x3-gVv" firstAttribute="top" secondItem="tgr-9k-fad" secondAttribute="bottom" constant="5" id="CjX-wb-rvK"/>
-                                <constraint firstItem="xbx-0G-S9d" firstAttribute="leading" secondItem="tgr-9k-fad" secondAttribute="trailing" constant="39" id="DT0-sO-7Kw"/>
+                                <constraint firstItem="xbx-0G-S9d" firstAttribute="leading" secondItem="tgr-9k-fad" secondAttribute="trailing" constant="25" id="DT0-sO-7Kw"/>
                                 <constraint firstItem="tgr-9k-fad" firstAttribute="top" secondItem="kRz-IC-9ec" secondAttribute="top" constant="13" id="I0W-QY-2vr"/>
                                 <constraint firstItem="WBh-x3-gVv" firstAttribute="leading" secondItem="kRz-IC-9ec" secondAttribute="leading" id="LJv-Bq-g97"/>
                                 <constraint firstItem="xbx-0G-S9d" firstAttribute="top" secondItem="kRz-IC-9ec" secondAttribute="top" constant="10" id="Xif-IJ-Nfa"/>
@@ -499,11 +499,11 @@ TW9iaWxlIE51bWJlcgM
         </view>
     </objects>
     <resources>
+        <image name="landline.png" width="21" height="21"/>
         <image name="location.png" width="21" height="21"/>
         <image name="mail.png" width="22" height="22"/>
         <image name="menu.png" width="22" height="22"/>
         <image name="mobile.png" width="22" height="22"/>
-        <image name="occupation.png" width="21" height="21"/>
         <image name="plus1.png" width="128" height="128"/>
     </resources>
 </document>
