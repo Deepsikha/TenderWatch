@@ -15,6 +15,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     @IBOutlet var btnMenu: UIButton!
     @IBOutlet var tblTenderList: UITableView!
+    @IBOutlet weak var lblNoTender: UILabel!
     
     var tender = [Tender]()
     
@@ -56,7 +57,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         let tender = self.tender[indexPath.row]
         cell.lblName.text = (tender.email == "") ? "example@gmail.com" : tender.email
         cell.lblCountry.text = tender.tenderName
-        cell.lblTender.text = tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!)
+        
         cell.imgProfile.sd_setShowActivityIndicatorView(true)
         cell.imgProfile.sd_setIndicatorStyle(.gray)
         //        (tender.tenderPhoto)!
@@ -66,23 +67,37 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         } else {
             cell.imgProfile.image = UIImage(named: "avtar")
         }
+        //Day remainning
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let startDate:NSDate = dateFormatter.date(from: (tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!))!)! as NSDate
+        
+        let components = NSCalendar.current.dateComponents([.month, .day, .hour, .minute, .second], from: (NSDate() as Date), to: startDate as Date)
+
+        
+        cell.lblTender.text = String(describing: components.day!)
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
+        let fav = UITableViewRowAction(style: .normal, title: "Favourites") { action, index in
+            print("Edit button tapped")
+            self.addFavorite()
+        }
+        let dlt = UITableViewRowAction(style: .normal, title: "Delete", handler: { (action, index) in
+            print("Delete button tapped")
+            self.deleteTender(index.row)
+        })
+        dlt.backgroundColor = UIColor.red
+        fav.backgroundColor = UIColor.blue
+
         if !(USER?.role?.rawValue == RollType.client.rawValue) {
-            let fav = UITableViewRowAction(style: .normal, title: "Favourites") { action, index in
-                print("Edit button tapped")
-                self.addFavorite()
-            }
-            fav.backgroundColor = UIColor.blue
-            return [fav]
+            
+            return [dlt,fav]
         } else {
-            let dlt = UITableViewRowAction(style: .normal, title: "Delete", handler: { (action, index) in
-                print("Delete button tapped")
-                self.deleteTender(index.row)
-            })
-            dlt.backgroundColor = UIColor.red
+            
             return [dlt]
         }
     }
@@ -103,8 +118,10 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             Alamofire.request(GET_TENDER, method: .post, parameters: ["role" : "\(USER?.role?.rawValue as! String)"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     if resp.result.value is NSDictionary {
-                        MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
+//                        MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
+                        self.lblNoTender.isHidden = false
                     } else {
+                        self.lblNoTender.isHidden = true
                         print(resp.result.value!)
                         let data = (resp.result.value as! NSObject)
                         self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
@@ -159,7 +176,5 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         } else {
             MessageManager.showAlert(nil, "No Internet")
         }
-        
-        
     }
 }

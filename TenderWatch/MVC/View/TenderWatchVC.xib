@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TenderWatchVC" customModule="TenderWatch" customModuleProvider="target">
             <connections>
                 <outlet property="btnMenu" destination="D4J-ZA-zjz" id="vTr-ab-a0c"/>
+                <outlet property="lblNoTender" destination="0hP-rf-L26" id="wUL-QL-2Dh"/>
                 <outlet property="tblTenderList" destination="3tO-Yo-Oel" id="qNo-1B-4jE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -41,6 +42,16 @@
                     <rect key="frame" x="0.0" y="63" width="320" height="417"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
+                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Uploaded Tender" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hP-rf-L26">
+                    <rect key="frame" x="61" y="223" width="197" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="34" id="q5J-Wm-nbu"/>
+                        <constraint firstAttribute="width" constant="197" id="zsy-ld-Ryr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -54,6 +65,8 @@
                 <constraint firstAttribute="trailing" secondItem="3tO-Yo-Oel" secondAttribute="trailing" id="SMs-eE-2So"/>
                 <constraint firstItem="D4J-ZA-zjz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="UP1-se-ITU"/>
                 <constraint firstAttribute="bottom" secondItem="3tO-Yo-Oel" secondAttribute="bottom" id="V5o-yO-eZE"/>
+                <constraint firstItem="0hP-rf-L26" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="WAD-58-vCA"/>
+                <constraint firstItem="0hP-rf-L26" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="xtW-HQ-VRn"/>
                 <constraint firstItem="hAG-m2-yUY" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="zs4-9Q-xBP"/>
             </constraints>
             <point key="canvasLocation" x="-40" y="-16"/>

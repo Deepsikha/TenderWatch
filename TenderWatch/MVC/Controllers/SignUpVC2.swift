@@ -70,12 +70,9 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.back.isHidden = false
             self.opnDrawr.isHidden = true
             self.lblName.isHidden = true
-            
-            if (signUpUser.country.isEmpty) {
-                self.btnCountry.setTitle("Country", for: .normal)
-            } else {
-                self.btnCountry.setTitle(signUpUser.country, for: .normal)
-            }
+            self.proflPic.layer.borderColor = UIColor.black.cgColor
+            self.proflPic.layer.borderWidth = 1
+           
         }
 
         
@@ -88,6 +85,13 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        if (USER?.authenticationToken == nil) {
+            if (signUpUser.country.isEmpty) {
+                self.btnCountry.setTitle("Country", for: .normal)
+            } else {
+                self.btnCountry.setTitle(signUpUser.country, for: .normal)
+            }
+        }
         
         
     }
@@ -224,9 +228,10 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                "contactNo": USER?.contactNo!,
                                "occupation": USER?.occupation!,
                                "aboutMe": USER?.aboutMe!,
-                               "role" : "contractor"] as! [String : String]
+                               "role" : "contractor"]
         }
         if isNetworkReachable() {
+            self.startActivityIndicator()
             Alamofire.upload(multipartFormData: { (multipartFormData) in
                 if !(signUpUser.photo.isEmpty)
                 {
@@ -260,7 +265,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                 let token = USER?.authenticationToken
                                 USER = Mapper<User>().map(JSON: data as! [String : Any])!
                                 USER?.authenticationToken = token
-                                
+                                self.stopActivityIndicator()
                                 appDelegate.setHomeViewController()
                             }
                         }
@@ -268,10 +273,12 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                     
                 case .failure(let encodingError):
                     print(encodingError)
+                    self.stopActivityIndicator()
                 }
             }
         } else {
             MessageManager.showAlert(nil, "No Internet")
+            self.stopActivityIndicator()
         }
     }
     

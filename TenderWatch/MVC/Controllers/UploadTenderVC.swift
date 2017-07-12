@@ -361,7 +361,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func submit() {
-        if !(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)! {
+        if (!(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || !(self.txfMobileNo.text?.isEmpty)! || !(self.txfLandLineNo.text?.isEmpty)! || !(self.txtvwAddress.text == "Address")) {
             let param: Parameters = [  "country":self.uploadTender.cId,
                                        "category":self.uploadTender.ctId,
                                        "tenderName":self.uploadTender.tenderTitle,
@@ -430,6 +430,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 MessageManager.showAlert(nil, "Select Country")
             } else if self.uploadTender.ctId.isEmpty {
                 MessageManager.showAlert(nil, "Select Category")
+            } else if !(!(self.txfEmail.text?.isEmpty)! || !(self.txfMobileNo.text?.isEmpty)! || !(self.txfLandLineNo.text?.isEmpty)! || !(self.txtvwAddress.text == "Address")){
+                MessageManager.showAlert(nil, "Enter Contact Details")
             } else {
                 MessageManager.showAlert(nil, "Enter Title")
             }
