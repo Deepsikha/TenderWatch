@@ -60,9 +60,10 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         
         cell.imgProfile.sd_setShowActivityIndicatorView(true)
         cell.imgProfile.sd_setIndicatorStyle(.gray)
-        //        (tender.tenderPhoto)!
+//                (tender.tenderPhoto)!
         if (tender.tenderPhoto != nil) {
             cell.imgProfile.sd_setImage(with: URL(string: (tender.tenderPhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                SDWebImageManager.shared().imageCache?.clearMemory()
             })
         } else {
             cell.imgProfile.image = UIImage(named: "avtar")

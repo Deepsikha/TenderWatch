@@ -19,6 +19,16 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     static var arrSideMenuIcon: [String] = []
     static var arrSideMenuLbl: [String] = []
     
+    var nav1: UINavigationController?
+    var nav2: UINavigationController?
+    var nav3: UINavigationController?
+    var nav4: UINavigationController?
+    var nav5: UINavigationController?
+    var nav6: UINavigationController?
+    var nav7: UINavigationController?
+    var nav8: UINavigationController?
+    var nav9: UINavigationController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,6 +37,28 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         tblSideMenu.register(UINib(nibName:"SideMenuCell",bundle: nil), forCellReuseIdentifier: "SideMenuCell")
         self.tblSideMenu.tableFooterView = UIView()
+        
+        if(nav1 == nil){
+            nav1 = UINavigationController(rootViewController: TenderWatchVC())
+        }
+        nav2 = UINavigationController(rootViewController: SubscriptionVC())
+        
+        nav3 = UINavigationController(rootViewController: MappingVC())
+        nav4 = UINavigationController(rootViewController: UploadTenderVC())
+        
+        nav5 = UINavigationController(rootViewController: SignUpVC2())
+        nav6 = UINavigationController(rootViewController: ChangePasswordVC())
+        
+        nav7 = UINavigationController(rootViewController: FavoriteVC())
+        
+        nav8 = UINavigationController(rootViewController: NotificationVC())
+        
+        nav9 = UINavigationController(rootViewController: HomeVC())
+        
+        
+        
+        
+        
         
     }
     
@@ -96,44 +128,53 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK:- custom Method
     func reDirect(item: String){
         if  item == "Home" {
-            let nav = UINavigationController(rootViewController: TenderWatchVC())
-            appDelegate.drawerController.centerViewController = nav
+//            let nav = UINavigationController(rootViewController: TenderWatchVC())
+            appDelegate.drawerController.centerViewController = nav1
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Subscription Details" {
-            let nav = UINavigationController(rootViewController: SubscriptionVC())
-            appDelegate.drawerController.centerViewController = nav
+            appDelegate.drawerController.centerViewController = nav2
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Add/Remove Countries" {
-            let nav = UINavigationController(rootViewController: MappingVC())
-            appDelegate.drawerController.centerViewController = nav
+//            let nav = UINavigationController(rootViewController: MappingVC())
+            appDelegate.drawerController.centerViewController = nav3
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if  item == "Upload Tender" {
-            let nav = UINavigationController(rootViewController: UploadTenderVC())
-            appDelegate.drawerController.centerViewController = nav
+//            let nav = UINavigationController(rootViewController: UploadTenderVC())
+            appDelegate.drawerController.centerViewController = nav4
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Edit Profile" {
-            DispatchQueue.main.async {
-            let nav = UINavigationController(rootViewController: SignUpVC2())
-            appDelegate.drawerController.centerViewController = nav
+//            let nav = UINavigationController(rootViewController: SignUpVC2())
+            appDelegate.drawerController.centerViewController = nav5
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
-            }
         } else if item == "Change Password" {
-            let nav = UINavigationController(rootViewController: ChangePasswordVC())
-            appDelegate.drawerController.centerViewController = nav
+//            let nav = UINavigationController(rootViewController: ChangePasswordVC())
+            appDelegate.drawerController.centerViewController = nav6
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Favorites" {
-            let nav = UINavigationController(rootViewController: FavoriteVC())
-            appDelegate.drawerController.centerViewController = nav
+//            let nav = UINavigationController(rootViewController: FavoriteVC())
+            appDelegate.drawerController.centerViewController = nav7
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Notifications" {
-            let nav = UINavigationController(rootViewController: NotificationVC())
-            appDelegate.drawerController.centerViewController = nav
+//            let nav = UINavigationController(rootViewController: NotificationVC())
+            appDelegate.drawerController.centerViewController = nav8
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Logout" {
             UserManager.shared.logoutCurrentUser()
-            let nav = UINavigationController(rootViewController: HomeVC())
-            appDelegate.drawerController.centerViewController = nav
-            appDelegate.drawerController.closeDrawer(animated: false, completion: nil)
+//            let nav = UINavigationController(rootViewController: HomeVC())
+            
+            appDelegate.drawerController.centerViewController = nav9
+            self.nav1 = nil
+            self.nav2 = nil
+            self.nav3 = nil
+            self.nav4 = nil
+            self.nav5 = nil
+            self.nav6 = nil
+            self.nav7 = nil
+            self.nav8 = nil
+
+            appDelegate.drawerController.closeDrawer(animated: true, completion: { (finish) in
+
+            })
         }
     }
 

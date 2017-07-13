@@ -9,21 +9,21 @@
 import UIKit
 import ObjectMapper
 
-class Select: NSObject, Mappable {
-    
-    var selections = [Selections]()
-    required init?(map: Map) {
-        super.init()
-        mapping(map:map)
-    }
-    override init() {
-        super.init()
-    }
-    
-    func mapping(map: Map) {
-        selections <- map["selections"]
-    }
-}
+//class Select: NSObject, Mappable {
+//    
+//    var selections = [Selections]()
+//    required init?(map: Map) {
+//        super.init()
+//        mapping(map:map)
+//    }
+//    override init() {
+//        super.init()
+//    }
+//    
+//    func mapping(map: Map) {
+//        selections <- map["selections"]
+//    }
+//}
 
 class Selections: NSObject, Mappable {
     
@@ -40,7 +40,7 @@ class Selections: NSObject, Mappable {
     }
     
     func mapping(map: Map) {
-        countryId <- map["countryId"]
+        countryId  <- map["countryId"]
         categoryId <- map["categoryId"]
     }
 }

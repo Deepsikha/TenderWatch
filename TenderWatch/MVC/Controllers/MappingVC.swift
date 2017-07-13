@@ -8,6 +8,7 @@
 
 import UIKit
 import ObjectMapper
+import Alamofire
 
 class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -23,7 +24,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var temp : Dictionary< String, [Bool]> = [:]
     var select = [String : [String]]()
     var selectedIndexArray:[IndexPath] = []
-    var map = Selections()
+    var services = [Selections]()
     var sendList = NSMutableDictionary()
     
     override func viewDidLoad() {
@@ -75,8 +76,8 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
         var arrMapping = self.countryCatDict[country[indexPath.section].countryId!]
         let arrList = arrMapping?[indexPath.row]
-        cell.countryName.text =  arrList?.categoryName//self.category[indexPath.row].categoryName
-        if (selectedIndexArray.contains(indexPath))//(arrList?.isSelected)!
+        cell.countryName.text =  arrList?.categoryName //self.category[indexPath.row].categoryName
+        if (selectedIndexArray.contains(indexPath)) //(arrList?.isSelected)!
         {
             cell.imgTick.isHidden = false
         }
@@ -92,14 +93,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
         print(indexPath.section)
-        //        var arrMapping = self.countryCatDict[country[indexPath.section].countryId!]
-        //        let arrList = arrMapping?[indexPath.row]
-        //        var temp = [Category]()
-        //        self.selectedDictionary[country[indexPath.section].countryId!] = [arrList]
-        //        temp = arrMapping!
-        //        temp[indexPath.row].isSelected = !(arrMapping?[indexPath.row].isSelected)!
-        //        self.countryCatDict[country[indexPath.section].countryId!] = temp
-        
         if (selectedIndexArray.contains(indexPath))
         {
             selectedIndexArray.remove(at: selectedIndexArray.index(of: indexPath)!)
@@ -112,78 +105,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         }
         tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
-        //        tableView.reloadSections(NSIndexSet(index:indexPath.section) as IndexSet, with: UITableViewRowAnimation.none)
-        
-        // arrList?.isSelected = !(arrList?.isSelected)!
-        // category[indexPath.row].isSelected = !category[indexPath.row].isSelected!
-        // tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
-        //        let cell = tableView.cellForRow(at: indexPath) as! RegisterCountryCell
-        //        if (UserManager.shared.user?.authenticationToken == nil) {
-        //            category[indexPath.row].isSelected = !category[indexPath.row].isSelected!
-        //            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
-        //
-        //            if category[indexPath.row].isSelected!
-        //            {
-        //                cell.imgTick.isHidden = category[indexPath.row].isSelected!
-        //                category[indexPath.row].isSelected
-        //
-        //            }
-        //            else{
-        //                cell.imgTick.isHidden = category[indexPath.row].isSelected!
-        //            }
-        //            if (cell.imgTick.isHidden) {
-        //                cell.imgTick.isHidden = !cell.imgTick.isHidden
-        //            } else {
-        //                cell.imgTick.isHidden = !cell.imgTick.isHidden
-        //            }
-        //
-        //        } else {
-        //            if (cell.imgTick.isHidden) {
-        //                cell.imgTick.isHidden = !cell.imgTick.isHidden
-        //                let country1 = tableView.headerView(forSection: indexPath.section)?.textLabel?.text
-        //                let category1 = cell.countryName.text!
-        //                let id = (self.country.filter {$0.countryName == country1})[0].countryId
-        //                let ch = (self.category.filter {$0.categoryName == category1})[0].categoryId
-        //
-        //                if self.select.selections.contains(map) {
-        //                    if (map.countryId == id!) {
-        //                        map.categoryId.append(ch!)
-        //                    } else {
-        //                        map = Selections()
-        //                        map.countryId = id!
-        //                        map.categoryId.append(ch!)
-        //                        select.selections.append(map)
-        //                    }
-        //                } else {
-        //                    map.countryId = id!
-        //                    map.categoryId.append(ch!)
-        //                    self.select.selections.append(map)
-        //                }
-        //                if let filteredArray = addCC.filter({$0.countryId == id})
-        //                {
-        //                    if (filteredArray.count > 0)
-        //                    {
-        //                        let newObject:addCountryObj = filteredArray.first!
-        //                        self.lastindexpath = (objMessageListArray?.index(of: newObject))!
-        //                    }
-        //                }
-        //
-        //                if addCC.filter(<#T##isIncluded: (addCountryObj) throws -> Bool##(addCountryObj) throws -> Bool#>) {
-        //
-        //                } else {
-        //                    addCC
-        //                }
-        //
-        //            } else {
-        //                cell.imgTick.isHidden = !cell.imgTick.isHidden
-        //                if RulesVC.arrCountry.contains(cell.countryName.text!) {
-        //
-        //                    if let itemToRemoveIndex = RulesVC.arrCountry.index(of: cell.countryName.text!) {
-        //                        RulesVC.arrCountry.remove(at: itemToRemoveIndex)
-        //                    }
-        //                }
-        //            }
-        //        }
         
     }
     
@@ -233,15 +154,18 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     var tmp = [String]()
                     tmp.append((arrList?.categoryId)!)
                     select[country[indexPath.section].countryId!] = tmp
-                    
                 }
             }
             print("dictionary:->",select)
-            signUpUser.selections = select
             //selectedIndexArray.removeAll()
             
         }
-        self.navigationController?.pushViewController(RulesVC(), animated: true)
+        if (USER?.authenticationToken != nil) {
+            self.updateService()
+        } else {
+            signUpUser.selections = self.select
+            self.navigationController?.pushViewController(RulesVC(), animated: true)
+        }
     }
     
     //MARK:- Custom Method
@@ -290,6 +214,9 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.stopActivityIndicator()
                     self.makeCountryDic()
                     print(self.countryCatDict)
+                    if (USER?.authenticationToken != nil) {
+                        self.getServices()
+                    }
                     self.tblMappings.reloadData()
                 }
                 
@@ -301,8 +228,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.stopActivityIndicator()
         }
     }
-    
-    
+
     func splitDataInToSection() {
         
         var sectionTitle: String = ""
@@ -317,6 +243,65 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         }
         // self.tblMappings.reloadData()
+    }
+    //    {
+    //    5950efa4b8b3a71b4ce68a0e =     (
+    //    5950edfe518d6524ac0f3f25,
+    //    5950ee44518d6524ac0f3f26,
+    //    5950ee6a518d6524ac0f3f27
+    //    );
+    //    5950efc2b8b3a71b4ce68a0f =     (
+    //    5950edfe518d6524ac0f3f25,
+    //    5950ee6a518d6524ac0f3f27,
+    //    5950ee44518d6524ac0f3f26
+    //    );
+    //    }
+    func getServices() {
+        if isNetworkReachable() {
+            self.startActivityIndicator()
+            Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                if(resp.result.value != nil) {
+//                    if resp.result.value is NSDictionary {
+//                        MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
+//                    } else {
+                        print(resp.result.value!)
+                        let data = (resp.result.value as! NSObject)
+//                        self.services = Mapper<Selections>().mapArray(JSONObject: data)!
+                        self.select = resp.result.value as! [String : [String]]
+                        print(self.select)
+                        self.parse()
+                        self.tblMappings.reloadData()
+//                    }
+                }
+                
+                print(resp.result)
+                self.stopActivityIndicator()
+            })
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
+        }
+    }
+    
+    func parse() {
+        for i in self.select {
+            let country = self.country.filter{$0.countryId == i.key}[0]
+            let section = self.country.index(of: country)
+            for j in i.value {
+                let category = self.category.filter{$0.categoryId == j}[0]
+                let row = self.category.index(of: category)
+                selectedIndexArray.append(IndexPath(row: row!, section: section!))
+            }
+        }
+    }
+    
+    func updateService() {
+        if isNetworkReachable() {
+            Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : self.select], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                print(resp.result.value)
+            })
+        } else {
+            MessageManager.showAlert(nil, "No Internet!!!")
+        }
     }
     
 }
