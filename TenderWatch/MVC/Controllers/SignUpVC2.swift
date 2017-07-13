@@ -1,4 +1,4 @@
-//
+ //
 //  SignUpVC.swift
 //  TestApp
 //
@@ -20,7 +20,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBOutlet var mainvw: UIView!
     @IBOutlet weak var phonenum: UITextField!
     @IBOutlet weak var occupation: UITextField!
-    @IBOutlet weak var btnnext: UIButton!
+    @IBOutlet var btnnext: UIButton!
     @IBOutlet weak var proflPic: UIButton!
     @IBOutlet var btnCountry: UIButton!
     @IBOutlet var back: UIButton!
@@ -29,10 +29,12 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     var image: UIImage!
     var parameters : [String : Any]!
+    static var isUpdated = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.btnnext.isEnabled = false
+        self.btnnext.alpha = 0.5
         IQKeyboardManager.shared().previousNextDisplayMode = .alwaysShow
         
         self.phonenum.delegate = self
@@ -49,9 +51,8 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.opnDrawr.isHidden = false
             self.lblName.isHidden = false
             self.btnnext.setTitle("Update", for: .normal)
-            //
+            self.btnCountry.setTitle(USER!.country!, for: .normal)
             self.phonenum.text = USER?.contactNo
-            self.btnCountry.setTitle(USER?.country, for: .normal)
             self.occupation.text = USER?.occupation
             self.proflPic.imageView?.sd_setShowActivityIndicatorView(true)
             self.proflPic.imageView?.sd_setIndicatorStyle(.gray)
@@ -91,15 +92,31 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             } else {
                 self.btnCountry.setTitle(signUpUser.country, for: .normal)
             }
+        } else {
+            if !(btnCountry.titleLabel!.text! == USER!.country!) {
+                self.btnnext.isEnabled = true
+                self.btnCountry.setTitle(USER!.country!, for: .normal)
+                self.btnnext.alpha = 1.0
+            }
         }
         
-        
+        if(SignUpVC2.isUpdated == true) {
+            self.btnnext.isEnabled = true
+            self.btnnext.alpha = 1.0
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.btnnext.isEnabled = false
+        self.btnnext.alpha = 0.5
+        SignUpVC2.isUpdated = false
     }
     
     //MARK:- TextField Delegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if (textField == self.phonenum) {
             textField.keyboardType = UIKeyboardType.numberPad
+            
         } else {
             textField.keyboardType = UIKeyboardType.default
         }
@@ -140,13 +157,46 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     }
     
     func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
-        self.proflPic.setImage(croppedImage, for: .normal)
         let imgData = UIImageJPEGRepresentation(croppedImage, 0.2)
+        if(self.proflPic.currentImage == croppedImage) {
+            self.btnnext.isEnabled = false
+            self.btnnext.alpha = 0.5
+        } else {
+            self.btnnext.isEnabled = true
+            self.btnnext.alpha = 1.0
+        }
         signUpUser.photo = imgData!
+        self.proflPic.setImage(croppedImage, for: .normal)
         _ = self.navigationController?.popViewController(animated: true)
     }
     
     //MARK:- IBActions
+    
+    @IBAction func change(_ sender: UITextField) {
+        if(sender.text == USER?.contactNo || sender.text == USER?.occupation) {
+            self.btnnext.isEnabled = false
+            self.btnnext.alpha = 0.5
+        } else {
+            if(sender == self.phonenum) {
+                if(sender.text?.characters.count == 10) {
+                self.btnnext.isEnabled = true
+                self.btnnext.alpha = 1.0
+                } else {
+                    self.btnnext.isEnabled = false
+                    self.btnnext.alpha = 0.5
+
+                }
+            } else if(sender == self.occupation && (sender.text?.characters.count != 0) ) {
+                self.btnnext.alpha = 1.0
+                self.btnnext.isEnabled = true
+            }
+        }
+
+    }
+    
+    
+    
+    
     @IBAction func selectCountry(_ sender: Any) {
         self.navigationController?.pushViewController(RegisterCountryVC(), animated: true)
     }
@@ -258,9 +308,10 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                     upload.responseJSON { resp in
                         if (resp.result.value != nil) {
                             print(resp.result.value!)
-                            if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
-                                MessageManager.showAlert(nil, "Invalid Credentials")
+                            if  (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
+                                MessageManager.showAlert(nil, (resp.result.value as! NSObject).value(forKey: "error") as! String)
                             } else {
+                                SignUpVC2.isUpdated = true
                                 let data = (resp.result.value as! NSObject)
                                 let token = USER?.authenticationToken
                                 USER = Mapper<User>().map(JSON: data as! [String : Any])!

@@ -42,7 +42,7 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tblvw.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
         cell.countryName.text = self.country[indexPath.row].countryName
-        if (cell.countryName.text == signUpUser.country) {
+        if (cell.countryName.text == signUpUser.country || USER?.country == cell.countryName.text) {
             cell.imgTick.isHidden = false
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
         }
@@ -54,7 +54,11 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
         if(cell.imgTick.isHidden){
             cell.imgTick.isHidden = !cell.imgTick.isHidden
         }
+        if(USER?.authenticationToken != nil) {
+         USER?.country = self.country[indexPath.row].countryName!
+        } else {
         signUpUser.country = self.country[indexPath.row].countryName!
+        }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

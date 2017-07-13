@@ -19,6 +19,7 @@ class AboutVC: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         txtAbout.delegate = self
+        lblCharLimit.text = "\(limitLength - (USER?.aboutMe?.characters.count)!) / 1000"
     }
     
     override func didReceiveMemoryWarning() {
@@ -27,12 +28,10 @@ class AboutVC: UIViewController, UITextViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         IQKeyboardManager.shared().previousNextDisplayMode = .alwaysHide
-        //        IQKeyboardManager.shared().disabledToolbarClasses.add(AboutVC.self)
-        
         self.navigationController?.isNavigationBarHidden = true
         if (USER?.authenticationToken != nil) {
             if (USER?.aboutMe?.isEmpty)! {
-                txtAbout.text = "Enter somr information about yourself"
+                txtAbout.text = "Enter some information about yourself"
                 txtAbout.textColor = UIColor.lightGray
             } else {
                 txtAbout.text = USER?.aboutMe!
@@ -63,14 +62,6 @@ class AboutVC: UIViewController, UITextViewDelegate {
             }
         }
     }
-
-//        func textViewDidEndEditing(_ textView: UITextView) {
-//    
-//            if txtAbout.text.isEmpty {
-//                txtAbout.text = "Enter some information about yourself"
-//                txtAbout.textColor = UIColor.lightGray
-//                }
-//        }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let aboutStr = txtAbout.text else { return true }
@@ -94,15 +85,17 @@ class AboutVC: UIViewController, UITextViewDelegate {
             if (USER?.authenticationToken == nil) {
                 signUpUser.aboutMe = self.txtAbout.text!
             } else {
+                if !(USER!.aboutMe! == self.txtAbout.text!) {
+                    SignUpVC2.isUpdated = true
+                }
                 USER?.aboutMe = self.txtAbout.text!
+                self.navigationController?.popViewController(animated: false)
+                
             }
-            self.navigationController?.popViewController(animated: false)
-            
         }else{
-            MessageManager.showAlert(nil, "Enter some information about yourself")
-            self.txtAbout.delegate = self
-            self.txtAbout.reloadInputViews()
+                MessageManager.showAlert(nil, "Enter some information about yourself")
+                self.txtAbout.delegate = self
+                self.txtAbout.reloadInputViews()
+            }
         }
-    }
-    
 }
