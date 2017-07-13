@@ -76,8 +76,12 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         
         let components = NSCalendar.current.dateComponents([.month, .day, .hour, .minute, .second], from: (NSDate() as Date), to: startDate as Date)
 
+        if (components.day == 1) {
+            cell.lblTender.text = "\(components.day!) day"
+        } else {
+            cell.lblTender.text = "\(components.day!) days"
+        }
         
-        cell.lblTender.text = String(describing: components.day!)
         
 //        if (components.day! < 0) {
 //            deleteTender(indexPath.row)
@@ -99,10 +103,12 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             alert.view.layer.cornerRadius = 10.0
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
-                
+                tableView.reloadRows(at: [index], with: .fade)
             }))
             alert.addAction(UIAlertAction(title: "Delete", style: .cancel, handler:{ action in
+                tableView.reloadRows(at: [index], with: .none)
                 self.deleteTender(index.row)
+                
             }))
             
             self.present(alert, animated: true, completion: nil)
@@ -185,7 +191,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                     } else {
                         self.tender.remove(at: index)
                         self.tblTenderList.reloadData()
-                        MessageManager.showAlert(nil, "delete Succesfully")
+//                        MessageManager.showAlert(nil, "delete Succesfully")
                     }
                     self.stopActivityIndicator()
                 }

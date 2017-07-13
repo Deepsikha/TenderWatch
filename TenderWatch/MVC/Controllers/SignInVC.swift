@@ -60,9 +60,10 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
             let email = user.profile.email
             // ...
             self.dismiss(animated: true, completion: nil)
-            let parameters: Parameters = ["token" : user.authentication.idToken,
+            let parameters: Parameters = ["token" : user.authentication.idToken!,
                                           "role" : signUpUser.role]
             self.Login(parameters)
+            GIDSignIn.sharedInstance().signOut()
         } else {
             print("\(error.localizedDescription)")
         }
@@ -134,8 +135,8 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
             appDelegate.setHomeViewController()
             self.stopActivityIndicator()
         }) { (errorMessage) in
-            self.dismiss(animated: true, completion: nil)
             MessageManager.showAlert(nil, "This Gmail Account doesn't exist in our Application.")
+            self.dismiss(animated: true, completion: nil)
             self.stopActivityIndicator()
         }
     }

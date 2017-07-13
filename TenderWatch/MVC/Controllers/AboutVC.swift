@@ -19,7 +19,12 @@ class AboutVC: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         txtAbout.delegate = self
-        lblCharLimit.text = "\(limitLength - (USER?.aboutMe?.characters.count)!) / 1000"
+        if (USER?.authenticationToken != nil) {
+            lblCharLimit.text = "\(limitLength - (USER?.aboutMe?.characters.count)!) / 1000"
+        } else {
+            lblCharLimit.text = "\(limitLength) / 1000"
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -81,7 +86,7 @@ class AboutVC: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func handleBtnSave(_ sender: Any) {
-        if(self.txtAbout.text.characters.count > 0){
+        if(self.txtAbout.text.characters.count > 0) {
             if (USER?.authenticationToken == nil) {
                 signUpUser.aboutMe = self.txtAbout.text!
             } else {
@@ -89,10 +94,9 @@ class AboutVC: UIViewController, UITextViewDelegate {
                     SignUpVC2.isUpdated = true
                 }
                 USER?.aboutMe = self.txtAbout.text!
-                self.navigationController?.popViewController(animated: false)
-                
             }
-        }else{
+            self.navigationController?.popViewController(animated: false)
+        } else {
                 MessageManager.showAlert(nil, "Enter some information about yourself")
                 self.txtAbout.delegate = self
                 self.txtAbout.reloadInputViews()
