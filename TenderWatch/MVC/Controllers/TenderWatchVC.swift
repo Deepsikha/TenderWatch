@@ -77,6 +77,11 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
 
         
         cell.lblTender.text = String(describing: components.day!)
+        
+//        if (components.day! < 0) {
+//            deleteTender(indexPath.row)
+//        }
+        
         return cell
     }
     
