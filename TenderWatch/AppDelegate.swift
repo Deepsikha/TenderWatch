@@ -12,7 +12,7 @@ import UserNotifications
 import Google
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var drawerController = DrawerController()
@@ -23,9 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         var configureError: NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)
         assert(configureError == nil, "Error configuring Google services: \(String(describing: configureError))")
-        
-        GIDSignIn.sharedInstance().delegate = self
-        
+                
         if USER?.authenticationToken != nil
         {
             if USER?.role == RollType.client
@@ -119,28 +117,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         print(deviceToken)
     }
     
-    //MARK:- SignIn Delegate
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if (error == nil) {
-            //send token or signupUserdata to server
-            // Perform any operations on signed in user here.
-            let userId = user.userID
-            print()// For client-side use only!
-            let idToken = user.authentication.idToken // Safe to send to the server
-            let fullName = user.profile.name
-            let givenName = user.profile.givenName
-            let familyName = user.profile.familyName
-            let email = user.profile.email
-            // ...
-        } else {
-            print("\(error.localizedDescription)")
-        }
-    }
     
     // MARK:- Custom Method(s)
     

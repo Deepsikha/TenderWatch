@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>847351946646-anij75bcro6828slcs7tjmcqan1ej2r4.apps.googleusercontent.com</string>
+	<string>153589139177-l8sv2dg83p34nh4t07ebbvegv100p1fj.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.847351946646-anij75bcro6828slcs7tjmcqan1ej2r4</string>
+	<string>com.googleusercontent.apps.153589139177-l8sv2dg83p34nh4t07ebbvegv100p1fj</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.tenerWatch</string>
+	<string>com.tenderWatch</string>
 	<key>PROJECT_ID</key>
-	<string>tenderwatch-10e5c</string>
+	<string>tenderwatch-5edc3</string>
 	<key>IS_ADS_ENABLED</key>
 	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -23,6 +23,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:847351946646:ios:eb9e8e5cfefbb7c1</string>
+	<string>1:153589139177:ios:86cabed89b15d3a4</string>
 </dict>
 </plist>

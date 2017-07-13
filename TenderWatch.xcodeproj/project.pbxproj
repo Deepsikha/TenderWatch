@@ -78,7 +78,6 @@
 		7D2B1C7C1F13B6CE0084F71A /* mob@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2B1C761F13B6CE0084F71A /* mob@1x.png */; };
 		7D2B1C7D1F13B6CE0084F71A /* mob@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2B1C771F13B6CE0084F71A /* mob@2x.png */; };
 		7D2B1C7E1F13B6CE0084F71A /* mob@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2B1C781F13B6CE0084F71A /* mob@3x.png */; };
-		7D2B1C821F14E7BC0084F71A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D2B1C811F14E7BC0084F71A /* GoogleService-Info.plist */; };
 		7D2E22481F00B98500A0783E /* SubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E22461F00B98400A0783E /* SubscriptionVC.swift */; };
 		7D2E224B1F00B9A800A0783E /* SubscriptionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */; };
 		7D2E22521F00C53200A0783E /* SubscriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E22501F00C53200A0783E /* SubscriptionCell.swift */; };
@@ -172,6 +171,7 @@
 		7DCEB0661EFE3E38002A776C /* AboutVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEB0651EFE3E38002A776C /* AboutVC.xib */; };
 		7DCEB0691EFE593F002A776C /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCEB0671EFE593F002A776C /* ForgotPasswordVC.swift */; };
 		7DCEB06C1EFE598C002A776C /* ForgotPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCEB06B1EFE598C002A776C /* ForgotPasswordVC.xib */; };
+		7DFC94921F17965800400070 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DFC94911F17965800400070 /* GoogleService-Info.plist */; };
 		84020549E387AE73235873C3 /* Pods_TenderWatchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A52F7E1FD1B862E142B82F61 /* Pods_TenderWatchUITests.framework */; };
 		D31578A73DF49D96ECE536D1 /* Pods_TenderWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26AE8EB22C3106F7765969E5 /* Pods_TenderWatch.framework */; };
 		D596C57ACA935DF7DF86855C /* Pods_TenderWatchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F228BED95255A806449442C /* Pods_TenderWatchTests.framework */; };
@@ -279,7 +279,6 @@
 		7D2B1C761F13B6CE0084F71A /* mob@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mob@1x.png"; sourceTree = "<group>"; };
 		7D2B1C771F13B6CE0084F71A /* mob@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mob@2x.png"; sourceTree = "<group>"; };
 		7D2B1C781F13B6CE0084F71A /* mob@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mob@3x.png"; sourceTree = "<group>"; };
-		7D2B1C811F14E7BC0084F71A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7D2E22461F00B98400A0783E /* SubscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionVC.swift; sourceTree = "<group>"; };
 		7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionVC.xib; sourceTree = "<group>"; };
 		7D2E22501F00C53200A0783E /* SubscriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionCell.swift; sourceTree = "<group>"; };
@@ -373,6 +372,7 @@
 		7DCEB0651EFE3E38002A776C /* AboutVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutVC.xib; sourceTree = "<group>"; };
 		7DCEB0671EFE593F002A776C /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		7DCEB06B1EFE598C002A776C /* ForgotPasswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordVC.xib; sourceTree = "<group>"; };
+		7DFC94911F17965800400070 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		89EB1A7577007745F5DB3DA3 /* Pods-TenderWatchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatchUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatchUITests/Pods-TenderWatchUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		908FAB3820B36BBF106958AA /* Pods-TenderWatchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatchTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatchTests/Pods-TenderWatchTests.release.xcconfig"; sourceTree = "<group>"; };
 		A52F7E1FD1B862E142B82F61 /* Pods_TenderWatchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenderWatchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -441,7 +441,7 @@
 		279004251EF766DC00EB198C /* TenderWatch */ = {
 			isa = PBXGroup;
 			children = (
-				7D2B1C811F14E7BC0084F71A /* GoogleService-Info.plist */,
+				7DFC94911F17965800400070 /* GoogleService-Info.plist */,
 				5CF289B01EFB659200F3EC79 /* TenderWatch-Bridging-Header.h */,
 				27A28ED41EF784F000E7B53B /* Info.plist */,
 				275211F61F022AD000DADAC9 /* WebServices */,
@@ -896,7 +896,7 @@
 				27A28EC51EF776F000E7B53B /* SignUpVC.xib in Resources */,
 				7DCEB0591EFE28E6002A776C /* postten@2x.png in Resources */,
 				7D946AC71EFCAC1E00C258E1 /* check@3x.png in Resources */,
-				7D2B1C821F14E7BC0084F71A /* GoogleService-Info.plist in Resources */,
+				7DFC94921F17965800400070 /* GoogleService-Info.plist in Resources */,
 				7D946B001EFCDB1400C258E1 /* menu@3x.png in Resources */,
 				7D946ADB1EFCAC1E00C258E1 /* mobile@2x.png in Resources */,
 				7DCEB0601EFE28E6002A776C /* userthree@3x.png in Resources */,

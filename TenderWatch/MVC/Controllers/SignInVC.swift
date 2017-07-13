@@ -11,7 +11,7 @@ import Alamofire
 import ObjectMapper
 import Google
 
-class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate {
+class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDSignInDelegate {
     
     @IBOutlet var imgAppLogo: UIImageView!
     @IBOutlet var txfEmail: UITextField!
@@ -24,8 +24,9 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate {
     var window: UIWindow!
     override func viewDidLoad() {
         super.viewDidLoad()
+        GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
-
+        
         self.txfEmail.delegate = self
         self.txfPassword.delegate = self
     }
@@ -40,21 +41,47 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    //Google signIn Delegate
-//    func signInWillDispatch(signIn: GIDSignIn!, error: NSError!) {
-//        myActivityIndicator.stopAnimating()
-//    }
+    //MARK:- SignIn Delegate
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
+    }
     
-    // Present a view that prompts the user to sign in with Google
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if (error == nil) {
+            //send token or signupUserdata to server
+            // Perform any operations on signed in user here.
+            let userId = user.userID
+            print()// For client-side use only!
+            let idToken = user.authentication.idToken // Safe to send to the server
+            let fullName = user.profile.name
+            let givenName = user.profile.givenName
+            let familyName = user.profile.familyName
+            let email = user.profile.email
+            // ...
+            self.dismiss(animated: true, completion: nil)
+            let parameters: Parameters = ["token" : user.authentication.idToken,
+                                          "role" : signUpUser.role]
+            self.Login(parameters)
+        } else {
+            print("\(error.localizedDescription)")
+        }
+    }
+    
+    //Google signIn Delegate
+    
     func sign(_ signIn: GIDSignIn!,
               present viewController: UIViewController!) {
+        // Present a view that prompts the user to sign in with Google
         self.present(viewController, animated: true, completion: nil)
     }
     
-    // Dismiss the "Sign in with Google" view
     func sign(_ signIn: GIDSignIn!,
               dismiss viewController: UIViewController!) {
-        self.dismiss(animated: true, completion: nil)
+        // Dismiss the "Sign in with Google" view
+//        self.dismiss(animated: false, completion: nil)
+        
+        
     }
     
     //MARK:- TextField Delegate
@@ -80,6 +107,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate {
     
     @IBAction func btnHandleFacebook(_ sender: UIButton) {
         GIDSignIn.sharedInstance().signOut()
+        
     }
     
     @IBAction func btnHandleNewAC(_ sender: UIButton) {
@@ -91,18 +119,25 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate {
     }
     
     @IBAction func btnHandleSignIn(_ sender: UIButton) {
-        let parameters = ["email" : self.txfEmail.text!,
+        let parameters: Parameters = ["email" : self.txfEmail.text!,
                           "password" : self.txfPassword.text!,
                           "role" : signUpUser.role]
-        print(parameters)
+        self.Login(parameters)
+    }
+    
+    func Login(_ param: Parameters) {
+        
         startActivityIndicator()
-        UserManager.shared.signInUser(with: parameters, successHandler: { (user) in
+        UserManager.shared.signInUser(with: param, successHandler: { (user) in
             print("Logged In")
+            self.dismiss(animated: true, completion: nil)
             appDelegate.setHomeViewController()
             self.stopActivityIndicator()
         }) { (errorMessage) in
-            MessageManager.showAlert(nil, errorMessage)
+            self.dismiss(animated: true, completion: nil)
+            MessageManager.showAlert(nil, "This Gmail Account doesn't exist in our Application.")
             self.stopActivityIndicator()
         }
     }
+    
 }

@@ -21,6 +21,7 @@ var CHANGE_PASSWORD: String = (BASE_URL)+"users/changePassword/"+(USER?._id)!
 var UPLOAD_TENDER: String = (BASE_URL)+"tender"
 var FAVORITE: String = (BASE_URL)+"favourite/getFavourites"
 
+var GOOGLE: String = (BASE_URL)+""
 var GET_SERVICES: String = (BASE_URL)+"service/userServices"
 var CATEGORY: String = "auth/category"
 var COUNTRY: String = "auth/country"

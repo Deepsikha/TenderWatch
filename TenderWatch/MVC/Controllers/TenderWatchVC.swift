@@ -94,7 +94,18 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         }
         let dlt = UITableViewRowAction(style: .normal, title: "Delete", handler: { (action, index) in
             print("Delete button tapped")
-            self.deleteTender(index.row)
+            let alert = UIAlertController(title: "TenderWatch", message: "Confirm Deletion?", preferredStyle: UIAlertControllerStyle.alert)
+            alert.view.backgroundColor = UIColor.white
+            alert.view.layer.cornerRadius = 10.0
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
+                
+            }))
+            alert.addAction(UIAlertAction(title: "Delete", style: .cancel, handler:{ action in
+                self.deleteTender(index.row)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
         })
         dlt.backgroundColor = UIColor.red
         fav.backgroundColor = UIColor.blue
