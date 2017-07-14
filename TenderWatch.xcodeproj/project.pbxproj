@@ -346,6 +346,7 @@
 		7D946AFB1EFCDB1400C258E1 /* menu@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@1x.png"; sourceTree = "<group>"; };
 		7D946AFC1EFCDB1400C258E1 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
 		7D946AFD1EFCDB1400C258E1 /* menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@3x.png"; sourceTree = "<group>"; };
+		7DA068281F18DDDC00D9352A /* TenderWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenderWatch.entitlements; sourceTree = "<group>"; };
 		7DCEB0311EFE28D3002A776C /* boxright@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "boxright@1x.png"; sourceTree = "<group>"; };
 		7DCEB0321EFE28D3002A776C /* boxright@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "boxright@2x.png"; sourceTree = "<group>"; };
 		7DCEB0331EFE28D3002A776C /* boxright@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "boxright@3x.png"; sourceTree = "<group>"; };
@@ -443,6 +444,7 @@
 		279004251EF766DC00EB198C /* TenderWatch */ = {
 			isa = PBXGroup;
 			children = (
+				7DA068281F18DDDC00D9352A /* TenderWatch.entitlements */,
 				7DFC94911F17965800400070 /* GoogleService-Info.plist */,
 				5CF289B01EFB659200F3EC79 /* TenderWatch-Bridging-Header.h */,
 				27A28ED41EF784F000E7B53B /* Info.plist */,
@@ -821,6 +823,11 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = Y55EBSG532;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					279004361EF766DC00EB198C = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -1326,6 +1333,7 @@
 			baseConfigurationReference = 777F120D0DC01B82EF3ACD26 /* Pods-TenderWatch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TenderWatch/TenderWatch.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ajeet Singh (QT4GYM2LTE)";
 				DEVELOPMENT_TEAM = Y55EBSG532;
 				INFOPLIST_FILE = TenderWatch/Info.plist;
@@ -1346,6 +1354,7 @@
 			baseConfigurationReference = 48D9FE767D6A6736C2955044 /* Pods-TenderWatch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TenderWatch/TenderWatch.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ajeet Singh (QT4GYM2LTE)";
 				DEVELOPMENT_TEAM = Y55EBSG532;
 				INFOPLIST_FILE = TenderWatch/Info.plist;

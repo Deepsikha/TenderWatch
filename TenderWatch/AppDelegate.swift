@@ -10,6 +10,7 @@ import UIKit
 import IQKeyboardManager
 import UserNotifications
 import Google
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var configureError: NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)
         assert(configureError == nil, "Error configuring Google services: \(String(describing: configureError))")
+        
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
                 
         if USER?.authenticationToken != nil
         {
@@ -42,8 +45,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+//        return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        return FBSDKApplicationDelegate.sharedInstance()
+            .application(app,
+                         open: url as URL!,
+                         sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String,
+                         annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        }
+    
+//    
+//    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+//        //Even though the Facebook SDK can make this determinitaion on its own,
+//        //let's make sure that the facebook SDK only sees urls intended for it,
+//        //facebook has enough info already!
+//    if(url.scheme!.hasPrefix("fb") && url.host == "authorize"){
+//    
+//        return FBSDKApplicationDelegate.sharedInstance().application(application, open: url as URL!, sourceApplication: sourceApplication, annotation: annotation)
+//        }
+//       return true
+//    }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance()
+            .application(application,
+                         open: url as URL!,
+                         sourceApplication: sourceApplication,
+                         annotation: annotation)
     }
+    
+//    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+//        
+//    }
+
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
@@ -57,6 +90,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = navigationController
         
         return true
+    }
+    
+    func applicationDidBecomeActive(application: UIApplication) {
+        //App activation code
+        FBSDKAppEvents.activateApp()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
