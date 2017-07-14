@@ -41,9 +41,9 @@ class UserManager {
         }
     }
     
-    func signInUser(with params: Parameters,successHandler: @escaping (User?) -> (), failureHandler: @escaping FailureHandler) {
+    func signInUser(url: String, with params: Parameters,successHandler: @escaping (User?) -> (), failureHandler: @escaping FailureHandler) {
         
-        APIManager.shared.requestForPOST(url: LOGIN, isTokenEmbeded: false, params: params, successHandler: { (finish, response) in
+        APIManager.shared.requestForPOST(url: url, isTokenEmbeded: false, params: params, successHandler: { (finish, response) in
             if response.result.value != nil
             {
                 print(response.result.value!)

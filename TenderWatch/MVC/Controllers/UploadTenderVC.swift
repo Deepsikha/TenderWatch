@@ -316,6 +316,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 MessageManager.showAlert(nil, "Enter valid Email")
             } else if !(self.txfMobileNo.text?.isEmpty)! && !(isValidNumber(self.txfMobileNo.text!, length: 10)) {
                 MessageManager.showAlert(nil, "Enter valid Number")
+            } else if !(self.txfLandLineNo.text?.isEmpty)! && !(isValidNumber(self.txfLandLineNo.text!, length: 7)) {
+                MessageManager.showAlert(nil, "Enter valid LandLine Number")
             } else {
                 self.vwContactPopup.removeFromSuperview()
             }

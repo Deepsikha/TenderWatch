@@ -52,7 +52,18 @@ func hexStringToUIColor (hex:String) -> UIColor {
         alpha: CGFloat(1.0)
     )
 }
-
+extension Date {
+    func getDifferenceBtnCurrentDate(date: String) -> DateComponents {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let endDate: Date = dateFormatter.date(from: date)! as Date
+        
+        let components = NSCalendar.current.dateComponents([.month, .day, .hour, .minute, .second], from: Date(), to: endDate as Date)
+        
+        return components
+    }
+}
 extension UIView {
     
     func addTopBorderWithColor(color: UIColor, width: CGFloat) {

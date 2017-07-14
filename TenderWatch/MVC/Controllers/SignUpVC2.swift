@@ -73,10 +73,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.lblName.isHidden = true
             self.proflPic.layer.borderColor = UIColor.black.cgColor
             self.proflPic.layer.borderWidth = 1
-           
         }
-
-        
     }
     
     override func viewDidLayoutSubviews() {

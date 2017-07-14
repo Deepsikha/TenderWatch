@@ -47,8 +47,11 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tender.count
-        //                        return 10
+        if (self.tender.isEmpty) {
+            return 0
+        } else {
+            return self.tender.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,14 +71,9 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         } else {
             cell.imgProfile.image = UIImage(named: "avtar")
         }
-        //Day remainning
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        let startDate:NSDate = dateFormatter.date(from: (tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!))!)! as NSDate
-        
-        let components = NSCalendar.current.dateComponents([.month, .day, .hour, .minute, .second], from: (NSDate() as Date), to: startDate as Date)
-
+        //Day remainning 
+        //pass string in "yyyy-MM-dd" format
+        let components = Date().getDifferenceBtnCurrentDate(date: (tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!))!)
         if (components.day == 1) {
             cell.lblTender.text = "\(components.day!) day"
         } else {
@@ -191,6 +189,9 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                     } else {
                         self.tender.remove(at: index)
                         self.tblTenderList.reloadData()
+                        if (self.tender.isEmpty) {
+                            self.lblNoTender.isHidden = false
+                        }
 //                        MessageManager.showAlert(nil, "delete Succesfully")
                     }
                     self.stopActivityIndicator()

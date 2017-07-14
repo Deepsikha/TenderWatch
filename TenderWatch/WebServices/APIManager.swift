@@ -81,14 +81,24 @@ class APIManager {
                 var errorMsg: String
                 if (res.response?.statusCode) != nil
                 {
-                    if (res.response?.statusCode == 400) {
-                        errorMsg = "Bad Request"
-                    } else if (res.response?.statusCode == 401) {
-                        errorMsg = "Invalid Credentials"
-                    } else if (res.response?.statusCode == 404) {
-                        errorMsg = "Not Found!!!"
+                    if (url == LOGIN) {
+                        if (res.response?.statusCode == 400) {
+                            errorMsg = "Bad Request"
+                        } else if (res.response?.statusCode == 401) {
+                            errorMsg = "Invalid Credentials"
+                        } else if (res.response?.statusCode == 404) {
+                            errorMsg = "Not Found!!!"
+                        } else {
+                            errorMsg = "\(res.response!.statusCode)"
+                        }
                     } else {
-                        errorMsg = "\(res.response!.statusCode)"
+                        if (res.response?.statusCode == 400) {
+                            errorMsg = "This Gmail Account has not registered in our application"
+                        } else if (res.response?.statusCode == 401) {
+                            errorMsg = "Please check your role"
+                        } else {
+                            errorMsg = "\(res.response!.statusCode)"
+                        }
                     }
                 }
                 else {

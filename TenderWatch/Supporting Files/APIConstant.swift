@@ -11,6 +11,7 @@ import Foundation
 var BASE_URL: String = "http://192.168.200.75:4040/api/"
 
 var LOGIN: String = "auth/login"
+var G_LOGIN: String = "auth/glogin"
 var SIGNUP: String = (BASE_URL)+"auth/register"
 var FORGOT: String = (BASE_URL)+"auth/forgot"
 

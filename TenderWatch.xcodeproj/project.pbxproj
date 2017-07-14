@@ -82,6 +82,7 @@
 		7D2E224B1F00B9A800A0783E /* SubscriptionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */; };
 		7D2E22521F00C53200A0783E /* SubscriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E22501F00C53200A0783E /* SubscriptionCell.swift */; };
 		7D2E22531F00C53300A0783E /* SubscriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2E22511F00C53200A0783E /* SubscriptionCell.xib */; };
+		7D60C9E01F18ACC200DAA69F /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D60C9DF1F18ACC200DAA69F /* Favorite.swift */; };
 		7D7A13A71F04EB540092E3DF /* MappingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7A13A51F04EB540092E3DF /* MappingVC.swift */; };
 		7D7A13AA1F04EBAE0092E3DF /* MappingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7A13A91F04EBAE0092E3DF /* MappingVC.xib */; };
 		7D7A13AD1F04F0130092E3DF /* MappingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7A13AB1F04F0130092E3DF /* MappingCell.swift */; };
@@ -283,6 +284,7 @@
 		7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionVC.xib; sourceTree = "<group>"; };
 		7D2E22501F00C53200A0783E /* SubscriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionCell.swift; sourceTree = "<group>"; };
 		7D2E22511F00C53200A0783E /* SubscriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionCell.xib; sourceTree = "<group>"; };
+		7D60C9DF1F18ACC200DAA69F /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		7D7A13A51F04EB540092E3DF /* MappingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappingVC.swift; sourceTree = "<group>"; };
 		7D7A13A91F04EBAE0092E3DF /* MappingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MappingVC.xib; sourceTree = "<group>"; };
 		7D7A13AB1F04F0130092E3DF /* MappingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappingCell.swift; sourceTree = "<group>"; };
@@ -704,6 +706,7 @@
 				7D176AFD1EFA13A700B05C99 /* User.swift */,
 				7D7A13B51F051A900092E3DF /* Select.swift */,
 				5C36CD701F067D4D0088D21E /* Tender.swift */,
+				7D60C9DF1F18ACC200DAA69F /* Favorite.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1167,6 +1170,7 @@
 				7D0394451EFB63B500B494EF /* SideMenuVC.swift in Sources */,
 				5C34B6F61EFA181B0062B987 /* ChangePasswordVC.swift in Sources */,
 				27EF44931EF8BD5600CCBCA0 /* RulesVC.swift in Sources */,
+				7D60C9E01F18ACC200DAA69F /* Favorite.swift in Sources */,
 				275211F81F022B4800DADAC9 /* APIManager.swift in Sources */,
 				27A28EC41EF776F000E7B53B /* SignUpVC.swift in Sources */,
 				276494031F0270CB00E05241 /* UserManager.swift in Sources */,

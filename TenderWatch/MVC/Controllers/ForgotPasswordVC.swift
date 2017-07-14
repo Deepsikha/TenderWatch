@@ -57,6 +57,7 @@ class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
                     print(resp.result.value!)
                     MessageManager.showAlert(nil, "Password sent your register email address")
                     self.stopActivityIndicator()
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
         } else {

@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FavoriteVC" customModule="TenderWatch" customModuleProvider="target">
             <connections>
+                <outlet property="lblNoFavorite" destination="4yy-1z-Fg1" id="Mie-de-poh"/>
                 <outlet property="tblFavorite" destination="2zz-cV-MuQ" id="8oK-eL-4n0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -45,13 +46,25 @@
                     <rect key="frame" x="0.0" y="63" width="320" height="417"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
+                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Favorites Tender" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yy-1z-Fg1">
+                    <rect key="frame" x="61" y="223" width="197" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="197" id="3Ap-ce-VvO"/>
+                        <constraint firstAttribute="height" constant="33.999999999999915" id="MdE-94-DJv"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="2zz-cV-MuQ" secondAttribute="bottom" id="6mh-So-sg8"/>
                 <constraint firstItem="2zz-cV-MuQ" firstAttribute="top" secondItem="byL-B4-J5L" secondAttribute="bottom" constant="0.5" id="Cos-Mi-TTe"/>
+                <constraint firstItem="4yy-1z-Fg1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="CsW-Np-rrT"/>
                 <constraint firstItem="pnP-Rh-VLs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="24" id="FeG-6d-lv5"/>
                 <constraint firstItem="2zz-cV-MuQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Fh9-Bt-Q9N"/>
+                <constraint firstItem="4yy-1z-Fg1" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Lbm-02-wlN"/>
                 <constraint firstItem="pnP-Rh-VLs" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="MqQ-v3-A2u"/>
                 <constraint firstItem="byL-B4-J5L" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Q7g-19-TBB"/>
                 <constraint firstItem="byL-B4-J5L" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14.5" id="bdT-NB-TsA"/>
