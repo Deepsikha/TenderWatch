@@ -10,4 +10,6 @@
 #define TenderWatch_Bridging_Header_h
 
 #import <Google/SignIn.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #endif /* TenderWatch_Bridging_Header_h */

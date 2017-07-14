@@ -32,6 +32,7 @@
                 <outlet property="txfTenderTitle" destination="Rzo-Wx-dNx" id="8tK-cS-GWV"/>
                 <outlet property="txtvwAddress" destination="xbx-0G-S9d" id="pii-7n-evt"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="vwBlur" destination="JzO-3B-3ga" id="KIh-2H-88M"/>
                 <outlet property="vwContactPopup" destination="4nb-2I-4IV" id="5fX-7D-3Ph"/>
                 <outlet property="vwMain" destination="Di8-Id-6Mc" id="ume-ev-nz1"/>
                 <outlet property="vwScroll" destination="uFH-D3-cds" id="yac-H3-6Gy"/>

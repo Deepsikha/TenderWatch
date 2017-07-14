@@ -37,6 +37,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var txtvwAddress: UITextView!
     @IBOutlet weak var btnSave: UIButton!
     @IBOutlet weak var const_vwMain_height: NSLayoutConstraint!
+    @IBOutlet weak var vwBlur: UIView!
     
     var arrDropDown = [String]()
     var tender = [Tender]()
@@ -57,11 +58,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         
         self.tblOptions.tableFooterView = UIView()
-        //tapHandler
-        self.tap = UITapGestureRecognizer(target: self, action: #selector(self.taphandler))
-        tap.cancelsTouchesInView = false
         
-        self.view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -277,11 +274,11 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             MessageManager.showAlert(nil, "Select Country & Category First")
         } else {
             self.view.addSubview(vwContactPopup)
+            self.tap = UITapGestureRecognizer(target: self, action: #selector(self.taphandler))
+            tap.cancelsTouchesInView = false
+            
+            self.vwBlur.addGestureRecognizer(tap)
         }
-    }
-    
-    @IBAction func btnDoneHidePopup(_ sender: Any) {
-        self.vwContactPopup.removeFromSuperview()
     }
     
     @IBAction func sbmt(_ sender: Any) {
@@ -311,7 +308,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func handleBtnSave(_ sender: Any) {
-        if !(self.txfEmail.text?.isEmpty)! || !(self.txfMobileNo.text?.isEmpty)! || !(self.txfLandLineNo.text?.isEmpty)! || !(self.txtvwAddress.text == "Address") {
+        if !(self.txfEmail.text?.isEmpty)! || !(self.txfMobileNo.text?.isEmpty)! || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty) {
             if !(self.txfEmail.text?.isEmpty)! && !(isValidEmail(strEmail: self.txfEmail.text!)) {
                 MessageManager.showAlert(nil, "Enter valid Email")
             } else if !(self.txfMobileNo.text?.isEmpty)! && !(isValidNumber(self.txfMobileNo.text!, length: 10)) {
@@ -363,7 +360,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func submit() {
-        if (!(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || !(self.txfMobileNo.text?.isEmpty)! || !(self.txfLandLineNo.text?.isEmpty)! || !(self.txtvwAddress.text == "Address")) {
+        if (!(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || !(self.txfMobileNo.text?.isEmpty)! || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty)) {
             let param: Parameters = [  "country":self.uploadTender.cId,
                                        "category":self.uploadTender.ctId,
                                        "tenderName":self.uploadTender.tenderTitle,
