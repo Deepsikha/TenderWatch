@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,16 +23,6 @@
                         <rect key="frame" x="84" y="6" width="78" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="78" id="ZLy-tz-8mf"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdU-gf-loC">
-                        <rect key="frame" x="167" y="6" width="145" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="145" id="26I-Oj-p4t"/>
-                            <constraint firstAttribute="height" constant="21" id="hhh-oM-I5W"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -83,13 +73,21 @@
                             <constraint firstAttribute="height" constant="68.5" id="cBs-Nn-A44"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdU-gf-loC">
+                        <rect key="frame" x="167" y="6" width="145" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="hhh-oM-I5W"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="S0Q-uX-kZU" firstAttribute="top" secondItem="QZC-bL-ggE" secondAttribute="bottom" constant="2" id="142-TL-NHi"/>
                     <constraint firstItem="I8c-3D-jMn" firstAttribute="top" secondItem="ZdU-gf-loC" secondAttribute="bottom" constant="2" id="4z5-Ac-fBk"/>
                     <constraint firstItem="INE-oX-hGZ" firstAttribute="leading" secondItem="1RI-iB-Ch9" secondAttribute="trailing" constant="7.5" id="72Z-Tp-OkB"/>
                     <constraint firstItem="ZdU-gf-loC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="8DW-U1-r4T"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="ZdU-gf-loC" secondAttribute="trailing" id="92v-ks-gYR"/>
                     <constraint firstItem="I8c-3D-jMn" firstAttribute="leading" secondItem="S0Q-uX-kZU" secondAttribute="trailing" constant="5" id="AWG-88-Cmb"/>
                     <constraint firstAttribute="bottomMargin" secondItem="1RI-iB-Ch9" secondAttribute="bottom" id="Dx0-2i-dRV"/>
                     <constraint firstItem="OrP-b1-XlS" firstAttribute="leading" secondItem="INE-oX-hGZ" secondAttribute="trailing" constant="5" id="Nh3-cV-Ptq"/>
@@ -99,11 +97,10 @@
                     <constraint firstItem="OrP-b1-XlS" firstAttribute="top" secondItem="I8c-3D-jMn" secondAttribute="bottom" constant="2" id="RuU-cL-j3G"/>
                     <constraint firstAttribute="leadingMargin" secondItem="1RI-iB-Ch9" secondAttribute="leading" id="f8c-e4-No0"/>
                     <constraint firstAttribute="bottomMargin" secondItem="INE-oX-hGZ" secondAttribute="bottom" constant="3.5" id="gbM-Gj-g1y"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="I8c-3D-jMn" secondAttribute="trailing" id="hIm-Tt-I1P"/>
                     <constraint firstItem="S0Q-uX-kZU" firstAttribute="leading" secondItem="1RI-iB-Ch9" secondAttribute="trailing" constant="7.5" id="kn7-XS-dvQ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ZdU-gf-loC" secondAttribute="trailing" id="l7L-Sa-lPW"/>
                     <constraint firstAttribute="topMargin" secondItem="1RI-iB-Ch9" secondAttribute="top" id="nmm-4n-pqc"/>
                     <constraint firstAttribute="bottomMargin" secondItem="OrP-b1-XlS" secondAttribute="bottom" constant="3.5" id="tcO-tt-sKz"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="OrP-b1-XlS" secondAttribute="trailing" id="v1L-aF-S8I"/>
                     <constraint firstItem="QZC-bL-ggE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="yDL-oi-Z6F"/>
                 </constraints>
             </tableViewCellContentView>

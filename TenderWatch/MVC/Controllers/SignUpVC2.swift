@@ -30,6 +30,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     var image: UIImage!
     var parameters : [String : Any]!
     static var isUpdated = false
+    static var updated = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +64,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                     } else {
                         self.proflPic.setImage(image, for: .normal)
                     }
+                    SDImageCache.shared().clearMemory()
                 })
             } else {
                 self.proflPic.setImage(UIImage(named : "avtar"), for: .normal)
@@ -97,16 +99,18 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             }
         }
         
-        if(SignUpVC2.isUpdated == true) {
+        if(SignUpVC2.isUpdated) {
             self.btnnext.isEnabled = true
             self.btnnext.alpha = 1.0
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        if(SignUpVC2.updated) {
         self.btnnext.isEnabled = false
         self.btnnext.alpha = 0.5
         SignUpVC2.isUpdated = false
+        }
     }
     
     //MARK:- TextField Delegate
@@ -308,7 +312,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                             if  (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
                                 MessageManager.showAlert(nil, (resp.result.value as! NSObject).value(forKey: "error") as! String)
                             } else {
-                                SignUpVC2.isUpdated = true
+                                SignUpVC2.updated = true
                                 let data = (resp.result.value as! NSObject)
                                 let token = USER?.authenticationToken
                                 USER = Mapper<User>().map(JSON: data as! [String : Any])!

@@ -19,10 +19,11 @@ class AboutVC: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         txtAbout.delegate = self
+        txtAbout.isScrollEnabled = false
         if (USER?.authenticationToken != nil) {
             lblCharLimit.text = "\(limitLength - (USER?.aboutMe?.characters.count)!) / 1000"
         } else {
-            lblCharLimit.text = "\(limitLength) / 1000"
+            lblCharLimit.text = "\(limitLength - signUpUser.aboutMe.characters.count) / 1000"
         }
         
     }

@@ -78,6 +78,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             if (USER?.value(forKey: "profilePhoto") != nil) {
                 self.imgProPic.sd_setImage(with: URL(string: (USER?.profilePhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                    SDImageCache.shared().clearMemory()
                 })
             } else {
                 self.imgProPic.image = UIImage(named: "avtar")

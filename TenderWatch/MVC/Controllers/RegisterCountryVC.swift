@@ -15,6 +15,7 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet var btnChoose: UIButton!
 
     var country = [Country]()
+    var temp : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +56,7 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
             cell.imgTick.isHidden = !cell.imgTick.isHidden
         }
         if(USER?.authenticationToken != nil) {
-         USER?.country = self.country[indexPath.row].countryName!
+         temp = self.country[indexPath.row].countryName!
         } else {
         signUpUser.country = self.country[indexPath.row].countryName!
         }
@@ -74,6 +75,7 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @IBAction func handleBtnChoose(_ sender: Any) {
+        USER?.country = temp
         self.navigationController?.popViewController(animated: true)
     }
     
