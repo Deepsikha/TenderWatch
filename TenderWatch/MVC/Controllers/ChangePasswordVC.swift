@@ -67,7 +67,7 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
                 "Accept": "application/json"
             ]
             if !((self.txtOldPassword.text?.isEmpty)!) {
-                if !((self.txtNewPassword.text?.isEmpty)!) && (self.txtNewPassword.text == self.txtConfirmPassword.text) {
+                if !((self.txtNewPassword.text?.isEmpty)!) && (self.txtNewPassword.text! == self.txtConfirmPassword.text) && (isValidPassword(strPassword: self.txtNewPassword.text!)){
                     if isNetworkReachable() {
                         self.startActivityIndicator()
                         Alamofire.request(CHANGE_PASSWORD, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (resp) in
@@ -99,8 +99,10 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
                 } else {
                     if (self.txtNewPassword.text?.isEmpty)! {
                         MessageManager.showAlert(nil, "NewPassword can't Empty")
-                    } else {
+                    } else if (self.txtNewPassword.text! == self.txtConfirmPassword.text){
                         MessageManager.showAlert(nil, "Confirm Password can't Match")
+                    } else {
+                        MessageManager.showAlert(nil, "Enter password with 8 characters which contain at least one uppercase, one lowercase and special character")
                     }
                 }
             } else {

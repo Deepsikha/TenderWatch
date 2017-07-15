@@ -289,6 +289,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         let option = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
         
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
+            self.picker.sourceType = UIImagePickerControllerSourceType.camera
+            self.present(self.picker, animated: true, completion: nil)
             
         }
         
@@ -360,7 +362,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func submit() {
-        if (!(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || !(self.txfMobileNo.text?.isEmpty)! || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty)) {
+        if (!(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 10)) || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty)) {
             let param: Parameters = [  "country":self.uploadTender.cId,
                                        "category":self.uploadTender.ctId,
                                        "tenderName":self.uploadTender.tenderTitle,
@@ -429,8 +431,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 MessageManager.showAlert(nil, "Select Country")
             } else if self.uploadTender.ctId.isEmpty {
                 MessageManager.showAlert(nil, "Select Category")
-            } else if !(!(self.txfEmail.text?.isEmpty)! || !(self.txfMobileNo.text?.isEmpty)! || !(self.txfLandLineNo.text?.isEmpty)! || !(self.txtvwAddress.text == "Address")){
-                MessageManager.showAlert(nil, "Enter Contact Details")
+            } else if !(!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 10)) || !(self.txfLandLineNo.text?.isEmpty)! || !(self.txtvwAddress.text == "Address")){
+                MessageManager.showAlert(nil, "Enter valid Contact Details")
             } else {
                 MessageManager.showAlert(nil, "Enter Title")
             }
@@ -475,6 +477,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func taphandler() {
+        
         self.view.subviews.last?.removeFromSuperview()
         self.view.removeGestureRecognizer(tap)
     }

@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var drawerController = DrawerController()
     var isClient: Bool?
+    var isGoogle: Bool?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -45,12 +46,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-//        return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
-        return FBSDKApplicationDelegate.sharedInstance()
-            .application(app,
-                         open: url as URL!,
-                         sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String,
-                         annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        if isGoogle! {
+            return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        } else {
+            return FBSDKApplicationDelegate.sharedInstance()
+                .application(app,
+                             open: url as URL!,
+                             sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String,
+                             annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+
+        }
         }
     
 //    

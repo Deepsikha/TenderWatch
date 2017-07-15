@@ -21,7 +21,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -191,16 +191,16 @@
                         <constraint firstItem="Goi-Xo-qBW" firstAttribute="leading" secondItem="DqF-dS-1nz" secondAttribute="leading" constant="54.5" id="yGJ-qb-IZb"/>
                     </constraints>
                 </view>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="nCT-Xh-HAi">
-                    <rect key="frame" x="111" y="35" width="99" height="100"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo3@1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="nCT-Xh-HAi">
+                    <rect key="frame" x="111" y="48" width="99" height="100"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="99.5" id="PyK-7W-GJR"/>
                         <constraint firstAttribute="height" constant="99.5" id="czp-g4-dqe"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIj-Ut-t1r">
-                    <rect key="frame" x="103" y="140" width="115" height="25"/>
+                    <rect key="frame" x="103" y="153" width="115" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="115" id="JOo-zc-83M"/>
                         <constraint firstAttribute="height" constant="25" id="d67-Nb-iL0"/>
@@ -268,15 +268,16 @@
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="nCT-Xh-HAi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="35" id="0FM-qc-iNQ"/>
+                <constraint firstItem="nCT-Xh-HAi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="48" id="0FM-qc-iNQ"/>
                 <constraint firstItem="nNi-Ir-Sj9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="7JT-mO-GaM"/>
                 <constraint firstItem="uIj-Ut-t1r" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="9ym-i2-T9b"/>
                 <constraint firstItem="DqF-dS-1nz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15.5" id="AvV-7X-haR"/>
                 <constraint firstAttribute="trailing" secondItem="DqF-dS-1nz" secondAttribute="trailing" constant="15.5" id="FEl-km-KDY"/>
                 <constraint firstAttribute="trailing" secondItem="w7V-T1-Gpy" secondAttribute="trailing" constant="40" id="GbG-9V-5Et"/>
                 <constraint firstItem="w7V-T1-Gpy" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Ot4-pu-uTA"/>
-                <constraint firstItem="DqF-dS-1nz" firstAttribute="top" secondItem="uIj-Ut-t1r" secondAttribute="bottom" constant="5" id="Qi1-xY-LYq"/>
+                <constraint firstItem="DqF-dS-1nz" firstAttribute="top" secondItem="uIj-Ut-t1r" secondAttribute="bottom" constant="-8" id="Qi1-xY-LYq"/>
                 <constraint firstItem="uIj-Ut-t1r" firstAttribute="top" secondItem="nCT-Xh-HAi" secondAttribute="bottom" constant="5" id="UY7-jv-nFH"/>
                 <constraint firstItem="w7V-T1-Gpy" firstAttribute="top" secondItem="nhl-Sp-Ge8" secondAttribute="bottom" constant="7" id="XaV-kE-YyJ"/>
                 <constraint firstItem="nhl-Sp-Ge8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="ZeW-1u-t2b"/>
@@ -291,8 +292,8 @@
         </view>
     </objects>
     <resources>
-        <image name="avtar.png" width="640" height="640"/>
         <image name="left-arr.png" width="22" height="22"/>
+        <image name="logo3@1024.png" width="1024" height="1024"/>
         <image name="mail.png" width="22" height="22"/>
         <image name="password.png" width="22" height="22"/>
     </resources>

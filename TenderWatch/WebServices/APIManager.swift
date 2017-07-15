@@ -93,7 +93,11 @@ class APIManager {
                         }
                     } else {
                         if (res.response?.statusCode == 400) {
-                            errorMsg = "This Gmail Account has not registered in our application"
+                            if (url == G_LOGIN) {
+                                errorMsg = "This Gmail Account has not registered in our application"
+                            } else {
+                                errorMsg = "This Facebook Account has not registered in our application"
+                            }
                         } else if (res.response?.statusCode == 401) {
                             errorMsg = "Please check your role"
                         } else {

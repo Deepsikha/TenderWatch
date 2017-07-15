@@ -12,7 +12,7 @@ var BASE_URL: String = "http://192.168.200.75:4040/api/"
 
 var LOGIN: String = "auth/login"
 var G_LOGIN: String = "auth/glogin"
-var F_LOGIN: String = "auth/llogin"
+var F_LOGIN: String = "auth/facelogin"
 var SIGNUP: String = (BASE_URL)+"auth/register"
 var FORGOT: String = (BASE_URL)+"auth/forgot"
 

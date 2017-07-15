@@ -12,6 +12,9 @@ target 'TenderWatch' do
     pod 'IQKeyboardManager'
     pod 'SDWebImage'
     pod 'Google/SignIn'
+    pod 'FacebookCore'
+    pod 'FacebookLogin'
+    pod 'FacebookShare'
 
     
   target 'TenderWatchTests' do

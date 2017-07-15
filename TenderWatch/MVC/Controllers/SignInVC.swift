@@ -65,6 +65,10 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
         self.present(viewController, animated: true, completion: nil)
     }
     
+    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
+        
+    }
+    
     //MARK:- TextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == self.txfEmail) {
@@ -84,10 +88,12 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
     }
     
     @IBAction func btnHandleGmail(_ sender: UIButton) {
+        appDelegate.isGoogle = true
         GIDSignIn.sharedInstance().signIn()
     }
     
     @IBAction func btnHandleFacebook(_ sender: UIButton) {
+        appDelegate.isGoogle = false
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
             if (error == nil){
@@ -96,8 +102,11 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
                     
                     if(fbloginresult.grantedPermissions.contains("email"))
                     {
-                        self.getFBUserData()
-                        fbLoginManager.logOut()
+                        let param: Parameters = ["token": FBSDKAccessToken.current()!.tokenString,
+                            "role": signUpUser.role]
+//                        self.getFBUserData()
+//                        fbLoginManager.logOut()
+                        self.Login(F_LOGIN, param)
                     }
                 }
             }
@@ -152,11 +161,11 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
                         }
                     })
                     if (isEmail) {
-                        let param: Parameters = ["email": email!,
+                        let param: Parameters = ["token": email,
                                                  "role": signUpUser.role]
                         self.Login(F_LOGIN, param)
                     } else {
-                        MessageManager.showAlert(nil, "This Facebook can't register in our application")
+                        MessageManager.showAlert(nil, "We can't access your information from Facebook because of your account privacy. ")
                     }
                 }
             })
