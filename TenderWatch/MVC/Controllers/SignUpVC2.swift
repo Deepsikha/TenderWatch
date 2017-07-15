@@ -102,12 +102,16 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         if(SignUpVC2.isUpdated) {
             self.btnnext.isEnabled = true
             self.btnnext.alpha = 1.0
+        } else {
+            if self.btnnext.isEnabled  {
+               self.btnnext.isEnabled = true
+            }
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         if(SignUpVC2.updated) {
-        self.btnnext.isEnabled = false
+//        self.btnnext.isEnabled = false
         self.btnnext.alpha = 0.5
         SignUpVC2.isUpdated = false
         }

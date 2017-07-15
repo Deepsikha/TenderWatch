@@ -27,6 +27,8 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
         txtOldPassword.delegate = self
         txtNewPassword.delegate = self
         txtConfirmPassword.delegate = self
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,6 +37,9 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        self.txtNewPassword.text = ""
+        self.txtOldPassword.text = ""
+        self.txtConfirmPassword.text = ""
     }
     
     override func viewDidLayoutSubviews() {
@@ -99,7 +104,7 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
                 } else {
                     if (self.txtNewPassword.text?.isEmpty)! {
                         MessageManager.showAlert(nil, "NewPassword can't Empty")
-                    } else if (self.txtNewPassword.text! == self.txtConfirmPassword.text){
+                    } else if !(self.txtNewPassword.text! == self.txtConfirmPassword.text){
                         MessageManager.showAlert(nil, "Confirm Password can't Match")
                     } else {
                         MessageManager.showAlert(nil, "Enter password with 8 characters which contain at least one uppercase, one lowercase and special character")
