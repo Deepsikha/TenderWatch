@@ -85,7 +85,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
                     } else if (self.txtConfirmPassword.text?.isEmpty)! {
                         MessageManager.showAlert(nil, "Enter confirm Password")
                     } else {
-                        MessageManager.showAlert(nil, "Enter password with 8 characters which contain at least one uppercasfce, one lowercase and special character")
+                        MessageManager.showAlert(nil, "Enter password with 8 characters which contain at least one alphabet, one number and special character")
                     }
                 }
             } else {

@@ -112,7 +112,8 @@ func isValidNumber(_ data:String,length:Int?) -> Bool{
 }
 
 func isValidPassword(strPassword: String) -> Bool {
-    let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-zA-Z0-9])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{8,}")  //8 char alphabet specialChar 
+
+    let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-zA-Z0-9])(?=.*[0-9])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{8,}")  //8 char alphabet specialChar
     return passwordTest.evaluate(with: strPassword)
 }
 

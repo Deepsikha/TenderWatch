@@ -107,7 +107,7 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
                     } else if !(self.txtNewPassword.text! == self.txtConfirmPassword.text){
                         MessageManager.showAlert(nil, "Confirm Password can't Match")
                     } else {
-                        MessageManager.showAlert(nil, "Enter password with 8 characters which contain at least one uppercase, one lowercase and special character")
+                        MessageManager.showAlert(nil, "Enter password with 8 characters which contain at least one alphabet, one number and special character")
                     }
                 }
             } else {
