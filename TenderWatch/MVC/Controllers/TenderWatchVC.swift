@@ -88,6 +88,11 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        TenderWatchDetailVC.id = self.tender[indexPath.row].id
+        
+        self.navigationController?.pushViewController(TenderWatchDetailVC(), animated: true)
+    }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let fav = UITableViewRowAction(style: .normal, title: "Favourites") { action, index in
@@ -146,6 +151,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                         print(resp.result.value!)
                         let data = (resp.result.value as! NSObject)
                         self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
+                        
                         self.tblTenderList.reloadData()
                         self.stopActivityIndicator()
                     }

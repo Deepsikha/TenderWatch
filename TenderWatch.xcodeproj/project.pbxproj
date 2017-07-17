@@ -56,6 +56,8 @@
 		7D2E22521F00C53200A0783E /* SubscriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E22501F00C53200A0783E /* SubscriptionCell.swift */; };
 		7D2E22531F00C53300A0783E /* SubscriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2E22511F00C53200A0783E /* SubscriptionCell.xib */; };
 		7D60C9E01F18ACC200DAA69F /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D60C9DF1F18ACC200DAA69F /* Favorite.swift */; };
+		7D68B5BE1F1CB630004BEC5E /* TenderWatchDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D68B5BC1F1CB630004BEC5E /* TenderWatchDetailVC.swift */; };
+		7D68B5C11F1CB669004BEC5E /* TenderWatchDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D68B5C01F1CB669004BEC5E /* TenderWatchDetailVC.xib */; };
 		7D7A13A71F04EB540092E3DF /* MappingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7A13A51F04EB540092E3DF /* MappingVC.swift */; };
 		7D7A13AA1F04EBAE0092E3DF /* MappingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D7A13A91F04EBAE0092E3DF /* MappingVC.xib */; };
 		7D7A13AD1F04F0130092E3DF /* MappingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7A13AB1F04F0130092E3DF /* MappingCell.swift */; };
@@ -261,6 +263,8 @@
 		7D2E22501F00C53200A0783E /* SubscriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionCell.swift; sourceTree = "<group>"; };
 		7D2E22511F00C53200A0783E /* SubscriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionCell.xib; sourceTree = "<group>"; };
 		7D60C9DF1F18ACC200DAA69F /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		7D68B5BC1F1CB630004BEC5E /* TenderWatchDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenderWatchDetailVC.swift; sourceTree = "<group>"; };
+		7D68B5C01F1CB669004BEC5E /* TenderWatchDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TenderWatchDetailVC.xib; sourceTree = "<group>"; };
 		7D7A13A51F04EB540092E3DF /* MappingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappingVC.swift; sourceTree = "<group>"; };
 		7D7A13A91F04EBAE0092E3DF /* MappingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MappingVC.xib; sourceTree = "<group>"; };
 		7D7A13AB1F04F0130092E3DF /* MappingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappingCell.swift; sourceTree = "<group>"; };
@@ -514,6 +518,7 @@
 				0CE01BEA1F039E3100111940 /* FavoriteVC.swift */,
 				0CE01BF01F03A03100111940 /* NotificationVC.swift */,
 				27EF448F1EF8BD5600CCBCA0 /* PaymentVC.swift */,
+				7D68B5BC1F1CB630004BEC5E /* TenderWatchDetailVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -538,6 +543,7 @@
 				0CE01BEE1F039E5100111940 /* FavoriteVC.xib */,
 				0CE01BF41F03A07900111940 /* NotificationVC.xib */,
 				27EF44951EF8BD5F00CCBCA0 /* PaymentVC.xib */,
+				7D68B5C01F1CB669004BEC5E /* TenderWatchDetailVC.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -876,6 +882,7 @@
 				7DA068C21F19ED3700D9352A /* home@3x.png in Resources */,
 				7DA068CE1F19ED3700D9352A /* logo@1024.png in Resources */,
 				27EF449A1EF8BD5F00CCBCA0 /* SignInVC.xib in Resources */,
+				7D68B5C11F1CB669004BEC5E /* TenderWatchDetailVC.xib in Resources */,
 				7DA068EB1F19ED3700D9352A /* postten@2x.png in Resources */,
 				7DA068B21F19ED3700D9352A /* dollar@2x.png in Resources */,
 				7DA068F51F19ED3700D9352A /* tick@3x.png in Resources */,
@@ -1172,6 +1179,7 @@
 				0CE01BF21F03A03100111940 /* NotificationVC.swift in Sources */,
 				7D0394381EFB61FF00B494EF /* AnimatedMenuButton.swift in Sources */,
 				27EF44AC1EF8BE0900CCBCA0 /* SignUpVC2.swift in Sources */,
+				7D68B5BE1F1CB630004BEC5E /* TenderWatchDetailVC.swift in Sources */,
 				7B4A06A41EF8F2B800359E16 /* TenderWatchVC.swift in Sources */,
 				7D0394391EFB61FF00B494EF /* DrawerBarButtonItem.swift in Sources */,
 				7D2E22521F00C53200A0783E /* SubscriptionCell.swift in Sources */,
