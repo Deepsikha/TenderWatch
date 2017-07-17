@@ -70,7 +70,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func btnSignUpClick(_ sender: Any) {
-        if (self.txtEmail.text?.isEmpty)! && (self.txtPassword.text?.isEmpty)! && (self.txtConfirmPassword.text?.isEmpty)! {
+        if (self.txtEmail.text?.isEmpty)! && (self.txtPassword.text?.isEmpty)! {
             MessageManager.showAlert(nil, "Email & Password required!")
         } else {
             if isValidEmail(strEmail: self.txtEmail.text!) {
@@ -80,7 +80,13 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
                     signUpUser.password = self.txtPassword.text!
                     self.navigationController?.pushViewController(SignUpVC2(), animated: true)
                 } else {
-                    MessageManager.showAlert(nil, "Enter password with 8 characters which contain at least one uppercase, one lowercase and special character")
+                    if (!(self.txtPassword.text! == self.txtConfirmPassword.text)) {
+                        MessageManager.showAlert(nil, "Password can't Match!!!")
+                    } else if (self.txtConfirmPassword.text?.isEmpty)! {
+                        MessageManager.showAlert(nil, "Enter confirm Password")
+                    } else {
+                        MessageManager.showAlert(nil, "Enter password with 8 characters which contain at least one uppercasfce, one lowercase and special character")
+                    }
                 }
             } else {
                 MessageManager.showAlert(nil, "Invalid Email")

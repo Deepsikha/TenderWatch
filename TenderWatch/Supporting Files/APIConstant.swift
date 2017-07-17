@@ -8,7 +8,7 @@
 
 import Foundation
 
-var BASE_URL: String = "http://192.168.200.75:4040/api/"
+var BASE_URL: String = "http://lanetteam.com:3000/api/"
 
 var LOGIN: String = "auth/login"
 var G_LOGIN: String = "auth/glogin"
@@ -27,3 +27,5 @@ var GOOGLE: String = (BASE_URL)+""
 var GET_SERVICES: String = (BASE_URL)+"service/userServices"
 var CATEGORY: String = "auth/category"
 var COUNTRY: String = "auth/country"
+
+var TENDER_DETAIL: String = (BASE_URL)+"tender"

@@ -97,6 +97,11 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 self.btnCountry.setTitle(USER!.country!, for: .normal)
                 self.btnnext.alpha = 1.0
             }
+            if !(signUpUser.contactNo.isEmpty) {
+                self.phonenum.text = signUpUser.contactNo
+            } else if !(signUpUser.occupation.isEmpty) {
+                self.occupation.text = signUpUser.occupation
+            }
         }
         
         if(SignUpVC2.isUpdated) {
@@ -313,7 +318,13 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                     upload.responseJSON { resp in
                         if (resp.result.value != nil) {
                             print(resp.result.value!)
-                            if  (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
+                            if  ((resp.result.value as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
+                                if (a as! String) == "error" {
+                                    return true
+                                } else {
+                                    return false
+                                }
+                            })) {
                                 MessageManager.showAlert(nil, (resp.result.value as! NSObject).value(forKey: "error") as! String)
                             } else {
                                 SignUpVC2.updated = true

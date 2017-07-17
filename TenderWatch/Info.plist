@@ -53,19 +53,17 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-		<key>NSAllowsArbitraryLoadsInWebContent</key>
-		<true/>
-	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>For setting profile pic</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>For setting profile pic</string>
 	<key>UILaunchStoryboardName</key>
 	<string>SignUPVC</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

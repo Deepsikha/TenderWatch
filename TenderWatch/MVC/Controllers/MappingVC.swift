@@ -298,6 +298,11 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if isNetworkReachable() {
             Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : self.select], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 print(resp.result.value)
+                if (resp.response?.statusCode == 200) {
+                    appDelegate.setHomeViewController()
+                } else {
+                    MessageManager.showAlert(nil, "Services can't Updated.")
+                }
             })
         } else {
             MessageManager.showAlert(nil, "No Internet!!!")

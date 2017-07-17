@@ -164,7 +164,13 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             self.startActivityIndicator()
             Alamofire.request("\(BASE_URL)favourite", method: .post, parameters: ["tender" : "Tender_Id"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
-                    if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error" {
+                    if ((resp.result.value as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
+                        if (a as! String) == "error" {
+                            return true
+                        } else {
+                            return false
+                        }
+                    })) {
                         MessageManager.showAlert(nil, "can't add to favorite")
                     } else {
                         MessageManager.showAlert(nil, "Added Succesfully")
@@ -184,7 +190,13 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             self.stopActivityIndicator()
             Alamofire.request(DELETE_TENDER+tender[index].id! , method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
-                    if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error" {
+                    if ((resp.result.value as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
+                        if (a as! String) == "error" {
+                            return true
+                        } else {
+                            return false
+                        }
+                    })) {
                         MessageManager.showAlert(nil, "can't add to favorite")
                     } else {
                         self.tender.remove(at: index)

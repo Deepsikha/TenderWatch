@@ -99,7 +99,13 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.startActivityIndicator()
             Alamofire.request(FAVORITE, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
-                    if ((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error" {
+                    if ((resp.result.value as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
+                        if (a as! String) == "error" {
+                            return true
+                        } else {
+                            return false
+                        }
+                    })) {
                         self.lblNoFavorite.isHidden = false
                     } else {
                         self.lblNoFavorite.isHidden = true

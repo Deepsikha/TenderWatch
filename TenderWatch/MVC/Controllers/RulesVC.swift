@@ -120,10 +120,18 @@ class RulesVC: UIViewController {
                     upload.responseJSON { resp in
                         if (resp.result.value != nil) {
                             print(resp.result.value!)
-                            if (((resp.result.value as! NSDictionary).allKeys[0] as! String) == "error") {
+                            if ((resp.result.value as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
+                                if (a as! String) == "error" {
+                                    return true
+                                } else {
+                                    return false
+                                }
+                            })) {
                                 let err = (resp.result.value as! NSObject).value(forKey: "error") as! String
                                 MessageManager.showAlert(nil, "\(err)")
                                 self.stopActivityIndicator()
+                                self.btnSignUp.isEnabled = true
+
                             } else {
                                 
                                 //Set User remaining
