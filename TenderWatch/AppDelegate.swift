@@ -11,6 +11,8 @@ import IQKeyboardManager
 import UserNotifications
 import Google
 import FBSDKCoreKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isGoogle: Bool?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        //FABRIC
+        Fabric.with([Crashlytics.self])
         
         var configureError: NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)
@@ -122,6 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
     }
     
     func application(_ application: UIApplication, viewControllerWithRestorationIdentifierPath identifierComponents: [Any], coder: NSCoder) -> UIViewController? {
@@ -197,6 +203,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = self.drawerController
         self.window?.makeKeyAndVisible()
     }
-    
+
 }
 

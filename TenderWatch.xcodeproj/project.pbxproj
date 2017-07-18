@@ -764,6 +764,7 @@
 				279004211EF766DC00EB198C /* Resources */,
 				5F47499C136AB49D6FD7C0D9 /* [CP] Embed Pods Frameworks */,
 				C5BB6C97A8DB7547239E69A2 /* [CP] Copy Pods Resources */,
+				7DFE223B1F1E1EE0009F7676 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1069,6 +1070,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenderWatchTests/Pods-TenderWatchTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7DFE223B1F1E1EE0009F7676 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 414556106e63df9924383789523fd838482bd04f ed3f8107d71b80190fff2362aa026ea0400fe54e72aa88f07d2ee7554195da16";
+		};
 		81CB4FCAF4907CB97B2E31B3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1349,6 +1363,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TenderWatch/TenderWatch.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ajeet Singh (QT4GYM2LTE)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y55EBSG532;
 				INFOPLIST_FILE = TenderWatch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;

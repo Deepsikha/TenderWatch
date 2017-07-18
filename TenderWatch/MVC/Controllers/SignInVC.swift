@@ -11,6 +11,7 @@ import Alamofire
 import ObjectMapper
 import Google
 import FBSDKLoginKit
+import Crashlytics
 
 class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDSignInDelegate {
     
@@ -30,6 +31,9 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
         
         self.txfEmail.delegate = self
         self.txfPassword.delegate = self
+        // TODO: Track the user action that is important for you.
+        Answers.logContentView(withName: "Tweet", contentType: "Video", contentId: "1234", customAttributes: ["Favorites Count":20, "Screen Orientation":"Landscape"])
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,7 +116,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
             }
         }
     }
-    
+
     @IBAction func btnHandleNewAC(_ sender: UIButton) {
         self.navigationController?.pushViewController(SignUpVC(), animated: true)
     }
