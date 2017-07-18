@@ -36,14 +36,12 @@ class HomeVC: UIViewController {
     //MARK:- IBActions
     @IBAction func btnContractorClick(_ sender: Any) {
         appDelegate.isClient = false
-        signUpUser.role = "contractor"
         self.navigationController?.pushViewController(SignInVC(), animated: true)
         
     }
     
     @IBAction func btnClientClick(_ sender: Any) {
         appDelegate.isClient = true
-        signUpUser.role = "client"
         self.navigationController?.pushViewController(SignInVC(), animated: true)
     }
 }

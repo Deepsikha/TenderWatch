@@ -26,6 +26,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     @IBOutlet var back: UIButton!
     @IBOutlet var opnDrawr: UIButton!
     @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblCountryCode: UILabel!
     
     var image: UIImage!
     var parameters : [String : Any]!
@@ -53,6 +54,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.lblName.isHidden = false
             self.btnnext.setTitle("Update", for: .normal)
             self.btnCountry.setTitle(USER!.country!, for: .normal)
+            self.lblCountryCode.text = RegisterCountryVC.countryCode
             self.phonenum.text = USER?.contactNo
             self.occupation.text = USER?.occupation
             self.proflPic.imageView?.sd_setShowActivityIndicatorView(true)
@@ -88,13 +90,16 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         if (USER?.authenticationToken == nil) {
             if (signUpUser.country.isEmpty) {
                 self.btnCountry.setTitle("Country", for: .normal)
+                self.lblCountryCode.text = "CC"
             } else {
                 self.btnCountry.setTitle(signUpUser.country, for: .normal)
+                self.lblCountryCode.text = RegisterCountryVC.countryCode
             }
         } else {
             if !(btnCountry.titleLabel!.text! == USER!.country!) {
                 self.btnnext.isEnabled = true
                 self.btnCountry.setTitle(USER!.country!, for: .normal)
+                self.lblCountryCode.text = RegisterCountryVC.countryCode
                 self.btnnext.alpha = 1.0
             }
             if !(signUpUser.contactNo.isEmpty) {

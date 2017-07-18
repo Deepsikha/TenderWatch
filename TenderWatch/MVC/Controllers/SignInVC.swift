@@ -51,7 +51,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if (error == nil) {
             let parameters: Parameters = ["token" : user?.authentication.idToken! as Any,
-                                          "role" : signUpUser.role]
+                                          "role" : appDelegate.isClient! ? "client" : "contractor"]
             self.Login(G_LOGIN, parameters)
             GIDSignIn.sharedInstance().signOut()
         } else {
@@ -103,7 +103,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
                     if(fbloginresult.grantedPermissions.contains("email"))
                     {
                         let param: Parameters = ["token": FBSDKAccessToken.current()!.tokenString,
-                            "role": signUpUser.role]
+                            "role": appDelegate.isClient! ? "client" : "contractor"]
 //                        self.getFBUserData()
 //                        fbLoginManager.logOut()
                         self.Login(F_LOGIN, param)
@@ -122,9 +122,10 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
     }
     
     @IBAction func btnHandleSignIn(_ sender: UIButton) {
+//        signUpUser =  signUpUserData()
         let parameters: Parameters = ["email" : self.txfEmail.text!,
                                       "password" : self.txfPassword.text!,
-                                      "role" : signUpUser.role]
+                                      "role" : appDelegate.isClient! ? "client" : "contractor"]
         Login(LOGIN, parameters)
         
     }
@@ -161,8 +162,8 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
                         }
                     })
                     if (isEmail) {
-                        let param: Parameters = ["token": email,
-                                                 "role": signUpUser.role]
+                        let param: Parameters = ["token": email!,
+                                                 "role": appDelegate.isClient! ? "client" : "contractor"]
                         self.Login(F_LOGIN, param)
                     } else {
                         MessageManager.showAlert(nil, "We can't access your information from Facebook because of your account privacy. ")

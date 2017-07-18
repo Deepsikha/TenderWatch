@@ -13,10 +13,11 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBOutlet weak var tblvw: UITableView!
     @IBOutlet var btnChoose: UIButton!
-
+    
     var country = [Country]()
     var temp : String?
-
+    
+    static var countryCode: String!
     override func viewDidLoad() {
         super.viewDidLoad()
         tblvw.delegate = self
@@ -43,10 +44,18 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tblvw.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
         cell.countryName.text = self.country[indexPath.row].countryName
-        if (cell.countryName.text == signUpUser.country || USER?.country == cell.countryName.text) {
-            cell.imgTick.isHidden = false
-            tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+        if (USER?.authenticationToken != nil) {
+            if (USER?.country == cell.countryName.text) {
+                cell.imgTick.isHidden = false
+                tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+            }
+        } else {
+            if (cell.countryName.text == signUpUser.country) {
+                cell.imgTick.isHidden = false
+                tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+            }
         }
+        
         return cell
     }
     
@@ -56,9 +65,10 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
             cell.imgTick.isHidden = !cell.imgTick.isHidden
         }
         if(USER?.authenticationToken != nil) {
-         temp = self.country[indexPath.row].countryName!
+            temp = self.country[indexPath.row].countryName!
         } else {
-        signUpUser.country = self.country[indexPath.row].countryName!
+            signUpUser.country = self.country[indexPath.row].countryName!
+            RegisterCountryVC.countryCode = "+"+self.country[indexPath.row].countryCode!
         }
     }
     
@@ -75,7 +85,10 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     @IBAction func handleBtnChoose(_ sender: Any) {
-        USER?.country = temp
+        if(USER?.authenticationToken != nil) {
+            USER?.country = temp
+            RegisterCountryVC.countryCode = "+"+self.country.filter{$0.countryName! == USER?.country}[0].countryCode!
+        }
         self.navigationController?.popViewController(animated: true)
     }
     

@@ -68,7 +68,7 @@ class RulesVC: UIViewController {
                                "contactNo": signUpUser.contactNo,
                                "occupation": signUpUser.occupation,
                                "aboutMe": signUpUser.aboutMe,
-                               "role" : signUpUser.role] as [String : Any]
+                               "role" : "client"] as [String : Any]
         } else {
             self.parameters = ["email" :  signUpUser.email,
                                "password" : signUpUser.password,
@@ -76,7 +76,7 @@ class RulesVC: UIViewController {
                                "contactNo": signUpUser.contactNo,
                                "occupation": signUpUser.occupation,
                                "aboutMe": signUpUser.aboutMe,
-                               "role" : signUpUser.role,
+                               "role" : "contractor",
                                "selections": signUpUser.selections] as [String : Any]
         }
         if isNetworkReachable() {

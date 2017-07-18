@@ -15,7 +15,7 @@
                 <outlet property="btnGmailSignIn" destination="w7V-T1-Gpy" id="U6x-ZU-YpA"/>
                 <outlet property="btnSignIn" destination="Z3M-Ta-ksd" id="iCF-YR-0XU"/>
                 <outlet property="imgAppLogo" destination="nCT-Xh-HAi" id="Dw5-Ew-N4a"/>
-                <outlet property="txfEmail" destination="9X6-er-sFA" id="mWQ-Aj-pAY"/>
+                <outlet property="txfEmail" destination="sLk-8O-7uv" id="sZy-Xl-kLk"/>
                 <outlet property="txfPassword" destination="wJq-7L-yjZ" id="OUy-Eh-d4y"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -114,6 +114,8 @@
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wJq-7L-yjZ">
                                     <rect key="frame" x="55" y="10" width="181" height="30"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
@@ -152,24 +154,28 @@
                                         <constraint firstAttribute="width" constant="25" id="q4d-6e-TDM"/>
                                     </constraints>
                                 </imageView>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9X6-er-sFA">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sLk-8O-7uv">
                                     <rect key="frame" x="55" y="10" width="181" height="30"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="OmX-No-CZm"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                 </textField>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="A4L-am-xKg" firstAttribute="leading" secondItem="iwc-ox-v4h" secondAttribute="leading" id="1WO-dV-COx"/>
-                                <constraint firstItem="9X6-er-sFA" firstAttribute="leading" secondItem="YKW-p8-4gc" secondAttribute="trailing" constant="22" id="5ZY-Xm-sOe"/>
+                                <constraint firstAttribute="trailing" secondItem="sLk-8O-7uv" secondAttribute="trailing" constant="4" id="5Sr-ky-Rhd"/>
                                 <constraint firstAttribute="bottom" secondItem="A4L-am-xKg" secondAttribute="bottom" constant="3" id="7fA-oC-8Mh"/>
                                 <constraint firstItem="YKW-p8-4gc" firstAttribute="leading" secondItem="iwc-ox-v4h" secondAttribute="leading" constant="8" id="9rA-YM-FPr"/>
-                                <constraint firstAttribute="trailing" secondItem="9X6-er-sFA" secondAttribute="trailing" constant="4" id="SWE-XB-6sD"/>
+                                <constraint firstItem="sLk-8O-7uv" firstAttribute="centerY" secondItem="YKW-p8-4gc" secondAttribute="centerY" id="IZc-WV-tMh"/>
                                 <constraint firstAttribute="height" constant="50" id="VH3-uZ-kqT"/>
-                                <constraint firstItem="A4L-am-xKg" firstAttribute="top" secondItem="9X6-er-sFA" secondAttribute="bottom" constant="6" id="ZW1-8C-znB"/>
                                 <constraint firstItem="YKW-p8-4gc" firstAttribute="top" secondItem="iwc-ox-v4h" secondAttribute="top" constant="13" id="cc5-kK-OaA"/>
                                 <constraint firstAttribute="trailing" secondItem="A4L-am-xKg" secondAttribute="trailing" id="ekh-gy-GUZ"/>
-                                <constraint firstItem="9X6-er-sFA" firstAttribute="centerY" secondItem="YKW-p8-4gc" secondAttribute="centerY" id="tA7-MK-z3O"/>
+                                <constraint firstItem="A4L-am-xKg" firstAttribute="top" secondItem="sLk-8O-7uv" secondAttribute="bottom" constant="6" id="nRn-F3-PKw"/>
+                                <constraint firstItem="sLk-8O-7uv" firstAttribute="leading" secondItem="YKW-p8-4gc" secondAttribute="trailing" constant="22" id="uPx-te-fvl"/>
                             </constraints>
                         </view>
                     </subviews>

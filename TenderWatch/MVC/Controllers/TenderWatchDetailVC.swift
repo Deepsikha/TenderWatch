@@ -33,6 +33,7 @@ class TenderWatchDetailVC: UIViewController {
     }
 
     override func viewDidLayoutSubviews() {
+        self.imgTenderPhoto.layer.cornerRadius = self.imgTenderPhoto.frame.height / 2
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -74,22 +75,38 @@ class TenderWatchDetailVC: UIViewController {
                             
                         self.lblCategory.text = (data.value(forKey: "category") as! NSObject).value(forKey: "categoryName")! as? String
                         
-                        self.lblDay.text = (data.value(forKey: "expiryDate")! as? String)
+                        let date = data.value(forKey: "expiryDate")! as? String
+                        self.lblDay.text = String(describing: Date().getDifferenceBtnCurrentDate(date: (date?.substring(to: (date!.index((date!.startIndex), offsetBy: 10))))!).day)
                         self.txtDesc.text = (data.value(forKey: "description")! as? String)
                         self.lblClienEmail.text = (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "email")! as? String
                         var url: URL!
                         if (appDelegate.isClient)! {
                             url = URL(string: (data.value(forKey: "tenderPhoto")! as? String)!)
                         } else {
-                            url = URL(string: (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "profilePhoto")! as! String)
+                            if (data as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
+                                if (a as! String == "profilePhoto") {
+                                    return true
+                                } else {
+                                    return false
+                                }
+                            })
+                            {
+                                url = URL(string: (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "profilePhoto")! as! String)
+                            }
                         }
-                        self.imgTenderPhoto.sd_setImage(with: url, placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-                            SDImageCache.shared().clearMemory()
-                        })
+                        if (url != nil) {
+                            self.imgTenderPhoto.sd_setImage(with: url, placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                                SDImageCache.shared().clearMemory()
+                            })
+                        } else {
+                            self.imgTenderPhoto.image = UIImage(named: "avtar")
+                        }
+                        
                         
                     }
                     self.stopActivityIndicator()
-                }            })
+                }
+            })
         } else {
             MessageManager.showAlert(nil, "No Internet")
         }

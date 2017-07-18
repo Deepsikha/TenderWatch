@@ -108,7 +108,6 @@ class signUpUserData: NSObject {
     var contactNo = ""
     var occupation = ""
     var aboutMe = ""
-    var role = ""
     var selections: [String : [String]] = [:]
     
     override init() {
