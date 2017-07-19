@@ -33,7 +33,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="postten.png" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-BL-l8T">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mainscreen.png" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-BL-l8T">
                     <rect key="frame" x="124" y="105" width="70" height="70"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="GJd-BL-l8T" secondAttribute="height" multiplier="1:1" id="BnQ-lk-FSC"/>
@@ -129,6 +129,6 @@
     </objects>
     <resources>
         <image name="lookingfor.png" width="46" height="46"/>
-        <image name="postten.png" width="46" height="46"/>
+        <image name="mainscreen.png" width="46" height="46"/>
     </resources>
 </document>

@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotificationVC" customModule="TenderWatch" customModuleProvider="target">
             <connections>
+                <outlet property="lblNoNotifications" destination="4Fu-9b-drP" id="hOo-Ey-BhO"/>
+                <outlet property="tblNotifications" destination="4FE-ah-pfA" id="Hox-sB-Z96"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDu-YD-K9g">
-                    <rect key="frame" x="16" y="14.5" width="30" height="48"/>
+                    <rect key="frame" x="16" y="15" width="30" height="48"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="30" id="2CX-vU-CTZ"/>
                         <constraint firstAttribute="height" constant="48" id="Pe6-XL-cS6"/>
@@ -43,6 +45,16 @@
                     <rect key="frame" x="0.0" y="63" width="320" height="417"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
+                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Fu-9b-drP">
+                    <rect key="frame" x="61" y="223" width="197" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="33.999999999999915" id="8nd-0o-fgX"/>
+                        <constraint firstAttribute="width" constant="197" id="vmc-Xd-boz"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -51,7 +63,9 @@
                 <constraint firstItem="wEg-gA-Z8Z" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ICr-BR-Qs5"/>
                 <constraint firstItem="EDu-YD-K9g" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14.5" id="PO0-3f-DH0"/>
                 <constraint firstItem="wEg-gA-Z8Z" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="24" id="RcB-CK-2yW"/>
+                <constraint firstItem="4Fu-9b-drP" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="fWx-EH-pgl"/>
                 <constraint firstItem="4FE-ah-pfA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ffc-dC-DmH"/>
+                <constraint firstItem="4Fu-9b-drP" firstAttribute="centerX" secondItem="wEg-gA-Z8Z" secondAttribute="centerX" id="hSu-am-wj0"/>
                 <constraint firstAttribute="bottom" secondItem="4FE-ah-pfA" secondAttribute="bottom" id="jK7-7r-mK1"/>
                 <constraint firstAttribute="trailing" secondItem="4FE-ah-pfA" secondAttribute="trailing" id="lPe-Ya-CAg"/>
                 <constraint firstItem="wEg-gA-Z8Z" firstAttribute="leading" secondItem="EDu-YD-K9g" secondAttribute="trailing" constant="45" id="mK8-Y3-9ao"/>

@@ -55,7 +55,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
         if (error == nil) {
             let parameters: Parameters = ["token" : user?.authentication.idToken! as Any,
                                           "role" : appDelegate.isClient! ? "client" : "contractor",
-                                          "deviceToken": appDelegate.token!]
+                                          "deviceId": appDelegate.token!]
             self.Login(G_LOGIN, parameters)
             GIDSignIn.sharedInstance().signOut()
         } else {
@@ -108,7 +108,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
                     {
                         let param: Parameters = ["token": FBSDKAccessToken.current()!.tokenString,
                                                  "role": appDelegate.isClient! ? "client" : "contractor",
-                                                 "deviceToken": appDelegate.token!]
+                                                 "deviceId": appDelegate.token!]
 //                        self.getFBUserData()
 //                        fbLoginManager.logOut()
                         self.Login(F_LOGIN, param)
@@ -131,7 +131,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
         let parameters: Parameters = ["email" : self.txfEmail.text!,
                                       "password" : self.txfPassword.text!,
                                       "role" : appDelegate.isClient! ? "client" : "contractor",
-                                      "deviceToken": appDelegate.token!]
+                                      "deviceId": appDelegate.token!]
         Login(LOGIN, parameters)
         
     }

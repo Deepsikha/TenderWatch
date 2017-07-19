@@ -95,7 +95,7 @@ class TenderWatchDetailVC: UIViewController {
                                     return false
                                 }
                             }) {
-                                url = URL(string: (data.value(forKey: "tenderPhoto")! as? String)!)
+                                url = URL(string: (data.value(forKey: "tenderPhoto")! as? String)!)!
                             }
                         } else {
                             if (data.value(forKey: "tenderUploader") as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
@@ -106,7 +106,7 @@ class TenderWatchDetailVC: UIViewController {
                                 }
                             })
                             {
-                                url = URL(string: (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "profilePhoto")! as! String)
+                                url = URL(string: (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "profilePhoto")! as! String)!
                             }
                         }
                         if (url != nil) {
@@ -116,8 +116,6 @@ class TenderWatchDetailVC: UIViewController {
                         } else {
                             self.imgTenderPhoto.image = UIImage(named: "avtar")
                         }
-                        
-                        
                     }
                     self.stopActivityIndicator()
                 }

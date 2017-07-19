@@ -10,9 +10,11 @@ import UIKit
 
 class NotificationVC: UIViewController {
 
+    @IBOutlet weak var tblNotifications: UITableView!
+    @IBOutlet weak var lblNoNotifications: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.lblNoNotifications.isHidden = true
         // Do any additional setup after loading the view.
     }
 

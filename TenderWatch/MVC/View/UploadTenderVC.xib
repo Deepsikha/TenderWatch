@@ -188,7 +188,7 @@
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="OrO-pX-qKn" secondAttribute="height" multiplier="279:278" id="G8Z-PQ-GuX"/>
                                     </constraints>
-                                    <state key="normal" image="plus1.png"/>
+                                    <state key="normal" image="tender_place.png"/>
                                     <connections>
                                         <action selector="handleBtnImage:" destination="-1" eventType="touchUpInside" id="qqc-A1-mBd"/>
                                     </connections>
@@ -505,6 +505,6 @@ TW9iaWxlIE51bWJlcgM
         <image name="mail.png" width="22" height="22"/>
         <image name="menu.png" width="22" height="22"/>
         <image name="mobile.png" width="22" height="22"/>
-        <image name="plus1.png" width="128" height="128"/>
+        <image name="tender_place.png" width="300" height="300"/>
     </resources>
 </document>

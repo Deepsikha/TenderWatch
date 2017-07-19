@@ -37,7 +37,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tblMappings.tableFooterView = UIView()
         
         self.fetchCoutry()
-        self.fetchCategory()
         
         //taphandle
         //        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
@@ -192,6 +191,8 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     })
                     self.splitDataInToSection()
                     self.stopActivityIndicator()
+                    self.fetchCategory()
+
                 }
             }) { (errorMessage) in
                 print(errorMessage)
