@@ -27,6 +27,9 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         
         self.tblTenderList.register(UINib(nibName:"TenderListCell",bundle: nil), forCellReuseIdentifier: "TenderListCell")
         self.tblTenderList.tableFooterView = UIView()
+//        
+//        self.tblTenderList.estimatedRowHeight = 85
+//        self.tblTenderList.rowHeight = UITableViewAutomaticDimension
         
         self.getTender()
         // Do any additional setup after loading the view.
@@ -88,11 +91,18 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         return cell
     }
     
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return UITableViewAutomaticDimension
+//    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         TenderWatchDetailVC.id = self.tender[indexPath.row].id
         
         self.navigationController?.pushViewController(TenderWatchDetailVC(), animated: true)
     }
+    
+//    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return UITableViewAutomaticDimension
+//    }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let fav = UITableViewRowAction(style: .normal, title: "Favourites") { action, index in

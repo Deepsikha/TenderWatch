@@ -15,7 +15,8 @@ target 'TenderWatch' do
     pod 'FacebookCore'
     pod 'FacebookLogin'
     pod 'FacebookShare'
-
+    pod 'Fabric'
+    pod 'Crashlytics'
     
   target 'TenderWatchTests' do
     inherit! :search_paths

@@ -13,6 +13,7 @@ import Google
 import FBSDKCoreKit
 import Fabric
 import Crashlytics
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isClient: Bool?
     var isGoogle: Bool?
     
+    var token: String!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         //FABRIC
@@ -47,6 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             setUpRootVc()
         }
+        
+        registerForPushNotifications()
         return true
     }
     
@@ -61,19 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                              annotation: options[UIApplicationOpenURLOptionsKey.annotation])
 
         }
-        }
-    
-//    
-//    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-//        //Even though the Facebook SDK can make this determinitaion on its own,
-//        //let's make sure that the facebook SDK only sees urls intended for it,
-//        //facebook has enough info already!
-//    if(url.scheme!.hasPrefix("fb") && url.host == "authorize"){
-//    
-//        return FBSDKApplicationDelegate.sharedInstance().application(application, open: url as URL!, sourceApplication: sourceApplication, annotation: annotation)
-//        }
-//       return true
-//    }
+    }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance()
@@ -82,11 +74,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                          sourceApplication: sourceApplication,
                          annotation: annotation)
     }
-    
-//    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-//        
-//    }
-
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
@@ -162,13 +149,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return nil
     }
     
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print(deviceToken)
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data -> String in
+            return String(format: "%02.2hhx", data)
+        }
+        let deviceID = UIDevice.current.identifierForVendor!.uuidString
+        print(deviceID)
+        token = tokenParts.joined()
+        print("Device Token: \(token!)")
     }
     
     
-    // MARK:- Custom Method(s)
     
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register: \(error)")
+    }
+    
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        print("Notification Arrived")
+        print(userInfo)
+    }
+    
+    // MARK:- Custom Method(s)
     func setUpRootVc() {
         IQKeyboardManager.shared().isEnabled = true
         
@@ -181,7 +189,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         nav.setNavigationBarHidden(true, animated: false)
         nav.pushViewController(vc, animated: false)
     }
-    
+        
     func setHomeViewController()
     {
         // Override point for customization after application launch.
@@ -202,6 +210,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.drawerController.closeDrawerGestureModeMask = .all
         self.window?.rootViewController = self.drawerController
         self.window?.makeKeyAndVisible()
+    }
+    
+    func registerForPushNotifications() {
+        if #available(iOS 10.0, *) {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.badge, .alert , .sound]) { (greanted, error) in
+                if greanted {
+                    UIApplication.shared.registerForRemoteNotifications();
+                }
+            }
+        } else {
+            let type: UIUserNotificationType = [UIUserNotificationType.badge, UIUserNotificationType.alert, UIUserNotificationType.sound];
+            let setting = UIUserNotificationSettings(types: type, categories: nil);
+            UIApplication.shared.registerUserNotificationSettings(setting);
+            UIApplication.shared.registerForRemoteNotifications();
+        }
     }
 
 }

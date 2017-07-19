@@ -11,7 +11,6 @@ import Alamofire
 import ObjectMapper
 import Google
 import FBSDKLoginKit
-import Crashlytics
 
 class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDSignInDelegate {
     
@@ -32,7 +31,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
         self.txfEmail.delegate = self
         self.txfPassword.delegate = self
         // TODO: Track the user action that is important for you.
-        Answers.logContentView(withName: "Tweet", contentType: "Video", contentId: "1234", customAttributes: ["Favorites Count":20, "Screen Orientation":"Landscape"])
+//        Answers.logContentView(withName: "Tweet", contentType: "Video", contentId: "1234", customAttributes: ["Favorites Count":20, "Screen Orientation":"Landscape"])
 
     }
     
@@ -55,7 +54,8 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if (error == nil) {
             let parameters: Parameters = ["token" : user?.authentication.idToken! as Any,
-                                          "role" : appDelegate.isClient! ? "client" : "contractor"]
+                                          "role" : appDelegate.isClient! ? "client" : "contractor",
+                                          "deviceToken": appDelegate.token!]
             self.Login(G_LOGIN, parameters)
             GIDSignIn.sharedInstance().signOut()
         } else {
@@ -107,7 +107,8 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
                     if(fbloginresult.grantedPermissions.contains("email"))
                     {
                         let param: Parameters = ["token": FBSDKAccessToken.current()!.tokenString,
-                            "role": appDelegate.isClient! ? "client" : "contractor"]
+                                                 "role": appDelegate.isClient! ? "client" : "contractor",
+                                                 "deviceToken": appDelegate.token!]
 //                        self.getFBUserData()
 //                        fbLoginManager.logOut()
                         self.Login(F_LOGIN, param)
@@ -129,7 +130,8 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
 //        signUpUser =  signUpUserData()
         let parameters: Parameters = ["email" : self.txfEmail.text!,
                                       "password" : self.txfPassword.text!,
-                                      "role" : appDelegate.isClient! ? "client" : "contractor"]
+                                      "role" : appDelegate.isClient! ? "client" : "contractor",
+                                      "deviceToken": appDelegate.token!]
         Login(LOGIN, parameters)
         
     }

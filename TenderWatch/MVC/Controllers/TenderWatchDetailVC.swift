@@ -76,14 +76,29 @@ class TenderWatchDetailVC: UIViewController {
                         self.lblCategory.text = (data.value(forKey: "category") as! NSObject).value(forKey: "categoryName")! as? String
                         
                         let date = data.value(forKey: "expiryDate")! as? String
-                        self.lblDay.text = String(describing: Date().getDifferenceBtnCurrentDate(date: (date?.substring(to: (date!.index((date!.startIndex), offsetBy: 10))))!).day)
+                        let components = Date().getDifferenceBtnCurrentDate(date: (date?.substring(to: (date!.index((date!.startIndex), offsetBy: 10))))!)
+                        
+                        if (components.day == 1) {
+                            self.lblDay.text = "\(components.day!) day"
+                        } else {
+                            self.lblDay.text = "\(components.day!) days"
+                        }
+                        
                         self.txtDesc.text = (data.value(forKey: "description")! as? String)
                         self.lblClienEmail.text = (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "email")! as? String
                         var url: URL!
                         if (appDelegate.isClient)! {
-                            url = URL(string: (data.value(forKey: "tenderPhoto")! as? String)!)
-                        } else {
                             if (data as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
+                                if (a as! String == "tenderPhoto") {
+                                    return true
+                                } else {
+                                    return false
+                                }
+                            }) {
+                                url = URL(string: (data.value(forKey: "tenderPhoto")! as? String)!)
+                            }
+                        } else {
+                            if (data.value(forKey: "tenderUploader") as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
                                 if (a as! String == "profilePhoto") {
                                     return true
                                 } else {
