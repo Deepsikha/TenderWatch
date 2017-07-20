@@ -100,11 +100,11 @@ func isValidEmail(strEmail : String) ->  Bool
     return emailTest.evaluate(with: strEmail)
 }
 
-func isValidNumber(_ data:String,length:Int?) -> Bool{
+func isValidNumber(_ data:String,length:Int!) -> Bool{
     let ns:NSString
     if let _ = length{
-        ns = "[0-9]{\(length!)}" as NSString
-    }else{
+        ns = "^((?!(0))[0-9]{\(length!)})$" as NSString
+    } else {
         ns = "[0-9]+"
     }
     let pr:NSPredicate = NSPredicate(format: "SELF MATCHES %@",ns)
@@ -157,7 +157,7 @@ extension UIViewController {
         
         //argument is provided
         
-        let loc = location ?? self.view.center
+//        let loc = location ?? self.view.center
         
         
         //Ensure the UI is updated from the main thread

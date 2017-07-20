@@ -114,16 +114,16 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.btnnext.alpha = 1.0
         } else {
             if self.btnnext.isEnabled  {
-               self.btnnext.isEnabled = true
+                self.btnnext.isEnabled = true
             }
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         if(SignUpVC2.updated) {
-//        self.btnnext.isEnabled = false
-        self.btnnext.alpha = 0.5
-        SignUpVC2.isUpdated = false
+            //        self.btnnext.isEnabled = false
+            self.btnnext.alpha = 0.5
+            SignUpVC2.isUpdated = false
         }
     }
     
@@ -194,23 +194,20 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         } else {
             if(sender == self.phonenum) {
                 if(sender.text?.characters.count == 10) {
-                self.btnnext.isEnabled = true
-                self.btnnext.alpha = 1.0
+                    self.btnnext.isEnabled = true
+                    self.btnnext.alpha = 1.0
                 } else {
                     self.btnnext.isEnabled = false
                     self.btnnext.alpha = 0.5
-
+                    
                 }
             } else if(sender == self.occupation && (sender.text?.characters.count != 0) ) {
                 self.btnnext.alpha = 1.0
                 self.btnnext.isEnabled = true
             }
         }
-
+        
     }
-    
-    
-    
     
     @IBAction func selectCountry(_ sender: Any) {
         self.navigationController?.pushViewController(RegisterCountryVC(), animated: true)
@@ -281,20 +278,12 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     //MARK:- Custom Method
     func update() {
+        self.parameters = ["country": USER?.country!,
+                           "contactNo": USER?.contactNo!,
+                           "occupation": USER?.occupation!,
+                           "aboutMe": USER?.aboutMe!,
+                           "role" : appDelegate.isClient! ? "client" : "contractor"]
         
-        if (appDelegate.isClient)! {
-            self.parameters = ["country": USER?.country!,
-                               "contactNo": USER?.contactNo!,
-                               "occupation": USER?.occupation!,
-                               "aboutMe": USER?.aboutMe!,
-                               "role" : "client"]
-        } else {
-            self.parameters = ["country": USER?.country!,
-                               "contactNo": USER?.contactNo!,
-                               "occupation": USER?.occupation!,
-                               "aboutMe": USER?.aboutMe!,
-                               "role" : "contractor"]
-        }
         if isNetworkReachable() {
             self.startActivityIndicator()
             Alamofire.upload(multipartFormData: { (multipartFormData) in
@@ -358,4 +347,4 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.occupation.resignFirstResponder()
         self.phonenum.resignFirstResponder()
     }
-}
+ }

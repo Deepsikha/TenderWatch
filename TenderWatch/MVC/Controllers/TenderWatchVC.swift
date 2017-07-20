@@ -105,9 +105,10 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
 //    }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
-        let fav = UITableViewRowAction(style: .normal, title: "Favourites") { action, index in
+        let fav = UITableViewRowAction(style: .normal, title: "Favorites") { action, index in
             print("Edit button tapped")
-            self.addFavorite()
+            self.addFavorite(index)
+            tableView.reloadRows(at: [index], with: .none)
         }
         let dlt = UITableViewRowAction(style: .normal, title: "Delete", handler: { (action, index) in
             print("Delete button tapped")
@@ -130,8 +131,15 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         fav.backgroundColor = UIColor.blue
 
         if !(USER?.role?.rawValue == RollType.client.rawValue) {
-            
-            return [dlt,fav]
+            if ((self.tender[editActionsForRowAt.row].favorite?.count)! > 0) {
+                if (self.tender[editActionsForRowAt.row].favorite?.contains((USER?._id)!))!{
+                    return [dlt]
+                } else {
+                    return [dlt,fav]
+                }
+            } else {
+                return [dlt,fav]
+            }
         } else {
             
             return [dlt]
@@ -151,7 +159,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     func getTender() {
         if isNetworkReachable() {
             self.startActivityIndicator()
-            Alamofire.request(GET_TENDER, method: .post, parameters: ["role" : "\(USER?.role?.rawValue as! String)"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+            Alamofire.request(GET_TENDER, method: .post, parameters: ["role" : appDelegate.isClient! ? "client" : "contractor"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     if resp.result.value is NSDictionary {
 //                        MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
@@ -175,10 +183,10 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         }
     }
     
-    func addFavorite() {
+    func addFavorite(_ index: IndexPath) {
         if isNetworkReachable() {
             self.startActivityIndicator()
-            Alamofire.request("\(BASE_URL)favourite", method: .post, parameters: ["tender" : "Tender_Id"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+            Alamofire.request(ADD_REMOVE_FAVORITE+tender[index.row].id!, method: .put, parameters: ["tender" : "Tender_Id"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     if ((resp.result.value as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
                         if (a as! String) == "error" {
@@ -190,6 +198,8 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                         MessageManager.showAlert(nil, "can't add to favorite")
                     } else {
                         MessageManager.showAlert(nil, "Added Succesfully")
+                        self.tender[index.row].favorite = (resp.result.value as! NSObject).value(forKey: "favorite") as? [String]
+                        self.tblTenderList.reloadRows(at: [index], with: .none)
                     }
                     self.stopActivityIndicator()
                 }

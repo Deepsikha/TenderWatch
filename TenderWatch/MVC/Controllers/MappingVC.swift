@@ -266,7 +266,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //                        MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
 //                    } else {
                         print(resp.result.value!)
-                        let data = (resp.result.value as! NSObject)
+//                        let data = (resp.result.value as! NSObject)
 //                        self.services = Mapper<Selections>().mapArray(JSONObject: data)!
                         self.select = resp.result.value as! [String : [String]]
                         print(self.select)
@@ -298,7 +298,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func updateService() {
         if isNetworkReachable() {
             Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : self.select], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
-                print(resp.result.value)
+//                print(resp.result.value)
                 if (resp.response?.statusCode == 200) {
                     appDelegate.setHomeViewController()
                 } else {
