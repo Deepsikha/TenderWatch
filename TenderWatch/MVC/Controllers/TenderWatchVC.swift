@@ -127,8 +127,14 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             
             self.present(alert, animated: true, completion: nil)
         })
+        
+        let update = UITableViewRowAction(style: .normal, title: "Update") { action, index in
+            print("Update button tapped")
+            self.navigationController?.pushViewController(UploadTenderVC(), animated: true)
+        }
         dlt.backgroundColor = UIColor.red
         fav.backgroundColor = UIColor.blue
+        update.backgroundColor = UIColor.gray
 
         if !(USER?.role?.rawValue == RollType.client.rawValue) {
             if ((self.tender[editActionsForRowAt.row].favorite?.count)! > 0) {
@@ -141,8 +147,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                 return [dlt,fav]
             }
         } else {
-            
-            return [dlt]
+            return [dlt, update]
         }
     }
     
@@ -215,15 +220,9 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         if isNetworkReachable() {
             self.stopActivityIndicator()
             Alamofire.request(DELETE_TENDER+tender[index].id! , method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
-                if(resp.result.value != nil) {
-                    if ((resp.result.value as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
-                        if (a as! String) == "error" {
-                            return true
-                        } else {
-                            return false
-                        }
-                    })) {
-                        MessageManager.showAlert(nil, "can't add to favorite")
+                if(resp.response?.statusCode != nil) {
+                    if !(resp.response?.statusCode == 200) {
+                        MessageManager.showAlert(nil, "can't Delete tender")
                     } else {
                         self.tender.remove(at: index)
                         self.tblTenderList.reloadData()

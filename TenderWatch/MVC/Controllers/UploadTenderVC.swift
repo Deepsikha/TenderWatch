@@ -57,11 +57,15 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         picker.delegate = self
         picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         
+        //let tap = UITapGestureRecognizer(target: self, action: #selector(self.mainTap))
+        //tap.cancelsTouchesInView = false
+        //self.view.addGestureRecognizer(tap)
         self.tblOptions.tableFooterView = UIView()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         self.navigationController?.isNavigationBarHidden = true
     }
     
@@ -86,6 +90,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         if (self.country.count == 0) && (self.category.count == 0) {
             MessageManager.showAlert(nil, "Select Country & Category First")
         }
+        self.mainTap()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -120,6 +125,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     //MARK:- TextView Delegate
     func textViewDidBeginEditing(_ textView: UITextView) {
+        self.mainTap()
         if textView == self.txtvwAddress {
             if !(self.txtvwAddress.text.isEmpty) {
                 if textView.text == "Address" {
@@ -195,6 +201,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.uploadTender.ctId = self.category.filter {$0.categoryName! == cell.lblCategory.text!}[0].categoryId!
         }
         self.tblOptions.removeFromSuperview()
+        self.vwScroll.isScrollEnabled = true
         isDropDownActive = false
     }
     
@@ -236,7 +243,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         if isDropDownActive == false{
             self.isCountry = true
             lblDropdown.text = "▲"
-            
+            self.vwScroll.isScrollEnabled = false
             self.view.addSubview(self.tblOptions)
             if self.country.count == 0 {
                 self.fetchCoutry()
@@ -245,6 +252,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.isDropDownActive = true
         }else{
             lblDropdown.text = "▼"
+            self.vwScroll.isScrollEnabled = true
             tblOptions.removeFromSuperview()
             self.isDropDownActive = false
         }
@@ -254,6 +262,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBAction func btnSelectCategory(_ sender: Any) {
         if isDropDownActive == false{
             self.isCountry = false
+            self.vwScroll.isScrollEnabled = false
             lblDropdownCat.text = "▲"
             self.view.addSubview(self.tblOptions)
             if self.category.count == 0 {
@@ -263,6 +272,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.isDropDownActive = true
         }else{
             lblDropdownCat.text = "▼"
+            self.vwScroll.isScrollEnabled = true
             tblOptions.removeFromSuperview()
             self.isDropDownActive = false
         }
@@ -270,6 +280,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func btnShowContactPopup(_ sender: Any) {
+        self.mainTap()
         if (self.country.count == 0) && (self.category.count == 0) {
             MessageManager.showAlert(nil, "Select Country & Category First")
         } else {
@@ -286,12 +297,12 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func handleBtnImage(_ sender: Any) {
+        self.mainTap()
         let option = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
         
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
             self.picker.sourceType = UIImagePickerControllerSourceType.camera
             self.present(self.picker, animated: true, completion: nil)
-            
         }
         
         let galleryAction = UIAlertAction(title: "Gallery", style: .default) { (action) in
@@ -382,7 +393,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                         dateFormatter.timeZone = NSTimeZone(name: "GMT")! as TimeZone
                         
                         let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
-                        multipartFormData.append(self.uploadTender.photo, withName: "image",fileName: imgname, mimeType: "image/jpg")
+                        multipartFormData.append(self.uploadTender.photo, withName: "image",fileName: imgname, mimeType: "image/jpeg")
                     }
                     for (key, value) in param {
                         multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
@@ -486,5 +497,18 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         self.view.subviews.last?.removeFromSuperview()
         self.view.removeGestureRecognizer(tap)
+    }
+    
+    func mainTap() {
+        if (self.view.subviews.contains(tblOptions)) {
+            self.tblOptions.removeFromSuperview()
+            if (self.isCountry) {
+                lblDropdown.text = "▼"
+            } else {
+                lblDropdownCat.text = "▼"
+            }
+            self.vwScroll.isScrollEnabled = true
+            self.isDropDownActive = false
+        }
     }
 }

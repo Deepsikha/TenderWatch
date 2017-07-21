@@ -162,9 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        if (token.isEmpty) {
-            token = "902197b814b72dc923d4573e11ce783fdbafa622"
-        }
+        token = "902197b814b72dc923d4573e11ce783fdbafa622"
         print("Failed to register: \(error)")
     }
     

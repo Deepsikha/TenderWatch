@@ -79,7 +79,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.proflPic.layer.borderWidth = 1
         }
     }
-    
+
     override func viewDidLayoutSubviews() {
         self.btnnext.cornerRedius()
         proflPic.layer.cornerRadius = proflPic.frame.width / 2
@@ -296,7 +296,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
                     
                     let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
                     
-                    multipartFormData.append(signUpUser.photo, withName: "image",fileName: imgname, mimeType: "image/jpg")
+                    multipartFormData.append(signUpUser.photo, withName: "image",fileName: imgname, mimeType: "image/jpeg")
                 }
                 for (key, value) in self.parameters {
                     multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)

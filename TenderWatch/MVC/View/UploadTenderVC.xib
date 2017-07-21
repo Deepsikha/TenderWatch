@@ -24,7 +24,6 @@
                 <outlet property="lblName" destination="23y-r2-YkQ" id="OaJ-ZD-fxn"/>
                 <outlet property="opnDrwr" destination="LFC-0c-Cz8" id="esw-Df-xgy"/>
                 <outlet property="tblOptions" destination="Kf3-vy-pue" id="tuT-pw-gr1"/>
-                <outlet property="tempView" destination="ekN-97-FOy" id="VHA-m1-p45"/>
                 <outlet property="tenderDetail" destination="p9U-sD-H6H" id="4HX-7R-kmJ"/>
                 <outlet property="txfEmail" destination="pqb-ao-ujV" id="NQO-i9-vva"/>
                 <outlet property="txfLandLineNo" destination="VaL-CG-Drb" id="lrz-h9-j34"/>
@@ -241,23 +240,16 @@
                         <constraint firstAttribute="trailing" secondItem="Di8-Id-6Mc" secondAttribute="trailing" id="uAj-it-2qU"/>
                     </constraints>
                 </scrollView>
-                <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ekN-97-FOy">
-                    <rect key="frame" x="0.0" y="61" width="320" height="419"/>
-                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="ekN-97-FOy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2Kl-oo-YOO"/>
                 <constraint firstItem="LFC-0c-Cz8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="81A-Rk-q5q"/>
                 <constraint firstItem="uFH-D3-cds" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="61" id="9kR-ib-bim"/>
                 <constraint firstItem="23y-r2-YkQ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="QDP-aH-g6g"/>
                 <constraint firstAttribute="trailing" secondItem="uFH-D3-cds" secondAttribute="trailing" id="TEr-eU-Eul"/>
-                <constraint firstAttribute="trailing" secondItem="ekN-97-FOy" secondAttribute="trailing" id="WuQ-OV-siL"/>
-                <constraint firstItem="ekN-97-FOy" firstAttribute="top" secondItem="23y-r2-YkQ" secondAttribute="bottom" constant="8" id="YcD-6p-gTd"/>
                 <constraint firstItem="uFH-D3-cds" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ytq-sw-w9g"/>
                 <constraint firstItem="23y-r2-YkQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="24" id="e3b-qB-NT3"/>
                 <constraint firstItem="LFC-0c-Cz8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14.5" id="fNn-2U-LWU"/>
-                <constraint firstAttribute="bottom" secondItem="ekN-97-FOy" secondAttribute="bottom" id="heb-qL-epD"/>
                 <constraint firstAttribute="bottom" secondItem="uFH-D3-cds" secondAttribute="bottom" id="xcv-Gu-CMj"/>
             </constraints>
             <point key="canvasLocation" x="26" y="36"/>
