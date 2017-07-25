@@ -172,11 +172,10 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
                                                  "role": appDelegate.isClient! ? "client" : "contractor"]
                         self.Login(F_LOGIN, param)
                     } else {
-                        MessageManager.showAlert(nil, "We can't access your information from Facebook because of your account privacy. ")
+                        MessageManager.showAlert(nil, "We can't access your information from Facebook because of your account privacy.")
                     }
                 }
             })
         }
     }
 }
-

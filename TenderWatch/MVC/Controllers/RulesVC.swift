@@ -69,7 +69,7 @@ class RulesVC: UIViewController {
                                "occupation": signUpUser.occupation,
                                "aboutMe": signUpUser.aboutMe,
                                "role" : "client",
-                               "deviceToken": appDelegate.token!] as [String : Any]
+                               "deviceId": appDelegate.token!] as [String : Any]
         } else {
             self.parameters = ["email" :  signUpUser.email,
                                "password" : signUpUser.password,
@@ -79,7 +79,7 @@ class RulesVC: UIViewController {
                                "aboutMe": signUpUser.aboutMe,
                                "role" : "contractor",
                                "selections": signUpUser.selections,
-                               "deviceToken": appDelegate.token!] as [String : Any]
+                               "deviceId": appDelegate.token!] as [String : Any]
         }
         if isNetworkReachable() {
             self.btnSignUp.isEnabled = false

@@ -130,7 +130,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         
         let update = UITableViewRowAction(style: .normal, title: "Update") { action, index in
             print("Update button tapped")
-            self.navigationController?.pushViewController(UploadTenderVC(), animated: true)
+//            self.navigationController?.pushViewController(UploadTenderVC(), animated: true)
         }
         dlt.backgroundColor = UIColor.red
         fav.backgroundColor = UIColor.blue
@@ -171,7 +171,6 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                         self.lblNoTender.isHidden = false
                     } else {
                         self.lblNoTender.isHidden = true
-                        print(resp.result.value!)
                         let data = (resp.result.value as! NSObject)
                         self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
                         

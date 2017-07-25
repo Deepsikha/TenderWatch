@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SDWebImage
+import Alamofire
 
 class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -129,37 +130,35 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK:- custom Method
     func reDirect(item: String){
         if  item == "Home" {
-//            let nav = UINavigationController(rootViewController: TenderWatchVC())
             appDelegate.drawerController.centerViewController = nav1
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Subscription Details" {
             appDelegate.drawerController.centerViewController = nav2
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Add/Remove Countries" {
-//            let nav = UINavigationController(rootViewController: MappingVC())
             appDelegate.drawerController.centerViewController = nav3
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if  item == "Upload Tender" {
-//            let nav = UINavigationController(rootViewController: UploadTenderVC())
             appDelegate.drawerController.centerViewController = nav4
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Edit Profile" {
-//            let nav = UINavigationController(rootViewController: SignUpVC2())
             appDelegate.drawerController.centerViewController = nav5
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Change Password" {
-//            let nav = UINavigationController(rootViewController: ChangePasswordVC())
             appDelegate.drawerController.centerViewController = nav6
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Favorites" {
-//            let nav = UINavigationController(rootViewController: FavoriteVC())
             appDelegate.drawerController.centerViewController = nav7
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Notifications" {
-//            let nav = UINavigationController(rootViewController: NotificationVC())
             appDelegate.drawerController.centerViewController = nav8
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Logout" {
+            Alamofire.request((BASE_URL)+"users", method: .delete, parameters:["deviceId": appDelegate.token,"role": appDelegate.isClient! ? "client" : "contractor"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                if(resp.response?.statusCode == 200) {
+                    print("Suucess")
+                }
+            })
             UserManager.shared.logoutCurrentUser()
 //            let nav = UINavigationController(rootViewController: HomeVC())
             
@@ -172,7 +171,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.nav6 = nil
             self.nav7 = nil
             self.nav8 = nil
-
+    
             appDelegate.drawerController.closeDrawer(animated: true, completion: { (finish) in
 
             })

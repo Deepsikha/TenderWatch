@@ -15,6 +15,7 @@ class NotificationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tblNotifications.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
 
@@ -26,6 +27,7 @@ class NotificationVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        
         self.lblNoNotifications.isHidden = false
 
     }

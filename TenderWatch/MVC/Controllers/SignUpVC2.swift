@@ -278,10 +278,10 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     //MARK:- Custom Method
     func update() {
-        self.parameters = ["country": USER?.country!,
-                           "contactNo": USER?.contactNo!,
-                           "occupation": USER?.occupation!,
-                           "aboutMe": USER?.aboutMe!,
+        self.parameters = ["country": USER?.country! as Any,
+                           "contactNo": USER?.contactNo! as Any,
+                           "occupation": USER?.occupation! as Any,
+                           "aboutMe": USER?.aboutMe! as Any,
                            "role" : appDelegate.isClient! ? "client" : "contractor"]
         
         if isNetworkReachable() {

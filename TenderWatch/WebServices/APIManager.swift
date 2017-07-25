@@ -87,7 +87,7 @@ class APIManager {
                         } else if (res.response?.statusCode == 401) {
                             errorMsg = "Invalid Credentials"
                         } else if (res.response?.statusCode == 404) {
-                            errorMsg = "Not Found!!!"
+                            errorMsg = "Email is not registered "
                         } else {
                             errorMsg = "\(res.response!.statusCode)"
                         }

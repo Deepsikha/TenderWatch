@@ -214,8 +214,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func registerForPushNotifications() {
         if #available(iOS 10.0, *) {
             let center = UNUserNotificationCenter.current()
-            center.requestAuthorization(options: [.badge, .alert , .sound]) { (greanted, error) in
-                if greanted {
+            center.requestAuthorization(options: [.badge, .alert , .sound]) { (granted, error) in
+                if granted {
                     UIApplication.shared.registerForRemoteNotifications();
                 }
             }

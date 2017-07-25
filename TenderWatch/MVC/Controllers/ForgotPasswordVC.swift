@@ -49,7 +49,8 @@ class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
     
     //MARK:- Custom Method
     func forgot() {
-        let parameters = ["email" : self.txfEmail.text!]
+        let parameters = ["email" : self.txfEmail.text!,
+                          "role" : appDelegate.isClient! ? "client": "contractor"] as [String : Any]
         if isNetworkReachable() {
             self.startActivityIndicator()
             Alamofire.request(FORGOT, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (resp) in
