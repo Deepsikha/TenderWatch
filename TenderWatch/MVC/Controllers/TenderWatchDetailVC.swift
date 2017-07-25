@@ -87,27 +87,14 @@ class TenderWatchDetailVC: UIViewController {
                         self.txtDesc.text = (data.value(forKey: "description")! as? String)
                         self.lblClienEmail.text = (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "email")! as? String
                         var url: URL!
-                        if (appDelegate.isClient)! {
-                            if (data as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
-                                if (a as! String == "tenderPhoto") {
-                                    return true
-                                } else {
-                                    return false
-                                }
-                            }) {
-                                url = URL(string: (data.value(forKey: "tenderPhoto")! as? String)!)!
+                        if (data as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
+                            if (a as! String == "tenderPhoto") {
+                                return true
+                            } else {
+                                return false
                             }
-                        } else {
-                            if (data.value(forKey: "tenderUploader") as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
-                                if (a as! String == "profilePhoto") {
-                                    return true
-                                } else {
-                                    return false
-                                }
-                            })
-                            {
-                                url = URL(string: (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "profilePhoto")! as! String)!
-                            }
+                        }) {
+                            url = URL(string: (data.value(forKey: "tenderPhoto")! as? String)!)!
                         }
                         if (url != nil) {
                             self.imgTenderPhoto.sd_setImage(with: url, placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in

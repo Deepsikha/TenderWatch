@@ -56,6 +56,8 @@
 		7D2E224B1F00B9A800A0783E /* SubscriptionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */; };
 		7D2E22521F00C53200A0783E /* SubscriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E22501F00C53200A0783E /* SubscriptionCell.swift */; };
 		7D2E22531F00C53300A0783E /* SubscriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2E22511F00C53200A0783E /* SubscriptionCell.xib */; };
+		7D3E13AD1F276546004729C0 /* ClienDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3E13AB1F276546004729C0 /* ClienDetailCell.swift */; };
+		7D3E13AE1F276546004729C0 /* ClienDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D3E13AC1F276546004729C0 /* ClienDetailCell.xib */; };
 		7D60C9E01F18ACC200DAA69F /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D60C9DF1F18ACC200DAA69F /* Favorite.swift */; };
 		7D68B5BE1F1CB630004BEC5E /* TenderWatchDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D68B5BC1F1CB630004BEC5E /* TenderWatchDetailVC.swift */; };
 		7D68B5C11F1CB669004BEC5E /* TenderWatchDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D68B5C01F1CB669004BEC5E /* TenderWatchDetailVC.xib */; };
@@ -268,6 +270,8 @@
 		7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionVC.xib; sourceTree = "<group>"; };
 		7D2E22501F00C53200A0783E /* SubscriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionCell.swift; sourceTree = "<group>"; };
 		7D2E22511F00C53200A0783E /* SubscriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionCell.xib; sourceTree = "<group>"; };
+		7D3E13AB1F276546004729C0 /* ClienDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClienDetailCell.swift; sourceTree = "<group>"; };
+		7D3E13AC1F276546004729C0 /* ClienDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClienDetailCell.xib; sourceTree = "<group>"; };
 		7D60C9DF1F18ACC200DAA69F /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		7D68B5BC1F1CB630004BEC5E /* TenderWatchDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenderWatchDetailVC.swift; sourceTree = "<group>"; };
 		7D68B5C01F1CB669004BEC5E /* TenderWatchDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TenderWatchDetailVC.xib; sourceTree = "<group>"; };
@@ -589,6 +593,8 @@
 				7D7A13AC1F04F0130092E3DF /* MappingCell.xib */,
 				7D7C467F1F0F922700FCE530 /* TenderListCell.swift */,
 				7D7C46801F0F922700FCE530 /* TenderListCell.xib */,
+				7D3E13AB1F276546004729C0 /* ClienDetailCell.swift */,
+				7D3E13AC1F276546004729C0 /* ClienDetailCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -993,6 +999,7 @@
 				7DFE22481F1F9153009F7676 /* mainscreen@2x.png in Resources */,
 				7DA068D11F19ED3700D9352A /* logout@3x.png in Resources */,
 				7DA068B31F19ED3700D9352A /* dollar@3x.png in Resources */,
+				7D3E13AE1F276546004729C0 /* ClienDetailCell.xib in Resources */,
 				7DA068A21F19ED3700D9352A /* boxright@2x.png in Resources */,
 				7DA068A61F19ED3700D9352A /* chabox@3x.png in Resources */,
 				7DA068A01F19ED3700D9352A /* bell@3x.png in Resources */,
@@ -1233,6 +1240,7 @@
 				27A28EC41EF776F000E7B53B /* SignUpVC.swift in Sources */,
 				276494031F0270CB00E05241 /* UserManager.swift in Sources */,
 				7DCEB0691EFE593F002A776C /* ForgotPasswordVC.swift in Sources */,
+				7D3E13AD1F276546004729C0 /* ClienDetailCell.swift in Sources */,
 				27EF44921EF8BD5600CCBCA0 /* PaymentVC.swift in Sources */,
 				7D7A13B21F050A1A0092E3DF /* Country.swift in Sources */,
 				7D7A13A71F04EB540092E3DF /* MappingVC.swift in Sources */,
