@@ -38,9 +38,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I8c-3D-jMn">
-                        <rect key="frame" x="167" y="29" width="145" height="21"/>
+                        <rect key="frame" x="167" y="29" width="130" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="145" id="2Ve-P2-UWv"/>
+                            <constraint firstAttribute="width" constant="130" id="2Ve-P2-UWv"/>
                             <constraint firstAttribute="height" constant="21" id="B1b-zK-Dir"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -89,6 +89,12 @@
                             <constraint firstAttribute="height" constant="1" id="iS5-XH-9Xj"/>
                         </constraints>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right-arr.png" translatesAutoresizingMaskIntoConstraints="NO" id="yLN-e9-8mI">
+                        <rect key="frame" x="300" y="36" width="12" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="12" id="6Bs-eF-dUq"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="S0Q-uX-kZU" firstAttribute="top" secondItem="QZC-bL-ggE" secondAttribute="bottom" constant="2" id="142-TL-NHi"/>
@@ -114,6 +120,11 @@
                     <constraint firstItem="QZC-bL-ggE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="yDL-oi-Z6F"/>
                 </constraints>
             </tableViewCellContentView>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="yLN-e9-8mI" secondAttribute="bottom" constant="35" id="cke-Io-oSV"/>
+                <constraint firstItem="yLN-e9-8mI" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="36" id="iHq-4M-j16"/>
+                <constraint firstAttribute="trailing" secondItem="yLN-e9-8mI" secondAttribute="trailing" constant="8" id="q4W-FX-OMZ"/>
+            </constraints>
             <connections>
                 <outlet property="imgProfile" destination="1RI-iB-Ch9" id="ffP-5g-gPd"/>
                 <outlet property="lblCountry" destination="I8c-3D-jMn" id="snT-HW-a8Y"/>
@@ -123,4 +134,7 @@
             <point key="canvasLocation" x="25" y="72.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="right-arr.png" width="22" height="22"/>
+    </resources>
 </document>

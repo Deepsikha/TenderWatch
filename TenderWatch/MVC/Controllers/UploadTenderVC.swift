@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import ObjectMapper
 import RSKImageCropper
+import SDWebImage
 
 class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, RSKImageCropViewControllerDelegate {
     
@@ -38,6 +39,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var btnSave: UIButton!
     @IBOutlet weak var const_vwMain_height: NSLayoutConstraint!
     @IBOutlet weak var vwBlur: UIView!
+    @IBOutlet weak var btnBack: UIButton!
     
     var arrDropDown = [String]()
     var tender = [Tender]()
@@ -48,6 +50,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     var isCountry = true
     var isDropDownActive = false
     var tap: UITapGestureRecognizer!
+    static var isUpdate: Bool = false
+    static var id: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +71,13 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.isNavigationBarHidden = true
+        if (UploadTenderVC.isUpdate) {
+            self.opnDrwr.isHidden = true
+            self.btnBack.isHidden = false
+            self.lblName.text = "Amend Tender"
+            self.btnSubmit.setTitle("Amend", for: .normal)
+            self.getDetail()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -293,7 +304,13 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func sbmt(_ sender: Any) {
-        self.submit()
+        if (UploadTenderVC.isUpdate) {
+            UploadTenderVC.isUpdate = false
+            self.update()
+        } else {
+            self.submit()
+        }
+        
     }
     
     @IBAction func handleBtnImage(_ sender: Any) {
@@ -336,6 +353,11 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     }
     
+    @IBAction func handleBtnBack(_ sender: Any) {
+        UploadTenderVC.isUpdate = false
+
+        self.navigationController?.popViewController(animated: true)
+    }
     //MARK:- Custom Method
     func registerNib(){
         
@@ -509,6 +531,72 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             }
             self.vwScroll.isScrollEnabled = true
             self.isDropDownActive = false
+        }
+    }
+    
+    func update() {
+        //API call
+        print("update")
+    }
+    
+    func getDetail() {
+        if isNetworkReachable() {
+            self.startActivityIndicator()
+            Alamofire.request(TENDER_DETAIL+"/\(UploadTenderVC.id!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                if(resp.result.value != nil) {
+                    if ((resp.result.value as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
+                        if (a as! String) == "error" {
+                            return true
+                        } else {
+                            return false
+                        }
+                    })) {
+                        let err = (resp.result.value as! NSObject).value(forKey: "error")
+                        MessageManager.showAlert(nil, "\(String(describing: err))")
+                    } else {
+                        let data = (resp.result.value as! NSObject)
+                        self.btnSelectCountry.setTitle((data.value(forKey: "country") as! NSObject).value(forKey: "countryName")! as? String, for: .normal)
+                        
+                        self.btnSelectCategory.setTitle((data.value(forKey: "category") as! NSObject).value(forKey: "categoryName")! as? String, for: .normal)
+                        
+                        self.txfTenderTitle.text = (data.value(forKey: "tenderName")! as? String)
+
+                        self.tenderDetail.text = (data.value(forKey: "description")! as? String)
+                        self.tenderDetail.textColor = UIColor.black
+                        
+                        self.txfEmail.text = ((data.value(forKey: "email")! as? String)?.isEmpty)! ? "" : (data.value(forKey: "email")! as? String)
+                        self.txfMobileNo.text = ((data.value(forKey: "contactNo")! as? String)?.isEmpty)! ? "" : (data.value(forKey: "contactNo")! as? String)
+                        self.txfLandLineNo.text = ((data.value(forKey: "landlineNo")! as? String)?.isEmpty)! ? "" : (data.value(forKey: "landlineNo")! as? String)
+                        self.txtvwAddress.text = ((data.value(forKey: "address")! as? String)?.isEmpty)! ? "" : (data.value(forKey: "address")! as? String)
+                        
+//                        self.lblClienEmail.text = (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "email")! as? String
+                        
+                        
+                        var url: URL!
+                        
+                        if(data as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
+                            if (a as! String == "tenderPhoto") {
+                                return true
+                            } else {
+                                return false
+                            }
+                        }) {
+                            url = URL(string: (data.value(forKey: "tenderPhoto")! as? String)!)!
+                        }
+                        
+                        if (url != nil) {
+                            self.btnImage.imageView?.sd_setImage(with: url!, placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                                SDImageCache.shared().clearMemory()
+                            })
+                        } else {
+                            self.btnImage.imageView?.image = UIImage(named: "avtar")
+                        }
+                    }
+                    self.stopActivityIndicator()
+                }
+            })
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
         }
     }
 }

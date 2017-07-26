@@ -89,7 +89,7 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let dlt = UITableViewRowAction(style: .normal, title: "Remove", handler: { (action, index) in
             print("Remove button tapped")
-            let alert = UIAlertController(title: "TenderWatch", message: "Confirm Deletion?", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "TenderWatch", message: "Are you sure you want to remove it from favourites??", preferredStyle: UIAlertControllerStyle.alert)
             alert.view.backgroundColor = UIColor.white
             alert.view.layer.cornerRadius = 10.0
             
@@ -111,6 +111,12 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return tableView.isEditing ? UITableViewCellEditingStyle.none : UITableViewCellEditingStyle.delete
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        TenderWatchDetailVC.id = self.favorite[indexPath.row].id
+        
+        self.navigationController?.pushViewController(TenderWatchDetailVC(), animated: true)
     }
     
     //MARK:- IBActions

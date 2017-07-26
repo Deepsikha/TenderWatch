@@ -30,4 +30,4 @@ var GET_SERVICES: String = (BASE_URL)+"service/userServices"
 var CATEGORY: String = "auth/category"
 var COUNTRY: String = "auth/country"
 
-var TENDER_DETAIL: String = (BASE_URL)+"tender"
+var TENDER_DETAIL: String = (BASE_URL)+"tender/"

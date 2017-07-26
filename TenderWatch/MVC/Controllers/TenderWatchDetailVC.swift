@@ -24,6 +24,9 @@ class TenderWatchDetailVC: UIViewController {
     
     @IBOutlet var vwMain: UIView!
     
+    var transperentView = UIView()
+    var cView: UIView!
+
     static var id:String!
     
     override func viewDidLoad() {
@@ -57,7 +60,7 @@ class TenderWatchDetailVC: UIViewController {
     func getDetail() {
         if isNetworkReachable() {
             self.startActivityIndicator()
-            Alamofire.request(TENDER_DETAIL+"/\(TenderWatchDetailVC.id!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+            Alamofire.request(TENDER_DETAIL+"\(TenderWatchDetailVC.id!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if(resp.result.value != nil) {
                     if ((resp.result.value as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
                         if (a as! String) == "error" {
@@ -87,15 +90,29 @@ class TenderWatchDetailVC: UIViewController {
                         self.txtDesc.text = (data.value(forKey: "description")! as? String)
                         self.lblClienEmail.text = (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "email")! as? String
                         var url: URL!
-                        if (data as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
-                            if (a as! String == "tenderPhoto") {
-                                return true
-                            } else {
-                                return false
+                        
+                        if (appDelegate.isClient!) {
+                            if(data as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
+                                if (a as! String == "tenderPhoto") {
+                                    return true
+                                } else {
+                                    return false
+                                }
+                            }) {
+                                url = URL(string: (data.value(forKey: "tenderPhoto")! as? String)!)!
                             }
-                        }) {
-                            url = URL(string: (data.value(forKey: "tenderPhoto")! as? String)!)!
+                        } else {
+                            if (data.value(forKey: "tenderUploader") as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
+                                if (a as! String == "profilePhoto") {
+                                    return true
+                                } else {
+                                    return false
+                                }
+                            }) {
+                                url = URL(string: (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "profilePhoto")! as! String)!
+                            }
                         }
+                        
                         if (url != nil) {
                             self.imgTenderPhoto.sd_setImage(with: url, placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
                                 SDImageCache.shared().clearMemory()
@@ -109,6 +126,29 @@ class TenderWatchDetailVC: UIViewController {
             })
         } else {
             MessageManager.showAlert(nil, "No Internet")
+        }
+    }
+    
+    func generateSubView(childView: UIView) {
+        self.transperentView = UIView(frame: UIScreen.main.bounds)
+        self.transperentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.1)
+        if !self.view.subviews.contains(self.transperentView) {
+            self.view.addSubview(self.transperentView)
+        }
+        view.addSubview(childView)
+        self.cView = childView
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
+        tap.cancelsTouchesInView = false
+        self.transperentView.addGestureRecognizer(tap)
+    }
+    
+    func tapHandler() {
+        if self.view.subviews.contains(self.cView) {
+            self.cView.removeFromSuperview()
+        }
+        if self.view.subviews.contains(transperentView) {
+            transperentView.removeFromSuperview()
+//            setTableDelegate(tblAddItems)
         }
     }
 }

@@ -61,7 +61,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         let  cell = tableView.dequeueReusableCell(withIdentifier: "TenderListCell", for: indexPath) as! TenderListCell
         
         let tender = self.tender[indexPath.row]
-        cell.lblName.text = (tender.email == "") ? "example@gmail.com" : tender.email
+        cell.lblName.text = appDelegate.isClient! ? USER?.email : ((tender.email?.isEmpty)! ? "nthg" : tender.email)
         cell.lblCountry.text = tender.tenderName
         
         cell.imgProfile.sd_setShowActivityIndicatorView(true)
@@ -77,12 +77,8 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         //Day remainning 
         //pass string in "yyyy-MM-dd" format
         let components = Date().getDifferenceBtnCurrentDate(date: (tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!))!)
-        if (components.day == 1) {
-            cell.lblTender.text = "\(components.day!) day"
-        } else {
-            cell.lblTender.text = "\(components.day!) days"
-        }
         
+        cell.lblTender.text = (components.day == 1) ? "\(components.day!) day" : "\(components.day!) days"        
         
 //        if (components.day! < 0) {
 //            deleteTender(indexPath.row)
@@ -110,16 +106,16 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             self.addFavorite(index)
             tableView.reloadRows(at: [index], with: .none)
         }
-        let dlt = UITableViewRowAction(style: .normal, title: "Delete", handler: { (action, index) in
-            print("Delete button tapped")
-            let alert = UIAlertController(title: "TenderWatch", message: "Confirm Deletion?", preferredStyle: UIAlertControllerStyle.alert)
+        let dlt = UITableViewRowAction(style: .normal, title: "Remove", handler: { (action, index) in
+            print("Remove button tapped")
+            let alert = UIAlertController(title: "TenderWatch", message: "Confirm Removal?", preferredStyle: UIAlertControllerStyle.alert)
             alert.view.backgroundColor = UIColor.white
             alert.view.layer.cornerRadius = 10.0
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
                 tableView.reloadRows(at: [index], with: .fade)
             }))
-            alert.addAction(UIAlertAction(title: "Delete", style: .cancel, handler:{ action in
+            alert.addAction(UIAlertAction(title: "Remove", style: .cancel, handler:{ action in
                 tableView.reloadRows(at: [index], with: .none)
                 self.deleteTender(index.row)
                 
@@ -128,9 +124,12 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             self.present(alert, animated: true, completion: nil)
         })
         
-        let update = UITableViewRowAction(style: .normal, title: "Update") { action, index in
+        let update = UITableViewRowAction(style: .normal, title: "Amend") { action, index in
             print("Update button tapped")
-//            self.navigationController?.pushViewController(UploadTenderVC(), animated: true)
+            UploadTenderVC.isUpdate = true
+            UploadTenderVC.id = self.tender[index.row].id
+            tableView.reloadRows(at: [index], with: .none)
+            self.navigationController?.pushViewController(UploadTenderVC(), animated: true)
         }
         dlt.backgroundColor = UIColor.red
         fav.backgroundColor = UIColor.blue
@@ -221,7 +220,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             Alamofire.request(DELETE_TENDER+tender[index].id! , method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.response?.statusCode != nil) {
                     if !(resp.response?.statusCode == 200) {
-                        MessageManager.showAlert(nil, "can't Delete tender")
+                        MessageManager.showAlert(nil, "can't Remove tender")
                     } else {
                         self.tender.remove(at: index)
                         self.tblTenderList.reloadData()
