@@ -59,18 +59,13 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.occupation.text = USER?.occupation
             self.proflPic.imageView?.sd_setShowActivityIndicatorView(true)
             self.proflPic.imageView?.sd_setIndicatorStyle(.gray)
-            if (USER?.value(forKey: "profilePhoto") != nil) {
-                self.proflPic.imageView?.sd_setImage(with: URL(string: (USER?.profilePhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+            self.proflPic.imageView?.sd_setImage(with: URL(string: (USER?.profilePhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
                     if image == nil {
                         self.proflPic.setImage(UIImage(named: "avtar"), for: .normal)
                     } else {
                         self.proflPic.setImage(image, for: .normal)
                     }
-                    SDImageCache.shared().clearMemory()
-                })
-            } else {
-                self.proflPic.setImage(UIImage(named : "avtar"), for: .normal)
-            }
+            })
         } else {
             self.back.isHidden = false
             self.opnDrawr.isHidden = true

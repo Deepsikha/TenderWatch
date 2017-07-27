@@ -63,13 +63,9 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.imgProfile.sd_setShowActivityIndicatorView(true)
             cell.imgProfile.sd_setIndicatorStyle(.gray)
             //                (tender.tenderPhoto)!
-            if (fv.tenderPhoto != nil) {
-                cell.imgProfile.sd_setImage(with: URL(string: (fv.tenderPhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-                    SDWebImageManager.shared().imageCache?.clearMemory()
-                })
-            } else {
-                cell.imgProfile.image = UIImage(named: "avtar")
-            }
+            cell.imgProfile.sd_setImage(with: URL(string: (fv.tenderPhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+            })
+        
             let components = Date().getDifferenceBtnCurrentDate(date: (fv.exp?.substring(to: (fv.exp?.index((fv.exp?.startIndex)!, offsetBy: 10))!))!)
             if (components.day == 1) {
                 cell.lblTender.text = "\(components.day!) day"

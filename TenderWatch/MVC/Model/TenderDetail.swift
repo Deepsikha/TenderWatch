@@ -1,21 +1,21 @@
 //
-//  Tender.swift
+//  TenderDetail.swift
 //  TenderWatch
 //
-//  Created by Developer88 on 6/30/17.
+//  Created by devloper65 on 7/27/17.
 //  Copyright © 2017 lanetteam. All rights reserved.
 //
 
 import UIKit
 import ObjectMapper
 
-class Tender: NSObject, Mappable {
+class TenderDetail: NSObject, Mappable {
     
     var id: String?
     var address : String?
-    var category : String?
+    var category : Category?
     var contactNo : String?
-    var country : String?
+    var country : Country?
     var createdAt: String?
     var desc: String?
     var email : String?
@@ -24,9 +24,9 @@ class Tender: NSObject, Mappable {
     var landlineNo : String?
     var tenderName : String?
     var tenderPhoto : String?
-    var tenderUploader: String?
+    var tenderUploader: User?
     var favorite: [String]?
-    var subscriber: String?
+    var subscriber: User?
     
     required init?(map: Map) {
         super.init()
@@ -51,21 +51,5 @@ class Tender: NSObject, Mappable {
         favorite        <- map["favorite"]
         subscriber      <- map["subscriber"]
     }
-}
 
-class UploadTender: NSObject {
-    
-    var cId: String = "" //for country
-    var ctId: String = "" //for categoty
-    var tenderTitle = ""
-    var desc = ""
-    var photo = Data()
-    var email = ""
-    var contactNo = ""
-    var landLineNo = ""
-    var address = ""
-    
-    override init() {
-        super.init()
-    }
 }

@@ -52,6 +52,9 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     var tap: UITapGestureRecognizer!
     static var isUpdate: Bool = false
     static var id: String!
+    var updateCId: String!
+    var updateCtId: String!
+    var update: TenderDetail!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +80,11 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.lblName.text = "Amend Tender"
             self.btnSubmit.setTitle("Amend", for: .normal)
             self.getDetail()
+        } else {
+            self.opnDrwr.isHidden = false
+            self.btnBack.isHidden = true
+            self.lblName.text = "Upload Tender"
+            self.btnSubmit.setTitle("Upload Tender", for: .normal)
         }
     }
     
@@ -98,8 +106,14 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     //MARK:- TextField Delegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if (self.country.count == 0) && (self.category.count == 0) {
-            MessageManager.showAlert(nil, "Select Country & Category First")
+        if UploadTenderVC.isUpdate {
+            if (self.btnSelectCategory.titleLabel?.text?.isEmpty)! && (self.btnSelectCountry.titleLabel?.text?.isEmpty)! {
+                MessageManager.showAlert(nil, "Select Country & Category First")
+            }
+        } else {
+            if (self.country.count == 0) && (self.category.count == 0) {
+                MessageManager.showAlert(nil, "Select Country & Category First")
+            }
         }
         self.mainTap()
     }
@@ -292,23 +306,52 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @IBAction func btnShowContactPopup(_ sender: Any) {
         self.mainTap()
-        if (self.country.count == 0) && (self.category.count == 0) {
-            MessageManager.showAlert(nil, "Select Country & Category First")
+        if UploadTenderVC.isUpdate {
+            if (self.btnSelectCategory.titleLabel?.text?.isEmpty)! && (self.btnSelectCountry.titleLabel?.text?.isEmpty)! {
+                MessageManager.showAlert(nil, "Select Country & Category First")
+            }  else {
+                self.view.addSubview(vwContactPopup)
+                self.tap = UITapGestureRecognizer(target: self, action: #selector(self.taphandler))
+                tap.cancelsTouchesInView = false
+                
+                self.vwBlur.addGestureRecognizer(tap)
+                self.txtvwAddress.textColor = self.txtvwAddress.text.isEmpty ? UIColor.lightGray : UIColor.black
+            }
         } else {
-            self.view.addSubview(vwContactPopup)
-            self.tap = UITapGestureRecognizer(target: self, action: #selector(self.taphandler))
-            tap.cancelsTouchesInView = false
-            
-            self.vwBlur.addGestureRecognizer(tap)
+            if (self.country.count == 0) && (self.category.count == 0) {
+                MessageManager.showAlert(nil, "Select Country & Category First")
+            }  else {
+                self.view.addSubview(vwContactPopup)
+                self.tap = UITapGestureRecognizer(target: self, action: #selector(self.taphandler))
+                tap.cancelsTouchesInView = false
+                
+                self.vwBlur.addGestureRecognizer(tap)
+            }
         }
     }
     
     @IBAction func sbmt(_ sender: Any) {
         if (UploadTenderVC.isUpdate) {
-            UploadTenderVC.isUpdate = false
-            self.update()
+            let parameter: Parameters = [
+                                           "country":(self.country.count == 0) ? self.updateCId! :self.uploadTender.cId,
+                                           "category":(self.category.count == 0) ? self.updateCtId! : self.uploadTender.ctId,
+                                           "tenderName":self.txfTenderTitle.text!,
+                                           "description":self.txfTenderTitle.text!,
+                                           "email": self.uploadTender.email,
+                                           "landlineNo": self.uploadTender.landLineNo,
+                                           "contactNo": self.uploadTender.contactNo,
+                                           "address": self.uploadTender.address]
+            self.submit(UPLOAD_TENDER+"\(UploadTenderVC.id!)", .put, parameter, "Successfully Updated")
         } else {
-            self.submit()
+            let parameter: Parameters = [  "country":self.uploadTender.cId,
+                                           "category":self.uploadTender.ctId,
+                                           "tenderName":self.uploadTender.tenderTitle,
+                                           "description":self.uploadTender.desc,
+                                           "email": self.uploadTender.email,
+                                           "landlineNo": self.uploadTender.landLineNo,
+                                           "contactNo": self.uploadTender.contactNo,
+                                           "address": self.uploadTender.address]
+            self.submit(UPLOAD_TENDER, .post, parameter, "Successfully Uploaded")
         }
         
     }
@@ -355,7 +398,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @IBAction func handleBtnBack(_ sender: Any) {
         UploadTenderVC.isUpdate = false
-
+        
         self.navigationController?.popViewController(animated: true)
     }
     //MARK:- Custom Method
@@ -394,16 +437,9 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         tblOptions.register(UINib(nibName: "MappingCell",bundle: nil), forCellReuseIdentifier: "MappingCell")
     }
     
-    func submit() {
-        if (!(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 10)) || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty)) {
-            let param: Parameters = [  "country":self.uploadTender.cId,
-                                       "category":self.uploadTender.ctId,
-                                       "tenderName":self.uploadTender.tenderTitle,
-                                       "description":self.uploadTender.desc,
-                                       "email": self.uploadTender.email,
-                                       "landlineNo": self.uploadTender.landLineNo,
-                                       "contactNo": self.uploadTender.contactNo,
-                                       "address": self.uploadTender.address]
+    func submit(_ url: String, _ reqMethod: HTTPMethod, _ param: Parameters, _ message: String) {
+        if !(UploadTenderVC.isUpdate) ? ((!(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 10)) || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty))) : ((!(self.btnSelectCountry.titleLabel!.text!.isEmpty) && !(self.btnSelectCategory.titleLabel!.text!.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 10)) || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty))) {
+            
             if isNetworkReachable() {
                 self.startActivityIndicator()
                 Alamofire.upload(multipartFormData: { (multipartFormData) in
@@ -420,7 +456,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                     for (key, value) in param {
                         multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
                     }
-                }, usingThreshold: 0, to: UPLOAD_TENDER, method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
+                }, usingThreshold: 0, to: url, method: reqMethod, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
                     switch result {
                     case .success(let upload, _, _):
                         
@@ -447,9 +483,10 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                                     //data parsing remianing because of unique response
                                     //                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
                                     self.stopActivityIndicator()
+                                    UploadTenderVC.isUpdate = false
                                     appDelegate.setHomeViewController()
-                                    MessageManager.showAlert(nil, "Successfully uploaded")
-
+                                    MessageManager.showAlert(nil, message)
+                                    
                                 }
                             } else {
                                 self.stopActivityIndicator()
@@ -466,9 +503,9 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 self.stopActivityIndicator()
             }
         } else {
-            if self.uploadTender.cId.isEmpty {
+            if (UploadTenderVC.isUpdate) ? self.btnSelectCountry.titleLabel!.text! == "Select Country" : self.uploadTender.cId.isEmpty {
                 MessageManager.showAlert(nil, "Select Country")
-            } else if self.uploadTender.ctId.isEmpty {
+            } else if (UploadTenderVC.isUpdate) ? self.btnSelectCategory.titleLabel!.text! == "Select Category" : self.uploadTender.ctId.isEmpty {
                 MessageManager.showAlert(nil, "Select Category")
             } else if !(!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 10)) || !(self.txfLandLineNo.text?.isEmpty)! || !(self.txtvwAddress.text == "Address")){
                 MessageManager.showAlert(nil, "Enter valid Contact Details")
@@ -534,15 +571,11 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     }
     
-    func update() {
-        //API call
-        print("update")
-    }
     
     func getDetail() {
         if isNetworkReachable() {
             self.startActivityIndicator()
-            Alamofire.request(TENDER_DETAIL+"/\(UploadTenderVC.id!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+            Alamofire.request(TENDER_DETAIL+"\(UploadTenderVC.id!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if(resp.result.value != nil) {
                     if ((resp.result.value as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
                         if (a as! String) == "error" {
@@ -555,42 +588,30 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                         MessageManager.showAlert(nil, "\(String(describing: err))")
                     } else {
                         let data = (resp.result.value as! NSObject)
-                        self.btnSelectCountry.setTitle((data.value(forKey: "country") as! NSObject).value(forKey: "countryName")! as? String, for: .normal)
+                        self.update = Mapper<TenderDetail>().map(JSONObject: data)
                         
-                        self.btnSelectCategory.setTitle((data.value(forKey: "category") as! NSObject).value(forKey: "categoryName")! as? String, for: .normal)
+                        self.btnSelectCountry.setTitle(self.update.country!.countryName!, for: .normal)
+                        self.updateCId = self.update.country!.countryId!
                         
-                        self.txfTenderTitle.text = (data.value(forKey: "tenderName")! as? String)
-
-                        self.tenderDetail.text = (data.value(forKey: "description")! as? String)
+                        self.btnSelectCategory.setTitle(self.update.category!.categoryName!, for: .normal)
+                        self.updateCtId = self.update.category!.categoryId!
+                        
+                        self.txfTenderTitle.text = self.update.tenderName!
+                        self.tenderDetail.text = self.update.desc!
                         self.tenderDetail.textColor = UIColor.black
                         
-                        self.txfEmail.text = ((data.value(forKey: "email")! as? String)?.isEmpty)! ? "" : (data.value(forKey: "email")! as? String)
-                        self.txfMobileNo.text = ((data.value(forKey: "contactNo")! as? String)?.isEmpty)! ? "" : (data.value(forKey: "contactNo")! as? String)
-                        self.txfLandLineNo.text = ((data.value(forKey: "landlineNo")! as? String)?.isEmpty)! ? "" : (data.value(forKey: "landlineNo")! as? String)
-                        self.txtvwAddress.text = ((data.value(forKey: "address")! as? String)?.isEmpty)! ? "" : (data.value(forKey: "address")! as? String)
-                        
-//                        self.lblClienEmail.text = (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "email")! as? String
-                        
-                        
-                        var url: URL!
-                        
-                        if(data as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
-                            if (a as! String == "tenderPhoto") {
-                                return true
+                        self.txfEmail.text = self.update.email!.isEmpty ? "" : self.update.email!
+                        self.txfMobileNo.text = self.update.contactNo!.isEmpty ? "" : self.update.contactNo
+                        self.txfLandLineNo.text = self.update.landlineNo!.isEmpty ? "" : self.update.landlineNo
+                        self.txtvwAddress.text = self.update.address!.isEmpty ? "" : self.update.address
+                       
+                        self.btnImage.imageView?.sd_setImage(with: URL(string: self.update.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                            if image == nil {
+                                self.btnImage.setImage(UIImage(named: "avtar"), for: .normal)
                             } else {
-                                return false
+                                self.btnImage.setImage(image, for: .normal)
                             }
-                        }) {
-                            url = URL(string: (data.value(forKey: "tenderPhoto")! as? String)!)!
-                        }
-                        
-                        if (url != nil) {
-                            self.btnImage.imageView?.sd_setImage(with: url!, placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-                                SDImageCache.shared().clearMemory()
-                            })
-                        } else {
-                            self.btnImage.imageView?.image = UIImage(named: "avtar")
-                        }
+                        })
                     }
                     self.stopActivityIndicator()
                 }

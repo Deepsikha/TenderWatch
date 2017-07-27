@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SDWebImage
+import ObjectMapper
 
 class TenderWatchDetailVC: UIViewController {
 
@@ -26,7 +27,8 @@ class TenderWatchDetailVC: UIViewController {
     
     var transperentView = UIView()
     var cView: UIView!
-
+    var tenderDetail: TenderDetail!
+    
     static var id:String!
     
     override func viewDidLoad() {
@@ -73,10 +75,11 @@ class TenderWatchDetailVC: UIViewController {
                         MessageManager.showAlert(nil, "\(String(describing: err))")
                     } else {
                         let data = (resp.result.value as! NSObject)
-                        self.lblTenderName.text = (data.value(forKey: "tenderName")! as? String)
-                        self.lblCountry.text = (data.value(forKey: "country") as! NSObject).value(forKey: "countryName")! as? String
+                        self.tenderDetail = Mapper<TenderDetail>().map(JSONObject: data)
+                        self.lblTenderName.text = self.tenderDetail.tenderName!
+                        self.lblCountry.text = self.tenderDetail.country!.countryName!
                             
-                        self.lblCategory.text = (data.value(forKey: "category") as! NSObject).value(forKey: "categoryName")! as? String
+                        self.lblCategory.text = self.tenderDetail.category!.categoryName!
                         
                         let date = data.value(forKey: "expiryDate")! as? String
                         let components = Date().getDifferenceBtnCurrentDate(date: (date?.substring(to: (date!.index((date!.startIndex), offsetBy: 10))))!)
@@ -87,38 +90,16 @@ class TenderWatchDetailVC: UIViewController {
                             self.lblDay.text = "\(components.day!) days"
                         }
                         
-                        self.txtDesc.text = (data.value(forKey: "description")! as? String)
-                        self.lblClienEmail.text = (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "email")! as? String
-                        var url: URL!
+                        self.txtDesc.text = self.tenderDetail.desc!
+                        self.lblClienEmail.text = self.tenderDetail.tenderUploader!.email!
                         
                         if (appDelegate.isClient!) {
-                            if(data as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
-                                if (a as! String == "tenderPhoto") {
-                                    return true
-                                } else {
-                                    return false
-                                }
-                            }) {
-                                url = URL(string: (data.value(forKey: "tenderPhoto")! as? String)!)!
-                            }
-                        } else {
-                            if (data.value(forKey: "tenderUploader") as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
-                                if (a as! String == "profilePhoto") {
-                                    return true
-                                } else {
-                                    return false
-                                }
-                            }) {
-                                url = URL(string: (data.value(forKey: "tenderUploader") as! NSObject).value(forKey: "profilePhoto")! as! String)!
-                            }
-                        }
-                        
-                        if (url != nil) {
-                            self.imgTenderPhoto.sd_setImage(with: url, placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-                                SDImageCache.shared().clearMemory()
+                           
+                            self.imgTenderPhoto.sd_setImage(with: URL(string: self.tenderDetail.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
                             })
                         } else {
-                            self.imgTenderPhoto.image = UIImage(named: "avtar")
+                            self.imgTenderPhoto.sd_setImage(with: URL(string: self.tenderDetail.tenderUploader!.profilePhoto!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                            })
                         }
                     }
                     self.stopActivityIndicator()
