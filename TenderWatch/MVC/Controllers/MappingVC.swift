@@ -48,7 +48,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
-       
+        
         if(USER?.authenticationToken != nil) {
             self.btnBack.isHidden = true
             self.btnMenu.isHidden = false
@@ -192,7 +192,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.splitDataInToSection()
                     self.stopActivityIndicator()
                     self.fetchCategory()
-
+                    
                 }
             }) { (errorMessage) in
                 print(errorMessage)
@@ -229,7 +229,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.stopActivityIndicator()
         }
     }
-
+    
     func splitDataInToSection() {
         
         var sectionTitle: String = ""
@@ -262,17 +262,17 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.startActivityIndicator()
             Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if(resp.result.value != nil) {
-//                    if resp.result.value is NSDictionary {
-//                        MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
-//                    } else {
-                        print(resp.result.value!)
-//                        let data = (resp.result.value as! NSObject)
-//                        self.services = Mapper<Selections>().mapArray(JSONObject: data)!
-                        self.select = resp.result.value as! [String : [String]]
-                        print(self.select)
-                        self.parse()
-                        self.tblMappings.reloadData()
-//                    }
+                    //                    if resp.result.value is NSDictionary {
+                    //                        MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
+                    //                    } else {
+                    print(resp.result.value!)
+                    //                        let data = (resp.result.value as! NSObject)
+                    //                        self.services = Mapper<Selections>().mapArray(JSONObject: data)!
+                    self.select = resp.result.value as! [String : [String]]
+                    print(self.select)
+                    self.parse()
+                    self.tblMappings.reloadData()
+                    //                    }
                 }
                 
                 print(resp.result)
@@ -298,7 +298,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func updateService() {
         if isNetworkReachable() {
             Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : self.select], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
-//                print(resp.result.value)
+                //                print(resp.result.value)
                 if (resp.response?.statusCode == 200) {
                     appDelegate.setHomeViewController()
                 } else {

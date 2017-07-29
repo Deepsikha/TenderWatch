@@ -133,7 +133,7 @@ class RulesVC: UIViewController {
                                 MessageManager.showAlert(nil, "\(err)")
                                 self.stopActivityIndicator()
                                 self.btnSignUp.isEnabled = true
-
+                                
                             } else {
                                 
                                 //Set User remaining

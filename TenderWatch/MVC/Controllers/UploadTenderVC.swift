@@ -68,6 +68,9 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         //tap.cancelsTouchesInView = false
         //self.view.addGestureRecognizer(tap)
         self.tblOptions.tableFooterView = UIView()
+        if UploadTenderVC.isUpdate {
+            self.getDetail()
+        }
         
     }
     
@@ -79,7 +82,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.btnBack.isHidden = false
             self.lblName.text = "Amend Tender"
             self.btnSubmit.setTitle("Amend", for: .normal)
-            self.getDetail()
         } else {
             self.opnDrwr.isHidden = false
             self.btnBack.isHidden = true
@@ -333,14 +335,14 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBAction func sbmt(_ sender: Any) {
         if (UploadTenderVC.isUpdate) {
             let parameter: Parameters = [
-                                           "country":(self.country.count == 0) ? self.updateCId! :self.uploadTender.cId,
-                                           "category":(self.category.count == 0) ? self.updateCtId! : self.uploadTender.ctId,
-                                           "tenderName":self.txfTenderTitle.text!,
-                                           "description":self.txfTenderTitle.text!,
-                                           "email": self.uploadTender.email,
-                                           "landlineNo": self.uploadTender.landLineNo,
-                                           "contactNo": self.uploadTender.contactNo,
-                                           "address": self.uploadTender.address]
+                "country":(self.country.count == 0) ? self.updateCId! :self.uploadTender.cId,
+                "category":(self.category.count == 0) ? self.updateCtId! : self.uploadTender.ctId,
+                "tenderName":self.txfTenderTitle.text!,
+                "description":self.tenderDetail.text!,
+                "email": self.uploadTender.email,
+                "landlineNo": self.uploadTender.landLineNo,
+                "contactNo": self.uploadTender.contactNo,
+                "address": self.uploadTender.address]
             self.submit(UPLOAD_TENDER+"\(UploadTenderVC.id!)", .put, parameter, "Successfully Updated")
         } else {
             let parameter: Parameters = [  "country":self.uploadTender.cId,
@@ -604,7 +606,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                         self.txfMobileNo.text = self.update.contactNo!.isEmpty ? "" : self.update.contactNo
                         self.txfLandLineNo.text = self.update.landlineNo!.isEmpty ? "" : self.update.landlineNo
                         self.txtvwAddress.text = self.update.address!.isEmpty ? "" : self.update.address
-                       
+                        
                         self.btnImage.imageView?.sd_setImage(with: URL(string: self.update.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
                             if image == nil {
                                 self.btnImage.setImage(UIImage(named: "avtar"), for: .normal)

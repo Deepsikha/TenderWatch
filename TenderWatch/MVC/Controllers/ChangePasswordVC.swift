@@ -116,7 +116,6 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
         }
     }
     
-//    -    Logo design
     @IBAction func handleBtnBack(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
     }

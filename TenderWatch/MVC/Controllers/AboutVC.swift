@@ -98,9 +98,9 @@ class AboutVC: UIViewController, UITextViewDelegate {
             }
             self.navigationController?.popViewController(animated: false)
         } else {
-                MessageManager.showAlert(nil, "Enter some information about yourself")
-                self.txtAbout.delegate = self
-                self.txtAbout.reloadInputViews()
-            }
+            MessageManager.showAlert(nil, "Enter some information about yourself")
+            self.txtAbout.delegate = self
+            self.txtAbout.reloadInputViews()
         }
+    }
 }

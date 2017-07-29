@@ -9,7 +9,7 @@
 import UIKit
 
 class NotificationVC: UIViewController {
-
+    
     @IBOutlet weak var tblNotifications: UITableView!
     @IBOutlet weak var lblNoNotifications: UILabel!
     
@@ -18,10 +18,10 @@ class NotificationVC: UIViewController {
         self.tblNotifications.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-
+        
         // Dispose of any resources that can be recreated.
     }
     
@@ -29,9 +29,9 @@ class NotificationVC: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         
         self.lblNoNotifications.isHidden = false
-
+        
     }
-
+    
     //MARK:- IBAction
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)

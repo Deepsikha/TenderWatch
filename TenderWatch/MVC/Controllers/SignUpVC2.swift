@@ -1,19 +1,19 @@
  //
-//  SignUpVC.swift
-//  TestApp
-//
-//  Created by Developer88 on 6/19/17.
-//  Copyright © 2017 Developer88. All rights reserved.
-//
-
-import UIKit
-import Alamofire
-import RSKImageCropper
-import IQKeyboardManager
-import ObjectMapper
-import SDWebImage
-
-class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, RSKImageCropViewControllerDelegate, UITextFieldDelegate {
+ //  SignUpVC.swift
+ //  TestApp
+ //
+ //  Created by Developer88 on 6/19/17.
+ //  Copyright © 2017 Developer88. All rights reserved.
+ //
+ 
+ import UIKit
+ import Alamofire
+ import RSKImageCropper
+ import IQKeyboardManager
+ import ObjectMapper
+ import SDWebImage
+ 
+ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, RSKImageCropViewControllerDelegate, UITextFieldDelegate {
     
     var picker : UIImagePickerController!
     
@@ -60,11 +60,11 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.proflPic.imageView?.sd_setShowActivityIndicatorView(true)
             self.proflPic.imageView?.sd_setIndicatorStyle(.gray)
             self.proflPic.imageView?.sd_setImage(with: URL(string: (USER?.profilePhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-                    if image == nil {
-                        self.proflPic.setImage(UIImage(named: "avtar"), for: .normal)
-                    } else {
-                        self.proflPic.setImage(image, for: .normal)
-                    }
+                if image == nil {
+                    self.proflPic.setImage(UIImage(named: "avtar"), for: .normal)
+                } else {
+                    self.proflPic.setImage(image, for: .normal)
+                }
             })
         } else {
             self.back.isHidden = false
@@ -74,7 +74,7 @@ class SignUpVC2: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.proflPic.layer.borderWidth = 1
         }
     }
-
+    
     override func viewDidLayoutSubviews() {
         self.btnnext.cornerRedius()
         proflPic.layer.cornerRadius = proflPic.frame.width / 2

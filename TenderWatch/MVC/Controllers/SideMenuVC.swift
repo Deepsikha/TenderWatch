@@ -12,7 +12,7 @@ import SDWebImage
 import Alamofire
 
 class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet var tblSideMenu: UITableView!
     @IBOutlet var imgProPic: UIImageView!
     @IBOutlet var lblName: UILabel!
@@ -69,14 +69,14 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tblSideMenu.reloadData()
         
         self.imgProPic.layer.cornerRadius = self.imgProPic.frame.width / 2
-
+        
         self.lblName.text =  USER?.firstName //"Demo User" //remaining
         if (USER?.authenticationToken != nil) {
             self.lblName.text = USER?.email
             
             self.imgProPic.sd_setShowActivityIndicatorView(true)
             self.imgProPic.sd_setIndicatorStyle(.gray)
-        
+            
             self.imgProPic.sd_setImage(with: URL(string: (USER?.profilePhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
             })
         }
@@ -154,7 +154,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             })
             UserManager.shared.logoutCurrentUser()
-//            let nav = UINavigationController(rootViewController: HomeVC())
+            //            let nav = UINavigationController(rootViewController: HomeVC())
             
             appDelegate.drawerController.centerViewController = nav9
             self.nav1 = nil
@@ -165,11 +165,11 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.nav6 = nil
             self.nav7 = nil
             self.nav8 = nil
-    
+            
             appDelegate.drawerController.closeDrawer(animated: true, completion: { (finish) in
-
+                
             })
         }
     }
-
+    
 }

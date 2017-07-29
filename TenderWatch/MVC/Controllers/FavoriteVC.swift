@@ -30,7 +30,7 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         self.getFavorite()
-
+        
         self.navigationController?.isNavigationBarHidden = true
     }
     
@@ -65,7 +65,7 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             //                (tender.tenderPhoto)!
             cell.imgProfile.sd_setImage(with: URL(string: (fv.tenderPhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
             })
-        
+            
             let components = Date().getDifferenceBtnCurrentDate(date: (fv.exp?.substring(to: (fv.exp?.index((fv.exp?.startIndex)!, offsetBy: 10))!))!)
             if (components.day == 1) {
                 cell.lblTender.text = "\(components.day!) day"
@@ -102,7 +102,7 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         })
         dlt.backgroundColor = UIColor.red
         
-            return [dlt]
+        return [dlt]
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
@@ -148,16 +148,16 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.stopActivityIndicator()
             Alamofire.request(ADD_REMOVE_FAVORITE+favorite[index].id! , method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.response!.statusCode != 202) {
-                        MessageManager.showAlert(nil, "can't add to favorite")
-                    } else {
-                        self.favorite.remove(at: index)
-                        self.tblFavorite.reloadData()
-                        if (self.favorite.isEmpty) {
-                            self.lblNoFavorite.isHidden = false
-                        }
-                        //                        MessageManager.showAlert(nil, "delete Succesfully")
+                    MessageManager.showAlert(nil, "can't add to favorite")
+                } else {
+                    self.favorite.remove(at: index)
+                    self.tblFavorite.reloadData()
+                    if (self.favorite.isEmpty) {
+                        self.lblNoFavorite.isHidden = false
                     }
-                    self.stopActivityIndicator()
+                    //                        MessageManager.showAlert(nil, "delete Succesfully")
+                }
+                self.stopActivityIndicator()
             }
         } else {
             MessageManager.showAlert(nil, "No Internet")

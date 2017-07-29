@@ -31,8 +31,8 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
         self.txfEmail.delegate = self
         self.txfPassword.delegate = self
         // TODO: Track the user action that is important for you.
-//        Answers.logContentView(withName: "Tweet", contentType: "Video", contentId: "1234", customAttributes: ["Favorites Count":20, "Screen Orientation":"Landscape"])
-
+        //        Answers.logContentView(withName: "Tweet", contentType: "Video", contentId: "1234", customAttributes: ["Favorites Count":20, "Screen Orientation":"Landscape"])
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,15 +109,15 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
                         let param: Parameters = ["token": FBSDKAccessToken.current()!.tokenString,
                                                  "role": appDelegate.isClient! ? "client" : "contractor",
                                                  "deviceId": appDelegate.token!]
-//                        self.getFBUserData()
-//                        fbLoginManager.logOut()
+                        //                        self.getFBUserData()
+                        //                        fbLoginManager.logOut()
                         self.Login(F_LOGIN, param)
                     }
                 }
             }
         }
     }
-
+    
     @IBAction func btnHandleNewAC(_ sender: UIButton) {
         self.navigationController?.pushViewController(SignUpVC(), animated: true)
     }
@@ -127,7 +127,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
     }
     
     @IBAction func btnHandleSignIn(_ sender: UIButton) {
-//        signUpUser =  signUpUserData()
+        //        signUpUser =  signUpUserData()
         let parameters: Parameters = ["email" : self.txfEmail.text!,
                                       "password" : self.txfPassword.text!,
                                       "role" : appDelegate.isClient! ? "client" : "contractor",
