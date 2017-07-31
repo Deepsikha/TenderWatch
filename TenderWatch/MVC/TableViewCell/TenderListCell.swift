@@ -15,6 +15,10 @@ class TenderListCell: UITableViewCell {
     @IBOutlet var lblCountry: UILabel!
     @IBOutlet var lblTender: UILabel!
     
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var exp_day: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

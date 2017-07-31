@@ -126,10 +126,13 @@
                 <constraint firstAttribute="trailing" secondItem="yLN-e9-8mI" secondAttribute="trailing" constant="8" id="q4W-FX-OMZ"/>
             </constraints>
             <connections>
+                <outlet property="exp_day" destination="INE-oX-hGZ" id="FYU-IL-Vbn"/>
                 <outlet property="imgProfile" destination="1RI-iB-Ch9" id="ffP-5g-gPd"/>
                 <outlet property="lblCountry" destination="I8c-3D-jMn" id="snT-HW-a8Y"/>
                 <outlet property="lblName" destination="ZdU-gf-loC" id="Hvu-GY-uvb"/>
                 <outlet property="lblTender" destination="OrP-b1-XlS" id="fjN-os-cB7"/>
+                <outlet property="name" destination="QZC-bL-ggE" id="rMs-fH-qc2"/>
+                <outlet property="title" destination="S0Q-uX-kZU" id="0Us-8n-pAh"/>
             </connections>
             <point key="canvasLocation" x="25" y="72.5"/>
         </tableViewCell>

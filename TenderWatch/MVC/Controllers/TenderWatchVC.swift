@@ -18,6 +18,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     @IBOutlet weak var lblNoTender: UILabel!
     
     var tender = [Tender]()
+    static var id: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,18 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        if !(TenderWatchVC.id.isEmpty) {
+            let a = self.tender.index(where: { (a) -> Bool in
+                a.id == TenderWatchVC.id
+            })
+            self.tender.remove(at: a!)
+            MessageManager.showAlert(nil, "Delete Succesfully")
+            if (self.tender.isEmpty) {
+                self.lblNoTender.isHidden = false
+            }
+            TenderWatchVC.id = ""
+        }
+        self.tblTenderList.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,7 +74,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         let  cell = tableView.dequeueReusableCell(withIdentifier: "TenderListCell", for: indexPath) as! TenderListCell
         
         let tender = self.tender[indexPath.row]
-        cell.lblName.text = appDelegate.isClient! ? USER?.email : ((tender.email?.isEmpty)! ? "nthg" : tender.email)
+        cell.lblName.text = appDelegate.isClient! ? USER?.email : ((self.tender[indexPath.row].tenderUploader!.email!).isEmpty) ? "nthg" : self.tender[indexPath.row].tenderUploader!.email!
         cell.lblCountry.text = tender.tenderName
         
         cell.imgProfile.sd_setShowActivityIndicatorView(true)
@@ -75,7 +88,25 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         let components = Date().getDifferenceBtnCurrentDate(date: (tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!))!)
         
         cell.lblTender.text = (components.day == 1) ? "\(components.day!) day" : "\(components.day!) days"
-        
+        if (!(appDelegate.isClient)!) {
+            if !((tender.readby!.contains((USER!._id)!))) {
+                cell.lblName.font = UIFont.boldSystemFont(ofSize: cell.lblName.font.pointSize)
+                cell.lblTender.font = UIFont.boldSystemFont(ofSize: cell.lblTender.font.pointSize)
+                cell.lblCountry.font = UIFont.boldSystemFont(ofSize: cell.lblCountry.font.pointSize)
+                
+                cell.name.font = UIFont.boldSystemFont(ofSize: cell.name.font.pointSize)
+                cell.title.font = UIFont.boldSystemFont(ofSize: cell.title.font.pointSize)
+                cell.exp_day.font = UIFont.boldSystemFont(ofSize: cell.exp_day.font.pointSize)
+            } else {
+                cell.lblName.font = UIFont.systemFont(ofSize: cell.lblName.font.pointSize)
+                cell.lblCountry.font = UIFont.systemFont(ofSize: cell.lblCountry.font.pointSize)
+                cell.lblTender.font = UIFont.systemFont(ofSize: cell.lblTender.font.pointSize)
+                
+                cell.name.font = UIFont.systemFont(ofSize: cell.name.font.pointSize)
+                cell.title.font = UIFont.systemFont(ofSize: cell.title.font.pointSize)
+                cell.exp_day.font = UIFont.systemFont(ofSize: cell.exp_day.font.pointSize)
+            }
+        }
         //        if (components.day! < 0) {
         //            deleteTender(indexPath.row)
         //        }
@@ -88,7 +119,8 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     //    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         TenderWatchDetailVC.id = self.tender[indexPath.row].id
-        
+        tableView.reloadRows(at: [indexPath], with: .none)
+        self.tender[indexPath.row].readby?.append((USER?._id)!)
         self.navigationController?.pushViewController(TenderWatchDetailVC(), animated: true)
     }
     
@@ -104,7 +136,13 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         }
         let dlt = UITableViewRowAction(style: .normal, title: "Remove", handler: { (action, index) in
             print("Remove button tapped")
-            let alert = UIAlertController(title: "TenderWatch", message: "Confirm Removal?", preferredStyle: UIAlertControllerStyle.alert)
+            let msg: String!
+            if (appDelegate.isClient!) {
+                msg = "Tender will be completely removed from TenderWatch?"
+            } else {
+                msg = "Are you sure you want to remove this Tender completely from your Account?"
+            }
+            let alert = UIAlertController(title: "TenderWatch", message: msg, preferredStyle: UIAlertControllerStyle.alert)
             alert.view.backgroundColor = UIColor.white
             alert.view.layer.cornerRadius = 10.0
             
@@ -232,4 +270,5 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             MessageManager.showAlert(nil, "No Internet")
         }
     }
+
 }

@@ -24,9 +24,10 @@ class Tender: NSObject, Mappable {
     var landlineNo : String?
     var tenderName : String?
     var tenderPhoto : String?
-    var tenderUploader: String?
+    var tenderUploader: User?
     var favorite: [String]?
     var subscriber: String?
+    var readby: [String]?
     
     required init?(map: Map) {
         super.init()
@@ -50,6 +51,7 @@ class Tender: NSObject, Mappable {
         tenderUploader  <- map["tenderUploader"]
         favorite        <- map["favorite"]
         subscriber      <- map["subscriber"]
+        readby          <- map["readby"]
     }
 }
 

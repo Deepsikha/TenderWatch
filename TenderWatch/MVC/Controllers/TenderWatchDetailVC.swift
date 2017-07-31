@@ -51,11 +51,11 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         self.btnInterested.layer.cornerRadius = 8
         
         if appDelegate.isClient! {
-            self.btnDelete.setTitle("Reject", for: .normal)
-            self.btnInterested.setTitle("Accept", for: .normal)
+            self.btnInterested.setTitle("Amend", for: .normal)
+            self.btnInterested.layer.backgroundColor = UIColor.gray.cgColor
         } else {
-            self.btnDelete.setTitle("Delete", for: .normal)
             self.btnInterested.setTitle("Interested", for: .normal)
+            self.btnInterested.layer.backgroundColor = UIColor(red: 145/255, green: 216/255, blue: 79/255, alpha: 1.0).cgColor
             
         }
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.generateSubView(sender:)))
@@ -113,8 +113,52 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         self.generateSubView(sender: sender as! NSObject)
     }
     @IBAction func handleBtnDelete(_ sender: Any) {
-    }
+        let msg: String!
+        if (appDelegate.isClient)! {
+            msg = "Tender will be completely removed from TenderWatch?"
+        } else {
+            msg = "Are you sure you want to remove this Tender completely from your Account?"
+        }
+        
+        let alert = UIAlertController(title: "TenderWatch", message: msg, preferredStyle: UIAlertControllerStyle.alert)
+        alert.view.backgroundColor = UIColor.white
+        alert.view.layer.cornerRadius = 10.0
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
+        }))
+        alert.addAction(UIAlertAction(title: "Remove", style: .cancel, handler:{ action in
+            if isNetworkReachable() {
+                self.stopActivityIndicator()
+                Alamofire.request(DELETE_TENDER+self.tenderDetail.id! , method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+                    if(resp.response?.statusCode != nil) {
+                        if !(resp.response?.statusCode == 200) {
+                            MessageManager.showAlert(nil, "can't Remove tender")
+                        } else {
+                            TenderWatchVC.id = TenderWatchDetailVC.id
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                        self.stopActivityIndicator()
+                    }
+                }
+            } else {
+                MessageManager.showAlert(nil, "No Internet")
+            }
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+            }
+    
     @IBAction func handleBtnInterested(_ sender: Any) {
+        
+        if (appDelegate.isClient!) {
+            UploadTenderVC.isUpdate = true
+            UploadTenderVC.id = TenderWatchDetailVC.id
+
+            self.navigationController?.pushViewController(UploadTenderVC(), animated: true)
+            
+        } else {
+            
+        }
     }
     
     func getDetail() {
@@ -228,9 +272,5 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
             self.vwImage.removeFromSuperview()
         }
     }
-        
-        
-//        if self.view.subviews.contains(transperentView) {
-//            transperentView.removeFromSuperview()
-            //            setTableDelegate(tblAddItems)
+    
 }

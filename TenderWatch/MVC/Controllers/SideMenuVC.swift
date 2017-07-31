@@ -55,12 +55,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         nav8 = UINavigationController(rootViewController: NotificationVC())
         
         nav9 = UINavigationController(rootViewController: HomeVC())
-        
-        
-        
-        
-        
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
