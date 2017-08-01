@@ -52,6 +52,11 @@
 		7D03944B1EFB65E800B494EF /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0394491EFB65E800B494EF /* SideMenuCell.swift */; };
 		7D03944C1EFB65E800B494EF /* SideMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D03944A1EFB65E800B494EF /* SideMenuCell.xib */; };
 		7D176AFE1EFA13A700B05C99 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D176AFD1EFA13A700B05C99 /* User.swift */; };
+		7D1FEF5F1F309FFC00B1F0B5 /* SupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1FEF5D1F309FFC00B1F0B5 /* SupportVC.swift */; };
+		7D1FEF621F30A02200B1F0B5 /* SupportVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D1FEF611F30A02200B1F0B5 /* SupportVC.xib */; };
+		7D1FEF661F30A2EF00B1F0B5 /* support@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1FEF631F30A2EF00B1F0B5 /* support@1x.png */; };
+		7D1FEF671F30A2EF00B1F0B5 /* support@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1FEF641F30A2EF00B1F0B5 /* support@2x.png */; };
+		7D1FEF681F30A2EF00B1F0B5 /* support@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1FEF651F30A2EF00B1F0B5 /* support@3x.png */; };
 		7D2E22481F00B98500A0783E /* SubscriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E22461F00B98400A0783E /* SubscriptionVC.swift */; };
 		7D2E224B1F00B9A800A0783E /* SubscriptionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */; };
 		7D2E22521F00C53200A0783E /* SubscriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E22501F00C53200A0783E /* SubscriptionCell.swift */; };
@@ -267,6 +272,11 @@
 		7D0394491EFB65E800B494EF /* SideMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		7D03944A1EFB65E800B494EF /* SideMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuCell.xib; sourceTree = "<group>"; };
 		7D176AFD1EFA13A700B05C99 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7D1FEF5D1F309FFC00B1F0B5 /* SupportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportVC.swift; sourceTree = "<group>"; };
+		7D1FEF611F30A02200B1F0B5 /* SupportVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SupportVC.xib; sourceTree = "<group>"; };
+		7D1FEF631F30A2EF00B1F0B5 /* support@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "support@1x.png"; sourceTree = "<group>"; };
+		7D1FEF641F30A2EF00B1F0B5 /* support@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "support@2x.png"; sourceTree = "<group>"; };
+		7D1FEF651F30A2EF00B1F0B5 /* support@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "support@3x.png"; sourceTree = "<group>"; };
 		7D2E22461F00B98400A0783E /* SubscriptionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionVC.swift; sourceTree = "<group>"; };
 		7D2E224A1F00B9A800A0783E /* SubscriptionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionVC.xib; sourceTree = "<group>"; };
 		7D2E22501F00C53200A0783E /* SubscriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionCell.swift; sourceTree = "<group>"; };
@@ -536,6 +546,7 @@
 				0CE01BF01F03A03100111940 /* NotificationVC.swift */,
 				27EF448F1EF8BD5600CCBCA0 /* PaymentVC.swift */,
 				7D68B5BC1F1CB630004BEC5E /* TenderWatchDetailVC.swift */,
+				7D1FEF5D1F309FFC00B1F0B5 /* SupportVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -561,6 +572,7 @@
 				0CE01BF41F03A07900111940 /* NotificationVC.xib */,
 				27EF44951EF8BD5F00CCBCA0 /* PaymentVC.xib */,
 				7D68B5C01F1CB669004BEC5E /* TenderWatchDetailVC.xib */,
+				7D1FEF611F30A02200B1F0B5 /* SupportVC.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -639,6 +651,9 @@
 		7DA0682F1F19ED3700D9352A /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				7D1FEF631F30A2EF00B1F0B5 /* support@1x.png */,
+				7D1FEF641F30A2EF00B1F0B5 /* support@2x.png */,
+				7D1FEF651F30A2EF00B1F0B5 /* support@3x.png */,
 				7DFE22441F1F9153009F7676 /* mainscreen@1x.png */,
 				7DFE22451F1F9153009F7676 /* mainscreen@2x.png */,
 				7DFE22461F1F9153009F7676 /* mainscreen@3x.png */,
@@ -917,6 +932,7 @@
 				7DA068B21F19ED3700D9352A /* dollar@2x.png in Resources */,
 				7DA068F51F19ED3700D9352A /* tick@3x.png in Resources */,
 				7DA068F01F19ED3700D9352A /* settings@1x.png in Resources */,
+				7D1FEF681F30A2EF00B1F0B5 /* support@3x.png in Resources */,
 				7DA068E51F19ED3700D9352A /* password@2x.png in Resources */,
 				27EF44981EF8BD5F00CCBCA0 /* PaymentVC.xib in Resources */,
 				7DA068F41F19ED3700D9352A /* tick@2x.png in Resources */,
@@ -947,6 +963,7 @@
 				7D00294D1F2727850070D940 /* LaunchScreen.storyboard in Resources */,
 				7DA068D21F19ED3700D9352A /* lookingfor@1x.png in Resources */,
 				7DA068D61F19ED3700D9352A /* mail@2x.png in Resources */,
+				7D1FEF671F30A2EF00B1F0B5 /* support@2x.png in Resources */,
 				7D03944C1EFB65E800B494EF /* SideMenuCell.xib in Resources */,
 				7DA068AA1F19ED3700D9352A /* check@1x.png in Resources */,
 				27A28EC51EF776F000E7B53B /* SignUpVC.xib in Resources */,
@@ -1001,6 +1018,7 @@
 				7D2E22531F00C53300A0783E /* SubscriptionCell.xib in Resources */,
 				7DFE22481F1F9153009F7676 /* mainscreen@2x.png in Resources */,
 				7DA068D11F19ED3700D9352A /* logout@3x.png in Resources */,
+				7D1FEF621F30A02200B1F0B5 /* SupportVC.xib in Resources */,
 				7DA068B31F19ED3700D9352A /* dollar@3x.png in Resources */,
 				7D3E13AE1F276546004729C0 /* ClienDetailCell.xib in Resources */,
 				7DA068A21F19ED3700D9352A /* boxright@2x.png in Resources */,
@@ -1028,6 +1046,7 @@
 				2790042E1EF766DC00EB198C /* Assets.xcassets in Resources */,
 				7DA068B81F19ED3700D9352A /* fav@2x.png in Resources */,
 				7D946A9A1EFBBD4E00C258E1 /* RegisterCountryCell.xib in Resources */,
+				7D1FEF661F30A2EF00B1F0B5 /* support@1x.png in Resources */,
 				7DA068C31F19ED3700D9352A /* landline@1x.png in Resources */,
 				7DA068BE1F19ED3700D9352A /* heart@2x.png in Resources */,
 				7DA068C61F19ED3700D9352A /* left-arr@1x.png in Resources */,
@@ -1240,6 +1259,7 @@
 				5C34B6F61EFA181B0062B987 /* ChangePasswordVC.swift in Sources */,
 				27EF44931EF8BD5600CCBCA0 /* RulesVC.swift in Sources */,
 				7D60C9E01F18ACC200DAA69F /* Favorite.swift in Sources */,
+				7D1FEF5F1F309FFC00B1F0B5 /* SupportVC.swift in Sources */,
 				275211F81F022B4800DADAC9 /* APIManager.swift in Sources */,
 				27A28EC41EF776F000E7B53B /* SignUpVC.swift in Sources */,
 				276494031F0270CB00E05241 /* UserManager.swift in Sources */,

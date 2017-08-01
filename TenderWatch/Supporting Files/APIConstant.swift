@@ -8,8 +8,8 @@
 
 import Foundation
 
-var BASE_URL: String = "http://lanetteam.com:4000/api/"
-//var BASE_URL: String = "http://192.168.200.78:3000/api/"
+//var BASE_URL: String = "http://lanetteam.com:4000/api/"
+var BASE_URL: String = "http://192.168.200.78:4000/api/"
 
 
 var LOGIN: String = "auth/login"
@@ -31,3 +31,4 @@ var CATEGORY: String = "auth/category"
 var COUNTRY: String = "auth/country"
 
 var TENDER_DETAIL: String = (BASE_URL)+"tender/" //update: put (append id), detail: get
+var INTERESTED: String = (BASE_URL)+"tender/interested/"

@@ -110,6 +110,21 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         //        if (components.day! < 0) {
         //            deleteTender(indexPath.row)
         //        }
+        if !(appDelegate.isClient!) {
+            if (tender.amendRead != nil) {
+                if !(tender.amendRead?.contains((USER!._id)!))! {
+                    cell.imgProfile.layer.borderWidth = 2
+                    cell.imgProfile.layer.borderColor = UIColor.red.cgColor
+                } else {
+                    cell.imgProfile.layer.borderWidth = 0
+                    cell.imgProfile.layer.borderColor = UIColor.clear.cgColor
+                }
+            }
+        } else {
+            cell.imgProfile.layer.borderWidth = 0
+            cell.imgProfile.layer.borderColor = UIColor.clear.cgColor
+        }
+        
         
         return cell
     }
@@ -121,6 +136,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         TenderWatchDetailVC.id = self.tender[indexPath.row].id
         tableView.reloadRows(at: [indexPath], with: .none)
         self.tender[indexPath.row].readby?.append((USER?._id)!)
+        self.tender[indexPath.row].amendRead?.append(USER!._id!)
         self.navigationController?.pushViewController(TenderWatchDetailVC(), animated: true)
     }
     

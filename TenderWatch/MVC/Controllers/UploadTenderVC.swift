@@ -68,6 +68,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         //tap.cancelsTouchesInView = false
         //self.view.addGestureRecognizer(tap)
         self.tblOptions.tableFooterView = UIView()
+        
+        self.btnContact.setTitle((self.btnContact.titleLabel!.text)!+"   ▼   ", for: .normal)
         if UploadTenderVC.isUpdate {
             self.getDetail()
         }
@@ -343,6 +345,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 "landlineNo": self.uploadTender.landLineNo,
                 "contactNo": self.uploadTender.contactNo,
                 "address": self.uploadTender.address]
+            
             self.submit(UPLOAD_TENDER+"\(UploadTenderVC.id!)", .put, parameter, "Successfully Updated")
         } else {
             let parameter: Parameters = [  "country":self.uploadTender.cId,
@@ -454,7 +457,10 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                         
                         let imgname = (dateFormatter.string(from: dated as Date)).appending(String(0) + ".jpg")
                         multipartFormData.append(self.uploadTender.photo, withName: "image",fileName: imgname, mimeType: "image/jpeg")
+                    } else {
+                        multipartFormData.append("no image".data(using: String.Encoding(rawValue: UInt(String.Encoding.utf8.hashValue)))!, withName: "tenderPhoto")
                     }
+                
                     for (key, value) in param {
                         multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
                     }

@@ -28,6 +28,7 @@ class Tender: NSObject, Mappable {
     var favorite: [String]?
     var subscriber: String?
     var readby: [String]?
+    var amendRead:[String]?
     
     required init?(map: Map) {
         super.init()
@@ -52,6 +53,7 @@ class Tender: NSObject, Mappable {
         favorite        <- map["favorite"]
         subscriber      <- map["subscriber"]
         readby          <- map["readby"]
+        amendRead       <- map["amendRead"]
     }
 }
 

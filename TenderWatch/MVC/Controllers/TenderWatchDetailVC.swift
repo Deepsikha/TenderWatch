@@ -23,19 +23,17 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tblTenderContactDetail: UITableView!
     @IBOutlet weak var btnClientDetail: UIButton!
     @IBOutlet weak var btnDelete: UIButton!
-    
     @IBOutlet weak var btnInterested: UIButton!
     
     @IBOutlet var vwImage: UIView!
     @IBOutlet weak var imgProfile: UIImageView!
-    
     
     @IBOutlet var vwClientDetail: UIView!
     @IBOutlet weak var imgIsFollow: UIImageView!
     
     @IBOutlet weak var txtVwDescHeight: NSLayoutConstraint!
     @IBOutlet weak var tblTenderContactHeight: NSLayoutConstraint!
-     @IBOutlet weak var vwHeight: NSLayoutConstraint!
+    @IBOutlet weak var vwHeight: NSLayoutConstraint!
     
     var transperentView = UIView()
     var cView: UIView!
@@ -157,6 +155,16 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
             self.navigationController?.pushViewController(UploadTenderVC(), animated: true)
             
         } else {
+            Alamofire.request(INTERESTED+self.tenderDetail.id!, method: .put, parameters: [:], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                if resp.response?.statusCode != nil {
+                    if (resp.response?.statusCode == 304) {
+                        MessageManager.showAlert(nil, "Already interested ")
+                    } else {
+                        //fire notification
+                        //work remaining based on client req.
+                    }
+                }
+            })
             
         }
     }

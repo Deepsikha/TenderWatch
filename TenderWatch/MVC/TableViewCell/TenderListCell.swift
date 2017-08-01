@@ -28,6 +28,10 @@ class TenderListCell: UITableViewCell {
         self.imgProfile.layer.cornerRadius = self.imgProfile.frame.width/2.0
     }
     
+    override func prepareForReuse() {
+        self.imgProfile.layer.borderColor = UIColor.clear.cgColor
+        self.imgProfile.layer.borderWidth = 0        
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

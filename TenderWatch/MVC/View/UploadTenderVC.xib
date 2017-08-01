@@ -167,7 +167,7 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="jQl-Cj-XlD"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                     <state key="normal" title="How Should Contractor Apply For This Tender ">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>

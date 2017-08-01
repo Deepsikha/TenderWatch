@@ -29,6 +29,8 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var nav7: UINavigationController?
     var nav8: UINavigationController?
     var nav9: UINavigationController?
+    var nav10: UINavigationController?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         nav8 = UINavigationController(rootViewController: NotificationVC())
         
         nav9 = UINavigationController(rootViewController: HomeVC())
+        nav10 = UINavigationController(rootViewController: SupportVC())
 
     }
     
@@ -77,11 +80,11 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         
         if (appDelegate.isClient)! {
-            SideMenuVC.arrSideMenuIcon = ["home","upload","userthree","password", "bell", "logout"]
-            SideMenuVC.arrSideMenuLbl = ["Home", "Upload Tender", "Edit Profile", "Change Password", "Notifications", "Logout"]
+            SideMenuVC.arrSideMenuIcon = ["home","upload","userthree","password", "bell", "support", "logout"]
+            SideMenuVC.arrSideMenuLbl = ["Home", "Upload Tender", "Edit Profile", "Change Password", "Notifications", "Conatct Support Team", "Logout"]
         } else {
-            SideMenuVC.arrSideMenuIcon = ["home","dollar","country", "userthree","password", "fav", "bell", "logout"]
-            SideMenuVC.arrSideMenuLbl = ["Home", "Subscription Details", "Add/Remove Countries", "Edit Profile", "Change Password", "Favorites", "Notifications", "Logout"]
+            SideMenuVC.arrSideMenuIcon = ["home","dollar","country", "userthree","password", "fav", "bell", "support", "logout"]
+            SideMenuVC.arrSideMenuLbl = ["Home", "Subscription Details", "Add/Remove Countries", "Edit Profile", "Change Password", "Favorites", "Notifications", "Conatct Support Team", "Logout"]
         }
         self.tblSideMenu.reloadData()
     }
@@ -141,6 +144,9 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Notifications" {
             appDelegate.drawerController.centerViewController = nav8
+            appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
+        } else if item == "Conatct Support Team" {
+            appDelegate.drawerController.centerViewController = nav10
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Logout" {
             Alamofire.request((BASE_URL)+"users", method: .delete, parameters:["deviceId": appDelegate.token,"role": appDelegate.isClient! ? "client" : "contractor"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
