@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         registerForPushNotifications()
-        UIApplication.shared.applicationIconBadgeNumber = 0
+//        application.applicationIconBadgeNumber = 0
         return true
     }
     
@@ -107,6 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        application.applicationIconBadgeNumber = 0
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -172,6 +173,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        switch application.applicationState {
+        case .active:
+            print("active")
+            break
+        case .background:
+            application.applicationIconBadgeNumber = application.applicationIconBadgeNumber + 1
+            break
+        default: //inactive
+            switch userInfo["notificationType"]! as! String {
+            case "upload","amended","delete":
+                self.setHomeViewController()
+                break
+            default: // interested
+                self.setUpNotificationVC()
+                print("interested")
+            }
+        }
         print("Notification Arrived")
         print(userInfo)
     }
@@ -189,7 +207,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         nav.setNavigationBarHidden(true, animated: false)
         nav.pushViewController(vc, animated: false)
     }
+    
+    func setUpNotificationVC() {
+        let leftSideDrawerViewController = SideMenuVC(nibName: "SideMenuVC", bundle: nil)
+        let centerViewController = SupportVC(nibName: "SupportVC", bundle: nil)
         
+        let navigationController = UINavigationController(rootViewController: centerViewController)
+        navigationController.restorationIdentifier = "ExampleCenterNavigationControllerRestorationKey"
+        
+        let leftSideNavController = UINavigationController(rootViewController: leftSideDrawerViewController)
+        leftSideNavController.restorationIdentifier = "ExampleLeftNavigationControllerRestorationKey"
+        
+        self.drawerController = DrawerController(centerViewController: navigationController, leftDrawerViewController: leftSideNavController)
+        self.drawerController.showsShadows = true
+        
+        self.drawerController.restorationIdentifier = "Drawer"
+        self.drawerController.maximumRightDrawerWidth = 150.0
+        self.drawerController.closeDrawerGestureModeMask = .all
+        self.window?.rootViewController = self.drawerController
+        self.window?.makeKeyAndVisible()
+    }
+    
     func setHomeViewController()
     {
         // Override point for customization after application launch.
@@ -228,5 +266,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-}
+    func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            print("Notification settings: \(settings)")
+        }
+    }}
 

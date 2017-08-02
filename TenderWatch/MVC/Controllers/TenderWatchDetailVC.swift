@@ -160,6 +160,10 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                     if (resp.response?.statusCode == 304) {
                         MessageManager.showAlert(nil, "Already interested ")
                     } else {
+                        MessageManager.showAlert(nil, "Tender added to interested")
+                        self.btnInterested.isEnabled = false
+                        self.btnInterested.backgroundColor = UIColor(red: 145/255, green: 216/255, blue: 79/255, alpha: 0.7)
+
                         //fire notification
                         //work remaining based on client req.
                     }
@@ -186,6 +190,15 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                     } else {
                         let data = (resp.result.value as! NSObject)
                         self.tenderDetail = Mapper<TenderDetail>().map(JSONObject: data)
+                        if (TenderWatchVC.isAmended) {
+                            MessageManager.showAlert(nil, "tender has been amend by the client")
+                            TenderWatchVC.isAmended = false
+                        }
+
+                        if self.tenderDetail.interested!.contains(USER!._id!) {
+                            self.btnInterested.backgroundColor = UIColor(red: 145/255, green: 216/255, blue: 79/255, alpha: 0.7)
+                            self.btnInterested.isEnabled = false
+                        }
                         self.lblTenderName.text = self.tenderDetail.tenderName!
                         self.lblCountry.text = self.tenderDetail.country!.countryName!
                         

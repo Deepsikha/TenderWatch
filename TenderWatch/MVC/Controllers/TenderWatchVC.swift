@@ -19,6 +19,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     var tender = [Tender]()
     static var id: String = ""
+    static var isAmended: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,8 +136,15 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         TenderWatchDetailVC.id = self.tender[indexPath.row].id
         tableView.reloadRows(at: [indexPath], with: .none)
-        self.tender[indexPath.row].readby?.append((USER?._id)!)
-        self.tender[indexPath.row].amendRead?.append(USER!._id!)
+        if !(appDelegate.isClient!) {
+            self.tender[indexPath.row].readby?.append((USER?._id)!)
+            if (self.tender[indexPath.row].amendRead != nil) {
+                if !(tender[indexPath.row].amendRead?.contains((USER!._id)!))! {
+                    self.tender[indexPath.row].amendRead?.append(USER!._id!)
+                    TenderWatchVC.isAmended = true
+                }
+            }
+        }
         self.navigationController?.pushViewController(TenderWatchDetailVC(), animated: true)
     }
     
