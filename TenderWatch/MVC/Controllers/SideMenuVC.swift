@@ -81,10 +81,10 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if (appDelegate.isClient)! {
             SideMenuVC.arrSideMenuIcon = ["home","upload","userthree","password", "bell", "support", "logout"]
-            SideMenuVC.arrSideMenuLbl = ["Home", "Upload Tender", "Edit Profile", "Change Password", "Notifications", "Conatct Support Team", "Logout"]
+            SideMenuVC.arrSideMenuLbl = ["Home", "Upload Tender", "Edit Profile", "Change Password", "Notifications", "Contact Support Team", "Logout"]
         } else {
             SideMenuVC.arrSideMenuIcon = ["home","dollar","country", "userthree","password", "fav", "bell", "support", "logout"]
-            SideMenuVC.arrSideMenuLbl = ["Home", "Subscription Details", "Add/Remove Countries", "Edit Profile", "Change Password", "Favorites", "Notifications", "Conatct Support Team", "Logout"]
+            SideMenuVC.arrSideMenuLbl = ["Home", "Subscription Details", "Add/Remove Countries", "Edit Profile", "Change Password", "Favorites", "Notifications", "Contact Support Team", "Logout"]
         }
         self.tblSideMenu.reloadData()
     }
@@ -145,7 +145,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         } else if item == "Notifications" {
             appDelegate.drawerController.centerViewController = nav8
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
-        } else if item == "Conatct Support Team" {
+        } else if item == "Contact Support Team" {
             appDelegate.drawerController.centerViewController = nav10
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Logout" {

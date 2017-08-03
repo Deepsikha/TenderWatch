@@ -163,6 +163,8 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                         MessageManager.showAlert(nil, "Tender added to interested")
                         self.btnInterested.isEnabled = false
                         self.btnInterested.backgroundColor = UIColor(red: 145/255, green: 216/255, blue: 79/255, alpha: 0.7)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "interested"), object: nil, userInfo: ["id":"\(self.tenderDetail.id!)"])
+        
 
                         //fire notification
                         //work remaining based on client req.
@@ -191,7 +193,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                         let data = (resp.result.value as! NSObject)
                         self.tenderDetail = Mapper<TenderDetail>().map(JSONObject: data)
                         if (TenderWatchVC.isAmended) {
-                            MessageManager.showAlert(nil, "tender has been amend by the client")
+                            MessageManager.showAlert(nil, "Tender has been amended by Client")
                             TenderWatchVC.isAmended = false
                         }
 

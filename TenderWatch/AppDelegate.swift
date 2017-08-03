@@ -254,6 +254,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 10.0, *) {
             let center = UNUserNotificationCenter.current()
             center.requestAuthorization(options: [.badge, .alert , .sound]) { (granted, error) in
+                
+                guard granted else { return }
+                
+                // 1
+                let viewAction = UNNotificationAction(identifier: "",
+                                                      title: "View",
+                                                      options: [.foreground])
+                let cancel = UNNotificationAction(identifier: "", title: "Cancel", options: UNNotificationActionOptions.foreground)
+                // 2
+                let newsCategory = UNNotificationCategory(identifier: "Contractor_Detail",
+                                                          actions: [viewAction, cancel],
+                                                          intentIdentifiers: [],
+                                                          options: [])
+                // 3
+                UNUserNotificationCenter.current().setNotificationCategories([newsCategory])
+                
                 if granted {
                     UIApplication.shared.registerForRemoteNotifications();
                 }
@@ -265,10 +281,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.shared.registerForRemoteNotifications();
         }
     }
-
-    func getNotificationSettings() {
-        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-            print("Notification settings: \(settings)")
-        }
-    }}
+}
 

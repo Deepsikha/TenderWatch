@@ -32,6 +32,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         //
         //        self.tblTenderList.estimatedRowHeight = 85
         //        self.tblTenderList.rowHeight = UITableViewAutomaticDimension
+        NotificationCenter.default.addObserver(self, selector: #selector(countmsg(notification:)), name: NSNotification.Name(rawValue : "interested"), object: nil)
         
         self.getTender()
         // Do any additional setup after loading the view.
@@ -126,7 +127,23 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             cell.imgProfile.layer.borderColor = UIColor.clear.cgColor
         }
         
-        
+        if !(appDelegate.isClient!) {
+            if !(tender.interested!.isEmpty) {
+                if tender.interested!.contains(USER!._id!) {
+                    cell.imgProfile.layer.borderWidth = 2
+                    cell.imgProfile.layer.borderColor = UIColor.green.cgColor
+                } else {
+                    cell.imgProfile.layer.borderWidth = 0
+                    cell.imgProfile.layer.borderColor = UIColor.clear.cgColor
+                }
+            } else {
+                cell.imgProfile.layer.borderWidth = 0
+                cell.imgProfile.layer.borderColor = UIColor.clear.cgColor
+            }
+        } else {
+            cell.imgProfile.layer.borderWidth = 0
+            cell.imgProfile.layer.borderColor = UIColor.clear.cgColor
+        }
         return cell
     }
     
@@ -295,4 +312,10 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         }
     }
 
+    func countmsg(notification: NSNotification) {
+        if !(notification.userInfo!["id"]! as! String).isEmpty {
+            let tender = self.tender.filter{$0.id == (notification.userInfo!["id"]! as! String)}[0]
+            tender.interested?.append((USER?._id!)!)
+        }
+    }
 }
