@@ -33,6 +33,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         //        self.tblTenderList.estimatedRowHeight = 85
         //        self.tblTenderList.rowHeight = UITableViewAutomaticDimension
         NotificationCenter.default.addObserver(self, selector: #selector(countmsg(notification:)), name: NSNotification.Name(rawValue : "interested"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(countmsg(notification:)), name: NSNotification.Name(rawValue : "favorite"), object: nil)
         
         self.getTender()
         // Do any additional setup after loading the view.
@@ -74,8 +75,12 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: "TenderListCell", for: indexPath) as! TenderListCell
-        
         let tender = self.tender[indexPath.row]
+        
+        cell.isUserInteractionEnabled = tender.isActive!
+        cell.vwDelete.isHidden = tender.isActive!
+        cell.lblDelete.isHidden = tender.isActive!
+        
         cell.lblName.text = appDelegate.isClient! ? USER?.email : ((self.tender[indexPath.row].tenderUploader!.email!).isEmpty) ? "nthg" : self.tender[indexPath.row].tenderUploader!.email!
         cell.lblCountry.text = tender.tenderName
         
@@ -130,26 +135,19 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         if !(appDelegate.isClient!) {
             if !(tender.interested!.isEmpty) {
                 if tender.interested!.contains(USER!._id!) {
-                    cell.imgProfile.layer.borderWidth = 2
-                    cell.imgProfile.layer.borderColor = UIColor.green.cgColor
+                    cell.imgIndocator.isHidden = false
                 } else {
-                    cell.imgProfile.layer.borderWidth = 0
-                    cell.imgProfile.layer.borderColor = UIColor.clear.cgColor
+                    cell.imgIndocator.isHidden = true
                 }
             } else {
-                cell.imgProfile.layer.borderWidth = 0
-                cell.imgProfile.layer.borderColor = UIColor.clear.cgColor
+                cell.imgIndocator.isHidden = true
             }
         } else {
-            cell.imgProfile.layer.borderWidth = 0
-            cell.imgProfile.layer.borderColor = UIColor.clear.cgColor
+            cell.imgIndocator.isHidden = true
         }
         return cell
     }
-    
-    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    //        return UITableViewAutomaticDimension
-    //    }
+ 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         TenderWatchDetailVC.id = self.tender[indexPath.row].id
         tableView.reloadRows(at: [indexPath], with: .none)
@@ -313,9 +311,17 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
 
     func countmsg(notification: NSNotification) {
-        if !(notification.userInfo!["id"]! as! String).isEmpty {
-            let tender = self.tender.filter{$0.id == (notification.userInfo!["id"]! as! String)}[0]
-            tender.interested?.append((USER?._id!)!)
+        if (notification.userInfo!["tag"]! as! String == "1") {
+            if !(notification.userInfo!["id"]! as! String).isEmpty {
+                let tender = self.tender.filter{$0.id == (notification.userInfo!["id"]! as! String)}[0]
+                tender.interested?.append((USER?._id!)!)
+            }
+        } else {
+            if !(notification.userInfo!["id"]! as! String).isEmpty {
+                let tender = self.tender.filter{$0.id == (notification.userInfo!["tenderId"]! as! String)}[0]
+                tender.favorite = tender.favorite?.filter{ _ in USER!._id! != (notification.userInfo!["id"]! as! String)}
+            }
         }
     }
+    
 }

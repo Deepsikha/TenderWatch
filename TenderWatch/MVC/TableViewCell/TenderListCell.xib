@@ -95,6 +95,28 @@
                             <constraint firstAttribute="width" constant="12" id="6Bs-eF-dUq"/>
                         </constraints>
                     </imageView>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right_tick.png" translatesAutoresizingMaskIntoConstraints="NO" id="gFT-iw-djr">
+                        <rect key="frame" x="56" y="10" width="18" height="18"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="bDe-rL-ruP"/>
+                            <constraint firstAttribute="height" constant="18" id="pNj-4l-9gU"/>
+                        </constraints>
+                    </imageView>
+                    <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18g-Jl-ZLQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deleted!!!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dry-0n-fto">
+                        <rect key="frame" x="114" y="32" width="91" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="91" id="01o-lk-u8a"/>
+                            <constraint firstAttribute="height" constant="20.999999999999993" id="H8q-cr-ud3"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <color key="textColor" red="0.85490196939999996" green="0.03529411927" blue="0.0078431377190000002" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="S0Q-uX-kZU" firstAttribute="top" secondItem="QZC-bL-ggE" secondAttribute="bottom" constant="2" id="142-TL-NHi"/>
@@ -103,9 +125,11 @@
                     <constraint firstItem="ZdU-gf-loC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="8DW-U1-r4T"/>
                     <constraint firstItem="I8c-3D-jMn" firstAttribute="leading" secondItem="S0Q-uX-kZU" secondAttribute="trailing" constant="5" id="AWG-88-Cmb"/>
                     <constraint firstAttribute="bottomMargin" secondItem="1RI-iB-Ch9" secondAttribute="bottom" id="Dx0-2i-dRV"/>
+                    <constraint firstItem="18g-Jl-ZLQ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="HDr-Rq-zIc"/>
                     <constraint firstItem="OrP-b1-XlS" firstAttribute="leading" secondItem="INE-oX-hGZ" secondAttribute="trailing" constant="5" id="Nh3-cV-Ptq"/>
                     <constraint firstItem="INE-oX-hGZ" firstAttribute="top" secondItem="S0Q-uX-kZU" secondAttribute="bottom" constant="2" id="OPg-zd-d3a"/>
                     <constraint firstItem="QZC-bL-ggE" firstAttribute="leading" secondItem="1RI-iB-Ch9" secondAttribute="trailing" constant="7.5" id="P3o-mB-Qm0"/>
+                    <constraint firstItem="gFT-iw-djr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="48" id="QOV-df-k0a"/>
                     <constraint firstItem="ZdU-gf-loC" firstAttribute="leading" secondItem="QZC-bL-ggE" secondAttribute="trailing" constant="5" id="RHf-BJ-g4B"/>
                     <constraint firstItem="OrP-b1-XlS" firstAttribute="top" secondItem="I8c-3D-jMn" secondAttribute="bottom" constant="2" id="RuU-cL-j3G"/>
                     <constraint firstAttribute="leadingMargin" secondItem="1RI-iB-Ch9" secondAttribute="leading" id="f8c-e4-No0"/>
@@ -116,28 +140,39 @@
                     <constraint firstAttribute="trailingMargin" secondItem="ZdU-gf-loC" secondAttribute="trailing" id="l7L-Sa-lPW"/>
                     <constraint firstItem="mvP-mb-VdY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="nA8-oE-N5E"/>
                     <constraint firstAttribute="topMargin" secondItem="1RI-iB-Ch9" secondAttribute="top" id="nmm-4n-pqc"/>
+                    <constraint firstItem="18g-Jl-ZLQ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="r0t-IY-fbl"/>
+                    <constraint firstAttribute="topMargin" secondItem="gFT-iw-djr" secondAttribute="top" constant="-2" id="soC-X8-tlj"/>
                     <constraint firstAttribute="bottomMargin" secondItem="OrP-b1-XlS" secondAttribute="bottom" constant="3.5" id="tcO-tt-sKz"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="gFT-iw-djr" secondAttribute="bottom" constant="48.5" id="twd-L3-EXu"/>
                     <constraint firstItem="QZC-bL-ggE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="yDL-oi-Z6F"/>
                 </constraints>
             </tableViewCellContentView>
             <constraints>
+                <constraint firstItem="18g-Jl-ZLQ" firstAttribute="height" secondItem="KGk-i7-Jjw" secondAttribute="height" id="7br-Zi-8iA"/>
+                <constraint firstItem="18g-Jl-ZLQ" firstAttribute="width" secondItem="KGk-i7-Jjw" secondAttribute="width" id="EGX-4D-g11"/>
                 <constraint firstAttribute="bottom" secondItem="yLN-e9-8mI" secondAttribute="bottom" constant="35" id="cke-Io-oSV"/>
                 <constraint firstItem="yLN-e9-8mI" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="36" id="iHq-4M-j16"/>
+                <constraint firstItem="dry-0n-fto" firstAttribute="centerX" secondItem="KGk-i7-Jjw" secondAttribute="centerX" id="m3D-uK-hwb"/>
                 <constraint firstAttribute="trailing" secondItem="yLN-e9-8mI" secondAttribute="trailing" constant="8" id="q4W-FX-OMZ"/>
+                <constraint firstItem="dry-0n-fto" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="w0T-Jn-c3G"/>
             </constraints>
             <connections>
                 <outlet property="exp_day" destination="INE-oX-hGZ" id="FYU-IL-Vbn"/>
+                <outlet property="imgIndocator" destination="gFT-iw-djr" id="mpy-zj-usO"/>
                 <outlet property="imgProfile" destination="1RI-iB-Ch9" id="ffP-5g-gPd"/>
                 <outlet property="lblCountry" destination="I8c-3D-jMn" id="snT-HW-a8Y"/>
+                <outlet property="lblDelete" destination="dry-0n-fto" id="nsG-lM-KY5"/>
                 <outlet property="lblName" destination="ZdU-gf-loC" id="Hvu-GY-uvb"/>
                 <outlet property="lblTender" destination="OrP-b1-XlS" id="fjN-os-cB7"/>
                 <outlet property="name" destination="QZC-bL-ggE" id="rMs-fH-qc2"/>
                 <outlet property="title" destination="S0Q-uX-kZU" id="0Us-8n-pAh"/>
+                <outlet property="vwDelete" destination="18g-Jl-ZLQ" id="zFY-bJ-itM"/>
             </connections>
             <point key="canvasLocation" x="25" y="72.5"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="right-arr.png" width="22" height="22"/>
+        <image name="right_tick.png" width="22" height="22"/>
     </resources>
 </document>

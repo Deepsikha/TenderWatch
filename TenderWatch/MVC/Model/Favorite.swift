@@ -24,7 +24,12 @@ class Favorite: NSObject, Mappable {
     var landlineNo : String?
     var tenderName : String?
     var tenderPhoto : String?
-    var tenderUploader: String?
+    var tenderUploader: User?
+    var favorite: [String]?
+    var subscriber: String?
+    var readby: [String]?
+    var amendRead:[String]?
+    var interested: [String]?
     
     required init?(map: Map) {
         super.init()
@@ -46,5 +51,10 @@ class Favorite: NSObject, Mappable {
         tenderName      <- map["tenderName"]
         tenderPhoto     <- map["tenderPhoto"]
         tenderUploader  <- map["tenderUploader"]
+        favorite        <- map["favorite"]
+        subscriber      <- map["subscriber"]
+        readby          <- map["readby"]
+        amendRead       <- map["amendRead"]
+        interested      <- map["interested"]
     }
 }

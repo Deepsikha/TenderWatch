@@ -14,6 +14,7 @@ import FBSDKCoreKit
 import Fabric
 import Crashlytics
 import UserNotifications
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -51,7 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         registerForPushNotifications()
-//        application.applicationIconBadgeNumber = 0
+        if application.applicationIconBadgeNumber > 0 {
+            badge()
+        }
         return true
     }
     
@@ -103,10 +106,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        badge()
         application.applicationIconBadgeNumber = 0
     }
     
@@ -259,7 +264,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 // 1
                 let viewAction = UNNotificationAction(identifier: "",
-                                                      title: "View",
+                                                      title: "Contractor Detail",
                                                       options: [.foreground])
                 let cancel = UNNotificationAction(identifier: "", title: "Cancel", options: UNNotificationActionOptions.foreground)
                 // 2
@@ -279,6 +284,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let setting = UIUserNotificationSettings(types: type, categories: nil);
             UIApplication.shared.registerUserNotificationSettings(setting);
             UIApplication.shared.registerForRemoteNotifications();
+        }
+    }
+    
+    func badge() {
+        if USER?.authenticationToken != nil {
+            Alamofire.request(READ_NOTIFY, method: .put, parameters: [:], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+            })
         }
     }
 }

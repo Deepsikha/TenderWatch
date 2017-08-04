@@ -72,8 +72,58 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             } else {
                 cell.lblTender.text = "\(components.day!) days"
             }
+            
+            if (!(appDelegate.isClient)!) {
+                if !((fv.readby!.contains((USER!._id)!))) {
+                    cell.lblName.font = UIFont.boldSystemFont(ofSize: cell.lblName.font.pointSize)
+                    cell.lblTender.font = UIFont.boldSystemFont(ofSize: cell.lblTender.font.pointSize)
+                    cell.lblCountry.font = UIFont.boldSystemFont(ofSize: cell.lblCountry.font.pointSize)
+                    
+                    cell.name.font = UIFont.boldSystemFont(ofSize: cell.name.font.pointSize)
+                    cell.title.font = UIFont.boldSystemFont(ofSize: cell.title.font.pointSize)
+                    cell.exp_day.font = UIFont.boldSystemFont(ofSize: cell.exp_day.font.pointSize)
+                } else {
+                    cell.lblName.font = UIFont.systemFont(ofSize: cell.lblName.font.pointSize)
+                    cell.lblCountry.font = UIFont.systemFont(ofSize: cell.lblCountry.font.pointSize)
+                    cell.lblTender.font = UIFont.systemFont(ofSize: cell.lblTender.font.pointSize)
+                    
+                    cell.name.font = UIFont.systemFont(ofSize: cell.name.font.pointSize)
+                    cell.title.font = UIFont.systemFont(ofSize: cell.title.font.pointSize)
+                    cell.exp_day.font = UIFont.systemFont(ofSize: cell.exp_day.font.pointSize)
+                }
+            }
+            //        if (components.day! < 0) {
+            //            deleteTender(indexPath.row)
+            //        }
+            if !(appDelegate.isClient!) {
+                if (fv.amendRead != nil) {
+                    if !(fv.amendRead?.contains((USER!._id)!))! {
+                        cell.imgProfile.layer.borderWidth = 2
+                        cell.imgProfile.layer.borderColor = UIColor.red.cgColor
+                    } else {
+                        cell.imgProfile.layer.borderWidth = 0
+                        cell.imgProfile.layer.borderColor = UIColor.clear.cgColor
+                    }
+                }
+            } else {
+                cell.imgProfile.layer.borderWidth = 0
+                cell.imgProfile.layer.borderColor = UIColor.clear.cgColor
+            }
+            
+            if !(appDelegate.isClient!) {
+                if !(fv.interested!.isEmpty) {
+                    if fv.interested!.contains(USER!._id!) {
+                        cell.imgIndocator.isHidden = false
+                    } else {
+                        cell.imgIndocator.isHidden = true
+                    }
+                } else {
+                    cell.imgIndocator.isHidden = true
+                }
+            } else {
+                cell.imgIndocator.isHidden = true
+            }
         }
-        
         
         //        if (components.day! < 0) {
         //            deleteTender(indexPath.row)
@@ -129,7 +179,6 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         self.lblNoFavorite.isHidden = false
                     } else {
                         self.lblNoFavorite.isHidden = true
-                        print(resp.result.value!)
                         let data = (resp.result.value as! NSObject)
                         self.favorite = Mapper<Favorite>().mapArray(JSONObject: data)!
                         self.tblFavorite.reloadData()
@@ -150,11 +199,14 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 if(resp.response!.statusCode != 202) {
                     MessageManager.showAlert(nil, "can't add to favorite")
                 } else {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "favorite"), object: nil, userInfo: ["id":"\(USER!._id!)","tag":"2","tenderId":"\(self.favorite[index].id!)"])
+                    
                     self.favorite.remove(at: index)
                     self.tblFavorite.reloadData()
                     if (self.favorite.isEmpty) {
                         self.lblNoFavorite.isHidden = false
                     }
+                    
                     //                        MessageManager.showAlert(nil, "delete Succesfully")
                 }
                 self.stopActivityIndicator()

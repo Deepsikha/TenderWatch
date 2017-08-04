@@ -295,13 +295,13 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mail.png" translatesAutoresizingMaskIntoConstraints="NO" id="K9W-ee-Bar">
-                                    <rect key="frame" x="8" y="13" width="25" height="25"/>
+                                    <rect key="frame" x="8" y="13" width="24.5" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="K9W-ee-Bar" secondAttribute="height" multiplier="1:1" id="wCS-fj-Jko"/>
                                     </constraints>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pqb-ao-ujV">
-                                    <rect key="frame" x="58" y="10" width="174" height="30"/>
+                                    <rect key="frame" x="57.5" y="10" width="174.5" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                 </textField>
@@ -375,13 +375,13 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mobile.png" translatesAutoresizingMaskIntoConstraints="NO" id="vUH-TL-vKl">
-                                    <rect key="frame" x="8" y="13" width="25" height="25"/>
+                                    <rect key="frame" x="8" y="13" width="25.5" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="vUH-TL-vKl" secondAttribute="height" multiplier="1:1" id="EBo-qk-QnJ"/>
                                     </constraints>
                                 </imageView>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vVC-xU-AGI">
-                                    <rect key="frame" x="58" y="10" width="174" height="30"/>
+                                    <rect key="frame" x="58.5" y="10" width="173.5" height="30"/>
                                     <string key="placeholder" base64-UTF8="YES">
 TW9iaWxlIE51bWJlcgM
 </string>

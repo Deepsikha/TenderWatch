@@ -11,7 +11,7 @@ import Alamofire
 import SDWebImage
 import ObjectMapper
 
-class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var imgTenderPhoto: UIImageView!
@@ -26,7 +26,8 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var btnInterested: UIButton!
     
     @IBOutlet var vwImage: UIView!
-    @IBOutlet weak var imgProfile: UIImageView!
+    @IBOutlet var ScrollView: UIScrollView!
+    @IBOutlet var imageView: UIImageView!
     
     @IBOutlet var vwClientDetail: UIView!
     @IBOutlet weak var imgIsFollow: UIImageView!
@@ -64,8 +65,28 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         self.tblTenderContactDetail.dataSource = self
         
         self.tblTenderContactDetail.register(UINib(nibName: "ClienDetailCell", bundle: nil), forCellReuseIdentifier: "ClienDetailCell")
+        
+        
+        imageView = UIImageView(image: UIImage(named: "avtar"))
+//        imageView.sizeToFit()
+        ScrollView = UIScrollView(frame: self.view.frame)
+        ScrollView.backgroundColor = UIColor.black
+        ScrollView.contentSize = imageView.bounds.size
+        ScrollView.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        ScrollView.autoresizingMask = UIViewAutoresizing.flexibleHeight
+        ScrollView.contentOffset = CGPoint(x: 0, y: 0)
+        ScrollView.delegate = self
+        ScrollView.minimumZoomScale = 0.1
+        ScrollView.maximumZoomScale = 2.0
+        ScrollView.zoomScale = 1.0
+//        imageView.frame =         
+        ScrollView.addSubview(imageView)
+        vwImage.addSubview(ScrollView)
+        
+        setZoomScale()
+        setupGestureRecognizer()
         getDetail()
-       
+        
         // Do any additional setup after loading the view.
     }
     
@@ -77,7 +98,8 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.vwClientDetail.frame = CGRect(x: self.view.center.x - (self.vwClientDetail.frame.width / 2), y: self.btnClientDetail.bounds.origin.x + 20, width:self.vwClientDetail.frame.width, height: 300)
         self.vwImage.frame = self.view.frame
-        
+
+//        setZoomScale()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
@@ -87,6 +109,22 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: ScrollView Delegate
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        let imageViewSize = imageView.frame.size
+        let scrollViewSize = ScrollView.frame.size
+        
+        let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 2 : 0
+        let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 2 : 0
+//        scrollView.contentSize = imageViewSize
+        
+        ScrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
     }
     
     //MARK:- Table Delegate
@@ -106,10 +144,10 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationController?.popViewController(animated: true)
     }
     
-    
     @IBAction func handleBtnClientDetail(_ sender: Any) {
         self.generateSubView(sender: sender as! NSObject)
     }
+    
     @IBAction func handleBtnDelete(_ sender: Any) {
         let msg: String!
         if (appDelegate.isClient)! {
@@ -144,14 +182,14 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         }))
         
         self.present(alert, animated: true, completion: nil)
-            }
+    }
     
     @IBAction func handleBtnInterested(_ sender: Any) {
         
         if (appDelegate.isClient!) {
             UploadTenderVC.isUpdate = true
             UploadTenderVC.id = TenderWatchDetailVC.id
-
+            
             self.navigationController?.pushViewController(UploadTenderVC(), animated: true)
             
         } else {
@@ -163,9 +201,9 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                         MessageManager.showAlert(nil, "Tender added to interested")
                         self.btnInterested.isEnabled = false
                         self.btnInterested.backgroundColor = UIColor(red: 145/255, green: 216/255, blue: 79/255, alpha: 0.7)
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "interested"), object: nil, userInfo: ["id":"\(self.tenderDetail.id!)"])
-        
-
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "interested"), object: nil, userInfo: ["id":"\(self.tenderDetail.id!)","tag":"1"])
+                        
+                        
                         //fire notification
                         //work remaining based on client req.
                     }
@@ -196,7 +234,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                             MessageManager.showAlert(nil, "Tender has been amended by Client")
                             TenderWatchVC.isAmended = false
                         }
-
+                        
                         if self.tenderDetail.interested!.contains(USER!._id!) {
                             self.btnInterested.backgroundColor = UIColor(red: 145/255, green: 216/255, blue: 79/255, alpha: 0.7)
                             self.btnInterested.isEnabled = false
@@ -233,26 +271,14 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                         }
                         
                         self.txtDesc.text = self.tenderDetail.desc!
-//                        self.lblClienEmail.text = self.tenderDetail.tenderUploader!.email!
-                        
-//                        if (appDelegate.isClient!) {
-                            self.imgTenderPhoto.sd_setImage(with: URL(string: self.tenderDetail.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-                                if image != nil {
-                                    self.imgProfile.image = image!
-                                } else {
-                                    self.imgProfile.image = UIImage(named: "avtar")
-                                }
-                                
-                            })
-//                        } else {
-//                            self.imgTenderPhoto.sd_setImage(with: URL(string: self.tenderDetail.tenderUploader!.profilePhoto!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-//                                if image != nil {
-//                                    self.imgProfile.image = image!
-//                                } else {
-//                                    self.imgProfile.image = UIImage(named: "avtar")
-//                                }
-//                            })
-//                        }
+                        self.imgTenderPhoto.sd_setImage(with: URL(string: self.tenderDetail.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
+                            if image != nil {
+                                self.imageView.image = image!
+                            } else {
+                                self.imageView.image = UIImage(named: "avtar")
+                            }
+                            self.ScrollView.contentSize = self.imageView.frame.size
+                        })
                     }
                     self.tblTenderContactDetail.reloadData()
                     self.stopActivityIndicator()
@@ -264,27 +290,25 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func generateSubView(sender: NSObject) {
-//        self.transperentView = UIView(frame: UIScreen.main.bounds)
-//        self.transperentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.1)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler(sender:)))
+        
+        let tapBtn = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler(sender:)))
+        tapBtn.cancelsTouchesInView = false
+        
+        let tap = UISwipeGestureRecognizer(target: self, action: #selector(self.tapHandler(sender:)))
+        tap.direction = UISwipeGestureRecognizerDirection.right
         tap.cancelsTouchesInView = false
         
         if sender == self.btnClientDetail {
             if !self.view.subviews.contains(self.vwClientDetail) {
                 self.view.addSubview(self.vwClientDetail)
             }
-            self.vwClientDetail.addGestureRecognizer(tap)
+            self.vwClientDetail.addGestureRecognizer(tapBtn)
         } else {
             if !self.view.subviews.contains(self.vwImage) {
                 self.view.addSubview(self.vwImage)
             }
-            self.vwImage.addGestureRecognizer(tap)
+            ScrollView.addGestureRecognizer(tap)
         }
-        
-//        view.addSubview(childView)
-//        self.cView = childView
-        
-        
     }
     
     func tapHandler(sender: NSObject) {
@@ -293,6 +317,31 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         }
         if self.view.subviews.contains(self.vwImage) {
             self.vwImage.removeFromSuperview()
+        }
+    }
+    
+    func setZoomScale() {
+        let imageViewSize = imageView.bounds.size
+        let ScrollViewSize = ScrollView.bounds.size
+        let widthScale = ScrollViewSize.width / imageViewSize.width
+        let heightScale = ScrollViewSize.height / imageViewSize.height
+        
+        ScrollView.minimumZoomScale = min(widthScale,heightScale)
+        ScrollView.zoomScale = 1.0
+    }
+    
+    func setupGestureRecognizer() {
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        ScrollView.addGestureRecognizer(doubleTap)
+    }
+    
+    func handleDoubleTap(_ sender: UITapGestureRecognizer) {
+        if (ScrollView.zoomScale > ScrollView.minimumZoomScale) {
+            ScrollView.setZoomScale(ScrollView.minimumZoomScale, animated: true)
+            
+        } else {
+            ScrollView.setZoomScale(ScrollView.maximumZoomScale, animated: true)
         }
     }
     

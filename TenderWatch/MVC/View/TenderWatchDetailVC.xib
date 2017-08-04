@@ -16,7 +16,6 @@
                 <outlet property="btnDelete" destination="lKr-d4-n8X" id="Xv6-RO-XX0"/>
                 <outlet property="btnInterested" destination="SQf-6c-Phw" id="2nI-Jd-RPQ"/>
                 <outlet property="imgIsFollow" destination="RVQ-m1-7DA" id="Ut5-al-MRy"/>
-                <outlet property="imgProfile" destination="pfd-e1-cL8" id="Nue-Jo-P0A"/>
                 <outlet property="imgTenderPhoto" destination="WFe-01-Slr" id="9Bz-BU-7WD"/>
                 <outlet property="lblCategory" destination="Skj-AM-fyv" id="LMF-DV-Zac"/>
                 <outlet property="lblCountry" destination="l5e-oK-UsD" id="mkj-PW-kuE"/>
@@ -331,18 +330,7 @@
         <view contentMode="scaleToFill" id="Quf-4s-Wdy">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="pfd-e1-cL8">
-                    <rect key="frame" x="0.0" y="101" width="320" height="278"/>
-                </imageView>
-            </subviews>
             <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
-            <constraints>
-                <constraint firstItem="pfd-e1-cL8" firstAttribute="leading" secondItem="Quf-4s-Wdy" secondAttribute="leading" id="AJu-8l-bIq"/>
-                <constraint firstAttribute="trailing" secondItem="pfd-e1-cL8" secondAttribute="trailing" id="fmh-8D-HH4"/>
-                <constraint firstAttribute="bottom" secondItem="pfd-e1-cL8" secondAttribute="bottom" constant="100.33333333333337" id="muN-Te-yiT"/>
-                <constraint firstItem="pfd-e1-cL8" firstAttribute="top" secondItem="Quf-4s-Wdy" secondAttribute="top" constant="101.66666666666663" id="t2P-6s-1i0"/>
-            </constraints>
             <point key="canvasLocation" x="393" y="51"/>
         </view>
         <view contentMode="scaleToFill" id="RiD-Kc-EWy">
@@ -360,7 +348,6 @@
         </view>
     </objects>
     <resources>
-        <image name="avtar.png" width="640" height="640"/>
         <image name="left-arr.png" width="22" height="22"/>
         <image name="lookingfor.png" width="46" height="46"/>
     </resources>

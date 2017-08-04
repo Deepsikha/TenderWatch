@@ -7,21 +7,25 @@
 //
 
 import UIKit
+import Alamofire
+import ObjectMapper
 
 class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tblNotifications: UITableView!
     @IBOutlet weak var lblNoNotifications: UILabel!
     
-    var notification: [String] = []
+    var notification: [Notification] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tblNotifications.delegate = self
         self.tblNotifications.dataSource = self
         
-        self.tblNotifications.register(UINib(nibName: "SubscriptionCell", bundle: nil), forCellReuseIdentifier: "SubscriptionCell")
+        self.tblNotifications.register(UINib(nibName: "MappingCell", bundle: nil), forCellReuseIdentifier: "MappingCell")
         self.tblNotifications.tableFooterView = UIView()
+        tblNotifications.rowHeight = UITableViewAutomaticDimension
+        tblNotifications.estimatedRowHeight = 140
         // Do any additional setup after loading the view.
     }
     
@@ -32,8 +36,10 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        getNotification()
+
         self.navigationController?.isNavigationBarHidden = true
-        self.notification.append("mike")
+//        self.notification.append("mike")
         self.tblNotifications.reloadData()
         self.lblNoNotifications.isHidden = false
         
@@ -54,7 +60,9 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let  cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionCell", for: indexPath) as! SubscriptionCell
+        let  cell = tableView.dequeueReusableCell(withIdentifier: "MappingCell", for: indexPath) as! MappingCell
+        let noti = self.notification[indexPath.row]
+        cell.lblCategory.text = noti.message!
         
         //        if (components.day! < 0) {
         //            deleteTender(indexPath.row)
@@ -98,5 +106,31 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK:- IBAction
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
+    }
+    
+    func getNotification() {
+        if isNetworkReachable() {
+            self.startActivityIndicator()
+            Alamofire.request(READ_NOTIFY, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                if(resp.result.value != nil) {
+                    if resp.result.value is NSDictionary {
+                        //                        MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
+                        self.lblNoNotifications.isHidden = false
+                    } else {
+                        self.lblNoNotifications.isHidden = true
+                        let data = (resp.result.value as! NSObject)
+                        self.notification = Mapper<Notification>().mapArray(JSONObject: data)!
+                        
+                        self.tblNotifications.reloadData()
+                        self.stopActivityIndicator()
+                    }
+                }
+                print(resp.result)
+                self.stopActivityIndicator()
+            })
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
+            self.stopActivityIndicator()
+        }
     }
 }
