@@ -154,6 +154,12 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     print("Suucess")
                 }
             })
+            if appDelegate.isClient! {
+                UserDefaults.standard.setValue(USER!.email!, forKey: "eClient")
+            } else {
+                UserDefaults.standard.setValue(USER!.email!, forKey: "eContractor")
+            }
+            
             UserManager.shared.logoutCurrentUser()
             //            let nav = UINavigationController(rootViewController: HomeVC())
             

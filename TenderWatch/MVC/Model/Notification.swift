@@ -33,7 +33,7 @@ class Notification: NSObject, Mappable {
     }
     
     func mapping(map: Map) {
-        id          <- map["id"]
+        id          <- map["_id"]
         user        <- map["user"]
         tender      <- map["tender"]
         message     <- map["message"]

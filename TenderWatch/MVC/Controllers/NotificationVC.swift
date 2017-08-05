@@ -37,16 +37,14 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(_ animated: Bool) {
         getNotification()
-
         self.navigationController?.isNavigationBarHidden = true
-//        self.notification.append("mike")
         self.tblNotifications.reloadData()
-        self.lblNoNotifications.isHidden = false
-        
+        if self.notification.isEmpty {
+            self.lblNoNotifications.isHidden = false
+        }
     }
     
     //MARK:- Table Delegate
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -83,7 +81,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             }))
             alert.addAction(UIAlertAction(title: "Remove", style: .cancel, handler:{ action in
                 tableView.reloadRows(at: [index], with: .none)
-//                self.removeTender(index.row)
+                self.removeNotification(index.row)
                 
             }))
             
@@ -131,6 +129,30 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             MessageManager.showAlert(nil, "No Internet")
             self.stopActivityIndicator()
+        }
+    }
+    
+    func removeNotification(_ index: Int) {
+        
+        if isNetworkReachable() {
+            self.stopActivityIndicator()
+            Alamofire.request(NOTIFICATION+notification[index].id! , method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+                if(resp.response?.statusCode != nil) {
+                    if !(resp.response?.statusCode == 200) {
+                        MessageManager.showAlert(nil, "can't Remove Notification")
+                    } else {
+                        self.notification.remove(at: index)
+                        self.tblNotifications.reloadData()
+                        if (self.notification.isEmpty) {
+                            self.lblNoNotifications.isHidden = false
+                        }
+                        //                        MessageManager.showAlert(nil, "Remove Succesfully")
+                    }
+                    self.stopActivityIndicator()
+                }
+            }
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
         }
     }
 }

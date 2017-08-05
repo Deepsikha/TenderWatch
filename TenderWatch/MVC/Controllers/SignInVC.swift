@@ -30,6 +30,16 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
         
         self.txfEmail.delegate = self
         self.txfPassword.delegate = self
+        
+        if appDelegate.isClient! {
+            if let eClient = UserDefaults.standard.value(forKey: "eClient") {
+                self.txfEmail.text = eClient as? String
+            }
+        } else {
+            if let eContractor = UserDefaults.standard.value(forKey: "eContractor") {
+                self.txfEmail.text = eContractor as? String
+            }
+        }
         // TODO: Track the user action that is important for you.
         //        Answers.logContentView(withName: "Tweet", contentType: "Video", contentId: "1234", customAttributes: ["Favorites Count":20, "Screen Orientation":"Landscape"])
         
@@ -128,11 +138,15 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
     
     @IBAction func btnHandleSignIn(_ sender: UIButton) {
         //        signUpUser =  signUpUserData()
+        if isNetworkReachable() {
         let parameters: Parameters = ["email" : self.txfEmail.text!,
                                       "password" : self.txfPassword.text!,
                                       "role" : appDelegate.isClient! ? "client" : "contractor",
                                       "deviceId": appDelegate.token!]
         Login(LOGIN, parameters)
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
+        }
         
     }
     

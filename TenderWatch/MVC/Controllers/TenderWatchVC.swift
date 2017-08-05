@@ -177,7 +177,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             print("Remove button tapped")
             let msg: String!
             if (appDelegate.isClient!) {
-                msg = "Tender will be completely removed from TenderWatch?"
+                msg = "Tender will be completely removed from TenderWatch. are you sure ypu want to delete?"
             } else {
                 msg = "Are you sure you want to remove this Tender completely from your Account?"
             }
