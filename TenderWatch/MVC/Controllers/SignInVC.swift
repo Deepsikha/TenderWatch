@@ -23,6 +23,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
     
     var user: User!
     var window: UIWindow!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         GIDSignIn.sharedInstance().delegate = self
@@ -33,13 +34,32 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
         
         if appDelegate.isClient! {
             if let eClient = UserDefaults.standard.value(forKey: "eClient") {
-                self.txfEmail.text = eClient as? String
+                do {
+                    let passwordItem = KeychainPasswordItem(service: KeychainConfig.service, account: eClient as! String, accessGroup: KeychainConfig.accessGroup)
+                    
+                    self.txfEmail.text = passwordItem.account
+                    self.txfPassword.text = try passwordItem.readPassword()
+                }
+                catch {
+                    fatalError("Error reading password from keychain - \(error)")
+                }
             }
         } else {
             if let eContractor = UserDefaults.standard.value(forKey: "eContractor") {
-                self.txfEmail.text = eContractor as? String
+                do {
+                    let passwordItem = KeychainPasswordItem(service: KeychainConfig.service, account: eContractor as! String, accessGroup: KeychainConfig.accessGroup)
+                    
+                    self.txfEmail.text = passwordItem.account
+                    self.txfPassword.text = try passwordItem.readPassword()
+                }
+                catch {
+                    fatalError("Error reading password from keychain - \(error)")
+                }
             }
         }
+        
+        
+
         // TODO: Track the user action that is important for you.
         //        Answers.logContentView(withName: "Tweet", contentType: "Video", contentId: "1234", customAttributes: ["Favorites Count":20, "Screen Orientation":"Landscape"])
         
@@ -155,7 +175,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
         UserManager.shared.signInUser(url: url, with: param, successHandler: { (user) in
             print("Logged In")
             appDelegate.setHomeViewController()
-            
+            self.store()
             if (url == G_LOGIN) {
                 self.dismiss(animated: true, completion: nil)
             }
@@ -191,5 +211,34 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
                 }
             })
         }
+    }
+    
+    func store() {
+        // Check that text has been entered into both the account and password fields.
+        guard let newAccountName = self.txfEmail.text, let newPassword = self.txfPassword.text, !newAccountName.isEmpty && !newPassword.isEmpty else { return }
+        
+        // Check if we need to update an existing item or create a new one.
+        do {
+            if let originalAccountName = self.txfEmail.text {
+                // Create a keychain item with the original account name.
+                var passwordItem = KeychainPasswordItem(service: KeychainConfig.service, account: originalAccountName, accessGroup: KeychainConfig.accessGroup)
+                
+                // Update the account name and password.
+                try passwordItem.renameAccount(newAccountName)
+                try passwordItem.savePassword(newPassword)
+            }
+            else {
+                // This is a new account, create a new keychain item with the account name.
+                let passwordItem = KeychainPasswordItem(service: KeychainConfig.service, account: newAccountName, accessGroup: KeychainConfig.accessGroup)
+                
+                // Save the password for the new item.
+                try passwordItem.savePassword(newPassword)
+            }
+        }
+        catch {
+            fatalError("Error updating keychain - \(error)")
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
 }

@@ -245,18 +245,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         // self.tblMappings.reloadData()
     }
-    //    {
-    //    5950efa4b8b3a71b4ce68a0e =     (
-    //    5950edfe518d6524ac0f3f25,
-    //    5950ee44518d6524ac0f3f26,
-    //    5950ee6a518d6524ac0f3f27
-    //    );
-    //    5950efc2b8b3a71b4ce68a0f =     (
-    //    5950edfe518d6524ac0f3f25,
-    //    5950ee6a518d6524ac0f3f27,
-    //    5950ee44518d6524ac0f3f26
-    //    );
-    //    }
+
     func getServices() {
         if isNetworkReachable() {
             self.startActivityIndicator()

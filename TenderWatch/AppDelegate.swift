@@ -53,7 +53,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         registerForPushNotifications()
         if application.applicationIconBadgeNumber > 0 {
-            badge()
+            badgeCount()
+            application.applicationIconBadgeNumber = 0
         }
         return true
     }
@@ -104,6 +105,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
+        badgeCount()
+
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
@@ -111,7 +114,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        badge()
         application.applicationIconBadgeNumber = 0
     }
     
@@ -287,7 +289,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func badge() {
+    func badgeCount() {
         if USER?.authenticationToken != nil {
             Alamofire.request(READ_NOTIFY, method: .put, parameters: [:], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
             })

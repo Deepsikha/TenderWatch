@@ -103,14 +103,14 @@
                             <constraint firstAttribute="height" constant="18" id="pNj-4l-9gU"/>
                         </constraints>
                     </imageView>
-                    <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18g-Jl-ZLQ">
+                    <view hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18g-Jl-ZLQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deleted!!!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dry-0n-fto">
-                        <rect key="frame" x="114" y="32" width="91" height="21"/>
+                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Removed!!!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dry-0n-fto">
+                        <rect key="frame" x="81.893617021276611" y="31.87814313346297" width="155" height="20.999999999999986"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="91" id="01o-lk-u8a"/>
+                            <constraint firstAttribute="width" constant="155" id="01o-lk-u8a"/>
                             <constraint firstAttribute="height" constant="20.999999999999993" id="H8q-cr-ud3"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>

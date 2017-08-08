@@ -181,6 +181,7 @@
 		7DA068FF1F19ED3700D9352A /* userthree@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA068961F19ED3700D9352A /* userthree@1x.png */; };
 		7DA069001F19ED3700D9352A /* userthree@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA068971F19ED3700D9352A /* userthree@2x.png */; };
 		7DA069011F19ED3700D9352A /* userthree@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DA068981F19ED3700D9352A /* userthree@3x.png */; };
+		7DA63F7F1F39BAC300432D87 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA63F7E1F39BAC300432D87 /* KeychainPasswordItem.swift */; };
 		7DB5E6A11F29E72D00A5E3F4 /* TenderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB5E6A01F29E72D00A5E3F4 /* TenderDetail.swift */; };
 		7DCB9D5B1F33549500C1DF0D /* right_tick@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DCB9D581F33549500C1DF0D /* right_tick@1x.png */; };
 		7DCB9D5C1F33549500C1DF0D /* right_tick@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DCB9D591F33549500C1DF0D /* right_tick@2x.png */; };
@@ -406,6 +407,7 @@
 		7DA068961F19ED3700D9352A /* userthree@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userthree@1x.png"; sourceTree = "<group>"; };
 		7DA068971F19ED3700D9352A /* userthree@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userthree@2x.png"; sourceTree = "<group>"; };
 		7DA068981F19ED3700D9352A /* userthree@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userthree@3x.png"; sourceTree = "<group>"; };
+		7DA63F7E1F39BAC300432D87 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		7DB5E6A01F29E72D00A5E3F4 /* TenderDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenderDetail.swift; sourceTree = "<group>"; };
 		7DCB9D581F33549500C1DF0D /* right_tick@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_tick@1x.png"; sourceTree = "<group>"; };
 		7DCB9D591F33549500C1DF0D /* right_tick@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_tick@2x.png"; sourceTree = "<group>"; };
@@ -624,6 +626,7 @@
 		7D0394301EFB61FF00B494EF /* library */ = {
 			isa = PBXGroup;
 			children = (
+				7DA63F7E1F39BAC300432D87 /* KeychainPasswordItem.swift */,
 				7D0394311EFB61FF00B494EF /* DrawerController */,
 			);
 			path = library;
@@ -1274,6 +1277,7 @@
 				7D03944B1EFB65E800B494EF /* SideMenuCell.swift in Sources */,
 				7D2E22481F00B98500A0783E /* SubscriptionVC.swift in Sources */,
 				7D0394451EFB63B500B494EF /* SideMenuVC.swift in Sources */,
+				7DA63F7F1F39BAC300432D87 /* KeychainPasswordItem.swift in Sources */,
 				5C34B6F61EFA181B0062B987 /* ChangePasswordVC.swift in Sources */,
 				27EF44931EF8BD5600CCBCA0 /* RulesVC.swift in Sources */,
 				7D60C9E01F18ACC200DAA69F /* Favorite.swift in Sources */,
