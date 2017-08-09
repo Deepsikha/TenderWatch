@@ -36,10 +36,9 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var tblTenderContactHeight: NSLayoutConstraint!
     @IBOutlet weak var vwHeight: NSLayoutConstraint!
     
-    var transperentView = UIView()
     var cView: UIView!
     var tenderDetail: TenderDetail!
-    
+    var transperentView = UIView()
     static var id:String!
     var dic: [String: String] = [:]
     
@@ -49,6 +48,10 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         self.btnDelete.layer.cornerRadius = 8
         self.btnInterested.layer.cornerRadius = 8
         
+        self.imgIsFollow.layer.cornerRadius = 8
+        self.vwClientDetail.layer.cornerRadius = 8
+        self.vwClientDetail.layer.borderWidth = 1
+        self.vwClientDetail.layer.borderColor  = UIColor.white.cgColor
         if appDelegate.isClient! {
             self.btnInterested.setTitle("Amend", for: .normal)
             self.btnInterested.layer.backgroundColor = UIColor.gray.cgColor
@@ -97,9 +100,11 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         self.txtVwDescHeight.constant = self.txtDesc.contentSize.height
         self.tblTenderContactHeight.constant = CGFloat(self.dic.count * 30)
         self.vwHeight.constant = self.vwHeight.constant + (self.txtDesc.contentSize.height - self.txtDesc.frame.height) //+ (self.tblTenderContactHeight.constant - 30)
-        
-        self.vwClientDetail.frame = CGRect(x: self.view.center.x - (self.vwClientDetail.frame.width / 2), y: self.btnClientDetail.frame.origin.x - 50, width:self.vwClientDetail.frame.width, height: 300)
+        self.transperentView.frame = self.view.frame
+
+        self.vwClientDetail.frame = CGRect(x: self.transperentView.center.x - (self.vwClientDetail.frame.width / 2), y: self.transperentView.center.y - 150, width:self.vwClientDetail.frame.width, height: self.vwClientDetail.frame.height)
         self.vwImage.frame = self.view.frame
+        
 //        setZoomScale()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -149,12 +154,15 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         if appDelegate.isClient! {
             
         } else {
-            if !(self.tenderDetail.isFollowTender)! {
+            if (self.tenderDetail.isFollowTender)! {
                 self.imgIsFollow.sd_setImage(with: URL(string: self.tenderDetail.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: .progressiveDownload, completed: { (image, error, memory, url) in
                 })
+                self.generateSubView(sender: sender as! NSObject)
+            } else {
+                
             }
         }
-        self.generateSubView(sender: sender as! NSObject)
+        
     }
     
     @IBAction func handleBtnDelete(_ sender: Any) {
@@ -307,12 +315,19 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         let tap = UISwipeGestureRecognizer(target: self, action: #selector(self.tapHandler(sender:)))
         tap.direction = UISwipeGestureRecognizerDirection.right
         tap.cancelsTouchesInView = false
-        
+
         if sender == self.btnClientDetail {
-            if !self.view.subviews.contains(self.vwClientDetail) {
-                self.view.addSubview(self.vwClientDetail)
+            if self.tenderDetail.isFollowTender! {
+                self.transperentView = UIView(frame: self.view.frame)
+                self.transperentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.25)
+                self.transperentView.addSubview(self.vwClientDetail)
+                if !self.view.subviews.contains(self.transperentView) {
+                    self.view.addSubview(self.transperentView)
+                }
+                self.transperentView.addGestureRecognizer(tapBtn)
+            } else {
+                
             }
-            self.vwClientDetail.addGestureRecognizer(tapBtn)
         } else {
             if !self.view.subviews.contains(self.vwImage) {
                 self.view.addSubview(self.vwImage)
@@ -322,8 +337,8 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tapHandler(sender: NSObject) {
-        if self.view.subviews.contains(self.vwClientDetail) {
-            self.vwClientDetail.removeFromSuperview()
+        if self.view.subviews.contains(self.transperentView) {
+            self.transperentView.removeFromSuperview()
         }
         if self.view.subviews.contains(self.vwImage) {
             self.vwImage.removeFromSuperview()

@@ -147,6 +147,7 @@ class RulesVC: UIViewController {
                                 UserManager.shared.user = user
                                 USER = user
                                 appDelegate.setHomeViewController()
+                                self.store()
                                 //                             self.navigationController?.pushViewController(TenderWatchVC(), animated: true)
                                 // self.user = user
                                 // USER = user
@@ -167,5 +168,19 @@ class RulesVC: UIViewController {
             self.btnSignUp.isEnabled = true
             self.stopActivityIndicator()
         }        
+    }
+    
+    func store() {
+        // Check that text has been entered into both the account and password fields.
+        if !signUpUser.email.isEmpty && !signUpUser.password.isEmpty {
+            let passwordItem = KeychainPasswordItem(service: KeychainConfig.service, account: signUpUser.email, accessGroup: KeychainConfig.accessGroup)
+            do {
+                try passwordItem.savePassword(signUpUser.password)
+            } catch {
+                fatalError("Error updating keychain - \(error)")
+            }
+        } else {
+            return
+        }
     }
 }

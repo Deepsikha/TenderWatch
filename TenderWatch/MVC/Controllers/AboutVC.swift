@@ -76,7 +76,7 @@ class AboutVC: UIViewController, UITextViewDelegate {
         if(newLength <= limitLength){
             self.lblCharLimit.text = "\(1000 - newLength)"+" / 1000"
             return true
-        }else{
+        } else {
             return false
         }
     }

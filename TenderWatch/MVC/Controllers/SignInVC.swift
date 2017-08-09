@@ -238,7 +238,5 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
         catch {
             fatalError("Error updating keychain - \(error)")
         }
-        
-        dismiss(animated: true, completion: nil)
     }
 }
