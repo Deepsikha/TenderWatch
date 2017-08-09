@@ -68,7 +68,8 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         
         
         imageView = UIImageView(image: UIImage(named: "avtar"))
-//        imageView.sizeToFit()
+        imageView.sizeToFit()
+        
         ScrollView = UIScrollView(frame: self.view.frame)
         ScrollView.backgroundColor = UIColor.black
         ScrollView.contentSize = imageView.bounds.size
@@ -79,7 +80,8 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         ScrollView.minimumZoomScale = 0.1
         ScrollView.maximumZoomScale = 2.0
         ScrollView.zoomScale = 1.0
-//        imageView.frame =         
+        ScrollView.showsVerticalScrollIndicator = false
+        ScrollView.showsHorizontalScrollIndicator = false
         ScrollView.addSubview(imageView)
         vwImage.addSubview(ScrollView)
         
@@ -96,9 +98,8 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         self.tblTenderContactHeight.constant = CGFloat(self.dic.count * 30)
         self.vwHeight.constant = self.vwHeight.constant + (self.txtDesc.contentSize.height - self.txtDesc.frame.height) //+ (self.tblTenderContactHeight.constant - 30)
         
-        self.vwClientDetail.frame = CGRect(x: self.view.center.x - (self.vwClientDetail.frame.width / 2), y: self.btnClientDetail.bounds.origin.x + 20, width:self.vwClientDetail.frame.width, height: 300)
+        self.vwClientDetail.frame = CGRect(x: self.view.center.x - (self.vwClientDetail.frame.width / 2), y: self.btnClientDetail.frame.origin.x - 50, width:self.vwClientDetail.frame.width, height: 300)
         self.vwImage.frame = self.view.frame
-
 //        setZoomScale()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -145,6 +146,14 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @IBAction func handleBtnClientDetail(_ sender: Any) {
+        if appDelegate.isClient! {
+            
+        } else {
+            if !(self.tenderDetail.isFollowTender)! {
+                self.imgIsFollow.sd_setImage(with: URL(string: self.tenderDetail.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: .progressiveDownload, completed: { (image, error, memory, url) in
+                })
+            }
+        }
         self.generateSubView(sender: sender as! NSObject)
     }
     
@@ -213,6 +222,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
+    //MARK:- Custom Methods
     func getDetail() {
         if isNetworkReachable() {
             self.startActivityIndicator()

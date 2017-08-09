@@ -29,7 +29,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var vwSelectCountry: UIView!
     @IBOutlet weak var vwSelectCategory: UIView!
     @IBOutlet weak var vwMain: UIView!
-    @IBOutlet weak var tempView: UIView!
     @IBOutlet var vwContactPopup: UIView!
     @IBOutlet var tblOptions: UITableView!
     @IBOutlet weak var txfEmail: UITextField!
@@ -40,6 +39,11 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var const_vwMain_height: NSLayoutConstraint!
     @IBOutlet weak var vwBlur: UIView!
     @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnFollow: UIButton!
+    
+    let checkedImage = UIImage(named: "chaboxcheked")! as UIImage
+    let uncheckedImage = UIImage(named: "chabox")! as UIImage
+    var isChecked: Bool = false
     
     var arrDropDown = [String]()
     var tender = [Tender]()
@@ -344,7 +348,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 "email": self.uploadTender.email,
                 "landlineNo": self.uploadTender.landLineNo,
                 "contactNo": self.uploadTender.contactNo,
-                "address": self.uploadTender.address]
+                "address": self.uploadTender.address,
+                "isFollowTender": isChecked ? "true" : "false"]
             
             self.submit(UPLOAD_TENDER+"\(UploadTenderVC.id!)", .put, parameter, "Successfully Updated")
         } else {
@@ -355,7 +360,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                                            "email": self.uploadTender.email,
                                            "landlineNo": self.uploadTender.landLineNo,
                                            "contactNo": self.uploadTender.contactNo,
-                                           "address": self.uploadTender.address]
+                                           "address": self.uploadTender.address,
+                                           "isFollowTender": isChecked ? "true" : "false"]
             self.submit(UPLOAD_TENDER, .post, parameter, "Successfully Uploaded")
         }
         
@@ -405,6 +411,16 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         UploadTenderVC.isUpdate = false
         
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func handleBtnFollow(_ sender: Any) {
+        if(isChecked == true) {
+            self.btnFollow.setImage(uncheckedImage, for: .normal)
+            self.isChecked = !isChecked
+        } else {
+            self.btnFollow.setImage(checkedImage, for: .normal)
+            self.isChecked = !isChecked
+        }
     }
     //MARK:- Custom Method
     func registerNib(){
@@ -462,6 +478,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                     }
                 
                     for (key, value) in param {
+            
                         multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
                     }
                 }, usingThreshold: 0, to: url, method: reqMethod, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
@@ -612,7 +629,13 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                         self.txfMobileNo.text = self.update.contactNo!.isEmpty ? "" : self.update.contactNo
                         self.txfLandLineNo.text = self.update.landlineNo!.isEmpty ? "" : self.update.landlineNo
                         self.txtvwAddress.text = self.update.address!.isEmpty ? "" : self.update.address
-                        
+                        self.isChecked = self.update.isFollowTender!
+                        if (self.isChecked) {
+                            self.btnFollow.setImage(self.checkedImage, for: .normal)
+                        } else {
+                            self.btnFollow.setImage(self.uncheckedImage, for: .normal)
+
+                        }
                         self.btnImage.imageView?.sd_setImage(with: URL(string: self.update.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
                             if image == nil {
                                 self.btnImage.setImage(UIImage(named: "avtar"), for: .normal)

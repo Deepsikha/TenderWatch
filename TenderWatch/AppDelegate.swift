@@ -229,14 +229,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.drawerController.showsShadows = true
         
         self.drawerController.restorationIdentifier = "Drawer"
-        self.drawerController.maximumRightDrawerWidth = 150.0
+        self.drawerController.maximumLeftDrawerWidth = UIScreen.main.bounds.width / 1.25
         self.drawerController.closeDrawerGestureModeMask = .all
         self.window?.rootViewController = self.drawerController
         self.window?.makeKeyAndVisible()
     }
     
-    func setHomeViewController()
-    {
+    func setHomeViewController() {
         // Override point for customization after application launch.
         let leftSideDrawerViewController = SideMenuVC(nibName: "SideMenuVC", bundle: nil)
         let centerViewController = TenderWatchVC(nibName: "TenderWatchVC", bundle: nil)
@@ -251,7 +250,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.drawerController.showsShadows = true
         
         self.drawerController.restorationIdentifier = "Drawer"
-        self.drawerController.maximumRightDrawerWidth = 150.0
+        self.drawerController.maximumLeftDrawerWidth = UIScreen.main.bounds.width / 1.25
         self.drawerController.closeDrawerGestureModeMask = .all
         self.window?.rootViewController = self.drawerController
         self.window?.makeKeyAndVisible()

@@ -11,6 +11,7 @@
 		0CE01BEF1F039E5100111940 /* FavoriteVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CE01BEE1F039E5100111940 /* FavoriteVC.xib */; };
 		0CE01BF21F03A03100111940 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE01BF01F03A03100111940 /* NotificationVC.swift */; };
 		0CE01BF51F03A07900111940 /* NotificationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CE01BF41F03A07900111940 /* NotificationVC.xib */; };
+		137C941B9AB69BB2C49FE260 /* Pods_TenderWatchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EE7D6FD10F57B92B3854AD /* Pods_TenderWatchTests.framework */; };
 		275211F81F022B4800DADAC9 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275211F71F022B4800DADAC9 /* APIManager.swift */; };
 		275211FD1F02565400DADAC9 /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275211FC1F02565400DADAC9 /* APIConstant.swift */; };
 		276494031F0270CB00E05241 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276494021F0270CB00E05241 /* UserManager.swift */; };
@@ -32,6 +33,7 @@
 		27EF449A1EF8BD5F00CCBCA0 /* SignInVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27EF44971EF8BD5F00CCBCA0 /* SignInVC.xib */; };
 		27EF44AC1EF8BE0900CCBCA0 /* SignUpVC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EF44AB1EF8BE0900CCBCA0 /* SignUpVC2.swift */; };
 		27EF4FBF1EF8BE7300CCBCA0 /* SignUpVC2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27EF4FBE1EF8BE7300CCBCA0 /* SignUpVC2.xib */; };
+		31CD86D3800C9829720FF338 /* Pods_TenderWatchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6E1B01FE7BC3C80966FBEEE /* Pods_TenderWatchUITests.framework */; };
 		5C31506C1F03AADB00C96182 /* UploadTenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C31506A1F03AADB00C96182 /* UploadTenderVC.swift */; };
 		5C31506F1F03AAFB00C96182 /* UploadTenderVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C31506E1F03AAFB00C96182 /* UploadTenderVC.xib */; };
 		5C34B6F61EFA181B0062B987 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34B6F41EFA181B0062B987 /* ChangePasswordVC.swift */; };
@@ -196,9 +198,7 @@
 		7DFE22471F1F9153009F7676 /* mainscreen@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFE22441F1F9153009F7676 /* mainscreen@1x.png */; };
 		7DFE22481F1F9153009F7676 /* mainscreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFE22451F1F9153009F7676 /* mainscreen@2x.png */; };
 		7DFE22491F1F9153009F7676 /* mainscreen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFE22461F1F9153009F7676 /* mainscreen@3x.png */; };
-		84020549E387AE73235873C3 /* Pods_TenderWatchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A52F7E1FD1B862E142B82F61 /* Pods_TenderWatchUITests.framework */; };
-		D31578A73DF49D96ECE536D1 /* Pods_TenderWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26AE8EB22C3106F7765969E5 /* Pods_TenderWatch.framework */; };
-		D596C57ACA935DF7DF86855C /* Pods_TenderWatchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F228BED95255A806449442C /* Pods_TenderWatchTests.framework */; };
+		936C51E7D1FD0CD8D9E3E9C9 /* Pods_TenderWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1278F4AF4966EBF17FF721B /* Pods_TenderWatch.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,12 +219,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01EB073AEFBAD65B22B09B7A /* Pods-TenderWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatch.release.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatch/Pods-TenderWatch.release.xcconfig"; sourceTree = "<group>"; };
 		0CE01BEA1F039E3100111940 /* FavoriteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteVC.swift; sourceTree = "<group>"; };
 		0CE01BEE1F039E5100111940 /* FavoriteVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoriteVC.xib; sourceTree = "<group>"; };
 		0CE01BF01F03A03100111940 /* NotificationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		0CE01BF41F03A07900111940 /* NotificationVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationVC.xib; sourceTree = "<group>"; };
-		1F228BED95255A806449442C /* Pods_TenderWatchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenderWatchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26AE8EB22C3106F7765969E5 /* Pods_TenderWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenderWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E94FE835E3957C021B924D9 /* Pods-TenderWatchUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatchUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatchUITests/Pods-TenderWatchUITests.release.xcconfig"; sourceTree = "<group>"; };
 		275211F71F022B4800DADAC9 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		275211FC1F02565400DADAC9 /* APIConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstant.swift; sourceTree = "<group>"; };
 		276494021F0270CB00E05241 /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
@@ -252,8 +252,7 @@
 		27EF44971EF8BD5F00CCBCA0 /* SignInVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInVC.xib; sourceTree = "<group>"; };
 		27EF44AB1EF8BE0900CCBCA0 /* SignUpVC2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC2.swift; sourceTree = "<group>"; };
 		27EF4FBE1EF8BE7300CCBCA0 /* SignUpVC2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpVC2.xib; sourceTree = "<group>"; };
-		48D9FE767D6A6736C2955044 /* Pods-TenderWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatch.release.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatch/Pods-TenderWatch.release.xcconfig"; sourceTree = "<group>"; };
-		5A074A195A2D64C70B2C0A39 /* Pods-TenderWatchUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatchUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatchUITests/Pods-TenderWatchUITests.release.xcconfig"; sourceTree = "<group>"; };
+		43EE7D6FD10F57B92B3854AD /* Pods_TenderWatchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenderWatchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C31506A1F03AADB00C96182 /* UploadTenderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadTenderVC.swift; sourceTree = "<group>"; };
 		5C31506E1F03AAFB00C96182 /* UploadTenderVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadTenderVC.xib; sourceTree = "<group>"; };
 		5C34B6F41EFA181B0062B987 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
@@ -262,7 +261,7 @@
 		5CF289B11EFB8C8A00F3EC79 /* RegisterCountryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCountryVC.swift; sourceTree = "<group>"; };
 		5CF289B51EFB8CA700F3EC79 /* RegisterCountryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterCountryVC.xib; sourceTree = "<group>"; };
 		5CF289B71EFBB21A00F3EC79 /* RegisterCountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCountryCell.swift; sourceTree = "<group>"; };
-		777F120D0DC01B82EF3ACD26 /* Pods-TenderWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatch/Pods-TenderWatch.debug.xcconfig"; sourceTree = "<group>"; };
+		647D4EE8E7F04C8D50E160B3 /* Pods-TenderWatchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatchUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatchUITests/Pods-TenderWatchUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7B4A06A21EF8F2B800359E16 /* TenderWatchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TenderWatchVC.swift; sourceTree = "<group>"; };
 		7B4A06A61EF8F2E000359E16 /* TenderWatchVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TenderWatchVC.xib; sourceTree = "<group>"; };
 		7D00294C1F2727850070D940 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -422,10 +421,11 @@
 		7DFE22441F1F9153009F7676 /* mainscreen@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mainscreen@1x.png"; sourceTree = "<group>"; };
 		7DFE22451F1F9153009F7676 /* mainscreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mainscreen@2x.png"; sourceTree = "<group>"; };
 		7DFE22461F1F9153009F7676 /* mainscreen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mainscreen@3x.png"; sourceTree = "<group>"; };
-		89EB1A7577007745F5DB3DA3 /* Pods-TenderWatchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatchUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatchUITests/Pods-TenderWatchUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		908FAB3820B36BBF106958AA /* Pods-TenderWatchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatchTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatchTests/Pods-TenderWatchTests.release.xcconfig"; sourceTree = "<group>"; };
-		A52F7E1FD1B862E142B82F61 /* Pods_TenderWatchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenderWatchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4E2682FBB1C22E2F075F354 /* Pods-TenderWatchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatchTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatchTests/Pods-TenderWatchTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B21DBEE043D80B62809C55B8 /* Pods-TenderWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatch/Pods-TenderWatch.debug.xcconfig"; sourceTree = "<group>"; };
+		D6E1B01FE7BC3C80966FBEEE /* Pods_TenderWatchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenderWatchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1278F4AF4966EBF17FF721B /* Pods_TenderWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TenderWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F43C50612403B586970CF420 /* Pods-TenderWatchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatchTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatchTests/Pods-TenderWatchTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F49BCA2C77A93A81114DCC9B /* Pods-TenderWatchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TenderWatchTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TenderWatchTests/Pods-TenderWatchTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -433,7 +433,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D31578A73DF49D96ECE536D1 /* Pods_TenderWatch.framework in Frameworks */,
+				936C51E7D1FD0CD8D9E3E9C9 /* Pods_TenderWatch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +441,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D596C57ACA935DF7DF86855C /* Pods_TenderWatchTests.framework in Frameworks */,
+				137C941B9AB69BB2C49FE260 /* Pods_TenderWatchTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,7 +449,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84020549E387AE73235873C3 /* Pods_TenderWatchUITests.framework in Frameworks */,
+				31CD86D3800C9829720FF338 /* Pods_TenderWatchUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,8 +472,8 @@
 				2790043A1EF766DC00EB198C /* TenderWatchTests */,
 				279004451EF766DC00EB198C /* TenderWatchUITests */,
 				279004241EF766DC00EB198C /* Products */,
-				951AA33AD5BF5C34B163C77B /* Pods */,
-				F6CB3A5FD8075556A8AA2FC1 /* Frameworks */,
+				57CD946B91EF57717A7E77DA /* Pods */,
+				D104FFED6874EB1259B6C679 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -621,6 +621,19 @@
 				7D3E13AC1F276546004729C0 /* ClienDetailCell.xib */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		57CD946B91EF57717A7E77DA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B21DBEE043D80B62809C55B8 /* Pods-TenderWatch.debug.xcconfig */,
+				01EB073AEFBAD65B22B09B7A /* Pods-TenderWatch.release.xcconfig */,
+				F43C50612403B586970CF420 /* Pods-TenderWatchTests.debug.xcconfig */,
+				F49BCA2C77A93A81114DCC9B /* Pods-TenderWatchTests.release.xcconfig */,
+				647D4EE8E7F04C8D50E160B3 /* Pods-TenderWatchUITests.debug.xcconfig */,
+				0E94FE835E3957C021B924D9 /* Pods-TenderWatchUITests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		7D0394301EFB61FF00B494EF /* library */ = {
@@ -782,25 +795,12 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
-		951AA33AD5BF5C34B163C77B /* Pods */ = {
+		D104FFED6874EB1259B6C679 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				777F120D0DC01B82EF3ACD26 /* Pods-TenderWatch.debug.xcconfig */,
-				48D9FE767D6A6736C2955044 /* Pods-TenderWatch.release.xcconfig */,
-				D4E2682FBB1C22E2F075F354 /* Pods-TenderWatchTests.debug.xcconfig */,
-				908FAB3820B36BBF106958AA /* Pods-TenderWatchTests.release.xcconfig */,
-				89EB1A7577007745F5DB3DA3 /* Pods-TenderWatchUITests.debug.xcconfig */,
-				5A074A195A2D64C70B2C0A39 /* Pods-TenderWatchUITests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		F6CB3A5FD8075556A8AA2FC1 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				26AE8EB22C3106F7765969E5 /* Pods_TenderWatch.framework */,
-				1F228BED95255A806449442C /* Pods_TenderWatchTests.framework */,
-				A52F7E1FD1B862E142B82F61 /* Pods_TenderWatchUITests.framework */,
+				F1278F4AF4966EBF17FF721B /* Pods_TenderWatch.framework */,
+				43EE7D6FD10F57B92B3854AD /* Pods_TenderWatchTests.framework */,
+				D6E1B01FE7BC3C80966FBEEE /* Pods_TenderWatchUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -812,13 +812,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2790044B1EF766DC00EB198C /* Build configuration list for PBXNativeTarget "TenderWatch" */;
 			buildPhases = (
-				DC0A7DD7EE14B47F90DEE15C /* [CP] Check Pods Manifest.lock */,
+				7C48800CD34702F69DD61345 /* [CP] Check Pods Manifest.lock */,
 				2790041F1EF766DC00EB198C /* Sources */,
 				279004201EF766DC00EB198C /* Frameworks */,
 				279004211EF766DC00EB198C /* Resources */,
-				5F47499C136AB49D6FD7C0D9 /* [CP] Embed Pods Frameworks */,
-				C5BB6C97A8DB7547239E69A2 /* [CP] Copy Pods Resources */,
 				7DFE223B1F1E1EE0009F7676 /* ShellScript */,
+				442533210DDA6DA13DD662A0 /* [CP] Embed Pods Frameworks */,
+				436989384E09DA0C8A23FA90 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -833,12 +833,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2790044E1EF766DC00EB198C /* Build configuration list for PBXNativeTarget "TenderWatchTests" */;
 			buildPhases = (
-				81CB4FCAF4907CB97B2E31B3 /* [CP] Check Pods Manifest.lock */,
+				CB07E5DED8C12C4DB89D4AE4 /* [CP] Check Pods Manifest.lock */,
 				279004331EF766DC00EB198C /* Sources */,
 				279004341EF766DC00EB198C /* Frameworks */,
 				279004351EF766DC00EB198C /* Resources */,
-				6EDF760F5CE5781FBF6D6F3F /* [CP] Embed Pods Frameworks */,
-				92D53BB6A10D5920EE48C052 /* [CP] Copy Pods Resources */,
+				2D06E11B8D0F155E6D78C8F1 /* [CP] Embed Pods Frameworks */,
+				8E45B1A6E5ACA6F4559A08FD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -854,12 +854,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 279004511EF766DC00EB198C /* Build configuration list for PBXNativeTarget "TenderWatchUITests" */;
 			buildPhases = (
-				EA0E739549C2AD7D0B9B1427 /* [CP] Check Pods Manifest.lock */,
+				8FF306076E06A65CF5745059 /* [CP] Check Pods Manifest.lock */,
 				2790043E1EF766DC00EB198C /* Sources */,
 				2790043F1EF766DC00EB198C /* Frameworks */,
 				279004401EF766DC00EB198C /* Resources */,
-				60A06D7A86A035CCD0F8BFAF /* [CP] Embed Pods Frameworks */,
-				E0277DD4949EB03F0ADFA648 /* [CP] Copy Pods Resources */,
+				665FC4D17EA7C247A1288CDA /* [CP] Embed Pods Frameworks */,
+				1C5FD85D943F17DFCDFDC513 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1100,7 +1100,52 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5F47499C136AB49D6FD7C0D9 /* [CP] Embed Pods Frameworks */ = {
+		1C5FD85D943F17DFCDFDC513 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenderWatchUITests/Pods-TenderWatchUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2D06E11B8D0F155E6D78C8F1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenderWatchTests/Pods-TenderWatchTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		436989384E09DA0C8A23FA90 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenderWatch/Pods-TenderWatch-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		442533210DDA6DA13DD662A0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1115,7 +1160,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenderWatch/Pods-TenderWatch-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		60A06D7A86A035CCD0F8BFAF /* [CP] Embed Pods Frameworks */ = {
+		665FC4D17EA7C247A1288CDA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1130,19 +1175,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenderWatchUITests/Pods-TenderWatchUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6EDF760F5CE5781FBF6D6F3F /* [CP] Embed Pods Frameworks */ = {
+		7C48800CD34702F69DD61345 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenderWatchTests/Pods-TenderWatchTests-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7DFE223B1F1E1EE0009F7676 /* ShellScript */ = {
@@ -1158,22 +1203,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 414556106e63df9924383789523fd838482bd04f ed3f8107d71b80190fff2362aa026ea0400fe54e72aa88f07d2ee7554195da16";
 		};
-		81CB4FCAF4907CB97B2E31B3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		92D53BB6A10D5920EE48C052 /* [CP] Copy Pods Resources */ = {
+		8E45B1A6E5ACA6F4559A08FD /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1188,22 +1218,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenderWatchTests/Pods-TenderWatchTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C5BB6C97A8DB7547239E69A2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenderWatch/Pods-TenderWatch-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DC0A7DD7EE14B47F90DEE15C /* [CP] Check Pods Manifest.lock */ = {
+		8FF306076E06A65CF5745059 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1218,22 +1233,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		E0277DD4949EB03F0ADFA648 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TenderWatchUITests/Pods-TenderWatchUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EA0E739549C2AD7D0B9B1427 /* [CP] Check Pods Manifest.lock */ = {
+		CB07E5DED8C12C4DB89D4AE4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1440,7 +1440,7 @@
 		};
 		2790044C1EF766DC00EB198C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 777F120D0DC01B82EF3ACD26 /* Pods-TenderWatch.debug.xcconfig */;
+			baseConfigurationReference = B21DBEE043D80B62809C55B8 /* Pods-TenderWatch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TenderWatch/TenderWatch.entitlements;
@@ -1462,7 +1462,7 @@
 		};
 		2790044D1EF766DC00EB198C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48D9FE767D6A6736C2955044 /* Pods-TenderWatch.release.xcconfig */;
+			baseConfigurationReference = 01EB073AEFBAD65B22B09B7A /* Pods-TenderWatch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TenderWatch/TenderWatch.entitlements;
@@ -1483,7 +1483,7 @@
 		};
 		2790044F1EF766DC00EB198C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4E2682FBB1C22E2F075F354 /* Pods-TenderWatchTests.debug.xcconfig */;
+			baseConfigurationReference = F43C50612403B586970CF420 /* Pods-TenderWatchTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1498,7 +1498,7 @@
 		};
 		279004501EF766DC00EB198C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 908FAB3820B36BBF106958AA /* Pods-TenderWatchTests.release.xcconfig */;
+			baseConfigurationReference = F49BCA2C77A93A81114DCC9B /* Pods-TenderWatchTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1513,7 +1513,7 @@
 		};
 		279004521EF766DC00EB198C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89EB1A7577007745F5DB3DA3 /* Pods-TenderWatchUITests.debug.xcconfig */;
+			baseConfigurationReference = 647D4EE8E7F04C8D50E160B3 /* Pods-TenderWatchUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = TenderWatchUITests/Info.plist;
@@ -1527,7 +1527,7 @@
 		};
 		279004531EF766DC00EB198C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A074A195A2D64C70B2C0A39 /* Pods-TenderWatchUITests.release.xcconfig */;
+			baseConfigurationReference = 0E94FE835E3957C021B924D9 /* Pods-TenderWatchUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = TenderWatchUITests/Info.plist;
