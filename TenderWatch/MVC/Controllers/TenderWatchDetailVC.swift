@@ -67,7 +67,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         self.tblTenderContactDetail.delegate = self
         self.tblTenderContactDetail.dataSource = self
         
-        self.tblTenderContactDetail.register(UINib(nibName: "ClienDetailCell", bundle: nil), forCellReuseIdentifier: "ClienDetailCell")
+        self.tblTenderContactDetail.register(UINib(nibName: "ClientDetailCell", bundle: nil), forCellReuseIdentifier: "ClientDetailCell")
         
         
         imageView = UIImageView(image: UIImage(named: "avtar"))
@@ -107,6 +107,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         
 //        setZoomScale()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
         
@@ -139,7 +140,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: ClienDetailCell = tableView.dequeueReusableCell(withIdentifier: "ClienDetailCell", for: indexPath) as! ClienDetailCell
+        let cell: ClientDetailCell = tableView.dequeueReusableCell(withIdentifier: "ClientDetailCell", for: indexPath) as! ClientDetailCell
         cell.lblKey.text = (dic as NSDictionary).allKeys[indexPath.row] as? String
         cell.lblValue.text = (dic as NSDictionary).value(forKey: cell.lblKey.text!) as? String
         return cell
@@ -152,17 +153,16 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func handleBtnClientDetail(_ sender: Any) {
         if appDelegate.isClient! {
-            
+            self.present(UserDetailVC(), animated: true, completion: nil)
         } else {
             if (self.tenderDetail.isFollowTender)! {
                 self.imgIsFollow.sd_setImage(with: URL(string: self.tenderDetail.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: .progressiveDownload, completed: { (image, error, memory, url) in
                 })
                 self.generateSubView(sender: sender as! NSObject)
             } else {
-                
+                self.present(UserDetailVC(), animated: true, completion: nil)
             }
         }
-        
     }
     
     @IBAction func handleBtnDelete(_ sender: Any) {

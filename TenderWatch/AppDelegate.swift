@@ -26,7 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var token: String!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+        } else {
+            // Fallback on earlier versions
+        }
         //FABRIC
         Fabric.with([Crashlytics.self])
         
@@ -185,6 +190,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("active")
             break
         case .background:
+            if #available(iOS 10.0, *) {
+                UNUserNotificationCenter.current().delegate = self
+            } else {
+                // Fallback on earlier versions
+            }
             application.applicationIconBadgeNumber = application.applicationIconBadgeNumber + 1
             break
         default: //inactive
@@ -193,6 +203,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.setHomeViewController()
                 break
             default: // interested
+                
                 self.setUpNotificationVC()
                 print("interested")
             }
@@ -264,14 +275,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 guard granted else { return }
                 
                 // 1
-                let viewAction = UNNotificationAction(identifier: "",
+                
+                let viewAction = UNNotificationAction(identifier: "View",
                                                       title: "Contractor Detail",
                                                       options: [.foreground])
-                let cancel = UNNotificationAction(identifier: "", title: "Cancel", options: UNNotificationActionOptions.foreground)
+                let cancel = UNNotificationAction(identifier: "", title: "Cancel", options: UNNotificationActionOptions.destructive)
                 // 2
                 let newsCategory = UNNotificationCategory(identifier: "Contractor_Detail",
                                                           actions: [viewAction, cancel],
-                                                          intentIdentifiers: [],
+                                                          intentIdentifiers: ["Category"],
                                                           options: [])
                 // 3
                 UNUserNotificationCenter.current().setNotificationCategories([newsCategory])
@@ -295,4 +307,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 }
+
+@available(iOS 10.0, *)
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        let userInfo = response.notification.request.content.userInfo
+        if response.actionIdentifier == "View" {
+            setUpNotificationVC()
+        } else {
+            switch userInfo["notificationType"]! as! String {
+                case "upload","amended","delete":
+                    self.setHomeViewController()
+                    break
+                default:
+                    self.setUpNotificationVC()
+                    break
+            }
+        }
+    }
+}
+
 

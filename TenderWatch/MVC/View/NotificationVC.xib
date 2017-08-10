@@ -11,6 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotificationVC" customModule="TenderWatch" customModuleProvider="target">
             <connections>
+                <outlet property="btnDelete" destination="9DP-8B-zw8" id="YUQ-pU-NXd"/>
+                <outlet property="btnEdit" destination="3XJ-hE-YqQ" id="CJm-0v-tcO"/>
+                <outlet property="dwView" destination="pPv-Uq-Ebr" id="E7V-eU-hTe"/>
                 <outlet property="lblNoNotifications" destination="4Fu-9b-drP" id="hOo-Ey-BhO"/>
                 <outlet property="tblNotifications" destination="4FE-ah-pfA" id="Hox-sB-Z96"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -33,7 +36,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wEg-gA-Z8Z">
-                    <rect key="frame" x="91" y="24" width="138" height="29"/>
+                    <rect key="frame" x="92.5" y="24" width="135" height="29"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="29" id="1ul-Ta-DuD"/>
                     </constraints>
@@ -41,7 +44,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4FE-ah-pfA">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4FE-ah-pfA">
                     <rect key="frame" x="0.0" y="63" width="320" height="417"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
@@ -55,22 +58,58 @@
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3XJ-hE-YqQ">
+                    <rect key="frame" x="248" y="24" width="57" height="29"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="29" id="6dG-3O-hYf"/>
+                        <constraint firstAttribute="width" constant="57" id="QbC-NX-qX1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="Edit"/>
+                    <connections>
+                        <action selector="handleBtnEdit:" destination="-1" eventType="touchUpInside" id="S3k-l2-ejJ"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="4FE-ah-pfA" firstAttribute="top" secondItem="EDu-YD-K9g" secondAttribute="bottom" constant="0.5" id="8od-aN-kIp"/>
+                <constraint firstItem="3XJ-hE-YqQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="24" id="9JS-rb-Pco"/>
                 <constraint firstItem="EDu-YD-K9g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="F5O-lx-DxJ"/>
                 <constraint firstItem="wEg-gA-Z8Z" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ICr-BR-Qs5"/>
                 <constraint firstItem="EDu-YD-K9g" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14.5" id="PO0-3f-DH0"/>
+                <constraint firstAttribute="trailing" secondItem="3XJ-hE-YqQ" secondAttribute="trailing" constant="15" id="RMC-ka-kcH"/>
                 <constraint firstItem="wEg-gA-Z8Z" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="24" id="RcB-CK-2yW"/>
                 <constraint firstItem="4Fu-9b-drP" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="fWx-EH-pgl"/>
                 <constraint firstItem="4FE-ah-pfA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ffc-dC-DmH"/>
                 <constraint firstItem="4Fu-9b-drP" firstAttribute="centerX" secondItem="wEg-gA-Z8Z" secondAttribute="centerX" id="hSu-am-wj0"/>
                 <constraint firstAttribute="bottom" secondItem="4FE-ah-pfA" secondAttribute="bottom" id="jK7-7r-mK1"/>
                 <constraint firstAttribute="trailing" secondItem="4FE-ah-pfA" secondAttribute="trailing" id="lPe-Ya-CAg"/>
-                <constraint firstItem="wEg-gA-Z8Z" firstAttribute="leading" secondItem="EDu-YD-K9g" secondAttribute="trailing" constant="45" id="mK8-Y3-9ao"/>
             </constraints>
             <point key="canvasLocation" x="24" y="52"/>
+        </view>
+        <view contentMode="scaleToFill" id="pPv-Uq-Ebr">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9DP-8B-zw8">
+                    <rect key="frame" x="242" y="7" width="62" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="Delete"/>
+                    <connections>
+                        <action selector="handleBtnDelete:" destination="-1" eventType="touchUpInside" id="a0i-He-KTU"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="9DP-8B-zw8" firstAttribute="top" secondItem="pPv-Uq-Ebr" secondAttribute="top" constant="7" id="Ac6-uk-WZE"/>
+                <constraint firstItem="9DP-8B-zw8" firstAttribute="leading" secondItem="pPv-Uq-Ebr" secondAttribute="leading" constant="242" id="hoO-wB-0lH"/>
+                <constraint firstAttribute="bottom" secondItem="9DP-8B-zw8" secondAttribute="bottom" constant="7" id="wp0-ED-R7B"/>
+                <constraint firstAttribute="trailing" secondItem="9DP-8B-zw8" secondAttribute="trailing" constant="16" id="ykc-1p-xXS"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="397" y="-31"/>
         </view>
     </objects>
     <resources>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ClienDetailCell: UITableViewCell {
+class ClientDetailCell: UITableViewCell {
 
     @IBOutlet weak var lblKey: UILabel!
     @IBOutlet weak var lblValue: UILabel!

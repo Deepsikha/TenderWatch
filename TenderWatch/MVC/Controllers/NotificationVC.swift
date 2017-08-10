@@ -14,9 +14,11 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var tblNotifications: UITableView!
     @IBOutlet weak var lblNoNotifications: UILabel!
+    @IBOutlet weak var btnEdit: UIButton!
     
+    @IBOutlet var dwView: UIView!
+    @IBOutlet weak var btnDelete: UIButton!
     var notification: [Notification] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tblNotifications.delegate = self
@@ -24,11 +26,15 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         self.tblNotifications.register(UINib(nibName: "MappingCell", bundle: nil), forCellReuseIdentifier: "MappingCell")
         self.tblNotifications.tableFooterView = UIView()
-        tblNotifications.rowHeight = UITableViewAutomaticDimension
-        tblNotifications.estimatedRowHeight = 140
+        self.tblNotifications.allowsSelectionDuringEditing = true
+
+        
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidLayoutSubviews() {
+        self.dwView.frame = CGRect(x: 0, y: self.view.frame.height - self.dwView.frame.height, width: self.dwView.frame.width, height: self.dwView.frame.height)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -59,8 +65,8 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: "MappingCell", for: indexPath) as! MappingCell
-        let noti = self.notification[indexPath.row]
-        cell.lblCategory.text = noti.message!
+//        let noti = self.notification[indexPath.row]
+        cell.lblCategory.text = "asasdasd"
         
         //        if (components.day! < 0) {
         //            deleteTender(indexPath.row)
@@ -92,6 +98,10 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         return [dlt]
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        print(indexPath)
+    }
+    
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return tableView.isEditing ? UITableViewCellEditingStyle.none : UITableViewCellEditingStyle.delete
     }
@@ -101,11 +111,53 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        
 //        self.navigationController?.pushViewController(TenderWatchDetailVC(), animated: true)
 //    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.count == 0) {
+            self.btnDelete.isEnabled = false
+        } else {
+            self.btnDelete.isEnabled = true
+        }
+    }
+    
     //MARK:- IBAction
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
     }
     
+    @IBAction func handleBtnEdit(_ sender: Any) {
+        if (self.tblNotifications.isEditing) {
+            self.tblNotifications.setEditing(false, animated: true)
+            if (self.view.subviews.contains(self.dwView)) {
+                self.dwView.removeFromSuperview()
+            }
+            self.btnEdit.setTitle("Edit", for: .normal)
+        } else {
+            self.btnEdit.setTitle("Cancel", for: .normal)
+            self.tblNotifications.setEditing(true, animated: true)
+            self.view.addSubview(self.dwView)
+        }
+    }
+    
+    @IBAction func handleBtnDelete(_ sender: Any) {
+        if let indexPaths = self.tblNotifications.indexPathsForSelectedRows  {
+            let sortedArray = indexPaths.sorted {$0.row < $1.row}
+            for i in (0...sortedArray.count-1).reversed() {
+                self.notification.remove(at: sortedArray[i].row)
+            }
+            self.tblNotifications.deleteRows(at: sortedArray, with: .automatic)
+        }
+        if (self.notification.count == 0) {
+            self.lblNoNotifications.isHidden = false
+            self.btnEdit.isEnabled = false
+        }
+        self.btnEdit.setTitle("Edit", for: .normal)
+        if self.view.subviews.contains(self.dwView) {
+            self.dwView.removeFromSuperview()
+        }
+    }
+    
+    //MARK:- Custom Methods
     func getNotification() {
         if isNetworkReachable() {
             self.startActivityIndicator()
@@ -118,7 +170,10 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                         self.lblNoNotifications.isHidden = true
                         let data = (resp.result.value as! NSObject)
                         self.notification = Mapper<Notification>().mapArray(JSONObject: data)!
-                        
+                        if (self.notification.isEmpty) {
+                            self.lblNoNotifications.isHidden = false
+                            self.btnEdit.isEnabled = false
+                        }
                         self.tblNotifications.reloadData()
                         self.stopActivityIndicator()
                     }
