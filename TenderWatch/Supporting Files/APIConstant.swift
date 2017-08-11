@@ -34,4 +34,5 @@ var INTERESTED: String = (BASE_URL)+"tender/interested/"
 
 var READ_NOTIFY: String = "http://lanetteam.com:4000/api/notification"//(BASE_URL)+"notification" //list:get badge:put
 
-var NOTIFICATION: String = (BASE_URL)+"notification/" //read: put delete: delete
+var NOTIFICATION_DETAIL: String = (BASE_URL)+"notification/" //read: put (with id)
+var NOTIFICATION: String = (BASE_URL)+"notification/delete"

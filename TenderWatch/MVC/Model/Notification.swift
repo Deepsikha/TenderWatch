@@ -13,9 +13,11 @@ class Notification: NSObject, Mappable {
     
     var id: String?
     var user: User?
+    var sender: User?
     var tender: Tender?
     var message: String?
     var createdAt: String?
+    var type: String?
     var read: Bool?
     
 //    "sender": {
@@ -26,6 +28,8 @@ class Notification: NSObject, Mappable {
 //    "isActive": true,
 //    "profilePhoto": "no image"
 //    }
+    
+    
     
     required init?(map: Map) {
         super.init()

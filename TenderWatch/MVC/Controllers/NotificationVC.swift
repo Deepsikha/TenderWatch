@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import ObjectMapper
+import SDWebImage
 
 class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -19,16 +20,20 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var dwView: UIView!
     @IBOutlet weak var btnDelete: UIButton!
     var notification: [Notification] = []
+    var delete: [String] = []
+    var count : Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tblNotifications.delegate = self
         self.tblNotifications.dataSource = self
         
-        self.tblNotifications.register(UINib(nibName: "MappingCell", bundle: nil), forCellReuseIdentifier: "MappingCell")
+        self.tblNotifications.register(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "NotificationCell")
         self.tblNotifications.tableFooterView = UIView()
         self.tblNotifications.allowsSelectionDuringEditing = true
-
         
+        self.tblNotifications.setEditing(false, animated: true)
+
         // Do any additional setup after loading the view.
     }
     
@@ -50,6 +55,14 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        self.tblNotifications.setEditing(false, animated: true)
+        self.btnEdit.setTitle("Edit", for: .normal)
+        if (self.view.subviews.contains(self.dwView)) {
+            self.dwView.removeFromSuperview()
+        }
+    }
+    
     //MARK:- Table Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -64,9 +77,12 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let  cell = tableView.dequeueReusableCell(withIdentifier: "MappingCell", for: indexPath) as! MappingCell
-//        let noti = self.notification[indexPath.row]
-        cell.lblCategory.text = "asasdasd"
+        let  cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
+        let noti = self.notification[indexPath.row]
+        cell.lblContent.text = noti.message
+        cell.imgSender.sd_setImage(with: URL(string: noti.user!.profilePhoto!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
+        }
+        cell.imgSender.backgroundColor = UIColor.gray
         
         //        if (components.day! < 0) {
         //            deleteTender(indexPath.row)
@@ -87,7 +103,8 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             }))
             alert.addAction(UIAlertAction(title: "Remove", style: .cancel, handler:{ action in
                 tableView.reloadRows(at: [index], with: .none)
-                self.removeNotification(index.row)
+                self.delete.append(self.notification[index.row].id!)
+                self.removeNotification(index.row, self.delete)
                 
             }))
             
@@ -96,10 +113,6 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         dlt.backgroundColor = UIColor.red
         
         return [dlt]
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        print(indexPath)
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
@@ -113,10 +126,20 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.count == 0) {
-            self.btnDelete.isEnabled = false
-        } else {
+        count = count + 1
+        if ((tblNotifications.indexPathsForSelectedRows?.count)! > 0) {
             self.btnDelete.isEnabled = true
+        } else {
+            self.btnDelete.isEnabled = false
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        count = count - 1
+        if ( count !=  0) {
+                self.btnDelete.isEnabled = true
+        } else {
+            self.btnDelete.isEnabled = false
         }
     }
     
@@ -140,20 +163,20 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func handleBtnDelete(_ sender: Any) {
-        if let indexPaths = self.tblNotifications.indexPathsForSelectedRows  {
-            let sortedArray = indexPaths.sorted {$0.row < $1.row}
-            for i in (0...sortedArray.count-1).reversed() {
-                self.notification.remove(at: sortedArray[i].row)
-            }
-            self.tblNotifications.deleteRows(at: sortedArray, with: .automatic)
-        }
         if (self.notification.count == 0) {
             self.lblNoNotifications.isHidden = false
             self.btnEdit.isEnabled = false
         }
-        self.btnEdit.setTitle("Edit", for: .normal)
-        if self.view.subviews.contains(self.dwView) {
-            self.dwView.removeFromSuperview()
+        
+        if let indexPaths = self.tblNotifications.indexPathsForSelectedRows  {
+            let sortedArray = indexPaths.sorted {$0.row < $1.row}
+            for i in (0...sortedArray.count-1).reversed() {
+                self.delete.append(self.notification[sortedArray[i].row].id!)
+                self.notification.remove(at: sortedArray[i].row)
+            }
+            self.tblNotifications.deleteRows(at: sortedArray, with: .automatic)
+            self.removeNotification(-1, self.delete)
+//            self.tbl
         }
     }
     
@@ -187,16 +210,18 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func removeNotification(_ index: Int) {
+    func removeNotification(_ index: Int,_ string: [String]) {
         
         if isNetworkReachable() {
             self.stopActivityIndicator()
-            Alamofire.request(NOTIFICATION+notification[index].id! , method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+            Alamofire.request(NOTIFICATION , method: .delete, parameters: ["notificationns":string], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.response?.statusCode != nil) {
                     if !(resp.response?.statusCode == 200) {
                         MessageManager.showAlert(nil, "can't Remove Notification")
                     } else {
-                        self.notification.remove(at: index)
+                        if (index != -1) {
+                            self.notification.remove(at: index)
+                        }
                         self.tblNotifications.reloadData()
                         if (self.notification.isEmpty) {
                             self.lblNoNotifications.isHidden = false
@@ -205,6 +230,9 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     self.stopActivityIndicator()
                 }
+                self.delete.removeAll()
+                self.count = 0
+                self.btnDelete.isEnabled = false
             }
         } else {
             MessageManager.showAlert(nil, "No Internet")
