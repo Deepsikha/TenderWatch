@@ -38,7 +38,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewDidLayoutSubviews() {
-        self.dwView.frame = CGRect(x: 0, y: self.view.frame.height - self.dwView.frame.height, width: self.dwView.frame.width, height: self.dwView.frame.height)
+        self.dwView.frame = CGRect(x: 0, y: self.view.frame.height - self.dwView.frame.height, width: self.view.frame.width, height: self.dwView.frame.height)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

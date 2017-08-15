@@ -153,7 +153,9 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func handleBtnClientDetail(_ sender: Any) {
         if appDelegate.isClient! {
-            self.present(UserDetailVC(), animated: true, completion: nil)
+            let vc = UserDetailVC()
+            vc.detail = self.tenderDetail.tenderUploader
+            self.present(vc, animated: true, completion: nil)
         } else {
             if (self.tenderDetail.isFollowTender)! {
                 self.imgIsFollow.sd_setImage(with: URL(string: self.tenderDetail.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: .progressiveDownload, completed: { (image, error, memory, url) in

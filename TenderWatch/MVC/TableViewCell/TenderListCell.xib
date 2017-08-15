@@ -28,6 +28,15 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdU-gf-loC">
+                        <rect key="frame" x="167" y="6" width="145" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="hhh-oM-I5W"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0Q-uX-kZU">
                         <rect key="frame" x="84" y="29" width="78" height="21"/>
                         <constraints>
@@ -38,9 +47,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I8c-3D-jMn">
-                        <rect key="frame" x="167" y="29" width="130" height="21"/>
+                        <rect key="frame" x="167" y="29" width="125" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="130" id="2Ve-P2-UWv"/>
                             <constraint firstAttribute="height" constant="21" id="B1b-zK-Dir"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -73,15 +81,6 @@
                             <constraint firstAttribute="height" constant="68.5" id="cBs-Nn-A44"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdU-gf-loC">
-                        <rect key="frame" x="167" y="6" width="145" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="hhh-oM-I5W"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvP-mb-VdY">
                         <rect key="frame" x="15" y="84.5" width="305" height="0.5"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -108,7 +107,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Removed!!!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dry-0n-fto">
-                        <rect key="frame" x="81.893617021276611" y="31.87814313346297" width="155" height="20.999999999999986"/>
+                        <rect key="frame" x="82" y="52" width="155" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="155" id="01o-lk-u8a"/>
                             <constraint firstAttribute="height" constant="20.999999999999993" id="H8q-cr-ud3"/>
@@ -121,6 +120,7 @@
                 <constraints>
                     <constraint firstItem="S0Q-uX-kZU" firstAttribute="top" secondItem="QZC-bL-ggE" secondAttribute="bottom" constant="2" id="142-TL-NHi"/>
                     <constraint firstItem="I8c-3D-jMn" firstAttribute="top" secondItem="ZdU-gf-loC" secondAttribute="bottom" constant="2" id="4z5-Ac-fBk"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="I8c-3D-jMn" secondAttribute="trailing" constant="20" id="66u-07-5x1"/>
                     <constraint firstItem="INE-oX-hGZ" firstAttribute="leading" secondItem="1RI-iB-Ch9" secondAttribute="trailing" constant="7.5" id="72Z-Tp-OkB"/>
                     <constraint firstItem="ZdU-gf-loC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="8DW-U1-r4T"/>
                     <constraint firstItem="I8c-3D-jMn" firstAttribute="leading" secondItem="S0Q-uX-kZU" secondAttribute="trailing" constant="5" id="AWG-88-Cmb"/>
@@ -154,7 +154,7 @@
                 <constraint firstItem="yLN-e9-8mI" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="36" id="iHq-4M-j16"/>
                 <constraint firstItem="dry-0n-fto" firstAttribute="centerX" secondItem="KGk-i7-Jjw" secondAttribute="centerX" id="m3D-uK-hwb"/>
                 <constraint firstAttribute="trailing" secondItem="yLN-e9-8mI" secondAttribute="trailing" constant="8" id="q4W-FX-OMZ"/>
-                <constraint firstItem="dry-0n-fto" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="w0T-Jn-c3G"/>
+                <constraint firstItem="dry-0n-fto" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" constant="20" id="w0T-Jn-c3G"/>
             </constraints>
             <connections>
                 <outlet property="exp_day" destination="INE-oX-hGZ" id="FYU-IL-Vbn"/>

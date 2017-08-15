@@ -130,17 +130,20 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         if textField == self.txfEmail {
             textField.resignFirstResponder()
             self.txfMobileNo.becomeFirstResponder()
+            return true
         } else if textField == self.txfMobileNo {
             textField.resignFirstResponder()
             self.txfLandLineNo.becomeFirstResponder()
+            return true
         } else if textField == self.txfLandLineNo {
             textField.resignFirstResponder()
             self.txtvwAddress.becomeFirstResponder()
-        } else if textField == self.txfTenderTitle {
+            return true
+        } else {
             textField.resignFirstResponder()
             self.tenderDetail.becomeFirstResponder()
+            return false
         }
-        return true
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
@@ -392,7 +395,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func handleBtnSave(_ sender: Any) {
-        if !(self.txfEmail.text?.isEmpty)! || !(self.txfMobileNo.text?.isEmpty)! || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty) {
+        if !(self.txfEmail.text?.isEmpty)! || !(self.txfMobileNo.text?.isEmpty)! || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty) || self.btnFollow.imageView?.image == checkedImage {
             if !(self.txfEmail.text?.isEmpty)! && !(isValidEmail(strEmail: self.txfEmail.text!)) {
                 MessageManager.showAlert(nil, "Enter valid Email")
             } else if !(self.txfMobileNo.text?.isEmpty)! && !(isValidNumber(self.txfMobileNo.text!, length: 10)) {
@@ -459,7 +462,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func submit(_ url: String, _ reqMethod: HTTPMethod, _ param: Parameters, _ message: String) {
-        if !(UploadTenderVC.isUpdate) ? ((!(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 10)) || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty))) : ((!(self.btnSelectCountry.titleLabel!.text!.isEmpty) && !(self.btnSelectCategory.titleLabel!.text!.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 10)) || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty))) {
+        if !(UploadTenderVC.isUpdate) ? ((!(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 10)) || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty) || self.btnFollow.imageView?.image == checkedImage)) : ((!(self.btnSelectCountry.titleLabel!.text!.isEmpty) && !(self.btnSelectCategory.titleLabel!.text!.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 10)) || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty) || self.btnFollow.imageView!.image! == checkedImage)) {
             
             if isNetworkReachable() {
                 self.startActivityIndicator()
@@ -532,7 +535,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 MessageManager.showAlert(nil, "Select Country")
             } else if (UploadTenderVC.isUpdate) ? self.btnSelectCategory.titleLabel!.text! == "Select Category" : self.uploadTender.ctId.isEmpty {
                 MessageManager.showAlert(nil, "Select Category")
-            } else if !(!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 10)) || !(self.txfLandLineNo.text?.isEmpty)! || !(self.txtvwAddress.text == "Address")){
+            } else if !(!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 10)) || !(self.txfLandLineNo.text?.isEmpty)! || !(self.txtvwAddress.text == "Address")  || self.btnFollow.imageView!.image! == checkedImage){
                 MessageManager.showAlert(nil, "Enter valid Contact Details")
             } else {
                 MessageManager.showAlert(nil, "Enter Title")

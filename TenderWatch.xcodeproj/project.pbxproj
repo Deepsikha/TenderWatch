@@ -573,7 +573,6 @@
 		27A28EC21EF776F000E7B53B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7DE3B5F41F3C1949000297C9 /* UserDetailVC.xib */,
 				27EF44891EF7C04A00CCBCA0 /* HomeVC.xib */,
 				27EF44971EF8BD5F00CCBCA0 /* SignInVC.xib */,
 				27A28EC31EF776F000E7B53B /* SignUpVC.xib */,
@@ -593,6 +592,7 @@
 				27EF44951EF8BD5F00CCBCA0 /* PaymentVC.xib */,
 				7D68B5C01F1CB669004BEC5E /* TenderWatchDetailVC.xib */,
 				7D1FEF611F30A02200B1F0B5 /* SupportVC.xib */,
+				7DE3B5F41F3C1949000297C9 /* UserDetailVC.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
