@@ -11,6 +11,7 @@ import Alamofire
 
 class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
+    @IBOutlet weak var txfEmailSender: UITextField!
     @IBOutlet weak var txfEmailReceiver: UITextField!
     @IBOutlet weak var txfSubject: UITextField!
     @IBOutlet weak var txtVwDesc: UITextView!
@@ -18,10 +19,9 @@ class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.txfEmailReceiver.delegate = self
+        self.txfEmailSender.delegate = self
         self.txfSubject.delegate = self
         self.txtVwDesc.delegate = self
-        
         
         self.btnSend.alpha = 0.5
         // Do any additional setup after loading the view.
@@ -37,7 +37,7 @@ class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
-        self.txfEmailReceiver.text = USER!.email!
+        self.txfEmailSender.text = USER!.email!
     }
     
     override func didReceiveMemoryWarning() {
@@ -47,7 +47,7 @@ class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     //MARK:- TextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == self.txfEmailReceiver) {
+        if (textField == self.txfEmailSender) {
             textField.resignFirstResponder()
             self.txfSubject.becomeFirstResponder()
             return true
@@ -114,4 +114,5 @@ class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
             MessageManager.showAlert(nil, "Enter your Questions or Complain")
         }
     }
+    
 }

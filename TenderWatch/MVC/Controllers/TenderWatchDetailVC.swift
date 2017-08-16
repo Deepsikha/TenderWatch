@@ -103,9 +103,11 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         self.transperentView.frame = self.view.frame
 
         self.vwClientDetail.frame = CGRect(x: self.transperentView.center.x - (self.vwClientDetail.frame.width / 2), y: self.transperentView.center.y - 150, width:self.vwClientDetail.frame.width, height: self.vwClientDetail.frame.height)
-        self.vwImage.frame = self.view.frame
         
-//        setZoomScale()
+        self.vwImage.frame = self.view.frame
+        self.ScrollView.frame = self.vwImage.frame
+        
+        setZoomScale()
     }
     
     override func viewWillAppear(_ animated: Bool) {

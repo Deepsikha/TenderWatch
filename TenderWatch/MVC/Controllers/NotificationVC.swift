@@ -80,6 +80,10 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         let  cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
         let noti = self.notification[indexPath.row]
         cell.lblContent.text = noti.message
+        
+        let date = noti.createdAt?.substring(to: (noti.createdAt?.index((noti.createdAt?.startIndex)!, offsetBy: 10))!)
+        cell.lblDate.text = date!
+        
         cell.imgSender.sd_setImage(with: URL(string: noti.user!.profilePhoto!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
         }
         cell.imgSender.backgroundColor = UIColor.gray
@@ -136,7 +140,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         count = count - 1
-        if ( count !=  0) {
+        if (count !=  0) {
                 self.btnDelete.isEnabled = true
         } else {
             self.btnDelete.isEnabled = false
@@ -172,11 +176,8 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             let sortedArray = indexPaths.sorted {$0.row < $1.row}
             for i in (0...sortedArray.count-1).reversed() {
                 self.delete.append(self.notification[sortedArray[i].row].id!)
-                self.notification.remove(at: sortedArray[i].row)
             }
-            self.tblNotifications.deleteRows(at: sortedArray, with: .automatic)
             self.removeNotification(-1, self.delete)
-//            self.tbl
         }
     }
     
@@ -221,16 +222,30 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                     } else {
                         if (index != -1) {
                             self.notification.remove(at: index)
+                        } else {
+                            if let indexPaths = self.tblNotifications.indexPathsForSelectedRows  {
+                                let sortedArray = indexPaths.sorted {$0.row < $1.row}
+                                for i in (0...sortedArray.count-1).reversed() {
+                                    self.notification.remove(at: sortedArray[i].row)
+                                }
+                                self.tblNotifications.deleteRows(at: sortedArray, with: .automatic)
+                            }
                         }
-                        self.tblNotifications.reloadData()
                         if (self.notification.isEmpty) {
                             self.lblNoNotifications.isHidden = false
                         }
                         //                        MessageManager.showAlert(nil, "Remove Succesfully")
+                        self.delete.removeAll()
+
+                    }
+                    self.tblNotifications.reloadData()
+                    self.tblNotifications.setEditing(false, animated: true)
+                    self.btnEdit.setTitle("Edit", for: .normal)
+                    if (self.view.subviews.contains(self.dwView)) {
+                        self.dwView.removeFromSuperview()
                     }
                     self.stopActivityIndicator()
                 }
-                self.delete.removeAll()
                 self.count = 0
                 self.btnDelete.isEnabled = false
             }
