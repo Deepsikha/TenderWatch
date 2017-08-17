@@ -494,7 +494,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                         
                         upload.responseJSON { resp in
                             if (resp.result.value != nil) {
-                                print(resp.result.value!)
                                 if ((resp.result.value as! NSDictionary).allKeys.contains(where: { (a) -> Bool in
                                     if (a as! String) == "error" {
                                         return true
@@ -506,8 +505,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                                     MessageManager.showAlert(nil, "\(err)")
                                     self.stopActivityIndicator()
                                 } else {
-                                    let data = (resp.result.value as! NSObject)
-                                    print(data)
+//                                    let data = (resp.result.value as! NSObject)
                                     //data parsing remianing because of unique response
                                     //                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
                                     self.stopActivityIndicator()

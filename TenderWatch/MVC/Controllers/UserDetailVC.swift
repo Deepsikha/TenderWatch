@@ -11,7 +11,9 @@ import UIKit
 class UserDetailVC: UIViewController {
 
     var detail: User!
+    static var rate: Int!
     
+    @IBOutlet weak var vwStack: RatingControl!
     @IBOutlet weak var btnCancel: UIButton!
     
     override func viewDidLoad() {
@@ -22,6 +24,9 @@ class UserDetailVC: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        if !(appDelegate.isClient!) {
+            self.vwStack.isHidden = true
+        }
     }
     
     override func didReceiveMemoryWarning() {

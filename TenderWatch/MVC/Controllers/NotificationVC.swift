@@ -148,6 +148,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //MARK:- IBAction
+  
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
     }
@@ -212,12 +213,11 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func removeNotification(_ index: Int,_ string: [String]) {
-        
         if isNetworkReachable() {
             self.stopActivityIndicator()
-            Alamofire.request(NOTIFICATION , method: .delete, parameters: ["notificationns":string], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+            Alamofire.request(NOTIFICATION , method: .delete, parameters: ["notification":string], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.response?.statusCode != nil) {
-                    if !(resp.response?.statusCode == 200) {
+                    if !(resp.response?.statusCode == 202) {
                         MessageManager.showAlert(nil, "can't Remove Notification")
                     } else {
                         if (index != -1) {
@@ -235,8 +235,6 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                             self.lblNoNotifications.isHidden = false
                         }
                         //                        MessageManager.showAlert(nil, "Remove Succesfully")
-                        self.delete.removeAll()
-
                     }
                     self.tblNotifications.reloadData()
                     self.tblNotifications.setEditing(false, animated: true)
@@ -245,6 +243,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                         self.dwView.removeFromSuperview()
                     }
                     self.stopActivityIndicator()
+                    self.delete.removeAll()
                 }
                 self.count = 0
                 self.btnDelete.isEnabled = false
