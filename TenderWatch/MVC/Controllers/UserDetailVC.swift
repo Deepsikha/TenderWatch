@@ -11,6 +11,8 @@ import SDWebImage
 
 class UserDetailVC: UIViewController {
 
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblNoImage: UILabel!
     @IBOutlet weak var imgTender: UIImageView!
     @IBOutlet weak var imgUser: UIImageView!
     @IBOutlet weak var txfEmail: UITextField!
@@ -24,30 +26,32 @@ class UserDetailVC: UIViewController {
     static var rate: Int!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        if !(appDelegate.isClient!) {
+            self.lblTitle.text = "Client Detail"
+        } else {
+            self.lblTitle.text = "Contractor Detail"
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         self.imgUser.layer.cornerRadius = self.imgUser.frame.height / 2
         self.navigationController?.isNavigationBarHidden = true
         if !(appDelegate.isClient!) {
-            self.vwStack.isHidden = true
+            self.vwStack.isHidden = false
         }
         
         self.imgUser.sd_setImage(with: URL(string: (self.detail.tenderUploader?.profilePhoto)!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
+            if (image == nil) {
+                self.lblNoImage.isHidden = false
+            }
         }
         
         self.imgTender.sd_setImage(with: URL(string: (self.detail.tenderPhoto)!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
-            if (image == nil) {
-                self.imgTender.backgroundColor = UIColor.lightGray
-            }
         }
         self.txfEmail.text = self.detail.tenderUploader?.email
         self.txfCountry.text = self.detail.tenderUploader?.country
         self.txfMobileNo.text = self.detail.tenderUploader?.contactNo
         self.txfOccupation.text = self.detail.tenderUploader?.occupation
-        
     }
     
     override func didReceiveMemoryWarning() {
