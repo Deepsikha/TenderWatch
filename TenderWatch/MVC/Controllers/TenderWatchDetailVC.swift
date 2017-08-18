@@ -111,6 +111,11 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if appDelegate.isClient! {
+            self.btnClientDetail.isHidden = true
+        } else {
+            self.btnClientDetail.isHidden = false
+        }
         self.navigationController?.isNavigationBarHidden = true
         
     }
@@ -155,16 +160,16 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func handleBtnClientDetail(_ sender: Any) {
         if appDelegate.isClient! {
-            let vc = UserDetailVC()
-            vc.detail = self.tenderDetail.tenderUploader
-            self.present(vc, animated: true, completion: nil)
+        
         } else {
             if (self.tenderDetail.isFollowTender)! {
                 self.imgIsFollow.sd_setImage(with: URL(string: self.tenderDetail.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: .progressiveDownload, completed: { (image, error, memory, url) in
                 })
                 self.generateSubView(sender: sender as! NSObject)
             } else {
-                self.present(UserDetailVC(), animated: true, completion: nil)
+                let vc = UserDetailVC()
+                vc.detail = self.tenderDetail
+                self.present(vc, animated: true, completion: nil)
             }
         }
     }
@@ -265,8 +270,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                         self.lblCountry.text = self.tenderDetail.country!.countryName!
                         
                         self.lblCategory.text = self.tenderDetail.category!.categoryName!
-                        
-                        
+                    
                         if !(self.tenderDetail.email!.isEmpty)  {
                             self.dic["Email:"] = self.tenderDetail.email!
                         }

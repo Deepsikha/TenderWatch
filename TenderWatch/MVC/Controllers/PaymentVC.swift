@@ -34,6 +34,7 @@ class PaymentVC: UIViewController {
     }
     
     @IBAction func btnHandlePayPal(_ sender: UIButton) {
+        
     }
     
     @IBAction func btnHandleCreditCard(_ sender: UIButton) {

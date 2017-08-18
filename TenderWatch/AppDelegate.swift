@@ -41,18 +41,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
                 
-        if USER?.authenticationToken != nil
-        {
-            if USER?.role == RollType.client
-            {
+        if USER?.authenticationToken != nil {
+            if USER?.role == RollType.client {
                 appDelegate.isClient = true
-            }else{
+            } else {
                 appDelegate.isClient = false
             }
             setHomeViewController()
         }
-        else
-        {
+        else {
             setUpRootVc()
         }
         
@@ -203,7 +200,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.setHomeViewController()
                 break
             default: // interested
-                
                 self.setUpNotificationVC()
                 print("interested")
             }

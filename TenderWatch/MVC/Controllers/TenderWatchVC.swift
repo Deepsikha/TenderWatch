@@ -1,3 +1,4 @@
+
 //
 //  TenderWatchVC.swift
 //  TenderWatch
@@ -94,7 +95,9 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         //pass string in "yyyy-MM-dd" format
         let components = Date().getDifferenceBtnCurrentDate(date: (tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!))!)
         
-        cell.lblTender.text = (components.day == 1) ? "\(components.day!) day" : "\(components.day!) days"
+        cell.lblTender.text = (components.day == 0) ? "Last Day" : (components.day == 1) ? "\(components.day!) day" : "\(components.day!) days"
+        
+        cell.lblTender.textColor = (components.day == 0) ? UIColor.brown : UIColor.black
         if (!(appDelegate.isClient)!) {
             if !((tender.readby!.contains((USER!._id)!))) {
                 cell.lblName.font = UIFont.boldSystemFont(ofSize: cell.lblName.font.pointSize)
@@ -135,15 +138,15 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         if !(appDelegate.isClient!) {
             if !(tender.interested!.isEmpty) {
                 if tender.interested!.contains(USER!._id!) {
-                    cell.imgIndocator.isHidden = false
+                    cell.imgIndicator.isHidden = false
                 } else {
-                    cell.imgIndocator.isHidden = true
+                    cell.imgIndicator.isHidden = true
                 }
             } else {
-                cell.imgIndocator.isHidden = true
+                cell.imgIndicator.isHidden = true
             }
         } else {
-            cell.imgIndocator.isHidden = true
+            cell.imgIndicator.isHidden = true
         }
         return cell
     }
@@ -250,7 +253,6 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                         self.stopActivityIndicator()
                     }
                 }
-                print(resp.result)
                 self.stopActivityIndicator()
             }
         } else {

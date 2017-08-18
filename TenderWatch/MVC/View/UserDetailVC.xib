@@ -12,6 +12,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserDetailVC" customModule="TenderWatch" customModuleProvider="target">
             <connections>
                 <outlet property="btnCancel" destination="jXn-Ot-YNS" id="wjj-wN-8Y5"/>
+                <outlet property="imgTender" destination="EQz-ir-dM1" id="YCL-aW-Us4"/>
+                <outlet property="imgUser" destination="Mrr-CJ-PWE" id="cTF-A0-xsO"/>
+                <outlet property="lblNoImage" destination="7GC-L9-6at" id="r3b-ia-hYx"/>
+                <outlet property="lblTitle" destination="YRh-60-wzu" id="ABx-UT-WYt"/>
+                <outlet property="txfCountry" destination="1eN-zO-84n" id="pPm-4Q-D7a"/>
+                <outlet property="txfEmail" destination="1wa-fn-rCg" id="DIV-7B-HCH"/>
+                <outlet property="txfMobileNo" destination="Dfm-Hi-5qk" id="QNb-SC-PiL"/>
+                <outlet property="txfOccupation" destination="2hr-DH-AGp" id="V6W-Lg-c8r"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="vwStack" destination="Fhz-SQ-CN4" id="Efe-D4-00j"/>
             </connections>
@@ -21,8 +29,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YRh-60-wzu">
-                    <rect key="frame" x="127" y="22" width="67.5" height="29"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YRh-60-wzu">
+                    <rect key="frame" x="160" y="22" width="0.0" height="29"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="29" id="KfG-9c-mg8"/>
                     </constraints>
@@ -41,14 +49,16 @@
                         <action selector="handleBtnCancel:" destination="-1" eventType="touchUpInside" id="ZhB-zL-jry"/>
                     </connections>
                 </button>
-                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="8619297980_98155509da_k.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="EQz-ir-dM1">
+                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EQz-ir-dM1">
                     <rect key="frame" x="0.0" y="60" width="320" height="160"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <gestureRecognizers/>
                 </imageView>
                 <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Fhz-SQ-CN4" customClass="RatingControl" customModule="TenderWatch" customModuleProvider="target">
                     <rect key="frame" x="69" y="443" width="182" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="182" id="JbY-GC-tsV"/>
+                        <constraint firstAttribute="height" constant="30" id="ec5-xX-HFH"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="size" keyPath="starSize">
@@ -59,8 +69,9 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </stackView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="8619297980_98155509da_k.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Mrr-CJ-PWE">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mrr-CJ-PWE">
                     <rect key="frame" x="16" y="129" width="75" height="75"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="75" id="2pM-QL-cQo"/>
                         <constraint firstAttribute="height" constant="75" id="v5U-9e-Vyg"/>
@@ -255,6 +266,12 @@
                         <constraint firstAttribute="trailing" secondItem="ONZ-By-i3V" secondAttribute="trailing" constant="20" id="y5w-Pa-wKW"/>
                     </constraints>
                 </view>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7GC-L9-6at">
+                    <rect key="frame" x="119.31707317073165" y="129" width="80.000000000000043" height="20.999999999999986"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -267,18 +284,21 @@
                 <constraint firstItem="Fhz-SQ-CN4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="DsZ-UX-zYm"/>
                 <constraint firstAttribute="trailing" secondItem="jXn-Ot-YNS" secondAttribute="trailing" constant="17" id="Eah-Qh-2iI"/>
                 <constraint firstItem="Mrr-CJ-PWE" firstAttribute="leading" secondItem="EQz-ir-dM1" secondAttribute="leading" constant="16" id="GRe-Ol-nYD"/>
+                <constraint firstItem="7GC-L9-6at" firstAttribute="leading" secondItem="EQz-ir-dM1" secondAttribute="leading" constant="119.31707317073165" id="GZP-5n-HKO"/>
+                <constraint firstItem="7GC-L9-6at" firstAttribute="top" secondItem="EQz-ir-dM1" secondAttribute="top" constant="69" id="TCa-ph-60D"/>
                 <constraint firstItem="Mrr-CJ-PWE" firstAttribute="bottom" secondItem="EQz-ir-dM1" secondAttribute="bottom" constant="-16" id="WFT-4A-svX"/>
                 <constraint firstItem="Fhz-SQ-CN4" firstAttribute="top" secondItem="U2p-mg-q3G" secondAttribute="bottom" constant="8" id="WRQ-9u-QLN"/>
                 <constraint firstItem="U2p-mg-q3G" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fGh-Ci-Dxg"/>
+                <constraint firstItem="7GC-L9-6at" firstAttribute="trailing" secondItem="EQz-ir-dM1" secondAttribute="trailing" constant="-120.6829268292683" id="iSb-Qp-dEI"/>
                 <constraint firstItem="U2p-mg-q3G" firstAttribute="top" secondItem="EQz-ir-dM1" secondAttribute="bottom" constant="8" id="kej-sT-Zm5"/>
                 <constraint firstItem="YRh-60-wzu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ko9-K8-UTO"/>
+                <constraint firstItem="7GC-L9-6at" firstAttribute="bottom" secondItem="EQz-ir-dM1" secondAttribute="bottom" constant="-70" id="lW4-pf-Wom"/>
                 <constraint firstItem="YRh-60-wzu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="22" id="zaL-ii-ngp"/>
             </constraints>
             <point key="canvasLocation" x="24" y="52"/>
         </view>
     </objects>
     <resources>
-        <image name="8619297980_98155509da_k.jpg" width="2048" height="1365"/>
         <image name="cancel.png" width="22" height="22"/>
         <image name="country.png" width="21" height="21"/>
         <image name="email.png" width="21" height="21"/>

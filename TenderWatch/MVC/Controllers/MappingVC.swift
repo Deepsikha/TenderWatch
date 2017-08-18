@@ -300,4 +300,3 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
 }
-

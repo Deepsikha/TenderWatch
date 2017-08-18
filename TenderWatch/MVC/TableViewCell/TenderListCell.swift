@@ -15,7 +15,7 @@ class TenderListCell: UITableViewCell {
     @IBOutlet var lblCountry: UILabel!
     @IBOutlet var lblTender: UILabel!
     
-    @IBOutlet weak var imgIndocator: UIImageView!
+    @IBOutlet weak var imgIndicator: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var exp_day: UILabel!
@@ -25,16 +25,16 @@ class TenderListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.imgIndocator.layer.borderColor = UIColor.white.cgColor
-        self.imgIndocator.layer.borderWidth = 1
+        self.imgIndicator.layer.borderColor = UIColor.white.cgColor
+        self.imgIndicator.layer.borderWidth = 1
     }
     
     override func layoutSubviews() {
         self.imgProfile.layer.masksToBounds = true;
         self.imgProfile.layer.cornerRadius = self.imgProfile.frame.width/2.0
         
-        self.imgIndocator.layer.masksToBounds = true
-        self.imgIndocator.layer.cornerRadius = self.imgIndocator.frame.width / 2
+        self.imgIndicator.layer.masksToBounds = true
+        self.imgIndicator.layer.cornerRadius = self.imgIndicator.frame.width / 2
 
     }
     

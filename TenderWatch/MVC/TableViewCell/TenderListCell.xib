@@ -158,7 +158,7 @@
             </constraints>
             <connections>
                 <outlet property="exp_day" destination="INE-oX-hGZ" id="FYU-IL-Vbn"/>
-                <outlet property="imgIndocator" destination="gFT-iw-djr" id="mpy-zj-usO"/>
+                <outlet property="imgIndicator" destination="gFT-iw-djr" id="rqQ-1r-6HF"/>
                 <outlet property="imgProfile" destination="1RI-iB-Ch9" id="ffP-5g-gPd"/>
                 <outlet property="lblCountry" destination="I8c-3D-jMn" id="snT-HW-a8Y"/>
                 <outlet property="lblDelete" destination="dry-0n-fto" id="nsG-lM-KY5"/>

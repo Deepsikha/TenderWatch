@@ -113,15 +113,15 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             if !(appDelegate.isClient!) {
                 if !(fv.interested!.isEmpty) {
                     if fv.interested!.contains(USER!._id!) {
-                        cell.imgIndocator.isHidden = false
+                        cell.imgIndicator.isHidden = false
                     } else {
-                        cell.imgIndocator.isHidden = true
+                        cell.imgIndicator.isHidden = true
                     }
                 } else {
-                    cell.imgIndocator.isHidden = true
+                    cell.imgIndicator.isHidden = true
                 }
             } else {
-                cell.imgIndocator.isHidden = true
+                cell.imgIndicator.isHidden = true
             }
         }
         

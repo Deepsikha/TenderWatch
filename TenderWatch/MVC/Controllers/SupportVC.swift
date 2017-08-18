@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
-
+    
     @IBOutlet weak var txfEmailSender: UITextField!
     @IBOutlet weak var txfEmailReceiver: UITextField!
     @IBOutlet weak var txfSubject: UITextField!
@@ -18,7 +18,7 @@ class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var btnSend: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.txfEmailSender.delegate = self
         self.txfSubject.delegate = self
         self.txtVwDesc.delegate = self
@@ -57,7 +57,7 @@ class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
             return false
         }
     }
-
+    
     //MARK:- TextView Delegate
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView == self.txtVwDesc {
@@ -83,7 +83,7 @@ class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         if (textView.text.isEmpty) || textView.text == "Enter your Questions or Complain"{
-            self.btnSend.isEnabled = true
+            self.btnSend.isEnabled = false
             self.btnSend.alpha = 0.5
         } else {
             self.btnSend.isEnabled = true
@@ -95,24 +95,49 @@ class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
     }
-
+    
     @IBAction func handleBtnSend(_ sender: Any) {
-        let param: Parameters = ["subject": self.txfSubject.text!,
-                                 "description":self.txtVwDesc.text!]
         
         if (self.txtVwDesc.text! != "Enter your Questions or Complain") {
-            if isNetworkReachable() {
-                Alamofire.request(SUPPORT, method: .post, parameters: param, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
-                    if (resp.result.value != nil) {
-                        
-                    }
-                })
-            } else {
-                MessageManager.showAlert(nil, "No Internet")
+            
+            let addressAlert = UIAlertController(title: "Email", message: "Enter Your Email Account Password", preferredStyle: UIAlertControllerStyle.alert)
+            
+            addressAlert.addTextField { (textField) -> Void in
+                textField.placeholder = "Password"
+                textField.isSecureTextEntry = true
             }
+            
+            let createRouteAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (alertAction) -> Void in
+                if !((addressAlert.textFields?[0].text)!.isEmpty) {
+                    let param: Parameters = ["subject": self.txfSubject.text!,
+                                             "description":self.txtVwDesc.text!,
+                                             "password": (addressAlert.textFields?[0].text)!]
+                    if isNetworkReachable() {
+                        Alamofire.request(SUPPORT, method: .post, parameters: param, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                            if (resp.response?.statusCode == 202) {
+                                
+                            } else {
+                                MessageManager.showAlert(nil, "Thank You for contacting. We respond to it within 72 hours")
+                                appDelegate.setHomeViewController()
+                            }
+                        })
+                    } else {
+                        MessageManager.showAlert(nil, "No Internet")
+                    }
+                } else {
+                    MessageManager.showAlert(nil, "Email can't send. Please Enter Your password")
+                }
+            }
+            
+            let closeAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) -> Void in
+            }
+            
+            addressAlert.addAction(createRouteAction)
+            addressAlert.addAction(closeAction)
+            
+            present(addressAlert, animated: true, completion: nil)
         } else {
             MessageManager.showAlert(nil, "Enter your Questions or Complain")
         }
     }
-    
 }

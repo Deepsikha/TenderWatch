@@ -84,7 +84,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             SideMenuVC.arrSideMenuLbl = ["Home", "Upload Tender", "Edit Profile", "Change Password", "Notifications", "Contact Support Team", "Logout"]
         } else {
             SideMenuVC.arrSideMenuIcon = ["home","dollar","country", "userthree","password", "fav", "bell", "support", "logout"]
-            SideMenuVC.arrSideMenuLbl = ["Home", "Subscription Details", "Add/Remove Countries", "Edit Profile", "Change Password", "Favorites", "Notifications", "Contact Support Team", "Logout"]
+            SideMenuVC.arrSideMenuLbl = ["Home", "Subscription Details", "Add / Remove Countries", "Edit Profile", "Change Password", "Favorites", "Notifications", "Contact Support Team", "Logout"]
         }
         self.tblSideMenu.reloadData()
     }
@@ -127,7 +127,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         } else if item == "Subscription Details" {
             appDelegate.drawerController.centerViewController = nav2
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
-        } else if item == "Add/Remove Countries" {
+        } else if item == "Add / Remove Countries" {
             appDelegate.drawerController.centerViewController = nav3
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if  item == "Upload Tender" {

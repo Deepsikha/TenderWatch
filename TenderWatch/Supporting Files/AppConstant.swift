@@ -52,6 +52,7 @@ func hexStringToUIColor (hex:String) -> UIColor {
         alpha: CGFloat(1.0)
     )
 }
+
 extension Date {
     func getDifferenceBtnCurrentDate(date: String) -> DateComponents {
         let dateFormatter = DateFormatter()
@@ -144,30 +145,14 @@ class MessageManager {
 
 extension UIViewController {
     
-    //Previous code
-    
     var activityIndicatorTag: Int { return 999999 }
     
     func startActivityIndicator(
         _ style: UIActivityIndicatorViewStyle = .gray,
         location: CGPoint? = nil) {
         self.view.isUserInteractionEnabled = false
-
-        //Set the position - defaults to `center` if no`location`
-        
-        //argument is provided
-        
-//        let loc = location ?? self.view.center
-        
-        
-        //Ensure the UI is updated from the main thread
-        
-        //in case this method is called from a closure
         
         DispatchQueue.main.async(execute: {
-            
-            //Create the activity indicator
-            
             
             let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
             
@@ -176,24 +161,16 @@ extension UIViewController {
             
             
             activityIndicator.tag = self.activityIndicatorTag
-            //Set the location
-            
             activityIndicator.center =  CGPoint(x:ScreenSize.SCREEN_WIDTH/2, y:ScreenSize.SCREEN_HEIGHT/2)
             activityIndicator.hidesWhenStopped = true
-            //Start animating and add the view
-            
             activityIndicator.startAnimating()
+            
             self.view.addSubview(activityIndicator)
         })
     }
     
     func stopActivityIndicator() {
-        
-        //Again, we need to ensure the UI is updated from the main thread!
-        
         DispatchQueue.main.async(execute: {
-            //Here we find the `UIActivityIndicatorView` and remove it from the view
-            
             if let activityIndicator = self.view.subviews.filter(
                 { $0.tag == self.activityIndicatorTag}).first as? UIActivityIndicatorView {
                 activityIndicator.stopAnimating()
