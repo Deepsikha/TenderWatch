@@ -60,6 +60,11 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.lblName.text = (fv.email == "") ? "example@gmail.com" : fv.email
             cell.lblCountry.text = fv.tenderName
             
+            cell.isUserInteractionEnabled = fv.isActive!
+            cell.lblDelete.isHidden = fv.isActive!
+            cell.vwDelete.isHidden = fv.isActive!
+            
+            
             cell.imgProfile.sd_setShowActivityIndicatorView(true)
             cell.imgProfile.sd_setIndicatorStyle(.gray)
             //                (tender.tenderPhoto)!

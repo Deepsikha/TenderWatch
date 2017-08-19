@@ -84,7 +84,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         let date = noti.createdAt?.substring(to: (noti.createdAt?.index((noti.createdAt?.startIndex)!, offsetBy: 10))!)
         cell.lblDate.text = date!
         
-        cell.imgSender.sd_setImage(with: URL(string: noti.user!.profilePhoto!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
+        cell.imgSender.sd_setImage(with: URL(string: noti.sender!.profilePhoto!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
         }
         cell.imgSender.backgroundColor = UIColor.gray
         
@@ -114,9 +114,20 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             self.present(alert, animated: true, completion: nil)
         })
-        dlt.backgroundColor = UIColor.red
         
-        return [dlt]
+        let detail = UITableViewRowAction(style: .normal, title: "Contractor Detail") { (action, index) in
+            let vc = UserDetailVC()
+            vc.ContractorDetail = self.notification[index.row]
+            self.present(vc, animated: true, completion: nil)
+        }
+        dlt.backgroundColor = UIColor.red
+        detail.backgroundColor = UIColor.green
+        if appDelegate.isClient! {
+            return [dlt, detail]
+        } else {
+            return [dlt]
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {

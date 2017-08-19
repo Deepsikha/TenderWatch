@@ -54,6 +54,7 @@
             self.lblName.isHidden = false
             self.btnnext.setTitle("Update", for: .normal)
             self.btnCountry.setTitle(USER!.country!, for: .normal)
+            self.lblCountryCode.text = USER!.country!
             self.lblCountryCode.text = RegisterCountryVC.countryCode
             self.phonenum.text = USER?.contactNo
             self.occupation.text = USER?.occupation

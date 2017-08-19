@@ -20,7 +20,7 @@ class Favorite: NSObject, Mappable {
     var desc: String?
     var email : String?
     var exp : String?
-    var isActive: String?
+    var isActive: Bool?
     var landlineNo : String?
     var tenderName : String?
     var tenderPhoto : String?

@@ -37,4 +37,4 @@ var READ_NOTIFY: String = "http://lanetteam.com:4000/api/notification"//(BASE_UR
 var NOTIFICATION_DETAIL: String = (BASE_URL)+"notification/" //read: put (with id)
 var NOTIFICATION: String = (BASE_URL)+"notification/delete"
 
-var SUPPORT: String = (BASE_URL)+""
+var SUPPORT: String = (BASE_URL)+"support"

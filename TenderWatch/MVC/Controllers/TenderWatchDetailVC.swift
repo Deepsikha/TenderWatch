@@ -168,7 +168,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                 self.generateSubView(sender: sender as! NSObject)
             } else {
                 let vc = UserDetailVC()
-                vc.detail = self.tenderDetail
+                vc.ClientDetail = self.tenderDetail
                 self.present(vc, animated: true, completion: nil)
             }
         }

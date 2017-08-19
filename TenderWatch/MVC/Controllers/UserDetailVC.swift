@@ -22,8 +22,10 @@ class UserDetailVC: UIViewController {
     @IBOutlet weak var vwStack: RatingControl!
     @IBOutlet weak var btnCancel: UIButton!
     
-    var detail: TenderDetail!
-    static var rate: Int!
+    var ClientDetail: TenderDetail!
+    var ContractorDetail: Notification!
+    static var rate: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if !(appDelegate.isClient!) {
@@ -36,24 +38,28 @@ class UserDetailVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.imgUser.layer.cornerRadius = self.imgUser.frame.height / 2
         self.navigationController?.isNavigationBarHidden = true
-        if !(appDelegate.isClient!) {
-            self.vwStack.isHidden = false
-        }
         
-        self.imgUser.sd_setImage(with: URL(string: (self.detail.tenderUploader?.profilePhoto)!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
+       
+        self.imgUser.sd_setImage(with: !(appDelegate.isClient!) ? URL(string: (self.ClientDetail.tenderUploader?.profilePhoto)!) : URL(string: (self.ContractorDetail.sender?.profilePhoto)!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
             if (image == nil) {
                 self.lblNoImage.isHidden = false
             }
         }
-        
-        self.imgTender.sd_setImage(with: URL(string: (self.detail.tenderPhoto)!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
+
+        self.imgTender.sd_setImage(with: !(appDelegate.isClient!) ? URL(string: (self.ClientDetail.tenderPhoto)!) : URL(string: (self.ContractorDetail.tender?.tenderPhoto)!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
         }
-        self.txfEmail.text = self.detail.tenderUploader?.email
-        self.txfCountry.text = self.detail.tenderUploader?.country
-        self.txfMobileNo.text = self.detail.tenderUploader?.contactNo
-        self.txfOccupation.text = self.detail.tenderUploader?.occupation
+        self.txfEmail.text = !(appDelegate.isClient!) ? self.ClientDetail.tenderUploader?.email : self.ContractorDetail.sender?.email
+        
+        self.txfCountry.text = !(appDelegate.isClient!) ? self.ClientDetail.tenderUploader?.country : self.ContractorDetail.sender?.country
+        
+        self.txfMobileNo.text = !(appDelegate.isClient!) ? self.ClientDetail.tenderUploader?.contactNo : self.ContractorDetail.sender?.contactNo
+        
+        self.txfOccupation.text = !(appDelegate.isClient!) ? self.ClientDetail.tenderUploader?.occupation : self.ContractorDetail.sender?.occupation
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        //store rating
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -61,7 +67,6 @@ class UserDetailVC: UIViewController {
     
     @IBAction func handleBtnCancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-        print(UserDetailVC.rate)
     }
 }
 

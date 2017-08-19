@@ -214,24 +214,17 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
     }
     
     func store() {
-        // Check that text has been entered into both the account and password fields.
-        guard let newAccountName = self.txfEmail.text, let newPassword = self.txfPassword.text, !newAccountName.isEmpty && !newPassword.isEmpty else { return }
+        guard let newAccountName = (self.txfEmail.text?.isEmpty)! ? USER!.email! : self.txfEmail.text, let newPassword = (self.txfPassword.text?.isEmpty)! ? "" : self.txfPassword.text, !newAccountName.isEmpty else { return }
         
-        // Check if we need to update an existing item or create a new one.
         do {
             if let originalAccountName = self.txfEmail.text {
-                // Create a keychain item with the original account name.
                 var passwordItem = KeychainPasswordItem(service: KeychainConfig.service, account: originalAccountName, accessGroup: KeychainConfig.accessGroup)
                 
-                // Update the account name and password.
                 try passwordItem.renameAccount(newAccountName)
                 try passwordItem.savePassword(newPassword)
-            }
-            else {
-                // This is a new account, create a new keychain item with the account name.
+            } else {
                 let passwordItem = KeychainPasswordItem(service: KeychainConfig.service, account: newAccountName, accessGroup: KeychainConfig.accessGroup)
                 
-                // Save the password for the new item.
                 try passwordItem.savePassword(newPassword)
             }
         }

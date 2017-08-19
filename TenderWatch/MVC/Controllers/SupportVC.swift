@@ -110,15 +110,17 @@ class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
             let createRouteAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (alertAction) -> Void in
                 if !((addressAlert.textFields?[0].text)!.isEmpty) {
                     let param: Parameters = ["subject": self.txfSubject.text!,
-                                             "description":self.txtVwDesc.text!,
+                                             "body": self.txtVwDesc.text!,
+                                             "email": self.txfEmailSender.text!,
                                              "password": (addressAlert.textFields?[0].text)!]
+                    
                     if isNetworkReachable() {
                         Alamofire.request(SUPPORT, method: .post, parameters: param, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
-                            if (resp.response?.statusCode == 202) {
-                                
-                            } else {
-                                MessageManager.showAlert(nil, "Thank You for contacting. We respond to it within 72 hours")
+                            if (resp.response?.statusCode == 200) {
                                 appDelegate.setHomeViewController()
+                                MessageManager.showAlert(nil, "Thank You for contacting. We respond to it within 72 hours")
+                            } else {
+                                MessageManager.showAlert(nil, "Enter valid Credential")
                             }
                         })
                     } else {

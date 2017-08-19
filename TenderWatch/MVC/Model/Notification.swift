@@ -14,7 +14,7 @@ class Notification: NSObject, Mappable {
     var id: String?
     var user: User?
     var sender: User?
-    var tender: Tender?
+    var tender: TenderDetail?
     var message: String?
     var createdAt: String?
     var type: String?
@@ -29,8 +29,6 @@ class Notification: NSObject, Mappable {
 //    "profilePhoto": "no image"
 //    }
     
-    
-    
     required init?(map: Map) {
         super.init()
         mapping(map:map)
@@ -39,6 +37,7 @@ class Notification: NSObject, Mappable {
     func mapping(map: Map) {
         id          <- map["_id"]
         user        <- map["user"]
+        sender      <- map["sender"]
         tender      <- map["tender"]
         message     <- map["message"]
         createdAt   <- map["createdAt"]
