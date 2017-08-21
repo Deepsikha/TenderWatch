@@ -33,6 +33,7 @@
     static var isUpdated = false
     static var updated = false
     
+    var cc : [String: String] = ["China": "86", "Tanzania": "255", "Pakistan":"92", "United Kingdom": "44","United States of America": "1"]
     override func viewDidLoad() {
         super.viewDidLoad()
         self.btnnext.isEnabled = false
@@ -55,7 +56,9 @@
             self.btnnext.setTitle("Update", for: .normal)
             self.btnCountry.setTitle(USER!.country!, for: .normal)
             self.lblCountryCode.text = USER!.country!
-            self.lblCountryCode.text = RegisterCountryVC.countryCode
+//            self.lblCountryCode.text = RegisterCountryVC.countryCode
+            let val = (cc as NSObject).value(forKey: USER!.country!) as? String
+            self.lblCountryCode.text = "+\(val!)"
             self.phonenum.text = USER?.contactNo
             self.occupation.text = USER?.occupation
             self.proflPic.imageView?.sd_setShowActivityIndicatorView(true)
@@ -210,7 +213,7 @@
     }
     
     @IBAction func handleBtnnext(_ sender: Any) {
-        if !(isValidNumber(self.phonenum.text!, length: 10)) {
+        if !(isValidNumber(self.phonenum.text!, length: 9)) {
             MessageManager.showAlert(nil, "Invalid Number")
         } else {
             if (USER?.authenticationToken != nil) {

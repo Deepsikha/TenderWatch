@@ -10,21 +10,22 @@ import UIKit
 import SDWebImage
 
 class UserDetailVC: UIViewController {
-
+    
     @IBOutlet weak var lblTitle: UILabel!
-    @IBOutlet weak var lblNoImage: UILabel!
-    @IBOutlet weak var imgTender: UIImageView!
     @IBOutlet weak var imgUser: UIImageView!
     @IBOutlet weak var txfEmail: UITextField!
     @IBOutlet weak var txfMobileNo: UITextField!
     @IBOutlet weak var txfOccupation: UITextField!
     @IBOutlet weak var txfCountry: UITextField!
+    @IBOutlet weak var btnAboutMe: UIButton!
     @IBOutlet weak var vwStack: RatingControl!
     @IBOutlet weak var btnCancel: UIButton!
     
     var ClientDetail: TenderDetail!
     var ContractorDetail: Notification!
     static var rate: Int = 0
+    var transperentView = UIView()
+    var txtVw = UITextView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,21 +34,19 @@ class UserDetailVC: UIViewController {
         } else {
             self.lblTitle.text = "Contractor Detail"
         }
+        self.txtVw.layer.cornerRadius = 5
+        self.txtVw.font = UIFont.systemFont(ofSize: 18)
+        self.btnAboutMe.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         self.imgUser.layer.cornerRadius = self.imgUser.frame.height / 2
         self.navigationController?.isNavigationBarHidden = true
         
-       
+        
         self.imgUser.sd_setImage(with: !(appDelegate.isClient!) ? URL(string: (self.ClientDetail.tenderUploader?.profilePhoto)!) : URL(string: (self.ContractorDetail.sender?.profilePhoto)!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
-            if (image == nil) {
-                self.lblNoImage.isHidden = false
-            }
         }
-
-        self.imgTender.sd_setImage(with: !(appDelegate.isClient!) ? URL(string: (self.ClientDetail.tenderPhoto)!) : URL(string: (self.ContractorDetail.tender?.tenderPhoto)!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
-        }
+        
         self.txfEmail.text = !(appDelegate.isClient!) ? self.ClientDetail.tenderUploader?.email : self.ContractorDetail.sender?.email
         
         self.txfCountry.text = !(appDelegate.isClient!) ? self.ClientDetail.tenderUploader?.country : self.ContractorDetail.sender?.country
@@ -55,16 +54,41 @@ class UserDetailVC: UIViewController {
         self.txfMobileNo.text = !(appDelegate.isClient!) ? self.ClientDetail.tenderUploader?.contactNo : self.ContractorDetail.sender?.contactNo
         
         self.txfOccupation.text = !(appDelegate.isClient!) ? self.ClientDetail.tenderUploader?.occupation : self.ContractorDetail.sender?.occupation
+        
+        self.txtVw.text = !(appDelegate.isClient!) ? self.ClientDetail.tenderUploader?.aboutMe : self.ContractorDetail.sender?.aboutMe
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.transperentView.frame = self.view.frame
+        self.txtVw.frame = CGRect(x: self.view.frame.width / 2 - 130, y: self.view.frame.height / 2 - 150, width: 260, height: 300)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         //store rating
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func handleBtnAboutMe(_ sender: Any) {
+        self.transperentView = UIView(frame: self.view.frame)
+        self.transperentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.25)
+        self.transperentView.addSubview(self.txtVw)
+        if !self.view.subviews.contains(self.transperentView) {
+            self.view.addSubview(self.transperentView)
+        }
+        let tapBtn = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
+        tapBtn.cancelsTouchesInView = false
+        self.transperentView.addGestureRecognizer(tapBtn)
+    }
+    
+    func tapHandler() {
+        if self.view.subviews.contains(self.transperentView) {
+            self.transperentView.removeFromSuperview()
+        }
+    }
     @IBAction func handleBtnCancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

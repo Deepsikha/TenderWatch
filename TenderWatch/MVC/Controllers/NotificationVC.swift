@@ -86,7 +86,6 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell.imgSender.sd_setImage(with: URL(string: noti.sender!.profilePhoto!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
         }
-        cell.imgSender.backgroundColor = UIColor.gray
         
         //        if (components.day! < 0) {
         //            deleteTender(indexPath.row)

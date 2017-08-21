@@ -69,7 +69,6 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.tblTenderContactDetail.register(UINib(nibName: "ClientDetailCell", bundle: nil), forCellReuseIdentifier: "ClientDetailCell")
         
-        
         imageView = UIImageView(image: UIImage(named: "avtar"))
         imageView.sizeToFit()
         
@@ -266,6 +265,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                             self.btnInterested.backgroundColor = UIColor(red: 145/255, green: 216/255, blue: 79/255, alpha: 0.7)
                             self.btnInterested.isEnabled = false
                         }
+                        
                         self.lblTenderName.text = self.tenderDetail.tenderName!
                         self.lblCountry.text = self.tenderDetail.country!.countryName!
                         
@@ -285,6 +285,10 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                         
                         if !(self.tenderDetail.address!.isEmpty)  {
                             self.dic["Address:"] = self.tenderDetail.address!
+                        }
+                        
+                        if (self.tenderDetail.isFollowTender)! {
+                            self.dic["Follow Tender Process"] = ""
                         }
                         
                         let date = data.value(forKey: "expiryDate")! as? String

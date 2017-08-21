@@ -19,16 +19,7 @@ class Notification: NSObject, Mappable {
     var createdAt: String?
     var type: String?
     var read: Bool?
-    
-//    "sender": {
-//    "_id": "5981bc34b5fb605c7406d446",
-//    "email": "support@tenderwatch.com",
-//    "role": "support",
-//    "createdAt": "2017-08-04T10:54:26.052Z",
-//    "isActive": true,
-//    "profilePhoto": "no image"
-//    }
-    
+
     required init?(map: Map) {
         super.init()
         mapping(map:map)

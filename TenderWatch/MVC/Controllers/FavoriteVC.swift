@@ -166,7 +166,11 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         TenderWatchDetailVC.id = self.favorite[indexPath.row].id
-        
+        if self.favorite[indexPath.row].amendRead != nil {
+            if !(self.favorite[indexPath.row].amendRead?.contains(USER!._id!))! {
+                TenderWatchVC.isAmended = true
+            }
+        }
         self.navigationController?.pushViewController(TenderWatchDetailVC(), animated: true)
     }
     
