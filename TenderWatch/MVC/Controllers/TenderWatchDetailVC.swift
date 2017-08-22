@@ -161,15 +161,9 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         if appDelegate.isClient! {
         
         } else {
-            if (self.tenderDetail.isFollowTender)! {
-                self.imgIsFollow.sd_setImage(with: URL(string: self.tenderDetail.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: .progressiveDownload, completed: { (image, error, memory, url) in
-                })
-                self.generateSubView(sender: sender as! NSObject)
-            } else {
                 let vc = UserDetailVC()
                 vc.ClientDetail = self.tenderDetail
                 self.present(vc, animated: true, completion: nil)
-            }
         }
     }
     

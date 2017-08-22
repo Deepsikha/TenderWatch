@@ -41,6 +41,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnFollow: UIButton!
     
+    @IBOutlet weak var btnCancel: UIButton!
     let checkedImage = UIImage(named: "chaboxcheked")! as UIImage
     let uncheckedImage = UIImage(named: "chabox")! as UIImage
     var isChecked: Bool = false
@@ -85,11 +86,13 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.navigationController?.isNavigationBarHidden = true
         if (UploadTenderVC.isUpdate) {
             self.opnDrwr.isHidden = true
+            self.btnCancel.isHidden = true
             self.btnBack.isHidden = false
             self.lblName.text = "Amend Tender"
             self.btnSubmit.setTitle("Amend", for: .normal)
         } else {
             self.opnDrwr.isHidden = false
+            self.btnCancel.isHidden = false
             self.btnBack.isHidden = true
             self.lblName.text = "Upload Tender"
             self.btnSubmit.setTitle("Upload Tender", for: .normal)
@@ -424,6 +427,9 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.btnFollow.setImage(checkedImage, for: .normal)
             self.isChecked = !isChecked
         }
+    }
+    @IBAction func handleBtnCancel(_ sender: Any) {
+        appDelegate.setHomeViewController()
     }
     //MARK:- Custom Method
     func registerNib(){

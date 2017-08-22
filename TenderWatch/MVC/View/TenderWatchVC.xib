@@ -12,13 +12,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TenderWatchVC" customModule="TenderWatch" customModuleProvider="target">
             <connections>
                 <outlet property="btnMenu" destination="D4J-ZA-zjz" id="vTr-ab-a0c"/>
+                <outlet property="btnUpload" destination="5Xc-Rp-Zxa" id="Q4O-z6-a7U"/>
                 <outlet property="lblNoTender" destination="0hP-rf-L26" id="wUL-QL-2Dh"/>
                 <outlet property="tblTenderList" destination="3tO-Yo-Oel" id="qNo-1B-4jE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -52,15 +53,29 @@
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Xc-Rp-Zxa">
+                    <rect key="frame" x="240" y="400" width="50" height="50"/>
+                    <color key="backgroundColor" red="1" green="0.38823529410000002" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="C0s-mP-0qP"/>
+                        <constraint firstAttribute="height" constant="50" id="j37-Ny-BJx"/>
+                    </constraints>
+                    <state key="normal" image="plus1.png"/>
+                    <connections>
+                        <action selector="handleBtnUpload:" destination="-1" eventType="touchUpInside" id="A8T-SV-PFE"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="hAG-m2-yUY" secondAttribute="trailing" constant="86" id="1tA-K1-6z1"/>
                 <constraint firstItem="3tO-Yo-Oel" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9Jw-tX-BbS"/>
+                <constraint firstAttribute="trailing" secondItem="5Xc-Rp-Zxa" secondAttribute="trailing" constant="30" id="F9N-nS-8Vw"/>
                 <constraint firstItem="D4J-ZA-zjz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14.5" id="K2O-Yy-FNf"/>
                 <constraint firstItem="D4J-ZA-zjz" firstAttribute="centerY" secondItem="hAG-m2-yUY" secondAttribute="centerY" id="NL3-2g-E7i"/>
                 <constraint firstItem="hAG-m2-yUY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="24" id="PUm-Kj-Ymh"/>
                 <constraint firstItem="3tO-Yo-Oel" firstAttribute="top" secondItem="D4J-ZA-zjz" secondAttribute="bottom" constant="0.5" id="Ppi-hV-wZn"/>
+                <constraint firstAttribute="bottom" secondItem="5Xc-Rp-Zxa" secondAttribute="bottom" constant="30" id="QZG-Ms-AI4"/>
                 <constraint firstItem="3tO-Yo-Oel" firstAttribute="top" secondItem="hAG-m2-yUY" secondAttribute="bottom" constant="10" id="RBv-pb-Pcr"/>
                 <constraint firstAttribute="trailing" secondItem="3tO-Yo-Oel" secondAttribute="trailing" id="SMs-eE-2So"/>
                 <constraint firstItem="D4J-ZA-zjz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="UP1-se-ITU"/>
@@ -74,5 +89,6 @@
     </objects>
     <resources>
         <image name="menu.png" width="22" height="22"/>
+        <image name="plus1.png" width="128" height="128"/>
     </resources>
 </document>

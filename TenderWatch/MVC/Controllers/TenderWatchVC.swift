@@ -1,4 +1,3 @@
-
 //
 //  TenderWatchVC.swift
 //  TenderWatch
@@ -15,6 +14,7 @@ import SDWebImage
 class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet var btnMenu: UIButton!
+    @IBOutlet weak var btnUpload: UIButton!
     @IBOutlet var tblTenderList: UITableView!
     @IBOutlet weak var lblNoTender: UILabel!
     
@@ -30,12 +30,16 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         
         self.tblTenderList.register(UINib(nibName:"TenderListCell",bundle: nil), forCellReuseIdentifier: "TenderListCell")
         self.tblTenderList.tableFooterView = UIView()
-        //
-        //        self.tblTenderList.estimatedRowHeight = 85
-        //        self.tblTenderList.rowHeight = UITableViewAutomaticDimension
+
         NotificationCenter.default.addObserver(self, selector: #selector(countmsg(notification:)), name: NSNotification.Name(rawValue : "interested"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(countmsg(notification:)), name: NSNotification.Name(rawValue : "favorite"), object: nil)
-        
+    
+        self.btnUpload.layer.cornerRadius = self.btnUpload.frame.height / 2
+        if appDelegate.isClient! {
+            self.btnUpload.isHidden = false
+        } else {
+            self.btnUpload.isHidden = true
+        }
         self.getTender()
         // Do any additional setup after loading the view.
     }
@@ -78,7 +82,6 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         let  cell = tableView.dequeueReusableCell(withIdentifier: "TenderListCell", for: indexPath) as! TenderListCell
         let tender = self.tender[indexPath.row]
         
-        cell.isUserInteractionEnabled = tender.isActive!
         cell.vwDelete.isHidden = tender.isActive!
         cell.lblDelete.isHidden = tender.isActive!
         
@@ -89,7 +92,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         cell.imgProfile.sd_setIndicatorStyle(.gray)
         cell.imgProfile.sd_setImage(with: URL(string: (tender.tenderPhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
         })
-        
+
         //Day remainning
         //pass string in "yyyy-MM-dd" format
         let components = Date().getDifferenceBtnCurrentDate(date: (tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!))!)
@@ -151,18 +154,20 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        TenderWatchDetailVC.id = self.tender[indexPath.row].id
-        tableView.reloadRows(at: [indexPath], with: .none)
-        if !(appDelegate.isClient!) {
-            self.tender[indexPath.row].readby?.append((USER?._id)!)
-            if (self.tender[indexPath.row].amendRead != nil) {
-                if !(tender[indexPath.row].amendRead?.contains((USER!._id)!))! {
-                    self.tender[indexPath.row].amendRead?.append(USER!._id!)
-                    TenderWatchVC.isAmended = true
+        if self.tender[indexPath.row].isActive! {
+            TenderWatchDetailVC.id = self.tender[indexPath.row].id
+            tableView.reloadRows(at: [indexPath], with: .none)
+            if !(appDelegate.isClient!) {
+                self.tender[indexPath.row].readby?.append((USER?._id)!)
+                if (self.tender[indexPath.row].amendRead != nil) {
+                    if !(tender[indexPath.row].amendRead?.contains((USER!._id)!))! {
+                        self.tender[indexPath.row].amendRead?.append(USER!._id!)
+                        TenderWatchVC.isAmended = true
+                    }
                 }
             }
+            self.navigationController?.pushViewController(TenderWatchDetailVC(), animated: true)
         }
-        self.navigationController?.pushViewController(TenderWatchDetailVC(), animated: true)
     }
     
     //    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -211,14 +216,18 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         update.backgroundColor = UIColor.gray
         
         if !(USER?.role?.rawValue == RollType.client.rawValue) {
-            if ((self.tender[editActionsForRowAt.row].favorite?.count)! > 0) {
-                if (self.tender[editActionsForRowAt.row].favorite?.contains((USER?._id)!))!{
-                    return [dlt]
+            if self.tender[editActionsForRowAt.row].isActive! {
+                if ((self.tender[editActionsForRowAt.row].favorite?.count)! > 0) {
+                    if (self.tender[editActionsForRowAt.row].favorite?.contains((USER?._id)!))!{
+                        return [dlt]
+                    } else {
+                        return [dlt,fav]
+                    }
                 } else {
                     return [dlt,fav]
                 }
             } else {
-                return [dlt,fav]
+                return [dlt]
             }
         } else {
             return [dlt, update]
@@ -232,6 +241,10 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     //MARK:- IBActions
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
+    }
+    
+    @IBAction func handleBtnUpload(_ sender: Any) {
+        self.navigationController?.pushViewController(UploadTenderVC(), animated: true)
     }
     
     //MARK:- Custom Method
@@ -324,5 +337,4 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             }
         }
     }
-    
 }

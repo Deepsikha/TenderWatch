@@ -21,9 +21,12 @@ class UserDetailVC: UIViewController {
     @IBOutlet weak var vwStack: RatingControl!
     @IBOutlet weak var btnCancel: UIButton!
     
+    @IBOutlet weak var lblRatings: UILabel!
+    
+    @IBOutlet weak var btnSubmit: UIButton!
     var ClientDetail: TenderDetail!
     var ContractorDetail: Notification!
-    static var rate: Int = 0
+    var rate: Int = 0
     var transperentView = UIView()
     var txtVw = UITextView()
     
@@ -36,13 +39,15 @@ class UserDetailVC: UIViewController {
         }
         self.txtVw.layer.cornerRadius = 5
         self.txtVw.font = UIFont.systemFont(ofSize: 18)
+        self.txtVw.isUserInteractionEnabled = false
         self.btnAboutMe.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(rate(notification:)), name: NSNotification.Name(rawValue : "rate"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.imgUser.layer.cornerRadius = self.imgUser.frame.height / 2
         self.navigationController?.isNavigationBarHidden = true
-        
         
         self.imgUser.sd_setImage(with: !(appDelegate.isClient!) ? URL(string: (self.ClientDetail.tenderUploader?.profilePhoto)!) : URL(string: (self.ContractorDetail.sender?.profilePhoto)!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
         }
@@ -89,8 +94,44 @@ class UserDetailVC: UIViewController {
             self.transperentView.removeFromSuperview()
         }
     }
+    //MARK:- IBAction
+    @IBAction func handleBtnRating(_ sender: Any) {
+        print("submit")
+    }
+    
     @IBAction func handleBtnCancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    //MARK:- Custom Method
+    func rate(notification: NSNotification) {
+        switch notification.userInfo!["ratings"]! as! Int {
+        case 1:
+            self.lblRatings.text = "Poor"
+            break
+        case 2:
+            self.lblRatings.text = "Average"
+            break
+        case 3:
+            self.lblRatings.text = "Good"
+            break
+        case 4:
+            self.lblRatings.text = "Very Good"
+            break
+        case 5:
+            self.lblRatings.text = "Excellent"
+            break
+        default:
+            break
+        }
+        self.rate = (notification.userInfo!["ratings"]! as! Int)
+        if rate > 0 {
+            self.btnSubmit.isEnabled = true
+            self.btnSubmit.alpha = 1.0
+        } else {
+            self.btnSubmit.isEnabled = false
+            self.btnSubmit.alpha = 0.6
+        }
     }
 }
 
@@ -127,7 +168,7 @@ class UserDetailVC: UIViewController {
     }
     
     //MARK: Button Action
-    func ratingButtonTapped(button: UIButton) {
+    func ratingButtonTapped(button: UIButton) -> Int {
         guard let index = ratingButtons.index(of: button) else {
             fatalError("The button, \(button), is not in the ratingButtons array: \(ratingButtons)")
         }
@@ -139,7 +180,8 @@ class UserDetailVC: UIViewController {
         } else {
             rating = selectedRating
         }
-        UserDetailVC.rate = rating
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "rate"), object: nil, userInfo: ["ratings": rating])
+        return rating
     }
     
     //MARK: Custom Methods

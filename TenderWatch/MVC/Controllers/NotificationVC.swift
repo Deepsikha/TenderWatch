@@ -79,7 +79,19 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
         let noti = self.notification[indexPath.row]
-        cell.lblContent.text = noti.message
+        let string_to_color = noti.message?.components(separatedBy: " ").filter({ (a) -> Bool in
+            isValidEmail(strEmail: a)
+        })
+        if (string_to_color?.isEmpty)! {
+            cell.lblContent.text = noti.message
+        } else {
+            let range = (noti.message! as NSString).range(of: (string_to_color?[0])!)
+            
+            let attribute = NSMutableAttributedString.init(string: noti.message!)
+            attribute.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue , range: range)
+            cell.lblContent.attributedText = attribute
+        }
+        
         
         let date = noti.createdAt?.substring(to: (noti.createdAt?.index((noti.createdAt?.startIndex)!, offsetBy: 10))!)
         cell.lblDate.text = date!
@@ -108,25 +120,12 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 tableView.reloadRows(at: [index], with: .none)
                 self.delete.append(self.notification[index.row].id!)
                 self.removeNotification(index.row, self.delete)
-                
             }))
             
             self.present(alert, animated: true, completion: nil)
         })
-        
-        let detail = UITableViewRowAction(style: .normal, title: "Contractor Detail") { (action, index) in
-            let vc = UserDetailVC()
-            vc.ContractorDetail = self.notification[index.row]
-            self.present(vc, animated: true, completion: nil)
-        }
         dlt.backgroundColor = UIColor.red
-        detail.backgroundColor = UIColor.green
-        if appDelegate.isClient! {
-            return [dlt, detail]
-        } else {
-            return [dlt]
-        }
-        
+        return [dlt]
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
@@ -140,11 +139,19 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        count = count + 1
-        if ((tblNotifications.indexPathsForSelectedRows?.count)! > 0) {
-            self.btnDelete.isEnabled = true
+        if self.tblNotifications.isEditing {
+            count = count + 1
+            if ((tblNotifications.indexPathsForSelectedRows?.count)! > 0) {
+                self.btnDelete.isEnabled = true
+            } else {
+                self.btnDelete.isEnabled = false
+            }
         } else {
-            self.btnDelete.isEnabled = false
+            if appDelegate.isClient! {
+                let vc = UserDetailVC()
+                vc.ContractorDetail = self.notification[indexPath.row]
+                self.present(vc, animated: true, completion: nil)
+            }
         }
     }
     
@@ -158,7 +165,6 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //MARK:- IBAction
-  
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
     }

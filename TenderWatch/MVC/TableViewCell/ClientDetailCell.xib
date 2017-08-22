@@ -20,10 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpc-a1-LUv">
-                        <rect key="frame" x="8" y="0.0" width="124" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="124" id="AdN-X0-7UJ"/>
-                        </constraints>
+                        <rect key="frame" x="8" y="0.0" width="0.0" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -36,7 +33,6 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="XYl-Df-I78" firstAttribute="leading" secondItem="xpc-a1-LUv" secondAttribute="trailing" constant="8" id="BPJ-8W-Odz"/>
                     <constraint firstAttribute="trailingMargin" secondItem="XYl-Df-I78" secondAttribute="trailing" id="Bqg-z9-Dv5"/>
                     <constraint firstAttribute="leadingMargin" secondItem="xpc-a1-LUv" secondAttribute="leading" id="ILB-60-myR"/>
                     <constraint firstItem="XYl-Df-I78" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="fNk-Xo-J0B"/>
@@ -45,6 +41,9 @@
                     <constraint firstAttribute="bottomMargin" secondItem="XYl-Df-I78" secondAttribute="bottom" constant="-8.5" id="qkG-EN-VeI"/>
                 </constraints>
             </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="XYl-Df-I78" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="140" id="E8M-5J-hQO"/>
+            </constraints>
             <connections>
                 <outlet property="lblKey" destination="xpc-a1-LUv" id="8cV-MR-i2l"/>
                 <outlet property="lblValue" destination="XYl-Df-I78" id="DKu-pn-7SY"/>

@@ -59,6 +59,9 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         nav9 = UINavigationController(rootViewController: HomeVC())
         nav10 = UINavigationController(rootViewController: SupportVC())
 
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.imageTap))
+        tap.cancelsTouchesInView = false
+        self.imgProPic.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,6 +123,11 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     // MARK:- custom Method
+    func imageTap() {
+        appDelegate.drawerController.centerViewController = nav5
+        appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
+    }
+    
     func reDirect(item: String){
         if  item == "Home" {
             appDelegate.drawerController.centerViewController = nav1
