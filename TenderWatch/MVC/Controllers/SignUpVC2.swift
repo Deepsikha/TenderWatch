@@ -130,7 +130,6 @@
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if (textField == self.phonenum) {
             textField.keyboardType = UIKeyboardType.numberPad
-            
         } else {
             textField.keyboardType = UIKeyboardType.default
         }
@@ -192,7 +191,7 @@
             self.btnnext.alpha = 0.5
         } else {
             if(sender == self.phonenum) {
-                if(sender.text?.characters.count == 10) {
+                if(sender.text?.characters.count == 9) {
                     self.btnnext.isEnabled = true
                     self.btnnext.alpha = 1.0
                 } else {
@@ -205,7 +204,6 @@
                 self.btnnext.isEnabled = true
             }
         }
-        
     }
     
     @IBAction func selectCountry(_ sender: Any) {
@@ -223,7 +221,6 @@
                 USER?.country = (self.btnCountry.titleLabel?.text)!
                 self.update()
             } else {
-                
                 if (appDelegate.isClient)! {
                     self.navigationController?.pushViewController(RulesVC(), animated: true)
                 } else {
@@ -232,7 +229,6 @@
                 signUpUser.contactNo = self.phonenum.text!
                 signUpUser.occupation = self.occupation.text!
             }
-            
         }
     }
     
@@ -319,6 +315,7 @@
                                 }
                             })) {
                                 MessageManager.showAlert(nil, (resp.result.value as! NSObject).value(forKey: "error") as! String)
+                                self.stopActivityIndicator()
                             } else {
                                 SignUpVC2.updated = true
                                 let data = (resp.result.value as! NSObject)

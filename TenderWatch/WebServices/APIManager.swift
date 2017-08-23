@@ -13,9 +13,33 @@ typealias SuccessHandler = (_ finish: Bool,_ result: DataResponse<Any>) -> ()
 typealias FailureHandler = ( _ error: String) ->()
 private let manager = NetworkReachabilityManager(host: "www.google.com")
 
-
+class NetworkManager {
+    static let sharedInstance = NetworkManager()
+    let defaultManager: SessionManager = {
+        let pathToCert = Bundle.main.path(forResource: "192.168.200.78", ofType: "crt") // Downloaded this certificate and have added to my bundle
+        let localCertificate:NSData = NSData(contentsOfFile: pathToCert!)!
+        
+        let serverTrustPolicies: [String: ServerTrustPolicy] = [
+            "192.168.200.78": .pinCertificates(
+                certificates: [SecCertificateCreateWithData(nil, localCertificate)!],
+                validateCertificateChain: true,
+                validateHost: true
+            ),
+            "lanetteam.com": .disableEvaluation
+        ]
+        
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+        
+        return SessionManager(
+            configuration: configuration,
+            serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies)
+        )
+    }()
+}
 
 class APIManager {
+    
     class var shared: APIManager {
         struct Static {
             static let instance = APIManager()
@@ -62,8 +86,6 @@ class APIManager {
         }
         callRequestedAPI(url: url, method: .get, headers: header, params: nil, successHandler: successHandler, failureHandler: failureHandler)
     }
-    
-    
     
     func callRequestedAPI(url: String,method: HTTPMethod, headers: HTTPHeaders?,params: Parameters?, successHandler: @escaping SuccessHandler, failureHandler: @escaping FailureHandler) {
         

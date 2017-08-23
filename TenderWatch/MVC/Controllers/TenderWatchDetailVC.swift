@@ -288,11 +288,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                         let date = data.value(forKey: "expiryDate")! as? String
                         let components = Date().getDifferenceBtnCurrentDate(date: (date?.substring(to: (date!.index((date!.startIndex), offsetBy: 10))))!)
                         
-                        if (components.day == 1) {
-                            self.lblDay.text = "\(components.day!) day"
-                        } else {
-                            self.lblDay.text = "\(components.day!) days"
-                        }
+                        self.lblDay.text = (components.day == 0) ? "Last Day" : (components.day == 1) ? "\(components.day!) day" : "\(components.day!) days"
                         
                         self.txtDesc.text = self.tenderDetail.desc!
                         self.imgTenderPhoto.sd_setImage(with: URL(string: self.tenderDetail.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in

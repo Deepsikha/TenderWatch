@@ -267,7 +267,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WFh-or-aTD">
                                     <rect key="frame" x="53" y="8" width="219" height="30"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <state key="normal" title="Click here for more information">
+                                    <state key="normal" title="MORE ABOUT ME (click here)">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
@@ -332,11 +332,8 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUk-aD-qTC">
-                    <rect key="frame" x="160" y="475" width="143" height="0.0"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="143" id="zCr-oc-zGc"/>
-                    </constraints>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUk-aD-qTC">
+                    <rect key="frame" x="303" y="475" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -350,13 +347,13 @@
                 <constraint firstAttribute="trailing" secondItem="U2p-mg-q3G" secondAttribute="trailing" id="8x2-jQ-njb"/>
                 <constraint firstAttribute="trailing" secondItem="Nra-se-dOV" secondAttribute="trailing" constant="77" id="ABG-Z4-8eY"/>
                 <constraint firstAttribute="trailing" secondItem="jXn-Ot-YNS" secondAttribute="trailing" constant="17" id="Eah-Qh-2iI"/>
+                <constraint firstItem="U2p-mg-q3G" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="171" id="GeV-XK-J2X"/>
                 <constraint firstItem="FWB-jh-fgL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="J8U-ZU-5TZ"/>
                 <constraint firstItem="Mrr-CJ-PWE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="57" id="Php-Q6-P3f"/>
                 <constraint firstAttribute="bottom" secondItem="Nra-se-dOV" secondAttribute="bottom" constant="33.5" id="Pid-5y-hgH"/>
                 <constraint firstItem="Mrr-CJ-PWE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PnV-s1-2BA"/>
                 <constraint firstItem="dUk-aD-qTC" firstAttribute="top" secondItem="Fhz-SQ-CN4" secondAttribute="bottom" constant="4" id="QVq-ki-3Vx"/>
                 <constraint firstAttribute="trailing" secondItem="Fhz-SQ-CN4" secondAttribute="trailing" constant="17" id="REO-6d-pHx"/>
-                <constraint firstItem="U2p-mg-q3G" firstAttribute="top" secondItem="Mrr-CJ-PWE" secondAttribute="bottom" constant="14" id="TDt-ca-ppw"/>
                 <constraint firstItem="Fhz-SQ-CN4" firstAttribute="top" secondItem="U2p-mg-q3G" secondAttribute="bottom" constant="1" id="WRQ-9u-QLN"/>
                 <constraint firstItem="U2p-mg-q3G" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fGh-Ci-Dxg"/>
                 <constraint firstItem="YRh-60-wzu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ko9-K8-UTO"/>

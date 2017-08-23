@@ -40,7 +40,7 @@ class UserDetailVC: UIViewController {
         self.txtVw.layer.cornerRadius = 5
         self.txtVw.font = UIFont.systemFont(ofSize: 18)
         self.txtVw.isUserInteractionEnabled = false
-        self.btnAboutMe.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        self.btnAboutMe.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         
         NotificationCenter.default.addObserver(self, selector: #selector(rate(notification:)), name: NSNotification.Name(rawValue : "rate"), object: nil)
     }
@@ -96,6 +96,7 @@ class UserDetailVC: UIViewController {
     }
     //MARK:- IBAction
     @IBAction func handleBtnRating(_ sender: Any) {
+        MessageManager.showAlert(nil, "Thank you for rating")
         print("submit")
     }
     
@@ -122,6 +123,7 @@ class UserDetailVC: UIViewController {
             self.lblRatings.text = "Excellent"
             break
         default:
+            self.lblRatings.text = ""
             break
         }
         self.rate = (notification.userInfo!["ratings"]! as! Int)

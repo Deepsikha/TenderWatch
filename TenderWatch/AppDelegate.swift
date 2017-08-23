@@ -224,7 +224,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setUpNotificationVC() {
         let leftSideDrawerViewController = SideMenuVC(nibName: "SideMenuVC", bundle: nil)
-        let centerViewController = SupportVC(nibName: "SupportVC", bundle: nil)
+        let centerViewController = UserDetailVC(nibName: "UserDetailVC", bundle: nil)
         
         let navigationController = UINavigationController(rootViewController: centerViewController)
         navigationController.restorationIdentifier = "ExampleCenterNavigationControllerRestorationKey"
@@ -316,11 +316,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             setUpNotificationVC()
         } else {
             switch userInfo["notificationType"]! as! String {
-                case "upload","amended","delete":
+                case "upload","amended","deleted":
                     self.setHomeViewController()
                     break
                 default:
-                    self.setUpNotificationVC()
+//                    self.setUpNotificationVC()
+                    self.setHomeViewController()
                     break
             }
         }

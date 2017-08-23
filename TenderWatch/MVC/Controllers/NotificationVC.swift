@@ -202,6 +202,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func getNotification() {
         if isNetworkReachable() {
             self.startActivityIndicator()
+//            NetworkManager.sharedInstance.defaultManager.
             Alamofire.request(READ_NOTIFY, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if(resp.result.value != nil) {
                     if resp.result.value is NSDictionary {
