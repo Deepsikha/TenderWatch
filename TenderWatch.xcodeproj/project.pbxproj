@@ -61,6 +61,9 @@
 		7D19C4891F45990B0055DAB0 /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D19C4861F45990B0055DAB0 /* cancel@2x.png */; };
 		7D19C48A1F45990B0055DAB0 /* cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D19C4871F45990B0055DAB0 /* cancel@3x.png */; };
 		7D19C48C1F45A3F50055DAB0 /* 8619297980_98155509da_k.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D19C48B1F45A3F40055DAB0 /* 8619297980_98155509da_k.jpg */; };
+		7D1CC3491F4EC0EA00BE316C /* FZAccordionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1CC3481F4EC0EA00BE316C /* FZAccordionTableView.m */; };
+		7D1CC3561F4EDCE500BE316C /* AccordionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1CC3541F4EDCE500BE316C /* AccordionHeaderView.swift */; };
+		7D1CC3571F4EDCE500BE316C /* AccordionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D1CC3551F4EDCE500BE316C /* AccordionHeaderView.xib */; };
 		7D1FEF5F1F309FFC00B1F0B5 /* SupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1FEF5D1F309FFC00B1F0B5 /* SupportVC.swift */; };
 		7D1FEF621F30A02200B1F0B5 /* SupportVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D1FEF611F30A02200B1F0B5 /* SupportVC.xib */; };
 		7D1FEF661F30A2EF00B1F0B5 /* support@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1FEF631F30A2EF00B1F0B5 /* support@1x.png */; };
@@ -294,6 +297,10 @@
 		7D19C4861F45990B0055DAB0 /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
 		7D19C4871F45990B0055DAB0 /* cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@3x.png"; sourceTree = "<group>"; };
 		7D19C48B1F45A3F40055DAB0 /* 8619297980_98155509da_k.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8619297980_98155509da_k.jpg; sourceTree = "<group>"; };
+		7D1CC3471F4EC0EA00BE316C /* FZAccordionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZAccordionTableView.h; sourceTree = "<group>"; };
+		7D1CC3481F4EC0EA00BE316C /* FZAccordionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZAccordionTableView.m; sourceTree = "<group>"; };
+		7D1CC3541F4EDCE500BE316C /* AccordionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccordionHeaderView.swift; sourceTree = "<group>"; };
+		7D1CC3551F4EDCE500BE316C /* AccordionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccordionHeaderView.xib; sourceTree = "<group>"; };
 		7D1FEF5D1F309FFC00B1F0B5 /* SupportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportVC.swift; sourceTree = "<group>"; };
 		7D1FEF611F30A02200B1F0B5 /* SupportVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SupportVC.xib; sourceTree = "<group>"; };
 		7D1FEF631F30A2EF00B1F0B5 /* support@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "support@1x.png"; sourceTree = "<group>"; };
@@ -645,6 +652,8 @@
 				7D3E13AC1F276546004729C0 /* ClientDetailCell.xib */,
 				7D2988341F3DB2BD006DBB03 /* NotificationCell.swift */,
 				7D2988351F3DB2BD006DBB03 /* NotificationCell.xib */,
+				7D1CC3541F4EDCE500BE316C /* AccordionHeaderView.swift */,
+				7D1CC3551F4EDCE500BE316C /* AccordionHeaderView.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -666,6 +675,7 @@
 			isa = PBXGroup;
 			children = (
 				7DA63F7E1F39BAC300432D87 /* KeychainPasswordItem.swift */,
+				7D1CC3461F4EC0EA00BE316C /* FZAccordionTableView */,
 				7D0394311EFB61FF00B494EF /* DrawerController */,
 			);
 			path = library;
@@ -697,6 +707,15 @@
 				7DEA14A11F348C6F007283AB /* Notification.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7D1CC3461F4EC0EA00BE316C /* FZAccordionTableView */ = {
+			isa = PBXGroup;
+			children = (
+				7D1CC3471F4EC0EA00BE316C /* FZAccordionTableView.h */,
+				7D1CC3481F4EC0EA00BE316C /* FZAccordionTableView.m */,
+			);
+			path = FZAccordionTableView;
 			sourceTree = "<group>";
 		};
 		7DA0682F1F19ED3700D9352A /* Icons */ = {
@@ -1023,6 +1042,7 @@
 				7DA068AA1F19ED3700D9352A /* check@1x.png in Resources */,
 				27A28EC51EF776F000E7B53B /* SignUpVC.xib in Resources */,
 				7DFC94921F17965800400070 /* GoogleService-Info.plist in Resources */,
+				7D1CC3571F4EDCE500BE316C /* AccordionHeaderView.xib in Resources */,
 				7DA068A51F19ED3700D9352A /* chabox@2x.png in Resources */,
 				7DA068DF1F19ED3700D9352A /* mobile@2x.png in Resources */,
 				7DA068DD1F19ED3700D9352A /* mob@3x.png in Resources */,
@@ -1300,6 +1320,7 @@
 				7D03943B1EFB61FF00B494EF /* DrawerVisualState.swift in Sources */,
 				5C36CD711F067D4D0088D21E /* Tender.swift in Sources */,
 				7D176AFE1EFA13A700B05C99 /* User.swift in Sources */,
+				7D1CC3561F4EDCE500BE316C /* AccordionHeaderView.swift in Sources */,
 				27A28ECC1EF7780000E7B53B /* AppConstant.swift in Sources */,
 				5CF289B91EFBB21A00F3EC79 /* RegisterCountryCell.swift in Sources */,
 				0CE01BEC1F039E3100111940 /* FavoriteVC.swift in Sources */,
@@ -1319,6 +1340,7 @@
 				7D03944B1EFB65E800B494EF /* SideMenuCell.swift in Sources */,
 				7DE3B5F21F3C1913000297C9 /* UserDetailVC.swift in Sources */,
 				7D2E22481F00B98500A0783E /* SubscriptionVC.swift in Sources */,
+				7D1CC3491F4EC0EA00BE316C /* FZAccordionTableView.m in Sources */,
 				7D0394451EFB63B500B494EF /* SideMenuVC.swift in Sources */,
 				7DA63F7F1F39BAC300432D87 /* KeychainPasswordItem.swift in Sources */,
 				5C34B6F61EFA181B0062B987 /* ChangePasswordVC.swift in Sources */,

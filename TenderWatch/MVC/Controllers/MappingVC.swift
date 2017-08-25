@@ -35,7 +35,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tblMappings.register(UINib(nibName: "RegisterCountryCell", bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
         
         self.tblMappings.tableFooterView = UIView()
-        
+        self.takeSubscription()
         self.fetchCoutry()
         
         //taphandle
@@ -299,4 +299,44 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func takeSubscription() {
+        let alert = UIAlertController(title: "",
+                                      message: "",
+                                      preferredStyle: .alert)
+        
+        // Change font of the title and message
+        let titleFont:[String : AnyObject] = [ NSFontAttributeName : UIFont(name: "AmericanTypewriter", size: 18)! ]
+        let messageFont:[String : AnyObject] = [ NSFontAttributeName : UIFont(name: "HelveticaNeue-Thin", size: 14)! ]
+        let attributedTitle = NSMutableAttributedString(string: "TenderWatch", attributes: titleFont)
+        let attributedMessage = NSMutableAttributedString(string: "Select a Subscription plan", attributes: messageFont)
+        alert.setValue(attributedTitle, forKey: "attributedTitle")
+        alert.setValue(attributedMessage, forKey: "attributedMessage")
+        
+        let action1 = UIAlertAction(title: "1 month free trial", style: .default, handler: { (action) -> Void in
+            print("ACTION 1 selected!")
+        })
+        
+        let action2 = UIAlertAction(title: "Monthly subscription", style: .default, handler: { (action) -> Void in
+            print("ACTION 2 selected!")
+        })
+        
+        let action3 = UIAlertAction(title: "Yearly subscription", style: .default, handler: { (action) -> Void in
+            print("ACTION 3 selected!")
+        })
+        
+        // Cancel button
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in })
+        
+        // Restyle the view of the Alert
+//        alert.view.tintColor = UIColor.brown  // change text color of the buttons
+//        alert.view.backgroundColor = UIColor.cyan  // change background color
+        alert.view.layer.cornerRadius = 25   // change corner radius
+        
+        // Add action buttons and present the Alert
+        alert.addAction(action1)
+        alert.addAction(action2)
+        alert.addAction(action3)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+    }
 }
