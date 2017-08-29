@@ -62,6 +62,9 @@
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>org-appextension-feature-password-management</string>
+		<string>com.paypal.ppclient.touch.v2</string>
+		<string>com.paypal.ppclient.touch.v1</string>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>

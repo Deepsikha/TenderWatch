@@ -31,10 +31,11 @@ class PaymentVC: UIViewController {
     
     //MARK:- IBActions
     @IBAction func btnHandleBack(_ sender: UIButton) {
+        appDelegate.setHomeViewController()
     }
     
     @IBAction func btnHandlePayPal(_ sender: UIButton) {
-        
+        self.navigationController?.pushViewController(PayPalVC(), animated: true)
     }
     
     @IBAction func btnHandleCreditCard(_ sender: UIButton) {

@@ -44,7 +44,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if(nav1 == nil){
             nav1 = UINavigationController(rootViewController: TenderWatchVC())
         }
-        nav2 = UINavigationController(rootViewController: SubscriptionVC())
+        nav2 = UINavigationController(rootViewController: PaymentVC())
         
         nav3 = UINavigationController(rootViewController: MappingVC())
         nav4 = UINavigationController(rootViewController: UploadTenderVC())

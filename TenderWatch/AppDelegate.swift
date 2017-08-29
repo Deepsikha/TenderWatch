@@ -27,11 +27,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var token: String!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        //PayPal Config.
+        PayPalMobile .initializeWithClientIds(forEnvironments: [PayPalEnvironmentProduction: "AR2fso-1K52oJUbAG-R3eZ3bk3O8PeY7gfUMqZAypVzqPK2DWV-9Q7S-SZxLe13sI68RFWJ9QAuZcd4-",
+                                                                PayPalEnvironmentSandbox: "AdYtcg05haUBRoc5ljmkM-tBorYLNvLem5Iy6UD6Sf-8wAV_uUpKkOwvXeuIn3-m1lkfmAHzLchxod_r"])
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
         } else {
             // Fallback on earlier versions
         }
+        
         //FABRIC
         Fabric.with([Crashlytics.self])
         
