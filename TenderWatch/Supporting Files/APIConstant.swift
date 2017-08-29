@@ -38,3 +38,6 @@ var NOTIFICATION_DETAIL: String = (BASE_URL)+"notification/" //read: put (with i
 var NOTIFICATION: String = (BASE_URL)+"notification/delete"
 
 var SUPPORT: String = (BASE_URL)+"support"
+var RATING: String = (BASE_URL)+"review/" //submit .post  user all get review if client need any review in text format  get 
+
+var USERS: String = (BASE_URL)+"users/"

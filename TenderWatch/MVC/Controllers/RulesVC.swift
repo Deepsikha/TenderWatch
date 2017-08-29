@@ -133,9 +133,7 @@ class RulesVC: UIViewController {
                                 MessageManager.showAlert(nil, "\(err)")
                                 self.stopActivityIndicator()
                                 self.btnSignUp.isEnabled = true
-                                
                             } else {
-                                
                                 //Set User remaining
                                 // if (USER?.authenticationToken != nil) {
                                 self.btnSignUp.isEnabled = true
@@ -151,9 +149,7 @@ class RulesVC: UIViewController {
                                 //                             self.navigationController?.pushViewController(TenderWatchVC(), animated: true)
                                 // self.user = user
                                 // USER = user
-                                
-                                
-                                // }
+                                                               // }
                                 
                             }
                         }

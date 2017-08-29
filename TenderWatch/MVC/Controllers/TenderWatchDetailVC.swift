@@ -162,7 +162,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         
         } else {
                 let vc = UserDetailVC()
-                vc.ClientDetail = self.tenderDetail
+                vc.id = self.tenderDetail.tenderUploader?._id
                 self.present(vc, animated: true, completion: nil)
         }
     }

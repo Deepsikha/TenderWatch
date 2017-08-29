@@ -29,6 +29,8 @@ class User: NSObject,NSCoding, Mappable {
     var role: RollType?
     var createdAt: String?
     var isActive: Bool?
+    var avg: Double?
+    var review: Review?
     
     var firstName: String?
     var lastName: String?
@@ -58,6 +60,8 @@ class User: NSObject,NSCoding, Mappable {
         createdAt = aDecoder.decodeObject(forKey: "createdAt") as? String
         isActive = aDecoder.decodeObject(forKey: "isActive") as? Bool
         
+//        review = aDecoder.decodeObject(forKey: "review") as? Review
+        
         firstName = aDecoder.decodeObject(forKey: "firstName") as? String
         lastName = aDecoder.decodeObject(forKey: "lastName") as? String
         //        role = aDecoder.decodeObject(forKey: "role") as? RollType
@@ -77,6 +81,8 @@ class User: NSObject,NSCoding, Mappable {
         aCoder.encode(createdAt, forKey: "createdAt")
         aCoder.encode(isActive, forKey: "isActive")
         
+//        aCoder.encode(review, forKey: "review")
+        
         aCoder.encode(firstName, forKey: "firstName")
         aCoder.encode(lastName, forKey: "lastName")
         
@@ -93,7 +99,8 @@ class User: NSObject,NSCoding, Mappable {
         role                    <- (map["role"],EnumTransform<RollType>())
         createdAt               <- map["createdAt"]
         isActive                <- map["isActive"]
-        
+        review                  <- map["review"]
+        avg                     <- map["avg"]
         firstName               <- map["firstName"]
         lastName                <- map["lastName"]
         password                <- map["password"]
@@ -113,4 +120,21 @@ class signUpUserData: NSObject {
     override init() {
         super.init()
     }    
+}
+
+class Review: NSObject, Mappable {
+    var id: String?
+    var rating: Int = 0
+    
+    required init?(map: Map)
+    {
+        super.init()
+        mapping(map:map)
+    }
+    
+    func mapping(map: Map)
+    {
+        id   <- map["_id"]
+        rating <- map["rating"]
+    }
 }

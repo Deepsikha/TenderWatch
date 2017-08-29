@@ -149,7 +149,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             if appDelegate.isClient! {
                 let vc = UserDetailVC()
-                vc.ContractorDetail = self.notification[indexPath.row]
+                vc.id = self.notification[indexPath.row].sender?._id
                 self.present(vc, animated: true, completion: nil)
             }
         }
