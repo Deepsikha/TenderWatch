@@ -31,6 +31,7 @@ class User: NSObject,NSCoding, Mappable {
     var isActive: Bool?
     var avg: Double?
     var review: Review?
+    var subscribe: Int?
     
     var firstName: String?
     var lastName: String?
@@ -59,7 +60,8 @@ class User: NSObject,NSCoding, Mappable {
         role = RollType(rawValue: (aDecoder.decodeObject(forKey: "role") as! String))
         createdAt = aDecoder.decodeObject(forKey: "createdAt") as? String
         isActive = aDecoder.decodeObject(forKey: "isActive") as? Bool
-        
+        subscribe = aDecoder.decodeObject(forKey: "subscribe") as? Int
+
 //        review = aDecoder.decodeObject(forKey: "review") as? Review
         
         firstName = aDecoder.decodeObject(forKey: "firstName") as? String
@@ -80,7 +82,7 @@ class User: NSObject,NSCoding, Mappable {
         aCoder.encode(role?.rawValue, forKey: "role")
         aCoder.encode(createdAt, forKey: "createdAt")
         aCoder.encode(isActive, forKey: "isActive")
-        
+        aCoder.encode(subscribe, forKey: "subscribe")
 //        aCoder.encode(review, forKey: "review")
         
         aCoder.encode(firstName, forKey: "firstName")
@@ -101,6 +103,8 @@ class User: NSObject,NSCoding, Mappable {
         isActive                <- map["isActive"]
         review                  <- map["review"]
         avg                     <- map["avg"]
+        subscribe               <- map["subscribe"]
+        
         firstName               <- map["firstName"]
         lastName                <- map["lastName"]
         password                <- map["password"]

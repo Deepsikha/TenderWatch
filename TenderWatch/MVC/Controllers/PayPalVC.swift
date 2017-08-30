@@ -9,7 +9,18 @@
 import UIKit
 import Alamofire
 
+enum subscriptionType {
+    case none
+    case free
+    case monthly
+    case yearly
+}
+
 class PayPalVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDelegate {
+    var select = [String : [String]]()
+    var item: [PayPalItem] = []
+    var rate: Double!
+    
     var environment:String = PayPalEnvironmentSandbox {
         willSet(newEnvironment) {
             if (newEnvironment != environment) {
@@ -21,10 +32,12 @@ class PayPalVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDel
     var resultText = "" // empty
     var payPalConfig = PayPalConfiguration() // default
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        if (subscriptionType.monthly) {
+        
+//        }
         // Do any additional setup after loading the view.
         title = "PayPal SDK Demo"
         
@@ -35,15 +48,11 @@ class PayPalVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDel
         payPalConfig.merchantUserAgreementURL = URL(string: "https://www.paypal.com/webapps/mpp/ua/useragreement-full")
         
         payPalConfig.languageOrLocale = Locale.preferredLanguages[0]
-        
-        // Setting the payPalShippingAddressOption property is optional.
-        //
-        // See PayPalConfiguration.h for details.
-        
         payPalConfig.payPalShippingAddressOption = .payPal;
         
         print("PayPal iOS SDK Version: \(PayPalMobile.libraryVersion())")
-        pay()
+        self.getServices()
+//        pay()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +73,6 @@ class PayPalVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDel
         print("PayPal Payment Success !")
         paymentViewController.dismiss(animated: true, completion: { () -> Void in
             // send completed confirmaion to your server
-            print("Here is your proof of payment:\n\n\(completedPayment.confirmation)\n\nSend this to your server for confirmation and fulfillment.")
             self.sendToServer(completedPayment.confirmation)
             self.resultText = completedPayment.description
         })
@@ -89,14 +97,17 @@ class PayPalVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDel
     }
     
     func pay() {
+        for i in self.select {
+            for j in i.value {
+                let item = PayPalItem(name: "\(i.key) -> \(j)", withQuantity: 1, withPrice: NSDecimalNumber(string: "120.00"), withCurrency: "USD", withSku: "")
+                self.item.append(item)
+            }
+        }
+        
         resultText = ""
         // Optional: include multiple items
-        let item1 = PayPalItem(name: "Old jeans with holes", withQuantity: 2, withPrice: NSDecimalNumber(string: "100.00"), withCurrency: "USD", withSku: "Hip-0037")
-        let item2 = PayPalItem(name: "Free rainbow patch", withQuantity: 1, withPrice: NSDecimalNumber(string: "0.00"), withCurrency: "USD", withSku: "Hip-00066")
-        let item3 = PayPalItem(name: "Long-sleeve plaid shirt (mustache not included)", withQuantity: 1, withPrice: NSDecimalNumber(string: "50.00"), withCurrency: "USD", withSku: "Hip-00291")
         
-        let items = [item1, item2, item3]
-        let subtotal = PayPalItem.totalPrice(forItems: items)
+        let subtotal = PayPalItem.totalPrice(forItems: self.item)
         
         // Optional: include payment details
         let shipping = NSDecimalNumber(string: "10.00")
@@ -107,7 +118,7 @@ class PayPalVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDel
         
         let payment = PayPalPayment(amount: total, currencyCode: "USD", shortDescription: "Charge", intent: .sale)
         
-        payment.items = items
+        payment.items = self.item
         payment.paymentDetails = paymentDetails
         
         if (payment.processable) {
@@ -121,6 +132,24 @@ class PayPalVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDel
     
     func sendToServer(_ param: [AnyHashable: Any]) {
         Alamofire.request(PAYPAL, method: .post, parameters: param as? Parameters, encoding: JSONEncoding.default, headers: ["Authorozation": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+            print("Here is your proof of payment:\n\n\(param)\n\nSend this to your server for confirmation and fulfillment.")
+        }
+    }
+    
+    func getServices() {
+        if isNetworkReachable() {
+            self.startActivityIndicator()
+            Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                if(resp.result.value != nil) {
+                    self.select = resp.result.value as! [String : [String]]
+                    print(self.select)
+                    self.pay()
+                }
+                print(resp.result)
+                self.stopActivityIndicator()
+            })
+        } else {
+            MessageManager.showAlert(nil, "No Internet")
         }
     }
 }

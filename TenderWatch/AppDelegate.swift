@@ -15,6 +15,7 @@ import Fabric
 import Crashlytics
 import UserNotifications
 import Alamofire
+import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,6 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //PayPal Config.
         PayPalMobile .initializeWithClientIds(forEnvironments: [PayPalEnvironmentProduction: "AR2fso-1K52oJUbAG-R3eZ3bk3O8PeY7gfUMqZAypVzqPK2DWV-9Q7S-SZxLe13sI68RFWJ9QAuZcd4-",
                                                                 PayPalEnvironmentSandbox: "AdYtcg05haUBRoc5ljmkM-tBorYLNvLem5Iy6UD6Sf-8wAV_uUpKkOwvXeuIn3-m1lkfmAHzLchxod_r"])
+        
+        //Stripe 
+        STPPaymentConfiguration.shared().publishableKey = "pk_test_mjxYxMlj4K2WZfR6TwlHdIXW"
+        
+//        appple pay merchant id remainning
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
         } else {
@@ -37,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         //FABRIC
-        Fabric.with([Crashlytics.self])
+        Fabric.with([Crashlytics.self, STPAPIClient.self])
         
         var configureError: NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)

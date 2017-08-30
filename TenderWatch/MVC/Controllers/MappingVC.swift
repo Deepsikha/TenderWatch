@@ -203,8 +203,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func fetchCategory()
-    {
+    func fetchCategory() {
         if isNetworkReachable() {
             self.startActivityIndicator()
             APIManager.shared.requestForGET(url: CATEGORY, isTokenEmbeded: false, successHandler: { (finish, res) in
@@ -251,19 +250,11 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.startActivityIndicator()
             Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if(resp.result.value != nil) {
-                    //                    if resp.result.value is NSDictionary {
-                    //                        MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
-                    //                    } else {
-                    print(resp.result.value!)
-                    //                        let data = (resp.result.value as! NSObject)
-                    //                        self.services = Mapper<Selections>().mapArray(JSONObject: data)!
                     self.select = resp.result.value as! [String : [String]]
                     print(self.select)
                     self.parse()
                     self.tblMappings.reloadData()
-                    //                    }
                 }
-                
                 print(resp.result)
                 self.stopActivityIndicator()
             })
@@ -287,7 +278,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func updateService() {
         if isNetworkReachable() {
             Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : self.select], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
-                //                print(resp.result.value)
                 if (resp.response?.statusCode == 200) {
                     appDelegate.setHomeViewController()
                 } else {
@@ -332,7 +322,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        alert.view.backgroundColor = UIColor.cyan  // change background color
         alert.view.layer.cornerRadius = 25   // change corner radius
         
-        // Add action buttons and present the Alert
+//         Add action buttons and present the Alert
         alert.addAction(action1)
         alert.addAction(action2)
         alert.addAction(action3)

@@ -52,6 +52,15 @@
 				<key>KitName</key>
 				<string>Crashlytics</string>
 			</dict>
+			<dict>
+				<key>KitInfo</key>
+				<dict>
+					<key>publishable</key>
+					<string>pk_test_mjxYxMlj4K2WZfR6TwlHdIXW</string>
+				</dict>
+				<key>KitName</key>
+				<string>STPAPIClient</string>
+			</dict>
 		</array>
 	</dict>
 	<key>FacebookAppID</key>
