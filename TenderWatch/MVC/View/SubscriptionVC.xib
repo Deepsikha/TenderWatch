@@ -11,7 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubscriptionVC" customModule="TenderWatch" customModuleProvider="target">
             <connections>
-                <outlet property="tblSubscription" destination="NMc-rx-8aW" id="Qz9-BZ-etn"/>
+                <outlet property="btnPayment" destination="n8l-6b-0qq" id="f43-Qz-bZc"/>
+                <outlet property="tblSubscription" destination="Bpl-e2-3qn" id="ftl-7X-qI1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,44 +21,61 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NMc-rx-8aW">
-                    <rect key="frame" x="29" y="63" width="275" height="419"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lOv-mX-AMb">
-                    <rect key="frame" x="16" y="14.5" width="30" height="48"/>
+                    <rect key="frame" x="16" y="15" width="30" height="48"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="Yw5-N8-CCI"/>
                         <constraint firstAttribute="width" constant="30" id="eA2-Hp-Xh9"/>
                     </constraints>
                     <state key="normal" image="menu.png"/>
                     <connections>
-                        <action selector="handleBtnBack:" destination="-1" eventType="touchUpInside" id="GD0-CK-A8s"/>
+                        <action selector="handleBtnMenu:" destination="-1" eventType="touchUpInside" id="i40-Vb-gjL"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8l-6b-0qq">
+                    <rect key="frame" x="276" y="25" width="28" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="28" id="MqV-yy-Uiu"/>
+                        <constraint firstAttribute="width" constant="28" id="f0Q-5W-guP"/>
+                    </constraints>
+                    <state key="normal" image="plus.png"/>
+                    <connections>
+                        <action selector="handleBtnPayment:" destination="-1" eventType="touchUpInside" id="1dR-E1-N5B"/>
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscription" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCC-Hy-p5k">
-                    <rect key="frame" x="93" y="24" width="134.5" height="29"/>
+                    <rect key="frame" x="92.5" y="25" width="135" height="29"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="135" id="CBw-K0-4cM"/>
+                        <constraint firstAttribute="height" constant="29" id="q8J-3l-nsT"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bpl-e2-3qn">
+                    <rect key="frame" x="16" y="67" width="304" height="413"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="SCC-Hy-p5k" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="24" id="1Dy-LK-Sfs"/>
-                <constraint firstAttribute="trailing" secondItem="NMc-rx-8aW" secondAttribute="trailing" constant="16" id="2g1-jb-ZUZ"/>
-                <constraint firstItem="SCC-Hy-p5k" firstAttribute="centerY" secondItem="lOv-mX-AMb" secondAttribute="centerY" id="HJ6-1y-4RJ"/>
-                <constraint firstItem="NMc-rx-8aW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="29" id="KFJ-sB-HJu"/>
+                <constraint firstAttribute="trailing" secondItem="n8l-6b-0qq" secondAttribute="trailing" constant="16" id="0Kl-KF-wSr"/>
+                <constraint firstItem="n8l-6b-0qq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="9MK-A1-EEa"/>
+                <constraint firstItem="Bpl-e2-3qn" firstAttribute="top" secondItem="lOv-mX-AMb" secondAttribute="bottom" constant="4" id="I8c-dC-N48"/>
                 <constraint firstItem="lOv-mX-AMb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14.5" id="ZLC-wL-dT8"/>
-                <constraint firstItem="SCC-Hy-p5k" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ZVG-8G-gXo"/>
                 <constraint firstItem="lOv-mX-AMb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="hfv-q2-W3o"/>
-                <constraint firstAttribute="bottom" secondItem="NMc-rx-8aW" secondAttribute="bottom" constant="-2" id="mh2-ud-ssD"/>
-                <constraint firstItem="NMc-rx-8aW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="63" id="vkq-vq-RQE"/>
+                <constraint firstAttribute="trailing" secondItem="Bpl-e2-3qn" secondAttribute="trailing" id="khT-K9-JMc"/>
+                <constraint firstItem="SCC-Hy-p5k" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="qLN-mM-y56"/>
+                <constraint firstItem="Bpl-e2-3qn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="wdr-FA-BQt"/>
+                <constraint firstItem="SCC-Hy-p5k" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="wgX-aK-Igu"/>
+                <constraint firstAttribute="bottom" secondItem="Bpl-e2-3qn" secondAttribute="bottom" id="xHm-6A-8VP"/>
             </constraints>
         </view>
     </objects>
     <resources>
         <image name="menu.png" width="22" height="22"/>
+        <image name="plus.png" width="800" height="800"/>
     </resources>
 </document>

@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Stripe
 
 typealias SuccessHandler = (_ finish: Bool,_ result: DataResponse<Any>) -> ()
 typealias FailureHandler = ( _ error: String) ->()
@@ -38,7 +39,7 @@ class NetworkManager {
     }()
 }
 
-class APIManager {
+class APIManager: NSObject, STPEphemeralKeyProvider {
     
     class var shared: APIManager {
         struct Static {
@@ -134,7 +135,62 @@ class APIManager {
             }
         }
     }
+  
+    func completeCharge(_ result: STPPaymentResult, amount: Int, completion: @escaping STPJSONResponseCompletionBlock) {
+        
+        //Currencry: TZS
+        let params: [String: Any] = [
+            "source": result.source.stripeID,
+            "amount": amount
+        ]
+        
+        Alamofire.request(PAYMENTS+"charges", method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : "Bearer \(UserManager.shared.user!.authenticationToken!)"])
+            .validate(statusCode: 200..<300)
+            .responseJSON { responseJSON in
+                switch responseJSON.result {
+                case .success(let json):
+                    completion(json as! [String: AnyObject], nil)
+                case .failure(let error):
+                    print(error)
+                    completion(nil, error)
+                }
+            }
+    }
     
+    func createCharge(_ token: String, amount: Int, completion: @escaping STPJSONResponseCompletionBlock) {
+        
+        //Currencry: TZS
+        let params: [String: Any] = [
+            "source": token,
+            "amount": amount
+        ]
+        
+        Alamofire.request(PAYMENTS+"charges", method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : "Bearer \(UserManager.shared.user!.authenticationToken!)"])
+            .validate(statusCode: 200..<300)
+            .responseJSON { responseJSON in
+                switch responseJSON.result {
+                case .success(let json):
+                    completion(json as! [String: AnyObject], nil)
+                case .failure(let error):
+                    print(error)
+                    completion(nil, error)
+                }
+        }
+    }
+    
+    func createCustomerKey(withAPIVersion apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
+        Alamofire.request(PAYMENTS+"ephemeral_keys", method: .post, parameters: ["api_version": apiVersion], encoding: JSONEncoding.default, headers: ["Authorization" : "Bearer \(UserManager.shared.user!.authenticationToken!)"])
+            .validate(statusCode: 200..<300)
+            .responseJSON { responseJSON in
+                switch responseJSON.result {
+                case .success(let json):
+                    completion(json as? [String: AnyObject], nil)
+                case .failure(let error):
+                    print(error)
+                    completion(nil, error)
+                }
+        }
+    }
 }//Class
 
 func isNetworkReachable() -> Bool {

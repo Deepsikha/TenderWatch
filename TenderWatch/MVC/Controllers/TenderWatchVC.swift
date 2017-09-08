@@ -97,9 +97,10 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         //pass string in "yyyy-MM-dd" format
         let components = Date().getDifferenceBtnCurrentDate(date: (tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!))!)
         
-        cell.lblTender.text = (components.day == 0) ? "Last Day" : (components.day == 1) ? "\(components.day!) day" : "\(components.day!) days"
+        cell.lblTender.text = (components.day == 0) ? (components.month == 1) ? "30 Days" : "Last Day" : (components.day == 1) ? "\(components.day!) day" : "\(components.day!) days"
         
-        cell.lblTender.textColor = (components.day == 0) ? UIColor.brown : UIColor.black
+        cell.lblTender.textColor = (components.day == 0) ? (components.month == 1) ? UIColor.black : UIColor.brown : UIColor.black
+        
         if (!(appDelegate.isClient)!) {
             if !((tender.readby!.contains((USER!._id)!))) {
                 cell.lblName.font = UIFont.boldSystemFont(ofSize: cell.lblName.font.pointSize)
@@ -261,6 +262,9 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                         let data = (resp.result.value as! NSObject)
                         self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
                         
+                        if (!signUpUser.email.isEmpty) {
+                            self.tender = self.tender.filter{$0.isActive!}
+                        }
                         self.tblTenderList.reloadData()
                         self.stopActivityIndicator()
                     }

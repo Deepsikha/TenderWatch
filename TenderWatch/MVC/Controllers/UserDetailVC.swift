@@ -70,10 +70,8 @@ class UserDetailVC: UIViewController {
                 self.txfOccupation.text = self.user.occupation!
                 
                 self.txtVw.text = self.user.aboutMe!
-                
                 self.lblAvg.text = String(describing: self.user.avg!) + " / 5.0"
-                UserDetailVC.rate = (self.user.review!.rating)
-                let _ = RatingControl()
+                self.vwStack.rating = (self.user.review!.rating)
             }
         }
     }
@@ -115,18 +113,25 @@ class UserDetailVC: UIViewController {
             self.stopActivityIndicator()
             let param: Parameters!
             let method: HTTPMethod!
+            let url: String!
             
             if (self.user.review?.id == "no id") {
                 method = .post
                 param = ["user" : self.user._id!,
                          "rating": UserDetailVC.rate]
+                url = RATING
             } else {
                 method = .put
                 param = ["rating": UserDetailVC.rate]
+                url = RATING+"\(self.user.review!.id!)"
             }
             
-            Alamofire.request(RATING+"\(self.user.review!.id!)" , method: method, parameters: param, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
-                if(resp.response?.statusCode != nil) {
+            Alamofire.request(url, method: method, parameters: param, encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+                if(resp.response?.statusCode == 200) {
+                    let data = (resp.result.value as! NSObject)
+                    self.lblAvg.text = String(describing: data.value(forKey: "avg")!)
+                    
+                    self.vwStack.rating = data.value(forKey: "rating") as! Int
                     MessageManager.showAlert(nil, "Thank you for Giving rating")
                     self.stopActivityIndicator()
                 }
@@ -174,7 +179,7 @@ class UserDetailVC: UIViewController {
         }
     }
     
-    @IBDesignable class RatingControl: UIStackView {
+@IBDesignable class RatingControl: UIStackView {
         
         private var ratingButtons = [UIButton]()
         

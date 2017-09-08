@@ -24,8 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var drawerController = DrawerController()
     var isClient: Bool?
     var isGoogle: Bool?
-    
     var token: String!
+    
+    private let publishableKey: String = "pk_test_mjxYxMlj4K2WZfR6TwlHdIXW"
+    private let appleMerchantIdentifier: String = "merchant.com.tenderWatch.imtiaz"
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         //PayPal Config.
@@ -33,9 +36,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                                 PayPalEnvironmentSandbox: "AdYtcg05haUBRoc5ljmkM-tBorYLNvLem5Iy6UD6Sf-8wAV_uUpKkOwvXeuIn3-m1lkfmAHzLchxod_r"])
         
         //Stripe 
-        STPPaymentConfiguration.shared().publishableKey = "pk_test_mjxYxMlj4K2WZfR6TwlHdIXW"
         
-//        appple pay merchant id remainning
+        STPPaymentConfiguration.shared().companyName = "TenderWatch by @Imtiaz"
+
+        if !publishableKey.isEmpty {
+            STPPaymentConfiguration.shared().publishableKey = publishableKey
+        }
+        
+        if !appleMerchantIdentifier.isEmpty {
+            STPPaymentConfiguration.shared().appleMerchantIdentifier = appleMerchantIdentifier
+        }
+        
+        
+        // Stripe theme configuration
+        STPTheme.default().primaryBackgroundColor = .appVeryLightGrayColor
+        STPTheme.default().primaryForegroundColor = .appDarkBlueColor
+        STPTheme.default().secondaryForegroundColor = .appDarkGrayColor
+        STPTheme.default().accentColor = .appGreenColor
+        
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
         } else {
@@ -72,15 +90,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if isGoogle! {
-            return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        let stripeHandled = Stripe.handleURLCallback(with: url)
+        if (stripeHandled) {
+            return true
         } else {
-            return FBSDKApplicationDelegate.sharedInstance()
-                .application(app,
-                             open: url as URL!,
-                             sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String,
-                             annotation: options[UIApplicationOpenURLOptionsKey.annotation])
-
+            if isGoogle! {
+                return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+            } else {
+                return FBSDKApplicationDelegate.sharedInstance()
+                    .application(app,
+                                 open: url as URL!,
+                                 sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String,
+                                 annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+                
+            }
         }
     }
     

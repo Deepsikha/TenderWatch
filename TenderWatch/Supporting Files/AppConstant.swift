@@ -142,6 +142,19 @@ class MessageManager {
     }
 }
 
+extension UIAlertController {
+    convenience init(message: String?, retryHandler: @escaping (UIAlertAction) -> Void) {
+        self.init(title: "Oops", message: message, preferredStyle: .alert)
+        
+        let retryAction = UIAlertAction(title: "Retry", style: .default, handler: retryHandler)
+        addAction(retryAction)
+        
+        let skipAction = UIAlertAction(title: "Skip", style: .default)
+        addAction(skipAction)
+        
+        preferredAction = skipAction
+    }
+}
 
 extension UIViewController {
     
@@ -179,7 +192,31 @@ extension UIViewController {
             }
         })
     }
+}
+
+extension UIColor {
     
+    // Blue
+    
+    static let appDarkBlueColor = UIColor(red: 50.0 / 255.0, green: 49.0 / 255.0, blue: 94.0 / 255.0, alpha: 1.0)         // #32315E
+    
+    static let appBlueColor = UIColor(red: 0.0 / 255.0, green: 144.0 / 255.0, blue: 250.0 / 255.0, alpha: 1.0)            // #0090FA
+    
+    // Gray
+    
+    static let appDarkGrayColor = UIColor(red: 135.0 / 255.0, green: 152.0 / 255.0, blue: 171.0 / 255.0, alpha: 1.0)      // #8798AB
+    
+    static let appGrayColor = UIColor(red: 170.0 / 255.0, green: 183.0 / 255.0, blue: 197.0 / 255.0, alpha: 1.0)          // #AAB7C5
+    
+    static let appLightGrayColor = UIColor(red: 233.0 / 255.0, green: 238.0 / 255.0, blue: 245.0 / 255.0, alpha: 1.0)     // #E9EEF5
+    
+    static let appVeryLightGrayColor = UIColor(red: 246.0 / 255.0, green: 249.0 / 255.0, blue: 252.0 / 255.0, alpha: 1.0) // #F6F9FC
+    
+    // Green
+    
+    static let appGreenColor = UIColor(red: 19.0 / 255.0, green: 181.0 / 255.0, blue: 125.0 / 255.0, alpha: 1.0)          // #13B57D
+    
+    static let appLightGreenColor = UIColor(red: 173.0 / 255.0, green: 242.0 / 255.0, blue: 180.0 / 255.0, alpha: 1.0)    // #ADF2B4
     
 }
 

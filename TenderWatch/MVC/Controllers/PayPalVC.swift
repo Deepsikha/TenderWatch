@@ -66,7 +66,9 @@ class PayPalVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDel
         print("PayPal Payment Cancelled")
         resultText = ""
         paymentViewController.dismiss(animated: true, completion: nil)
-        self.navigationController?.popViewController(animated: true)
+        self.startActivityIndicator()
+        self.dismiss(animated: true, completion: nil)
+        self.stopActivityIndicator()
     }
     
     func payPalPaymentViewController(_ paymentViewController: PayPalPaymentViewController, didComplete completedPayment: PayPalPayment) {
@@ -96,7 +98,7 @@ class PayPalVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDel
         self.navigationController?.popViewController(animated: true)
     }
     
-    func pay() {
+    func paymentMethod() {
         for i in self.select {
             for j in i.value {
                 let item = PayPalItem(name: "\(i.key) -> \(j)", withQuantity: 1, withPrice: NSDecimalNumber(string: "120.00"), withCurrency: "USD", withSku: "")
@@ -124,9 +126,12 @@ class PayPalVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDel
         if (payment.processable) {
             let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: payPalConfig, delegate: self)
             present(paymentViewController!, animated: true, completion: nil)
+            self.stopActivityIndicator()
+
         }
         else {
             print("Payment not processalbe: \(payment)")
+            self.stopActivityIndicator()
         }
     }
     
@@ -143,10 +148,8 @@ class PayPalVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDel
                 if(resp.result.value != nil) {
                     self.select = resp.result.value as! [String : [String]]
                     print(self.select)
-                    self.pay()
+                    self.paymentMethod()
                 }
-                print(resp.result)
-                self.stopActivityIndicator()
             })
         } else {
             MessageManager.showAlert(nil, "No Internet")

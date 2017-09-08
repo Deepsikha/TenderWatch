@@ -35,12 +35,14 @@ class PaymentVC: UIViewController {
     }
     
     @IBAction func btnHandlePayPal(_ sender: UIButton) {
-        self.navigationController?.pushViewController(PayPalVC(), animated: true)
+        self.navigationController?.pushViewController(PayPalVC(nibName: "PayPalVC", bundle: nil), animated: true)
     }
     
     @IBAction func btnHandleCreditCard(_ sender: UIButton) {
+        self.navigationController?.pushViewController(DirectPaymentVC(nibName: "DirectPaymentVC", bundle: nil), animated: true)
     }
     
     @IBAction func btnHandleApplePay(_ sender: UIButton) {
+        self.navigationController?.pushViewController(ApplePayVC(nibName: "ApplePayVC", bundle: nil), animated: true)
     }
 }

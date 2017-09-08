@@ -32,7 +32,7 @@ var COUNTRY: String = "auth/country"
 var TENDER_DETAIL: String = (BASE_URL)+"tender/" //update: put (append id), detail: get
 var INTERESTED: String = (BASE_URL)+"tender/interested/"
 
-var READ_NOTIFY: String = "http://lanetteam.com:4000/api/notification"//(BASE_URL)+"notification" //list:get badge:put
+var READ_NOTIFY: String = (BASE_URL)+"notification" //list:get badge:put
 
 var NOTIFICATION_DETAIL: String = (BASE_URL)+"notification/" //read: put (with id)
 var NOTIFICATION: String = (BASE_URL)+"notification/delete"
@@ -42,3 +42,5 @@ var RATING: String = (BASE_URL)+"review/" //submit .post  user all get review if
 
 var USERS: String = (BASE_URL)+"users/"
 var PAYPAL: String = (BASE_URL)+"paypal"
+
+var PAYMENTS: String = (BASE_URL)+"payments/"

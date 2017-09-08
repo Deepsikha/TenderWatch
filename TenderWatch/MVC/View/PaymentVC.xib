@@ -19,15 +19,17 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWd-QO-uzJ">
-                    <rect key="frame" x="16" y="30" width="73" height="30"/>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PN4-Zm-z6t">
+                    <rect key="frame" x="23" y="34" width="70" height="22"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="cc5-Mg-qTs"/>
+                        <constraint firstAttribute="width" constant="70" id="w9y-bp-3Qx"/>
                     </constraints>
                     <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Back" image="left-arr.png"/>
+                    <state key="normal" title="Back" image="left-arr.png">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
-                        <action selector="btnHandleBack:" destination="-1" eventType="touchUpInside" id="8Fr-WS-1Gu"/>
+                        <action selector="btnHandleBack:" destination="-1" eventType="touchUpInside" id="iYF-TV-4pd"/>
                     </connections>
                 </button>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sav-u8-VAN">
@@ -75,18 +77,17 @@
             </subviews>
             <color key="backgroundColor" red="0.1292253733" green="0.58360761400000005" blue="0.91861993070000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="PN4-Zm-z6t" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="1ag-DX-fdC"/>
                 <constraint firstItem="Wbd-fd-u3V" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="7Dy-D9-yGq"/>
                 <constraint firstItem="lQJ-Os-e9C" firstAttribute="top" secondItem="Wbd-fd-u3V" secondAttribute="bottom" constant="30" id="Dlr-xE-zMU"/>
                 <constraint firstAttribute="trailing" secondItem="Sav-u8-VAN" secondAttribute="trailing" constant="40" id="EnF-4t-hyd"/>
-                <constraint firstAttribute="trailing" secondItem="bWd-QO-uzJ" secondAttribute="trailing" constant="231" id="F4K-7J-6aC"/>
                 <constraint firstItem="lQJ-Os-e9C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="LC4-px-he1"/>
                 <constraint firstItem="Wbd-fd-u3V" firstAttribute="top" secondItem="Sav-u8-VAN" secondAttribute="bottom" constant="30" id="WVj-Wz-NFj"/>
-                <constraint firstItem="bWd-QO-uzJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="axF-Vo-cjD"/>
                 <constraint firstAttribute="trailing" secondItem="lQJ-Os-e9C" secondAttribute="trailing" constant="40" id="dFq-ft-5JN"/>
-                <constraint firstItem="Sav-u8-VAN" firstAttribute="top" secondItem="bWd-QO-uzJ" secondAttribute="bottom" constant="40" id="eqD-MC-Ww7"/>
                 <constraint firstItem="Sav-u8-VAN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="hGE-kz-TuR"/>
+                <constraint firstItem="PN4-Zm-z6t" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="tab-O9-1uL"/>
                 <constraint firstAttribute="trailing" secondItem="Wbd-fd-u3V" secondAttribute="trailing" constant="40" id="tjH-gj-dWf"/>
-                <constraint firstItem="bWd-QO-uzJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="zF9-yp-wlb"/>
+                <constraint firstItem="Sav-u8-VAN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="wBb-dR-I7F"/>
             </constraints>
         </view>
     </objects>
