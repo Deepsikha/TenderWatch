@@ -17,7 +17,9 @@ target 'TenderWatch' do
     pod 'FacebookShare'
     pod 'Fabric'
     pod 'Crashlytics'
-    pod ‘Stripe’
+    pod 'Stripe'
+    pod 'plaid-ios-sdk’
+    pod 'plaid-ios-link’
     
   target 'TenderWatchTests' do
     inherit! :search_paths

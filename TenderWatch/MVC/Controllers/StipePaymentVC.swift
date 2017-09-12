@@ -13,8 +13,7 @@ class StipePaymentVC: UIViewController, STPPaymentContextDelegate, STPPaymentMet
 
     private var customerContext : STPCustomerContext?
     private var paymentContext : STPPaymentContext?
-    var cntrl = STPAddCardViewController()
-    var vw = STPPaymentMethodsViewController()
+    var cntrl: STPPaymentMethodsViewController?
     private var price = 0 {
         didSet {
             // Forward value to payment context
@@ -31,8 +30,11 @@ class StipePaymentVC: UIViewController, STPPaymentContextDelegate, STPPaymentMet
         paymentContext?.delegate = self
         paymentContext?.hostViewController = self
         paymentButton.layer.cornerRadius = 5
-        cntrl.delegate = self
         presentPaymentMethodsViewController()
+        
+        // Setup payment methods view controller
+        cntrl = STPPaymentMethodsViewController(configuration: STPPaymentConfiguration.shared(), theme: STPTheme.default(), customerContext: self.customerContext!, delegate: self)
+    self.present(cntrl!, animated: true, completion: nil)
         // Do any additional setup after loading the view.
     }
 
@@ -123,6 +125,7 @@ class StipePaymentVC: UIViewController, STPPaymentContextDelegate, STPPaymentMet
     func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
         print(token.tokenId)
     }
+    
     //MARK:- Custom Methods
     func presentPaymentMethodsViewController() {
         guard !STPPaymentConfiguration.shared().publishableKey.isEmpty else {

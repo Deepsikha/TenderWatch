@@ -11,8 +11,9 @@ import Alamofire
 import ObjectMapper
 import PassKit
 import Stripe
+import plaid_ios_link
 
-class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PKPaymentAuthorizationViewControllerDelegate, PayPalPaymentDelegate, PayPalProfileSharingDelegate, STPPaymentContextDelegate {
+class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PKPaymentAuthorizationViewControllerDelegate, PayPalPaymentDelegate, PayPalProfileSharingDelegate, STPPaymentContextDelegate, STPAddCardViewControllerDelegate, PLDLinkNavigationControllerDelegate{
     
     @IBOutlet weak var btnPayment: UIButton!
     @IBOutlet weak var tblSubscription: UITableView!
@@ -36,8 +37,6 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     var item: [PayPalItem] = []
-    var rate: Double!
-    
     var environment:String = PayPalEnvironmentSandbox {
         willSet(newEnvironment) {
             if (newEnvironment != environment) {
@@ -60,6 +59,7 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.tblSubscription.delegate = self
         self.tblSubscription.dataSource = self
         
@@ -157,6 +157,53 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.resultText = profileSharingAuthorization.description
         })
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK:- Card Delegate
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        // Dismiss add card view controller
+        dismiss(animated: true)
+    }
+    
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
+        
+        if !(Stripe.defaultPublishableKey() != nil) {
+            MessageManager.showAlert(nil, "No publish key")
+            return
+        }
+        if isNetworkReachable() {
+            self.startActivityIndicator()
+            APIManager.shared.createCharge(token.tokenId, amount: 500, completion: { (json, error) in
+                
+                self.dismiss(animated: true, completion: nil)
+                if (error == nil) {
+                    print(json!)
+                    MessageManager.showAlert(nil, "Thank You For Subscribe in Application.")
+                    self.stopActivityIndicator()
+                } else {
+                    print(error!)
+                    MessageManager.showAlert(nil, "Please Try Again!!!")
+                    self.stopActivityIndicator()
+                }
+            })
+
+        } else {
+            MessageManager.showAlert(nil, "No Internet!!!")
+        }
+        
+//        submitTokenToBackend(token, completion: { (error: Error?) in
+//            if let error = error {
+//                // Show error in add card view controller
+//                completion(error)
+//            }
+//            else {
+//                // Notify add card view controller that token creation was handled successfully
+//                completion(nil)
+//                
+//                // Dismiss add card view controller
+//                dismiss(animated: true)
+//            }
+//        })
     }
     
     //MARK:- STPPaymentContext Delegate
@@ -262,6 +309,19 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         })
     }
     
+    //MARK:- PlaidLink Delegate
+    func linkNavigationControllerDidCancel(_ navigationController: PLDLinkNavigationViewController!) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func linkNavigationControllerDidFinish(withBankNotListed navigationController: PLDLinkNavigationViewController!) {
+        
+    }
+    
+    func linkNavigationContoller(_ navigationController: PLDLinkNavigationViewController!, didFinishWithAccessToken accessToken: String!) {
+        
+    }
+    
     //MARK:- IBActions
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
@@ -275,19 +335,15 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         let cards = UIAlertAction(title: "Debit/Credit Card", style: .default) { (action) in
-            let vc = StipePaymentVC(nibName: "StipePaymentVC", bundle: nil)
-            self.present(vc, animated: true, completion: nil)
-            
+            self.presentCardController()
         }
         
         let applePay = UIAlertAction(title: "ApplePay", style: .default) { (action) in
-            self.pay()
+            self.applePayConfig()
         }
         
         let bank = UIAlertAction(title: "Using Bank a/c", style: .default) { (action) in
-//            let vc = PayPalVC(nibName: "PayPalVC", bundle: nil)
-//            self.present(vc, animated: true, completion: nil)
-            MessageManager.showAlert(nil, "Development mode!!!")
+            self.presentBankAccountController()
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {
@@ -297,8 +353,8 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         option.addAction(paypal)
         option.addAction(cards)
         option.addAction(applePay)
-        option.addAction(cancel)
         option.addAction(bank)
+        option.addAction(cancel)
         self.present(option, animated: true, completion: nil)
         
     }
@@ -345,7 +401,10 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if(resp.result.value != nil) {
                     self.select = resp.result.value as! [String : [String]]
                     self.parse()
+                } else {
+                    self.stopActivityIndicator()
                 }
+
             })
         } else {
             MessageManager.showAlert(nil, "No Internet")
@@ -439,7 +498,7 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         return paymentRequest!
     }
     
-    func pay() {
+    func applePayConfig() {
         applePaySucceeded = false
         applePayError = nil
         let paymentRequest: PKPaymentRequest? = buildPaymentRequest()
@@ -489,6 +548,36 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Present the Stripe payment methods view controller to enter payment details
         paymentContext?.presentPaymentMethodsViewController()
     }
+    
+    func presentCardController() {
+        
+        let addCardViewController = STPAddCardViewController()
+        addCardViewController.delegate = self
+        
+        // Present add card view controller
+        let navigationController = UINavigationController(rootViewController: addCardViewController)
+        self.present(navigationController, animated: true)
+        
+//        let customerContext = STPCustomerContext(keyProvider: APIManager.shared)
+//        
+//        // Setup payment methods view controller
+//        let paymentMethodsViewController = STPPaymentMethodsViewController(configuration: STPPaymentConfiguration.shared(), theme: STPTheme.default(), customerContext: customerContext, delegate: self)
+//        
+//        // Present payment methods view controller
+//        let navigationController = UINavigationController(rootViewController: paymentMethodsViewController)
+//        self.present(navigationController, animated: true)
+    }
+    
+    func presentBankAccountController() {
+        let vc = PLDLinkNavigationViewController(environment: .tartan, product: .connect)
+        vc?.linkDelegate = self
+        vc?.providesPresentationContextTransitionStyle = true
+        vc?.definesPresentationContext = true
+        vc?.modalPresentationStyle = .custom
+        
+        self.present(vc!, animated: true, completion: nil)
+    }
+    
 }
 
 class ShippingManager: NSObject {

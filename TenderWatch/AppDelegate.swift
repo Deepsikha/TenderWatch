@@ -16,6 +16,7 @@ import Crashlytics
 import UserNotifications
 import Alamofire
 import Stripe
+import plaid_ios_sdk
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isGoogle: Bool?
     var token: String!
     
-    private let publishableKey: String = "pk_test_mjxYxMlj4K2WZfR6TwlHdIXW"
+    private let stripePublishableKey: String = "pk_test_mjxYxMlj4K2WZfR6TwlHdIXW"
     private let appleMerchantIdentifier: String = "merchant.com.tenderWatch.imtiaz"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -39,8 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         STPPaymentConfiguration.shared().companyName = "TenderWatch by @Imtiaz"
 
-        if !publishableKey.isEmpty {
-            STPPaymentConfiguration.shared().publishableKey = publishableKey
+        if !stripePublishableKey.isEmpty {
+            STPPaymentConfiguration.shared().publishableKey = stripePublishableKey
         }
         
         if !appleMerchantIdentifier.isEmpty {
@@ -53,6 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         STPTheme.default().primaryForegroundColor = .appDarkBlueColor
         STPTheme.default().secondaryForegroundColor = .appDarkGrayColor
         STPTheme.default().accentColor = .appGreenColor
+        
+        //Plaid Configuration
+        Plaid.sharedInstance().setPublicKey("867ee512c690fdc157863aeb060234")
         
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
