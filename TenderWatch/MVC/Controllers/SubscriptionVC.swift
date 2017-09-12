@@ -14,7 +14,6 @@ import Stripe
 import plaid_ios_link
 
 class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PKPaymentAuthorizationViewControllerDelegate, PayPalPaymentDelegate, PayPalProfileSharingDelegate, STPPaymentContextDelegate, STPAddCardViewControllerDelegate, PLDLinkNavigationControllerDelegate{
-    
     @IBOutlet weak var btnPayment: UIButton!
     @IBOutlet weak var tblSubscription: UITableView!
     
