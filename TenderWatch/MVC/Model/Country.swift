@@ -15,6 +15,7 @@ class Country: NSObject,Mappable {
     var countryId : String?
     var countryName : String?
     var isoCode: String?
+    var isoCurrencyCode: String?
     
     required init?(map: Map)
     {
@@ -24,10 +25,11 @@ class Country: NSObject,Mappable {
     
     func mapping(map: Map)
     {
-        countryId   <- map["_id"]
-        countryName <- map["countryName"]
-        countryCode <- map["countryCode"]
-        isoCode     <- map["isoCode"]
+        countryId       <- map["_id"]
+        countryName     <- map["countryName"]
+        countryCode     <- map["countryCode"]
+        isoCode         <- map["isoCode"]
+        isoCurrencyCode <- map["isoCurrencyCode"]
     }
     
 }

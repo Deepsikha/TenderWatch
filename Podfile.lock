@@ -65,9 +65,6 @@ PODS:
     - GTMSessionFetcher/Core (= 1.1.10)
   - IQKeyboardManager (4.0.10)
   - ObjectMapper (2.2.6)
-  - plaid-ios-link (0.2.1):
-    - plaid-ios-sdk
-  - plaid-ios-sdk (0.3.6)
   - RSKImageCropper (1.6.1)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
@@ -84,8 +81,6 @@ DEPENDENCIES:
   - Google/SignIn
   - IQKeyboardManager
   - ObjectMapper
-  - plaid-ios-link
-  - plaid-ios-sdk
   - RSKImageCropper
   - SDWebImage
   - Stripe
@@ -111,12 +106,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
   IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
   ObjectMapper: '042708195cc46c20871cbcbec0453826398273fd'
-  plaid-ios-link: 0ef45f18cdb2d1c3b9eaf6c2b457c950909df725
-  plaid-ios-sdk: e9865b0fe6a79b3d30d886171d7a26f7e1408935
   RSKImageCropper: 0df8c99e77a8ea7ca7a8b83ef468556f31584254
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   Stripe: 898f83a95d72180c6eb4acd65b2ae6158fc6a8bd
 
-PODFILE CHECKSUM: 9e3c43f30cf429d1428c278aa6a22f17b7f4207e
+PODFILE CHECKSUM: 828029b3cf4da7afb09da9c2caecc6fcb171fd51
 
 COCOAPODS: 1.2.0

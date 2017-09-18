@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,19 +16,20 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="29.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tick.png" translatesAutoresizingMaskIntoConstraints="NO" id="qCU-IZ-Iod">
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tick.png" translatesAutoresizingMaskIntoConstraints="NO" id="qCU-IZ-Iod">
                         <rect key="frame" x="297" y="10" width="10" height="10"/>
                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="qCU-IZ-Iod" secondAttribute="height" multiplier="1:1" id="lHF-cj-RgK"/>
+                            <constraint firstAttribute="height" constant="10" id="jXI-KU-8iv"/>
+                            <constraint firstAttribute="width" constant="10" id="tbA-AD-kUi"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7e-Ik-HOn">
-                        <rect key="frame" x="0.0" y="0.0" width="290" height="30"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                        <rect key="frame" x="8" y="0.0" width="282" height="30"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -43,7 +43,7 @@
             </tableViewCellContentView>
             <constraints>
                 <constraint firstItem="F7e-Ik-HOn" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="-0.24324324324356894" id="AAb-Ci-nvh"/>
-                <constraint firstItem="F7e-Ik-HOn" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" id="Oeo-Qf-eCD"/>
+                <constraint firstItem="F7e-Ik-HOn" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="8" id="Oeo-Qf-eCD"/>
                 <constraint firstAttribute="bottom" secondItem="F7e-Ik-HOn" secondAttribute="bottom" constant="0.24324324324357605" id="s2M-el-vYk"/>
             </constraints>
             <connections>

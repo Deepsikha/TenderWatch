@@ -9,12 +9,12 @@
 import UIKit
 import Stripe
 
-class StipePaymentVC: UIViewController, STPPaymentContextDelegate, STPPaymentMethodsViewControllerDelegate, STPAddCardViewControllerDelegate {
+class StipePaymentVC: UIViewController, STPPaymentContextDelegate  {
 
     private var customerContext : STPCustomerContext?
     private var paymentContext : STPPaymentContext?
     var cntrl: STPPaymentMethodsViewController?
-    private var price = 0 {
+    private var price = 100 {
         didSet {
             // Forward value to payment context
             paymentContext?.paymentAmount = price
@@ -33,8 +33,7 @@ class StipePaymentVC: UIViewController, STPPaymentContextDelegate, STPPaymentMet
         presentPaymentMethodsViewController()
         
         // Setup payment methods view controller
-        cntrl = STPPaymentMethodsViewController(configuration: STPPaymentConfiguration.shared(), theme: STPTheme.default(), customerContext: self.customerContext!, delegate: self)
-    self.present(cntrl!, animated: true, completion: nil)
+
         // Do any additional setup after loading the view.
     }
 
@@ -62,8 +61,6 @@ class StipePaymentVC: UIViewController, STPPaymentContextDelegate, STPPaymentMet
     func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
         // Reload related components
         reloadPaymentButtonContent()
-//        switch paymentContext.selectedPaymentMethod.label :
-//        case
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
@@ -103,28 +100,7 @@ class StipePaymentVC: UIViewController, STPPaymentContextDelegate, STPPaymentMet
     func paymentContext(_ paymentContext: STPPaymentContext, didUpdateShippingAddress address: STPAddress, completion: @escaping STPShippingMethodsCompletionBlock) {
         
     }
-    
-    func paymentMethodsViewController(_ paymentMethodsViewController: STPPaymentMethodsViewController, didFailToLoadWithError error: Error) {
-        
-    }
-    
-    func paymentMethodsViewControllerDidFinish(_ paymentMethodsViewController: STPPaymentMethodsViewController) {
-        
-    }
-    func paymentMethodsViewController(_ paymentMethodsViewController: STPPaymentMethodsViewController, didSelect paymentMethod: STPPaymentMethod) {
-        
-    }
-    func paymentMethodsViewControllerDidCancel(_ paymentMethodsViewController: STPPaymentMethodsViewController) {
-        
-    }
-    
-    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
-        
-    }
-    
-    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
-        print(token.tokenId)
-    }
+
     
     //MARK:- Custom Methods
     func presentPaymentMethodsViewController() {

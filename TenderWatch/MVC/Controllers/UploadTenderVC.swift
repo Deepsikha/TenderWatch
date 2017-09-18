@@ -285,7 +285,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.vwScroll.isScrollEnabled = false
             self.view.addSubview(self.tblOptions)
             if self.country.count == 0 {
-                self.fetchCoutry()
+                self.fetchCountry()
             }
             self.tblOptions.reloadData()
             self.isDropDownActive = true
@@ -547,7 +547,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
     }
     
-    func fetchCoutry() {
+    func fetchCountry() {
         self.startActivityIndicator()
         APIManager.shared.requestForGET(url: COUNTRY, isTokenEmbeded: false, successHandler: { (finish, res) in
             if res.result.value != nil

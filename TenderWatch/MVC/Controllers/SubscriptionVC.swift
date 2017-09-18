@@ -11,9 +11,9 @@ import Alamofire
 import ObjectMapper
 import PassKit
 import Stripe
-import plaid_ios_link
 
-class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PKPaymentAuthorizationViewControllerDelegate, PayPalPaymentDelegate, PayPalProfileSharingDelegate, STPPaymentContextDelegate, STPAddCardViewControllerDelegate, PLDLinkNavigationControllerDelegate{
+class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PKPaymentAuthorizationViewControllerDelegate, PayPalPaymentDelegate, PayPalProfileSharingDelegate, STPPaymentContextDelegate, STPAddCardViewControllerDelegate {
+    
     @IBOutlet weak var btnPayment: UIButton!
     @IBOutlet weak var tblSubscription: UITableView!
     
@@ -49,7 +49,7 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     private var customerContext : STPCustomerContext?
     private var paymentContext : STPPaymentContext?
-    private var price = 0 {
+    private var price: Int = 0 {
         didSet {
             // Forward value to payment context
             paymentContext?.paymentAmount = price
@@ -172,37 +172,24 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         if isNetworkReachable() {
             self.startActivityIndicator()
-            APIManager.shared.createCharge(token.tokenId, amount: 500, completion: { (json, error) in
-                
-                self.dismiss(animated: true, completion: nil)
-                if (error == nil) {
-                    print(json!)
-                    MessageManager.showAlert(nil, "Thank You For Subscribe in Application.")
-                    self.stopActivityIndicator()
-                } else {
-                    print(error!)
-                    MessageManager.showAlert(nil, "Please Try Again!!!")
-                    self.stopActivityIndicator()
-                }
+            APIManager.shared.createCharge(token.tokenId, amount: self.price, completion: { (json, error) in
+            
+                self.dismiss(animated: true, completion: {
+                    if (error == nil) {
+                        print(json!)
+                        MessageManager.showAlert(nil, "Thank You For Subscribe in Application.")
+                        self.stopActivityIndicator()
+                    } else {
+                        print(error!)
+                        MessageManager.showAlert(nil, "Please Try Again!!!")
+                        self.stopActivityIndicator()
+                    }
+                })
             })
 
         } else {
             MessageManager.showAlert(nil, "No Internet!!!")
         }
-        
-//        submitTokenToBackend(token, completion: { (error: Error?) in
-//            if let error = error {
-//                // Show error in add card view controller
-//                completion(error)
-//            }
-//            else {
-//                // Notify add card view controller that token creation was handled successfully
-//                completion(nil)
-//                
-//                // Dismiss add card view controller
-//                dismiss(animated: true)
-//            }
-//        })
     }
     
     //MARK:- STPPaymentContext Delegate
@@ -276,7 +263,7 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if error != nil {
                     
                 } else {
-                    APIManager.shared.createCharge((token?.tokenId)!, amount: 10000, completion: { (json, error) in
+                    APIManager.shared.createCharge((token?.tokenId)!, amount: self.price, completion: { (json, error) in
                         if error != nil {
                             print("Failed")
                             completion(.failure)
@@ -308,19 +295,6 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         })
     }
     
-    //MARK:- PlaidLink Delegate
-    func linkNavigationControllerDidCancel(_ navigationController: PLDLinkNavigationViewController!) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func linkNavigationControllerDidFinish(withBankNotListed navigationController: PLDLinkNavigationViewController!) {
-        
-    }
-    
-    func linkNavigationContoller(_ navigationController: PLDLinkNavigationViewController!, didFinishWithAccessToken accessToken: String!) {
-        
-    }
-    
     //MARK:- IBActions
     @IBAction func handleBtnMenu(_ sender: Any) {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
@@ -342,7 +316,9 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         let bank = UIAlertAction(title: "Using Bank a/c", style: .default) { (action) in
-            self.presentBankAccountController()
+            let nv = UINavigationController(rootViewController: BankPaymentVC())
+            BankPaymentVC.price = self.price
+            self.present(nv, animated: true, completion: nil)
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {
@@ -399,6 +375,7 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if(resp.result.value != nil) {
                     self.select = resp.result.value as! [String : [String]]
+                    
                     self.parse()
                 } else {
                     self.stopActivityIndicator()
@@ -412,17 +389,21 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func parse() {
         var arr: [String] = []
+        var count: Int = 0
         for i in self.select {
             arr.removeAll()
             let country = self.country.filter{$0.countryId == i.key}[0].countryName
             for j in i.value {
                 let category = self.category.filter{$0.categoryId == j}[0].categoryName
                 arr.append(category!)
+                count = count + 1
             }
             let param = ["countryId": country!, "categoryId": arr] as [String : Any]
             let selection = Mapper<Selections>().map(JSON: param)
             self.selection.append(selection!)
         }
+        
+        self.price = count * 12000
         self.selection = self.selection.sorted(by: { (a, b) -> Bool in
             a.countryId! < b.countryId!
         })
@@ -510,14 +491,14 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func summaryItems(for shippingMethod: PKShippingMethod) -> [Any] {
-        let shirtItem = PKPaymentSummaryItem(label: "Cool Shirt", amount: NSDecimalNumber(string: "10.00"))
+        let shirtItem = PKPaymentSummaryItem(label: "Shirt", amount: NSDecimalNumber(value: self.price / 100))
         let total: NSDecimalNumber? = shirtItem.amount.adding(shippingMethod.amount)
         let totalItem = PKPaymentSummaryItem(label: "Stripe Shirt Shop", amount: total!)
         return [shirtItem, shippingMethod, totalItem]
     }
     
     func sendToServer(_ param: [AnyHashable: Any]) {
-        Alamofire.request(PAYPAL, method: .post, parameters: param as? Parameters, encoding: JSONEncoding.default, headers: ["Authorozation": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+        Alamofire.request(PAYPAL, method: .post, parameters: param as? Parameters, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
             print("Here is your proof of payment:\n\n\(param)\n\nSend this to your server for confirmation and fulfillment.")
         }
     }
@@ -552,29 +533,10 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let addCardViewController = STPAddCardViewController()
         addCardViewController.delegate = self
-        
+        addCardViewController.title = "CreDit Card"
         // Present add card view controller
         let navigationController = UINavigationController(rootViewController: addCardViewController)
         self.present(navigationController, animated: true)
-        
-//        let customerContext = STPCustomerContext(keyProvider: APIManager.shared)
-//        
-//        // Setup payment methods view controller
-//        let paymentMethodsViewController = STPPaymentMethodsViewController(configuration: STPPaymentConfiguration.shared(), theme: STPTheme.default(), customerContext: customerContext, delegate: self)
-//        
-//        // Present payment methods view controller
-//        let navigationController = UINavigationController(rootViewController: paymentMethodsViewController)
-//        self.present(navigationController, animated: true)
-    }
-    
-    func presentBankAccountController() {
-        let vc = PLDLinkNavigationViewController(environment: .tartan, product: .connect)
-        vc?.linkDelegate = self
-        vc?.providesPresentationContextTransitionStyle = true
-        vc?.definesPresentationContext = true
-        vc?.modalPresentationStyle = .custom
-        
-        self.present(vc!, animated: true, completion: nil)
     }
     
 }

@@ -16,7 +16,6 @@ import Crashlytics
 import UserNotifications
 import Alamofire
 import Stripe
-import plaid_ios_sdk
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -54,10 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         STPTheme.default().primaryForegroundColor = .appDarkBlueColor
         STPTheme.default().secondaryForegroundColor = .appDarkGrayColor
         STPTheme.default().accentColor = .appGreenColor
-        
-        //Plaid Configuration
-        Plaid.sharedInstance().setPublicKey("867ee512c690fdc157863aeb060234")
-        
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
         } else {

@@ -18,8 +18,6 @@ target 'TenderWatch' do
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'Stripe'
-    pod 'plaid-ios-sdk’
-    pod 'plaid-ios-link’
     
   target 'TenderWatchTests' do
     inherit! :search_paths
