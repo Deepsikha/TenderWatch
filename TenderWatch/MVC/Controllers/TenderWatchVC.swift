@@ -24,6 +24,9 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if USER?.role == RollType.client {
+            self.lblNoTender.text = "No Uploaded Tender.\nYou may upload new Tender / Contract by clicking on the \"+\" button below."
+        }
         
         self.tblTenderList.delegate = self
         self.tblTenderList.dataSource = self
@@ -40,8 +43,36 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         } else {
             self.btnUpload.isHidden = true
         }
-        self.getTender()
-        // Do any additional setup after loading the view.
+        if USER?.role?.rawValue == RollType.contractor.rawValue {
+            let str: String = (USER?.createdAt)!
+            let index = str.index(str.startIndex, offsetBy: 10)
+            let dateString = str.substring(to: index)
+            let date = Date().getDifferenceBtnCurrentDate(date: dateString)
+            if abs(date.day!) >= 30 {
+                if USER?.subscribe == subscriptionType.free {
+                    let alert = UIAlertController(title: "TenderWatch", message: "Your free trial is over please subscribe", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.view.backgroundColor = UIColor.white
+                    alert.view.layer.cornerRadius = 10.0
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                        
+                    }))
+                    
+                    alert.addAction(UIAlertAction(title: "Subscribe", style: .default, handler: { (action) in
+                        print(action)
+                        
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.getTender()
+                }
+            }
+        }else {
+            DispatchQueue.main.async {
+                self.getTender()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,6 +126,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
 
         //Day remainning
         //pass string in "yyyy-MM-dd" format
+        
         let components = Date().getDifferenceBtnCurrentDate(date: (tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!))!)
         
         cell.lblTender.text = (components.day == 0) ? (components.month == 1) ? "30 Days" : "Last Day" : (components.day == 1) ? "\(components.day!) day" : "\(components.day!) days"
@@ -185,7 +217,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             print("Remove button tapped")
             let msg: String!
             if (appDelegate.isClient!) {
-                msg = "Tender will be completely removed from TenderWatch. are you sure ypu want to delete?"
+                msg = "Tender will be completely removed from TenderWatch. are you sure you want to remove?"
             } else {
                 msg = "Are you sure you want to remove this Tender completely from your Account?"
             }
@@ -257,15 +289,42 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                     if resp.result.value is NSDictionary {
                         //                        MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
                         self.lblNoTender.isHidden = false
+                        if USER?.role == RollType.contractor {
+                            if !signUpUser.email.isEmpty {
+                                if self.tender.isEmpty {
+                                    MessageManager.showAlert(nil, "Welcome to TenderWatch.\n\nCurrently there are no active tenders in your scope and area of work.Tenders will show up here as soon as they are uploaded by Clients.\n\nThank you for your patience.")
+                                }
+                            }
+                        }
+                        self.stopActivityIndicator()
                     } else {
                         self.lblNoTender.isHidden = true
                         let data = (resp.result.value as! NSObject)
                         self.tender = Mapper<Tender>().mapArray(JSONObject: data)!
                         
-                        if (!signUpUser.email.isEmpty) {
-                            self.tender = self.tender.filter{$0.isActive!}
+                        if USER?.role?.rawValue == "contractor" {
+                            var i = 0
+                            for tender in self.tender {
+                                
+                                let str: String = (USER?.createdAt)!
+                                let index = str.index(str.startIndex, offsetBy: 10)
+                                let dateString = str.substring(to: index)
+                                
+                                let string = (tender.createdAt?.substring(to: (tender.createdAt?.index((tender.createdAt?.startIndex)!, offsetBy: 10))!))
+                                if !tender.isActive! {
+                                    if Date().compareDate(userCreate: dateString, tenderCreate: string!) {
+                                        self.tender.remove(at: i)
+                                    }
+                                }
+                                i = i + 1
+                            }
                         }
-                        self.tblTenderList.reloadData()
+                        
+                        if self.tender.isEmpty {
+                            self.lblNoTender.isHidden = false
+                        } else {
+                            self.tblTenderList.reloadData()
+                        }
                         self.stopActivityIndicator()
                     }
                 }

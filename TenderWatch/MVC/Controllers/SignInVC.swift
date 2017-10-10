@@ -31,7 +31,8 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
         
         self.txfEmail.delegate = self
         self.txfPassword.delegate = self
-        
+        self.txfEmail.autocorrectionType = .no
+        self.txfPassword.autocorrectionType = .no
         if appDelegate.isClient! {
             if let eClient = UserDefaults.standard.value(forKey: "eClient") {
                 do {

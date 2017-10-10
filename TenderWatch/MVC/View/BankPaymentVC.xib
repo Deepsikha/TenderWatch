@@ -20,7 +20,7 @@
                 <outlet property="tblOptions" destination="Nat-ls-2gI" id="1yn-O0-Sfr"/>
                 <outlet property="txfAccountNumber" destination="L9h-cx-Wiz" id="7Ge-4E-uSu"/>
                 <outlet property="txfHolderName" destination="rGe-hV-PGm" id="WHq-1d-CZ8"/>
-                <outlet property="txfRoutinfNumber" destination="fhA-3B-oan" id="mcm-MO-0GV"/>
+                <outlet property="txfRoutingNumber" destination="fhA-3B-oan" id="iYs-QQ-FqC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="vwBankDetail" destination="hPi-N0-jfr" id="TyC-hr-6wB"/>
             </connections>

@@ -8,9 +8,11 @@
 
 import Foundation
 
+//var BASE_URL: String = "http://52.66.136.45:4000/api/"
 var BASE_URL: String = "http://lanetteam.com:4000/api/"
 //var BASE_URL: String = "http://192.168.200.18:4000/api/"
 
+var CHECKEMAIL: String = (BASE_URL)+"auth/checkEmail"
 var LOGIN: String = "auth/login"
 var G_LOGIN: String = "auth/glogin"
 var F_LOGIN: String = "auth/facelogin"
@@ -19,8 +21,6 @@ var FORGOT: String = (BASE_URL)+"auth/forgot"
 
 var GET_TENDER: String = (BASE_URL)+"tender/getTenders"//tender: post .favorite: get
 var DELETE_TENDER: String = (BASE_URL)+"tender/"
-var UPDATE: String = (BASE_URL)+"users/"+(USER?._id)!
-var CHANGE_PASSWORD: String = (BASE_URL)+"users/changePassword/"+(USER?._id)!
 var UPLOAD_TENDER: String = (BASE_URL)+"tender/"
 var ADD_REMOVE_FAVORITE: String = (BASE_URL)+"tender/favorite/" //add: put, remove: delete
 

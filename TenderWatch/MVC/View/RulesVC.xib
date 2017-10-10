@@ -42,7 +42,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I Agree" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upb-J9-TqC">
-                    <rect key="frame" x="103" y="344" width="60" height="21"/>
+                    <rect key="frame" x="90" y="344" width="60" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -59,8 +59,55 @@
                         <action selector="handleBtnBack:" destination="-1" eventType="touchUpInside" id="AWV-Av-Pge"/>
                     </connections>
                 </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBO-fB-7zh">
+                    <rect key="frame" x="23" y="103" width="274" height="233"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <string key="text">TenderWatch wishes to make your user experience as convenient and comfortable as possible. However, the following rules and regulations shall apply for all users using TenderWatch:
+
+1. TenderWatch reserves the right to remove any user from the App should we find the user not following the rules set out
+
+2. Pornography and using of obscene or abusive language is strictly not allowed.
+
+3. Sale, supply and services of arms, ammunition, drugs and any other contraband is strictly prohibited.
+
+4. Users have to give their real identities and contacts in order to make genuine transactions. Fake identities are not allowed.
+
+5. Contractors will have to follow the guidelines set by the Clients to contact them for any Tender  / Contract.
+
+6. Contractors should only apply for Tenders / Contracts which are within their area and scope of work.
+
+7. Clients should only post their Tenders / Contracts in their geographical location in order for Contractors within their area to apply
+
+8. TenderWatch does not recommend any particular Client or Contractor. TenderWatch will not be responsible for any breach of Contract by any Client or Contractor. Both Client and Contractor have to make proper due diligence before working together. 
+
+9. TenderWatch does not take responsibility of any information that is provided in the App by Clients and Contractors. It is totally upto the Client and Contractor to say what they want to say about themselves and the Tenders / Contracts they post.
+
+10. TenderWatch is only a platform for making contact between Contractors and Clients. All subsequent transactions that may take place between a Contractor and a Client are outside our scope of service and we shall take no responsibility whatsoever in case of any fraud or breach.
+
+11. The ratings offered on the App are rated by the users themselves. TenderWatch cannot verify or authenticate these ratings. Clients and Contractors are urged to do proper due diligence before starting any work.
+
+12. Subscription once paid by Contractors is non-refundable under any circumstances 
+
+13. TenderWatch does not provide any guarantees to Clients that they will definitely find a Contractor to undertake their job.
+
+14. TenderWatch does not provide any guarantees to Contractors that they will definitely find Tenders / Contracts relevant to their scope of work. 
+
+15. All promotions and marketing by TenderWatch is with the sole intention to make the service known to prospective users. Contractors and Clients are under no compulsion to use this App. They do so at their own will
+
+16. The validity of all Tenders listed on TenderWatch is 30 days only. After 30 days the Tenders will be removed by default from the App. 
+
+17. The actual expiry date of the Tenders may be different from the expiry listed on TenderWatch; in this case the Contractor should follow the actual date of the Tender- not the expiry on TenderWatch 
+
+18.  The Client has full right to amend or cancel any Tender. Even if the Contractor has already shown interest in the Tender.
+
+19. Besides clicking on the "interested" button for any particular Tender, the Contractor will still have to contact the Client, as directed by the Client, in order to pursue the Tender.
+
+20. TenderWatch tries its best to list all Tenders/ Contracts in your area, but TenderWatch takes no responsibility whatsoever if any Contractor misses out on any Tender, or if TenderWatch does not list any particular Tender.</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xBu-c2-hUY">
-                    <rect key="frame" x="69" y="344" width="22" height="22"/>
+                    <rect key="frame" x="47" y="344" width="22" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="iwx-9Q-if9"/>
                     </constraints>
@@ -73,19 +120,23 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="PcS-WD-EYF" secondAttribute="bottom" constant="50" id="1g2-s7-G7K"/>
-                <constraint firstAttribute="trailing" secondItem="upb-J9-TqC" secondAttribute="trailing" constant="157" id="40f-dA-J0p"/>
+                <constraint firstItem="upb-J9-TqC" firstAttribute="top" secondItem="fBO-fB-7zh" secondAttribute="bottom" constant="8" id="2uC-LG-miO"/>
+                <constraint firstAttribute="trailing" secondItem="upb-J9-TqC" secondAttribute="trailing" constant="170" id="40f-dA-J0p"/>
                 <constraint firstItem="xBu-c2-hUY" firstAttribute="top" secondItem="upb-J9-TqC" secondAttribute="top" id="4oH-xg-TA3"/>
                 <constraint firstAttribute="trailing" secondItem="PcS-WD-EYF" secondAttribute="trailing" constant="40" id="C4g-k1-Ltf"/>
                 <constraint firstAttribute="trailing" secondItem="D68-5B-CQy" secondAttribute="trailing" constant="16" id="CvG-ui-3NJ"/>
+                <constraint firstItem="fBO-fB-7zh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="22.760171306209941" id="JmM-5U-JgP"/>
                 <constraint firstItem="PcS-WD-EYF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="QQY-Dj-0zR"/>
-                <constraint firstItem="upb-J9-TqC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="103" id="afL-28-41U"/>
+                <constraint firstItem="upb-J9-TqC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="90" id="afL-28-41U"/>
                 <constraint firstItem="D68-5B-CQy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="beT-0x-N55"/>
                 <constraint firstItem="XIT-fI-plB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="cOa-j0-11w"/>
-                <constraint firstItem="upb-J9-TqC" firstAttribute="leading" secondItem="xBu-c2-hUY" secondAttribute="trailing" constant="12" id="iDv-Z4-7wA"/>
+                <constraint firstAttribute="trailing" secondItem="fBO-fB-7zh" secondAttribute="trailing" constant="23.239828693790173" id="gjR-SI-S9y"/>
+                <constraint firstItem="upb-J9-TqC" firstAttribute="leading" secondItem="xBu-c2-hUY" secondAttribute="trailing" constant="21" id="iDv-Z4-7wA"/>
                 <constraint firstItem="D68-5B-CQy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="kCG-Y1-GNM"/>
-                <constraint firstItem="xBu-c2-hUY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="69" id="omf-vF-iaq"/>
+                <constraint firstItem="xBu-c2-hUY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="47" id="omf-vF-iaq"/>
                 <constraint firstItem="PcS-WD-EYF" firstAttribute="top" secondItem="upb-J9-TqC" secondAttribute="bottom" constant="25" id="ouS-7Z-vaF"/>
                 <constraint firstItem="XIT-fI-plB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="sKl-B4-ZcR"/>
+                <constraint firstItem="fBO-fB-7zh" firstAttribute="top" secondItem="D68-5B-CQy" secondAttribute="bottom" constant="8" id="vZ4-Nd-pHv"/>
             </constraints>
         </view>
     </objects>

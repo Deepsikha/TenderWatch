@@ -20,30 +20,27 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpc-a1-LUv">
-                        <rect key="frame" x="8" y="0.0" width="0.0" height="30"/>
+                        <rect key="frame" x="8" y="0.0" width="0.0" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XYl-Df-I78">
-                        <rect key="frame" x="140" y="0.0" width="172" height="30"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XYl-Df-I78">
+                        <rect key="frame" x="140" y="0.0" width="172" height="29.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="XYl-Df-I78" secondAttribute="trailing" id="Bqg-z9-Dv5"/>
-                    <constraint firstAttribute="leadingMargin" secondItem="xpc-a1-LUv" secondAttribute="leading" id="ILB-60-myR"/>
-                    <constraint firstItem="XYl-Df-I78" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="fNk-Xo-J0B"/>
-                    <constraint firstItem="xpc-a1-LUv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="mXP-gC-f0t"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="xpc-a1-LUv" secondAttribute="bottom" constant="-8.5" id="qOu-yD-e8a"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="XYl-Df-I78" secondAttribute="bottom" constant="-8.5" id="qkG-EN-VeI"/>
+                    <constraint firstItem="XYl-Df-I78" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7oE-62-ccJ"/>
+                    <constraint firstAttribute="bottom" secondItem="XYl-Df-I78" secondAttribute="bottom" id="EdI-Bo-pEZ"/>
+                    <constraint firstItem="XYl-Df-I78" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="132" id="HFr-2O-bVL"/>
+                    <constraint firstItem="xpc-a1-LUv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Rjl-Ae-uwz"/>
+                    <constraint firstItem="xpc-a1-LUv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Xvp-oo-ouD"/>
+                    <constraint firstAttribute="trailing" secondItem="XYl-Df-I78" secondAttribute="trailing" constant="8" id="Y8k-hf-GSN"/>
                 </constraints>
             </tableViewCellContentView>
-            <constraints>
-                <constraint firstItem="XYl-Df-I78" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="140" id="E8M-5J-hQO"/>
-            </constraints>
             <connections>
                 <outlet property="lblKey" destination="xpc-a1-LUv" id="8cV-MR-i2l"/>
                 <outlet property="lblValue" destination="XYl-Df-I78" id="DKu-pn-7SY"/>

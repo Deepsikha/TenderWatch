@@ -14,7 +14,7 @@
                 <outlet property="btnBack" destination="ldp-64-8dd" id="X8l-CO-4yS"/>
                 <outlet property="btnSignUp" destination="U8M-ob-Shj" id="Kkw-aZ-1AK"/>
                 <outlet property="btnSignUpFacebook" destination="f4p-Td-vfb" id="yD3-Sp-r34"/>
-                <outlet property="btnSignUpGmail" destination="u6E-kX-nSF" id="iGz-hZ-qH0"/>
+                <outlet property="btnSignUpGmail" destination="u6E-kX-nSF" id="WG5-Hc-F0H"/>
                 <outlet property="txtConfirmPassword" destination="jby-zm-DtA" id="mCh-Rx-2qg"/>
                 <outlet property="txtEmail" destination="hth-hD-Dlp" id="baX-Ly-fiQ"/>
                 <outlet property="txtPassword" destination="gE1-3H-5wG" id="p88-WO-FGu"/>

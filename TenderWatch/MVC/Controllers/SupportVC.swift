@@ -18,13 +18,15 @@ class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var btnSend: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.txfEmailSender.delegate = self
+        self.txfEmailSender.autocorrectionType = .no
+        
         self.txfSubject.delegate = self
+        self.txfSubject.autocorrectionType = .no
+        
         self.txtVwDesc.delegate = self
         
         self.btnSend.alpha = 0.5
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidLayoutSubviews() {
@@ -38,11 +40,6 @@ class SupportVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
         self.txfEmailSender.text = USER!.email!
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK:- TextField Delegate

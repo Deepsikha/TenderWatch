@@ -79,8 +79,10 @@ class RulesVC: UIViewController {
                                "aboutMe": signUpUser.aboutMe,
                                "role" : "contractor",
                                "selections": signUpUser.selections,
+                               "subscribe": signUpUser.subscribe,
                                "deviceId": appDelegate.token!] as [String : Any]
         }
+        
         if isNetworkReachable() {
             self.btnSignUp.isEnabled = false
             self.startActivityIndicator()

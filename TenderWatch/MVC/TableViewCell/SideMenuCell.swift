@@ -12,9 +12,11 @@ class SideMenuCell: UITableViewCell {
     
     @IBOutlet var imgIcon: UIImageView!
     @IBOutlet var lblMenu: UILabel!
+    @IBOutlet weak var lblNotify: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.lblNotify.layer.cornerRadius = self.lblNotify.layer.frame.width / 2
         // Initialization code
     }
     

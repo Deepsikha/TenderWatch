@@ -33,9 +33,9 @@
     static var isUpdated = false
     static var updated = false
     
-    var cc : [String: String] = ["China": "86", "Tanzania": "255", "Pakistan":"92", "United Kingdom": "44","United States of America": "1"]
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.btnnext.isEnabled = false
         self.btnnext.alpha = 0.5
         IQKeyboardManager.shared().previousNextDisplayMode = .alwaysShow
@@ -43,11 +43,18 @@
         self.phonenum.delegate = self
         self.occupation.delegate = self
         
+        self.phonenum.autocorrectionType = .no
+        self.occupation.autocorrectionType = .no
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
         self.mainvw.addGestureRecognizer(tap)
         
         picker = UIImagePickerController()
         picker.delegate = self
+        
+        if !signUpUser.photo.isEmpty {
+            self.proflPic.setImage(UIImage(data: signUpUser.photo), for: .normal)
+        }
         
         if (USER?.authenticationToken != nil) {
             self.back.isHidden = true
@@ -55,11 +62,8 @@
             self.lblName.isHidden = false
             self.btnnext.setTitle("Update", for: .normal)
             self.btnCountry.setTitle(USER!.country!, for: .normal)
-            self.lblCountryCode.text = USER!.country!
-//            self.lblCountryCode.text = RegisterCountryVC.countryCode
-            let val = (cc as NSObject).value(forKey: USER!.country!) as? String
-            self.lblCountryCode.text = "+\(val!)"
-            self.phonenum.text = USER?.contactNo
+            self.lblCountryCode.text = USER?.contactNo?.components(separatedBy: "-").first
+            self.phonenum.text = USER?.contactNo?.components(separatedBy: "-").last
             self.occupation.text = USER?.occupation
             self.proflPic.imageView?.sd_setShowActivityIndicatorView(true)
             self.proflPic.imageView?.sd_setIndicatorStyle(.gray)
@@ -102,7 +106,7 @@
                 self.btnnext.alpha = 1.0
             }
             if !(signUpUser.contactNo.isEmpty) {
-                self.phonenum.text = signUpUser.contactNo
+                self.phonenum.text = signUpUser.contactNo.components(separatedBy: "-").last!
             } else if !(signUpUser.occupation.isEmpty) {
                 self.occupation.text = signUpUser.occupation
             }
@@ -215,19 +219,25 @@
             MessageManager.showAlert(nil, "Invalid Number")
         } else {
             if (USER?.authenticationToken != nil) {
-                USER?.contactNo = self.phonenum.text!
+                USER?.contactNo = (USER?.contactNo?.components(separatedBy: "-").first)! + "-" + self.phonenum.text!
                 USER?.occupation = self.occupation.text!
                 USER?.aboutMe = (USER?.aboutMe)!
                 USER?.country = (self.btnCountry.titleLabel?.text)!
+                if signUpUser.photo.isEmpty {
+                    signUpUser.photo = UIImageJPEGRepresentation(UIImage(named: "avtar")!, 0.2)!
+                }
                 self.update()
             } else {
                 if (appDelegate.isClient)! {
                     self.navigationController?.pushViewController(RulesVC(), animated: true)
                 } else {
-                    self.navigationController?.pushViewController(MappingVC(), animated: true)
+                    self.navigationController?.pushViewController(SelectCountryVC(), animated: true)
                 }
-                signUpUser.contactNo = self.phonenum.text!
+                signUpUser.contactNo = RegisterCountryVC.countryCode + "-" + self.phonenum.text!
                 signUpUser.occupation = self.occupation.text!
+                if signUpUser.photo.isEmpty {
+                    signUpUser.photo = UIImageJPEGRepresentation(UIImage(named: "avtar")!, 0.2)!
+                }
             }
         }
     }
@@ -296,7 +306,7 @@
                 for (key, value) in self.parameters {
                     multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
                 }
-            }, usingThreshold: 0, to: UPDATE, method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
+            }, usingThreshold: 0, to: (BASE_URL)+"users/"+(USER?._id)!, method: HTTPMethod.post, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]) { (result) in
                 switch result {
                 case .success(let upload, _, _):
                     

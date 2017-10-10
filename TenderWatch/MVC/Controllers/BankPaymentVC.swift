@@ -11,13 +11,13 @@ import Stripe
 import Alamofire
 import ObjectMapper
 
-class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var tblBankPayments: UITableView!
     @IBOutlet var vwBankDetail: UIView!
     @IBOutlet weak var txfAccountNumber: UITextField!
     @IBOutlet weak var txfHolderName: UITextField!
-    @IBOutlet weak var txfRoutinfNumber: UITextField!
+    @IBOutlet weak var txfRoutingNumber: UITextField!
     @IBOutlet weak var btnSelectCountry: UIButton!
     @IBOutlet weak var btnSave: UIButton!
     @IBOutlet weak var btnAccountType: UIButton!
@@ -41,6 +41,11 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         tblOptions.delegate = self
         tblOptions.dataSource = self
+        
+        txfHolderName.delegate = self
+        txfAccountNumber.delegate = self
+        txfRoutingNumber.delegate = self
+        
         tblBankPayments.register(UINib(nibName: "RegisterCountryCell", bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
         tblOptions.register(UINib(nibName: "RegisterCountryCell", bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
         tblBankPayments.tableFooterView = UIView()
@@ -74,6 +79,7 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         self.vwBankDetail.center = self.view.center
     }
     
+    //MARK:- Tableview delegate
     func numberOfSections(in tableView: UITableView) -> Int {
         if (tableView == self.tblOptions) {
             return 1
@@ -207,6 +213,23 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
     }
     
+    //MARK:- TextField Delegate
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == self.txfAccountNumber {
+            param.accountNumber = self.txfAccountNumber.text
+        } else if textField == self.txfHolderName {
+            param.accountHolderName = self.txfHolderName.text
+        } else {
+            param.routingNumber = self.txfRoutingNumber.text
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    //MARK:- IBActions Methods
     @IBAction func handleBtnCountry(_ sender: Any) {
         let senderButton = sender as! UIButton
         if isDropDownActive == false{
@@ -249,7 +272,8 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             self.startActivityIndicator()
             STPAPIClient.shared().createToken(withBankAccount: param) { (token, error) in
                 if error != nil {
-                    print(error!)
+                    MessageManager.showAlert(nil, error!.localizedDescription)
+                    self.stopActivityIndicator()
                 } else {
                     Alamofire.request(PAYMENTS+"bank/charges", method: .post, parameters: ["token": token!.tokenId], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                         print(resp)
@@ -277,7 +301,7 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
     }
     
-    
+    //MARK:- Custom Methods
     func listBankAccount() {
         if isNetworkReachable() {
             Alamofire.request(PAYMENTS+"bank/charges", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in

@@ -56,13 +56,28 @@ func hexStringToUIColor (hex:String) -> UIColor {
 extension Date {
     func getDifferenceBtnCurrentDate(date: String) -> DateComponents {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
+        dateFormatter.dateFormat = "yyyy-MM-dd"     //yyyy-MM-dd'T'HH:mm:ss.SSSZ
+    
         let endDate: Date = dateFormatter.date(from: date)! as Date
         
         let components = NSCalendar.current.dateComponents([.month, .day, .hour, .minute, .second], from: Date(), to: endDate as Date)
-        
+
         return components
+    }
+    
+    func compareDate(userCreate: String, tenderCreate: String) -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let userDate: Date = dateFormatter.date(from: userCreate)! as Date
+        let tenderDate: Date = (dateFormatter.date(from: tenderCreate)! as Date).addingTimeInterval(-7*24*60*60)
+        let result: ComparisonResult = userDate.compare(tenderDate)
+        if result.rawValue == -1 {
+            return false
+        } else {
+            return true
+        }
+        
     }
 }
 extension UIView {
@@ -90,6 +105,16 @@ extension UIView {
         border.backgroundColor = color.cgColor
         border.frame = CGRect(x: 0, y: 0, width: width, height: self.frame.size.height)
         self.layer.addSublayer(border)
+    }
+    
+    func cornerRadiusAtParticularCorner(view: UIView, corner: UIRectCorner, radius: Int) {
+        let rectShape = CAShapeLayer()
+        rectShape.bounds = view.frame
+        rectShape.position = view.center
+        
+        rectShape.path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corner, cornerRadii: CGSize(width: radius, height: radius)).cgPath
+        
+        view.layer.mask = rectShape
     }
 }
 
@@ -172,7 +197,6 @@ extension UIViewController {
             activityIndicator.activityIndicatorViewStyle =
                 UIActivityIndicatorViewStyle.gray
             
-            
             activityIndicator.tag = self.activityIndicatorTag
             activityIndicator.center =  CGPoint(x:ScreenSize.SCREEN_WIDTH/2, y:ScreenSize.SCREEN_HEIGHT/2)
             activityIndicator.hidesWhenStopped = true
@@ -217,6 +241,6 @@ extension UIColor {
     static let appGreenColor = UIColor(red: 19.0 / 255.0, green: 181.0 / 255.0, blue: 125.0 / 255.0, alpha: 1.0)          // #13B57D
     
     static let appLightGreenColor = UIColor(red: 173.0 / 255.0, green: 242.0 / 255.0, blue: 180.0 / 255.0, alpha: 1.0)    // #ADF2B4
-    
+    	
 }
 

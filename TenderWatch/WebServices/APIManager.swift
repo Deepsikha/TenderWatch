@@ -106,7 +106,7 @@ class APIManager: NSObject, STPEphemeralKeyProvider {
                 {
                     if (url == LOGIN) {
                         if (res.response?.statusCode == 400) {
-                            errorMsg = "Bad Request"
+                            errorMsg = "Wrong Email Id"
                         } else if (res.response?.statusCode == 401) {
                             errorMsg = "Invalid Credentials"
                         } else if (res.response?.statusCode == 404) {
@@ -144,7 +144,7 @@ class APIManager: NSObject, STPEphemeralKeyProvider {
             "amount": amount
         ]
         
-        Alamofire.request(PAYMENTS+"charges", method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : "Bearer \(UserManager.shared.user!.authenticationToken!)"])
+        Alamofire.request(PAYMENTS+"direct/charges", method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization" : "Bearer \(UserManager.shared.user!.authenticationToken!)"])
             .validate(statusCode: 200..<300)
             .responseJSON { responseJSON in
                 switch responseJSON.result {

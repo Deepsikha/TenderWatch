@@ -19,13 +19,16 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var sectionTitleList = [String]()
     var country = [Country]()
     var category = [Category]()
+    static var demoCountry = [Country]()
     var selectedDictionary : Dictionary<String, [String]> = [:]
     var countryCatDict : Dictionary< String, [Category]> = [:]
     var temp : Dictionary< String, [Bool]> = [:]
     var select = [String : [String]]()
     var selectedIndexArray:[IndexPath] = []
-    var services = [Selections]()
+    
     var sendList = NSMutableDictionary()
+    var services = [Services]()
+    var updateArray = [String : [String]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +38,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tblMappings.register(UINib(nibName: "RegisterCountryCell", bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
         
         self.tblMappings.tableFooterView = UIView()
-        self.takeSubscription()
         self.fetchCoutry()
         
         //taphandle
@@ -50,8 +52,8 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.navigationController?.isNavigationBarHidden = true
         
         if(USER?.authenticationToken != nil) {
-            self.btnBack.isHidden = true
-            self.btnMenu.isHidden = false
+            self.btnBack.isHidden = false
+            self.btnMenu.isHidden = true
         } else {
             self.btnBack.isHidden = false
             self.btnMenu.isHidden = true
@@ -75,14 +77,22 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
         var arrMapping = self.countryCatDict[country[indexPath.section].countryId!]
         let arrList = arrMapping?[indexPath.row]
+//        cell.countryName.labelize = true
         cell.countryName.text =  arrList?.categoryName //self.category[indexPath.row].categoryName
-        if (selectedIndexArray.contains(indexPath)) //(arrList?.isSelected)!
-        {
+        cell.countryName.type = .left
+        cell.countryName.speed = .duration(2)
+        cell.countryName.animationCurve = .easeInOut
+        cell.countryName.fadeLength = 0.0
+        cell.countryName.leadingBuffer = 0.0
+        
+        if (selectedIndexArray.contains(indexPath)) {
             cell.imgTick.isHidden = false
-        }
-        else
-        {
+            cell.countryName.labelize = false
+            cell.countryName.fadeLength = 10.0
+            cell.countryName.leadingBuffer = 0.0
+        } else {
             cell.imgTick.isHidden = true
+            cell.countryName.labelize = true
         }
         
         return cell
@@ -90,8 +100,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
-        print(indexPath.section)
         if (selectedIndexArray.contains(indexPath))
         {
             selectedIndexArray.remove(at: selectedIndexArray.index(of: indexPath)!)
@@ -121,6 +129,15 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return index
     }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        for cell in self.tblMappings.visibleCells as! [RegisterCountryCell] {
+            cell.countryName.labelize = true
+        }
+    }
     //MARK:- IBActions
     @IBAction func handleBtnBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -131,9 +148,14 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     @IBAction func btnSave(_ sender: Any) {
+
         select.removeAll()
+        if USER?.authenticationToken != nil {
+            signUpUser.subscribe = (USER?.subscribe)!.rawValue
+        }
         if selectedIndexArray.count > 0
         {
+            if signUpUser.subscribe != subscriptionType.free.rawValue && signUpUser.subscribe != subscriptionType.none.rawValue{
             for i in 0...selectedIndexArray.count-1
             {
                 var indexPath = selectedIndexArray[i] as IndexPath
@@ -145,7 +167,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     tmp?.append((arrList?.categoryId)!)
                     select[country[indexPath.section].countryId!]?.removeAll()
                     select[country[indexPath.section].countryId!] = tmp
-                    
                 }
                 else
                 {
@@ -157,13 +178,54 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             print("dictionary:->",select)
             //selectedIndexArray.removeAll()
-            
+            } else {
+                if (signUpUser.subscribe == subscriptionType.free.rawValue){
+                    if selectedIndexArray.count > 1 {
+                        MessageManager.showAlert(nil, "During Free Trial Period you can choose only 1 Category.")
+                    } else {
+                        for i in 0...selectedIndexArray.count-1
+                        {
+                            var indexPath = selectedIndexArray[i] as IndexPath
+                            var arrMapping = self.countryCatDict[country[indexPath.section].countryId!]
+                            if select.keys.contains(country[indexPath.section].countryId!)
+                            {
+                                var tmp = select[country[indexPath.section].countryId!]
+                                let arrList = arrMapping?[indexPath.row]
+                                tmp?.append((arrList?.categoryId)!)
+                                select[country[indexPath.section].countryId!]?.removeAll()
+                                select[country[indexPath.section].countryId!] = tmp
+                                
+                            }
+                            else
+                            {
+                                let arrList = arrMapping?[indexPath.row]
+                                var tmp = [String]()
+                                tmp.append((arrList?.categoryId)!)
+                                select[country[indexPath.section].countryId!] = tmp
+                            }
+                        }
+                        print("dictionary:->",select)
+                    }
+                }
+            }
         }
+        
         if (USER?.authenticationToken != nil) {
             self.updateService()
         } else {
-            signUpUser.selections = self.select
-            self.navigationController?.pushViewController(RulesVC(), animated: true)
+            if signUpUser.subscribe == subscriptionType.free.rawValue {
+                if self.select.count > 1 {
+                    MessageManager.showAlert(nil, "During Free Trial Period you can choose only 1 Category.")
+                } else {
+                    signUpUser.selections = self.select
+                    self.navigationController?.pushViewController(RulesVC(), animated: true)
+                }
+            } else if self.select.isEmpty {
+                MessageManager.showAlert(nil, "During \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "monthly" : "yearly") subscription you can choose at least 1 Category.")
+            } else {
+                signUpUser.selections = self.select
+                self.navigationController?.pushViewController(RulesVC(), animated: true)
+            }
         }
     }
     
@@ -189,6 +251,9 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.country = self.country.sorted(by: { (a, b) -> Bool in
                         a.countryName! < b.countryName!
                     })
+                    if USER?.authenticationToken == nil {
+                        self.country = MappingVC.demoCountry
+                    }
                     self.splitDataInToSection()
                     self.stopActivityIndicator()
                     self.fetchCategory()
@@ -213,7 +278,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.category = Mapper<Category>().mapArray(JSONObject: data)!
                     self.stopActivityIndicator()
                     self.makeCountryDic()
-                    print(self.countryCatDict)
                     if (USER?.authenticationToken != nil) {
                         self.getServices()
                     }
@@ -250,7 +314,23 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.startActivityIndicator()
             Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if(resp.result.value != nil) {
-                    self.select = resp.result.value as! [String : [String]]
+                    let data = (resp.result.value as! NSObject)
+                    self.services = Mapper<Services>().mapArray(JSONObject: data)!
+                    for ser in self.services {
+                        self.select[ser.countryId!] = ser.categoryId
+                    }
+                    self.updateArray = self.select
+//                    var arr: [String] = []
+//                    for i in self.services {
+//                        arr.removeAll()
+//                        i.countryId = self.country.filter{$0.countryId == i.countryId}[0].countryName
+//                        for j in i.categoryId! {
+//                            let category = self.category.filter{$0.categoryId == j}[0].categoryName
+//                            arr.append(category!)
+//                        }
+//                        i.categoryId = arr
+//                    }
+                    
                     print(self.select)
                     self.parse()
                     self.tblMappings.reloadData()
@@ -276,8 +356,49 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func updateService() {
+        
+        var newSelectArray = [String : [String]]()
+
+        for key1 in self.select.keys {
+            for key2 in updateArray.keys {
+                if key1 == key2 {
+                    let valueArray1 = self.select[key1]
+                    let valueArray2 = updateArray[key2]
+                    let filteredCategoryArray = valueArray1?.filter({ (categoryvalue) -> Bool in
+                        if (valueArray2?.contains(categoryvalue))!{
+                            return false
+                        }
+                        return true
+                    })
+                    
+                    if filteredCategoryArray!.count > 0 {
+                        newSelectArray[key1] = filteredCategoryArray
+                    }
+                } else {
+                    newSelectArray[key1] = self.select[key1]
+                }
+            }
+            
+            print(newSelectArray)
+        }
+        
+//        for i in updateArray {
+//            let data = self.select.filter({ (select) -> Bool in
+//                if select.key == i.key {
+//                    var arr = select.value
+//                    for j in i.value {
+//                            if arr.contains(j) {
+//                                arr.remove(at: i.value.index(of: j)!)
+//                            }
+//                    }
+//                    select.value = arr
+//                }
+//                return true
+//            })
+//        }
+
         if isNetworkReachable() {
-            Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : self.select], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+            Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : newSelectArray], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if (resp.response?.statusCode == 200) {
                     appDelegate.setHomeViewController()
                 } else {
@@ -289,44 +410,4 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func takeSubscription() {
-        let alert = UIAlertController(title: "",
-                                      message: "",
-                                      preferredStyle: .alert)
-        
-        // Change font of the title and message
-        let titleFont:[String : AnyObject] = [ NSFontAttributeName : UIFont(name: "AmericanTypewriter", size: 18)! ]
-        let messageFont:[String : AnyObject] = [ NSFontAttributeName : UIFont(name: "HelveticaNeue-Thin", size: 14)! ]
-        let attributedTitle = NSMutableAttributedString(string: "TenderWatch", attributes: titleFont)
-        let attributedMessage = NSMutableAttributedString(string: "Select a Subscription plan", attributes: messageFont)
-        alert.setValue(attributedTitle, forKey: "attributedTitle")
-        alert.setValue(attributedMessage, forKey: "attributedMessage")
-        
-        let action1 = UIAlertAction(title: "1 month free trial", style: .default, handler: { (action) -> Void in
-            print("ACTION 1 selected!")
-        })
-        
-        let action2 = UIAlertAction(title: "Monthly subscription", style: .default, handler: { (action) -> Void in
-            print("ACTION 2 selected!")
-        })
-        
-        let action3 = UIAlertAction(title: "Yearly subscription", style: .default, handler: { (action) -> Void in
-            print("ACTION 3 selected!")
-        })
-        
-        // Cancel button
-        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in })
-        
-        // Restyle the view of the Alert
-//        alert.view.tintColor = UIColor.brown  // change text color of the buttons
-//        alert.view.backgroundColor = UIColor.cyan  // change background color
-        alert.view.layer.cornerRadius = 25   // change corner radius
-        
-//         Add action buttons and present the Alert
-        alert.addAction(action1)
-        alert.addAction(action2)
-        alert.addAction(action3)
-        alert.addAction(cancel)
-        present(alert, animated: true, completion: nil)
-    }
 }

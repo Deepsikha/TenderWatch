@@ -19,6 +19,7 @@ class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
         
         txfEmail.becomeFirstResponder()
         txfEmail.delegate = self
+        self.txfEmail.autocorrectionType = .no
         // Do any additional setup after loading the view.
     }
     
@@ -54,11 +55,15 @@ class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
         if isNetworkReachable() {
             self.startActivityIndicator()
             Alamofire.request(FORGOT, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: [:]).responseJSON { (resp) in
-                if(resp.result.value != nil) {
+                if(resp.response?.statusCode == 200) {
                     print(resp.result.value!)
-                    MessageManager.showAlert(nil, "Password sent your register email address")
+                    MessageManager.showAlert(nil, "Password has been sent to your registered email address")
                     self.stopActivityIndicator()
                     self.navigationController?.popViewController(animated: true)
+                } else {
+//                    let  msg = resp.result.value as 
+                    self.stopActivityIndicator()
+                    MessageManager.showAlert(nil, (resp.result.value as! NSObject).value(forKey: "message")! as! String)
                 }
             }
         } else {

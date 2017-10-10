@@ -32,6 +32,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet var vwContactPopup: UIView!
     @IBOutlet var tblOptions: UITableView!
     @IBOutlet weak var txfEmail: UITextField!
+    @IBOutlet weak var lblCountryCode: UILabel!
+    @IBOutlet weak var lblLandLineCode: UILabel!
     @IBOutlet weak var txfMobileNo: UITextField!
     @IBOutlet weak var txfLandLineNo: UITextField!
     @IBOutlet weak var txtvwAddress: UITextView!
@@ -40,8 +42,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var vwBlur: UIView!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnFollow: UIButton!
-    
     @IBOutlet weak var btnCancel: UIButton!
+    
     let checkedImage = UIImage(named: "chaboxcheked")! as UIImage
     let uncheckedImage = UIImage(named: "chabox")! as UIImage
     var isChecked: Bool = false
@@ -72,13 +74,11 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         //let tap = UITapGestureRecognizer(target: self, action: #selector(self.mainTap))
         //tap.cancelsTouchesInView = false
         //self.view.addGestureRecognizer(tap)
-        self.tblOptions.tableFooterView = UIView()
         
         self.btnContact.setTitle((self.btnContact.titleLabel!.text)!+"   ▼   ", for: .normal)
         if UploadTenderVC.isUpdate {
             self.getDetail()
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,6 +162,28 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         return true
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if !string.isEmpty {
+            if textField == self.txfMobileNo {
+                if self.txfMobileNo.text?.characters.count == 9 {
+                    return false
+                }
+            } else if textField == self.txfLandLineNo {
+                if textField.text?.characters.count == 2 {
+                    textField.text?.append(" ")
+                } else if textField.text?.characters.count == 10 {
+                    return false
+                }
+            }
+        } else {
+            if textField == self.txfLandLineNo{
+                if textField.text?.characters.count == 4 {
+                    textField.text?.characters.removeLast()
+                }
+            }
+        }
+        return true
+    }
     //MARK:- TextView Delegate
     func textViewDidBeginEditing(_ textView: UITextView) {
         self.mainTap()
@@ -327,6 +349,10 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 self.view.addSubview(vwContactPopup)
                 self.tap = UITapGestureRecognizer(target: self, action: #selector(self.taphandler))
                 tap.cancelsTouchesInView = false
+                if !self.country.isEmpty {
+                    self.lblCountryCode.text = "+"+self.country.filter{ $0.countryName! == btnSelectCountry.titleLabel!.text! }[0].countryCode!
+                    self.lblLandLineCode.text = self.lblCountryCode.text!
+                }
                 
                 self.vwBlur.addGestureRecognizer(tap)
                 self.txtvwAddress.textColor = self.txtvwAddress.text.isEmpty ? UIColor.lightGray : UIColor.black
@@ -335,6 +361,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             if (self.country.count == 0) && (self.category.count == 0) {
                 MessageManager.showAlert(nil, "Select Country & Category First")
             }  else {
+                self.lblCountryCode.text = "+"+self.country.filter{ $0.countryName! == btnSelectCountry.titleLabel!.text! }[0].countryCode!
+                self.lblLandLineCode.text = self.lblCountryCode.text!
                 self.view.addSubview(vwContactPopup)
                 self.tap = UITapGestureRecognizer(target: self, action: #selector(self.taphandler))
                 tap.cancelsTouchesInView = false
@@ -364,13 +392,12 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                                            "tenderName":self.uploadTender.tenderTitle,
                                            "description":self.uploadTender.desc,
                                            "email": self.uploadTender.email,
-                                           "landlineNo": self.uploadTender.landLineNo,
-                                           "contactNo": self.uploadTender.contactNo,
+                                           "landlineNo": self.uploadTender.landLineNo.isEmpty ? self.uploadTender.landLineNo : self.lblLandLineCode.text! + "-" + self.uploadTender.landLineNo,
+                                           "contactNo": self.uploadTender.contactNo.isEmpty ? self.uploadTender.contactNo : self.lblCountryCode.text! + "-" + self.uploadTender.contactNo,
                                            "address": self.uploadTender.address,
                                            "isFollowTender": isChecked ? "true" : "false"]
-            self.submit(UPLOAD_TENDER, .post, parameter, "Successfully Uploaded")
+            self.submit(UPLOAD_TENDER, .post, parameter, "Your Tender has been posted out to all potential Contractors.\n\nYou will be notified when any Contractor is interested.")
         }
-        
     }
     
     @IBAction func handleBtnImage(_ sender: Any) {
@@ -403,7 +430,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 MessageManager.showAlert(nil, "Enter valid Email")
             } else if !(self.txfMobileNo.text?.isEmpty)! && !(isValidNumber(self.txfMobileNo.text!, length: 9)) {
                 MessageManager.showAlert(nil, "Enter valid Number")
-            } else if !(self.txfLandLineNo.text?.isEmpty)! && !(isValidNumber(self.txfLandLineNo.text!, length: 7)) {
+            } else if !(self.txfLandLineNo.text?.isEmpty)! && !(self.txfLandLineNo.text?.characters.count == 10){
                 MessageManager.showAlert(nil, "Enter valid LandLine Number")
             } else {
                 self.vwContactPopup.removeFromSuperview()
@@ -433,10 +460,21 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     //MARK:- Custom Method
     func registerNib(){
-        
+        //main view
         self.vwSelectCountry.layer.cornerRadius = 5
         self.vwSelectCategory.layer.cornerRadius = 5
+
+        self.txfTenderTitle.delegate = self
         self.txfTenderTitle.layer.cornerRadius = 5
+        self.txfTenderTitle.layer.borderColor = UIColor.lightGray.cgColor
+        self.txfTenderTitle.layer.borderWidth = 1
+        self.txfTenderTitle.autocorrectionType = .no
+        
+        self.tenderDetail.delegate = self
+        self.tenderDetail.layer.cornerRadius = 5
+        self.tenderDetail.layer.borderColor = UIColor.lightGray.cgColor
+        self.tenderDetail.layer.borderWidth = 1
+        
         self.btnContact.layer.cornerRadius = 5
         
         self.btnImage.layer.borderWidth = 1
@@ -446,25 +484,26 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.btnSubmit.cornerRedius()
         self.btnSave.cornerRedius()
         
-        // control design formation
-        self.tenderDetail.layer.cornerRadius = 5
-        self.tenderDetail.layer.borderColor = UIColor.lightGray.cgColor
-        self.tenderDetail.layer.borderWidth = 1
-        self.txfTenderTitle.layer.borderColor = UIColor.lightGray.cgColor
-        self.txfTenderTitle.layer.borderWidth = 1
-        
+        // subview
         self.tblOptions.dataSource = self
         self.tblOptions.delegate = self
-        
-        self.txfTenderTitle.delegate = self
-        self.tenderDetail.delegate = self
+        self.tblOptions.tableFooterView = UIView()
+        self.tblOptions.layer.borderColor = UIColor.black.cgColor
+        self.tblOptions.layer.borderWidth = 1
+        self.tblOptions.layer.cornerRadius = 5
+        self.tblOptions.register(UINib(nibName: "MappingCell",bundle: nil), forCellReuseIdentifier: "MappingCell")
         
         self.txfEmail.delegate = self
-        self.txfMobileNo.delegate = self
-        self.txfLandLineNo.delegate = self
-        self.txtvwAddress.delegate = self
+        self.txfEmail.autocorrectionType = .no
         
-        tblOptions.register(UINib(nibName: "MappingCell",bundle: nil), forCellReuseIdentifier: "MappingCell")
+        self.txfMobileNo.delegate = self
+        self.txfMobileNo.autocorrectionType = .no
+        
+        self.txfLandLineNo.delegate = self
+        self.txfLandLineNo.autocorrectionType = .no
+        
+        self.txtvwAddress.delegate = self
+        self.txtvwAddress.autocorrectionType = .no
     }
     
     func submit(_ url: String, _ reqMethod: HTTPMethod, _ param: Parameters, _ message: String) {
@@ -633,8 +672,13 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                         self.tenderDetail.textColor = UIColor.black
                         
                         self.txfEmail.text = self.update.email!.isEmpty ? "" : self.update.email!
-                        self.txfMobileNo.text = self.update.contactNo!.isEmpty ? "" : self.update.contactNo
-                        self.txfLandLineNo.text = self.update.landlineNo!.isEmpty ? "" : self.update.landlineNo
+                        
+                        self.txfMobileNo.text = self.update.contactNo!.isEmpty ? "" : self.update.contactNo?.components(separatedBy: "-").last
+                        self.lblCountryCode.text = (self.update.contactNo?.isEmpty)! ? "+"+self.update.country!.countryCode! : (self.update.contactNo?.components(separatedBy: "-").first)!
+                        
+                        self.lblLandLineCode.text = self.lblCountryCode.text!
+                        self.txfLandLineNo.text = self.update.landlineNo!.isEmpty ? "" : self.update.landlineNo?.components(separatedBy: "-").last
+                        
                         self.txtvwAddress.text = self.update.address!.isEmpty ? "" : self.update.address
                         self.isChecked = self.update.isFollowTender!
                         if (self.isChecked) {

@@ -22,18 +22,12 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var category = [Category]()
     var selection = [Selections]()
     var sectionTitleList = [String]()
+    var services = [Services]()
     
     var shippingManager = ShippingManager()
     var payButton: UIButton?
     var applePaySucceeded: Bool?
     var applePayError: NSError?
-    
-    enum subscriptionType {
-        case none
-        case free
-        case monthly
-        case yearly
-    }
     
     var item: [PayPalItem] = []
     var environment:String = PayPalEnvironmentSandbox {
@@ -95,24 +89,26 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK:- TableView Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.selection.count //self.country.count
+        return self.services.count //self.country.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.selection[section].categoryId.count
+        return (self.services[section].categoryId?.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
-        cell.countryName.text = self.selection[indexPath.section].categoryId[indexPath.row]
+        let ser = self.services[indexPath.section]
+//        cell.countryName.text = self.selection[indexPath.section].categoryId[indexPath.row]
+        cell.countryName.text = ser.categoryId?[indexPath.row]
         cell.imgTick.isHidden = true
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.selection[section].countryId
+        return self.services[section].countryId
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
@@ -186,7 +182,6 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                 })
             })
-
         } else {
             MessageManager.showAlert(nil, "No Internet!!!")
         }
@@ -301,36 +296,40 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func handleBtnPayment(_ sender: Any) {
-        let option = UIAlertController(title: nil, message: "Payment Option", preferredStyle: .actionSheet)
+        let vc = UINavigationController(rootViewController: SelectCountryVC())
+//        let vc = SelectCountryVC(nibName: "SelectCountryVC", bundle: nil)
+        self.present(vc, animated: true, completion: nil)
         
-        let paypal = UIAlertAction(title: "PayPal", style: .default) { (action) in
-            self.paymentMethod()
-        }
-        
-        let cards = UIAlertAction(title: "Debit/Credit Card", style: .default) { (action) in
-            self.presentCardController()
-        }
-        
-        let applePay = UIAlertAction(title: "ApplePay", style: .default) { (action) in
-            self.applePayConfig()
-        }
-        
-        let bank = UIAlertAction(title: "Using Bank a/c", style: .default) { (action) in
-            let nv = UINavigationController(rootViewController: BankPaymentVC())
-            BankPaymentVC.price = self.price
-            self.present(nv, animated: true, completion: nil)
-        }
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {
-            (alert: UIAlertAction!) -> Void in
-        })
-        
-        option.addAction(paypal)
-        option.addAction(cards)
-        option.addAction(applePay)
-        option.addAction(bank)
-        option.addAction(cancel)
-        self.present(option, animated: true, completion: nil)
+//        let option = UIAlertController(title: nil, message: "Payment Options", preferredStyle: .actionSheet)
+//        
+//        let paypal = UIAlertAction(title: "PayPal", style: .default) { (action) in
+//            self.paymentMethod()
+//        }
+//        
+//        let cards = UIAlertAction(title: "Debit/Credit Card", style: .default) { (action) in
+//            self.presentCardController()
+//        }
+//        
+//        let applePay = UIAlertAction(title: "ApplePay", style: .default) { (action) in
+//            self.applePayConfig()
+//        }
+//        
+//        let bank = UIAlertAction(title: "Using Bank a/c", style: .default) { (action) in
+//            let nv = UINavigationController(rootViewController: BankPaymentVC())
+//            BankPaymentVC.price = self.price
+//            self.present(nv, animated: true, completion: nil)
+//        }
+//        
+//        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+//            (alert: UIAlertAction!) -> Void in
+//        })
+//        
+//        option.addAction(paypal)
+//        option.addAction(cards)
+//        option.addAction(applePay)
+//        option.addAction(bank)
+//        option.addAction(cancel)
+//        self.present(option, animated: true, completion: nil)
         
     }
     
@@ -373,11 +372,15 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func getServices() {
         if isNetworkReachable() {
             Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
-                if(resp.result.value != nil) {
-                    self.select = resp.result.value as! [String : [String]]
-                    
+                if(resp.response?.statusCode == 200) {
+                    let data = (resp.result.value as! NSObject)
+                    self.services = Mapper<Services>().mapArray(JSONObject: data)!
+                    for ser in self.services {
+                        self.select[ser.countryId!] = ser.categoryId
+                    }
                     self.parse()
                 } else {
+                    MessageManager.showAlert("nil", "Try Again!!!")
                     self.stopActivityIndicator()
                 }
 
@@ -390,21 +393,19 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func parse() {
         var arr: [String] = []
         var count: Int = 0
-        for i in self.select {
+        for i in self.services {
             arr.removeAll()
-            let country = self.country.filter{$0.countryId == i.key}[0].countryName
-            for j in i.value {
+            i.countryId = self.country.filter{$0.countryId == i.countryId}[0].countryName
+            for j in i.categoryId! {
                 let category = self.category.filter{$0.categoryId == j}[0].categoryName
                 arr.append(category!)
                 count = count + 1
             }
-            let param = ["countryId": country!, "categoryId": arr] as [String : Any]
-            let selection = Mapper<Selections>().map(JSON: param)
-            self.selection.append(selection!)
+            i.categoryId = arr
         }
         
         self.price = count * 12000
-        self.selection = self.selection.sorted(by: { (a, b) -> Bool in
+        self.services = self.services.sorted(by: { (a, b) -> Bool in
             a.countryId! < b.countryId!
         })
         self.splitDataInToSection()
@@ -412,8 +413,8 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func splitDataInToSection() {
         var sectionTitle: String = ""
-        for i in 0..<self.selection.count {
-            let currentRecord = self.selection[i].countryId
+        for i in 0..<self.services.count {
+            let currentRecord = self.services[i].countryId
             let firstChar = currentRecord?[(currentRecord?.startIndex)!]
             let firstCharString = "\(String(describing: firstChar!))"
             if firstCharString != sectionTitle {
@@ -424,10 +425,48 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.stopActivityIndicator()
         self.tblSubscription.reloadData()
     }
-    
+//    
+//    func parse() {
+//        var arr: [String] = []
+//        var count: Int = 0
+//        for i in self.select {
+//            arr.removeAll()
+//            let country = self.country.filter{$0.countryId == i.key}[0].countryName
+//            for j in i.value {
+//                let category = self.category.filter{$0.categoryId == j}[0].categoryName
+//                arr.append(category!)
+//                count = count + 1
+//            }
+//            let param = ["countryId": country!, "categoryId": arr] as [String : Any]
+//            let selection = Mapper<Selections>().map(JSON: param)
+//            self.selection.append(selection!)
+//        }
+//        
+//        self.price = count * 12000
+//        self.selection = self.selection.sorted(by: { (a, b) -> Bool in
+//            a.countryId! < b.countryId!
+//        })
+//        self.splitDataInToSection()
+//    }
+//    
+//    func splitDataInToSection() {
+//        var sectionTitle: String = ""
+//        for i in 0..<self.selection.count {
+//            let currentRecord = self.selection[i].countryId
+//            let firstChar = currentRecord?[(currentRecord?.startIndex)!]
+//            let firstCharString = "\(String(describing: firstChar!))"
+//            if firstCharString != sectionTitle {
+//                sectionTitle = firstCharString
+//                self.sectionTitleList.append(sectionTitle)
+//            }
+//        }
+//        self.stopActivityIndicator()
+//        self.tblSubscription.reloadData()
+//    }
+//    
     func paymentMethod() {
-        for i in self.selection {
-            for j in i.categoryId {
+        for i in self.services {
+            for j in i.categoryId! {
                 let item = PayPalItem(name: "\(String(describing: i.countryId)) -> \(j)", withQuantity: 1, withPrice: NSDecimalNumber(string: "120.00"), withCurrency: "USD", withSku: "")
                 self.item.append(item)
             }

@@ -14,6 +14,13 @@ enum RollType : String {
     case client = "client"
 }
 
+enum subscriptionType: String {
+    case none = "0"
+    case free = "1"
+    case monthly = "2"
+    case yearly = "3"
+}
+
 class User: NSObject,NSCoding, Mappable {
     
     var authenticationToken: String?
@@ -31,7 +38,7 @@ class User: NSObject,NSCoding, Mappable {
     var isActive: Bool?
     var avg: Double?
     var review: Review?
-    var subscribe: Int?
+    var subscribe: subscriptionType?
     
     var firstName: String?
     var lastName: String?
@@ -60,7 +67,7 @@ class User: NSObject,NSCoding, Mappable {
         role = RollType(rawValue: (aDecoder.decodeObject(forKey: "role") as! String))
         createdAt = aDecoder.decodeObject(forKey: "createdAt") as? String
         isActive = aDecoder.decodeObject(forKey: "isActive") as? Bool
-        subscribe = aDecoder.decodeObject(forKey: "subscribe") as? Int
+        subscribe = subscriptionType(rawValue: (aDecoder.decodeObject(forKey: "subscribe") as! String))
 
 //        review = aDecoder.decodeObject(forKey: "review") as? Review
         
@@ -82,7 +89,7 @@ class User: NSObject,NSCoding, Mappable {
         aCoder.encode(role?.rawValue, forKey: "role")
         aCoder.encode(createdAt, forKey: "createdAt")
         aCoder.encode(isActive, forKey: "isActive")
-        aCoder.encode(subscribe, forKey: "subscribe")
+        aCoder.encode(subscribe?.rawValue, forKey: "subscribe")
 //        aCoder.encode(review, forKey: "review")
         
         aCoder.encode(firstName, forKey: "firstName")
@@ -120,7 +127,7 @@ class signUpUserData: NSObject {
     var occupation = ""
     var aboutMe = ""
     var selections: [String : [String]] = [:]
-    
+    var subscribe = ""
     override init() {
         super.init()
     }    

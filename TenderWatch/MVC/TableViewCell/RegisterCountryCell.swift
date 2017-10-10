@@ -10,7 +10,8 @@ import UIKit
 
 class RegisterCountryCell: UITableViewCell {
 
-    @IBOutlet weak var countryName: UILabel!
+    
+    @IBOutlet weak var countryName: MarqueeLabel!
     @IBOutlet var imgTick: UIImageView!
     
     override func awakeFromNib() {

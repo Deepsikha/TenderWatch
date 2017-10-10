@@ -31,7 +31,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var nav9: UINavigationController?
     var nav10: UINavigationController?
 
-    
+    var count: Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,7 +46,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         nav2 = UINavigationController(rootViewController: SubscriptionVC())
         
-        nav3 = UINavigationController(rootViewController: MappingVC())
+//        nav3 = UINavigationController(rootViewController: MappingVC())
         nav4 = UINavigationController(rootViewController: UploadTenderVC())
         
         nav5 = UINavigationController(rootViewController: SignUpVC2())
@@ -74,7 +74,11 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.lblName.text =  USER?.firstName //"Demo User" //remaining
         if (USER?.authenticationToken != nil) {
             self.lblName.text = USER?.email
-            
+            if count > 0 {
+                self.count = appDelegate.notiNumber + self.count
+            } else {
+                self.count = appDelegate.notiNumber
+            }
             self.imgProPic.sd_setShowActivityIndicatorView(true)
             self.imgProPic.sd_setIndicatorStyle(.gray)
             
@@ -86,8 +90,8 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             SideMenuVC.arrSideMenuIcon = ["home","upload","userthree","password", "bell", "support", "logout"]
             SideMenuVC.arrSideMenuLbl = ["Home", "Upload Tender", "Edit Profile", "Change Password", "Notifications", "Contact Support Team", "Logout"]
         } else {
-            SideMenuVC.arrSideMenuIcon = ["home","dollar","country", "userthree","password", "fav", "bell", "support", "logout"]
-            SideMenuVC.arrSideMenuLbl = ["Home", "Subscription Details", "Edit Subscription", "Edit Profile", "Change Password", "Favorites", "Notifications", "Contact Support Team", "Logout"]
+            SideMenuVC.arrSideMenuIcon = ["home","dollar", "userthree","password", "fav", "bell", "support", "logout"]
+            SideMenuVC.arrSideMenuLbl = ["Home", "Subscription Details", "Edit Profile", "Change Password", "Favorites", "Notifications", "Contact Support Team", "Logout"]
         }
         self.tblSideMenu.reloadData()
     }
@@ -111,7 +115,14 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuCell", for: indexPath) as! SideMenuCell
         cell.lblMenu.text = SideMenuVC.arrSideMenuLbl[indexPath.row]
         cell.imgIcon.image = UIImage(named: SideMenuVC.arrSideMenuIcon[indexPath.row])
-        
+        if cell.lblMenu.text == "Notifications" {
+            if count > 0 {
+                cell.lblNotify.isHidden = false
+                cell.lblNotify.text = "\(count)"
+            } else {
+                cell.lblNotify.isHidden = true
+            }
+        }
         return cell
     }
     
@@ -134,9 +145,6 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         } else if item == "Subscription Details" {
             appDelegate.drawerController.centerViewController = nav2
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
-        } else if item == "Edit Subscription" {
-            appDelegate.drawerController.centerViewController = nav3
-            appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if  item == "Upload Tender" {
             appDelegate.drawerController.centerViewController = nav4
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
@@ -150,6 +158,8 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             appDelegate.drawerController.centerViewController = nav7
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Notifications" {
+            count = 0
+            appDelegate.notiNumber = 0
             appDelegate.drawerController.centerViewController = nav8
             appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
         } else if item == "Contact Support Team" {

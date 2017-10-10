@@ -190,6 +190,9 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         self.lblNoFavorite.isHidden = true
                         let data = (resp.result.value as! NSObject)
                         self.favorite = Mapper<Favorite>().mapArray(JSONObject: data)!
+                        if self.favorite.isEmpty {
+                            self.lblNoFavorite.isHidden = true
+                        }
                         self.tblFavorite.reloadData()
                     }
                 }

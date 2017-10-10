@@ -41,10 +41,10 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     var transperentView = UIView()
     static var id:String!
     var dic: [String: String] = [:]
-    
+    var scrollViewHeight:CGFloat = 0.0
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        scrollViewHeight = vwHeight.constant
         self.btnDelete.layer.cornerRadius = 8
         self.btnInterested.layer.cornerRadius = 8
         
@@ -67,6 +67,9 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         self.tblTenderContactDetail.delegate = self
         self.tblTenderContactDetail.dataSource = self
         
+        self.tblTenderContactDetail.estimatedRowHeight = 100
+//        self.tblTenderContactDetail.rowHeight = UITableViewAutomaticDimension
+        
         self.tblTenderContactDetail.register(UINib(nibName: "ClientDetailCell", bundle: nil), forCellReuseIdentifier: "ClientDetailCell")
         
         imageView = UIImageView(image: UIImage(named: "avtar"))
@@ -86,6 +89,11 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         ScrollView.showsHorizontalScrollIndicator = false
         ScrollView.addSubview(imageView)
         vwImage.addSubview(ScrollView)
+        let btn = UIButton(frame: CGRect(x: 10, y: 30, width: 30, height: 30))
+        btn.setImage(UIImage(named: "cancel-menu"), for: .normal)
+        btn.layer.backgroundColor = UIColor.clear.cgColor
+        btn.addTarget(self, action: #selector(self.tapHandler(sender:)), for: .touchDown)
+        vwImage.addSubview(btn)
         
         setZoomScale()
         setupGestureRecognizer()
@@ -95,10 +103,11 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     override func viewDidLayoutSubviews() {
-        
         self.txtVwDescHeight.constant = self.txtDesc.contentSize.height
-        self.tblTenderContactHeight.constant = CGFloat(self.dic.count * 30)
-        self.vwHeight.constant = self.vwHeight.constant + (self.txtDesc.contentSize.height - self.txtDesc.frame.height) //+ (self.tblTenderContactHeight.constant - 30)
+        self.tblTenderContactHeight.constant = self.tblTenderContactDetail.contentSize.height
+        self.view.layoutIfNeeded()
+        
+        self.vwHeight.constant = scrollViewHeight + (self.txtDesc.contentSize.height) + (self.tblTenderContactHeight.constant)
         self.transperentView.frame = self.view.frame
 
         self.vwClientDetail.frame = CGRect(x: self.transperentView.center.x - (self.vwClientDetail.frame.width / 2), y: self.transperentView.center.y - 150, width:self.vwClientDetail.frame.width, height: self.vwClientDetail.frame.height)
@@ -150,6 +159,10 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         cell.lblKey.text = (dic as NSDictionary).allKeys[indexPath.row] as? String
         cell.lblValue.text = (dic as NSDictionary).value(forKey: cell.lblKey.text!) as? String
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
     
     //MARK:- IBActions
@@ -217,7 +230,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                     if (resp.response?.statusCode == 304) {
                         MessageManager.showAlert(nil, "Already interested ")
                     } else {
-                        MessageManager.showAlert(nil, "Tender added to interested")
+                        MessageManager.showAlert(nil, "We have notified the Client about your interest in this Tender./nTo pursue please continue with the process as specified in the Tender Details")
                         self.btnInterested.isEnabled = false
                         self.btnInterested.backgroundColor = UIColor(red: 145/255, green: 216/255, blue: 79/255, alpha: 0.7)
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "interested"), object: nil, userInfo: ["id":"\(self.tenderDetail.id!)","tag":"1"])

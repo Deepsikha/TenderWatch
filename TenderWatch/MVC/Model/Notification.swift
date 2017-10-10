@@ -9,7 +9,7 @@
 import UIKit
 import ObjectMapper
 
-class Notification: NSObject, Mappable {
+class NotificationUser: NSObject, Mappable {
     
     var id: String?
     var user: User?

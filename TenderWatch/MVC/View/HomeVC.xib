@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina3_5" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -12,17 +12,23 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeVC" customModule="TenderWatch" customModuleProvider="target">
             <connections>
+                <outlet property="btnAboutApp" destination="BXT-FP-FhY" id="KQ1-GN-FwB"/>
                 <outlet property="btnClient" destination="nLi-Km-SdM" id="94D-TG-D5w"/>
+                <outlet property="btnClose" destination="Tbs-CB-2ua" id="pV2-Er-Y4P"/>
                 <outlet property="btnContractor" destination="gEe-dP-e9a" id="dWj-bD-cL7"/>
+                <outlet property="imgLogo" destination="2MR-FL-T5K" id="pel-ed-ysB"/>
                 <outlet property="lblFirst" destination="V0R-8G-TCJ" id="m1G-4t-NpC"/>
                 <outlet property="lblSecond" destination="BkK-Sg-Hnc" id="aAu-bT-X7g"/>
                 <outlet property="lblThird" destination="Wnk-g7-Ojf" id="uEO-RX-KdO"/>
+                <outlet property="txtVwAbout" destination="ytd-X7-eLo" id="JHQ-Cz-lad"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="vw" destination="oRy-bV-dOP" id="vCq-E2-kUK"/>
+                <outlet property="vwTxtAbout" destination="eyx-G1-Dep" id="rkG-ON-Feb"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's get Started! First, tell us what you are looking for." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0R-8G-TCJ">
@@ -96,11 +102,34 @@
                         <action selector="btnClientClick:" destination="-1" eventType="touchUpInside" id="las-pN-QCA"/>
                     </connections>
                 </button>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BXT-FP-FhY">
+                    <rect key="frame" x="76.5" y="518" width="166" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="HaJ-MT-xcx"/>
+                    </constraints>
+                    <state key="normal">
+                        <attributedString key="attributedTitle">
+                            <fragment content="About TenderWatch">
+                                <attributes>
+                                    <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <font key="NSFont" size="15" name=".SFNSText-Bold"/>
+                                    <font key="NSOriginalFont" size="17" name=".AppleSystemUIFontEmphasized"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    <integer key="NSUnderline" value="1"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </state>
+                    <connections>
+                        <action selector="handleBtnAboutApp:" destination="-1" eventType="touchUpInside" id="Gdp-9e-aK9"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="nLi-Km-SdM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="60" id="1Hc-im-JI5"/>
                 <constraint firstItem="GJd-BL-l8T" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="124" id="2Hg-n1-t6X"/>
+                <constraint firstAttribute="trailing" secondItem="BXT-FP-FhY" secondAttribute="trailing" constant="77.441113490359356" id="3EF-if-vlf"/>
                 <constraint firstAttribute="trailing" secondItem="BkK-Sg-Hnc" secondAttribute="trailing" constant="83" id="6O4-ow-Pmc"/>
                 <constraint firstAttribute="trailing" secondItem="nLi-Km-SdM" secondAttribute="trailing" constant="60" id="6zI-t9-sRO"/>
                 <constraint firstItem="hFS-d1-AfS" firstAttribute="top" secondItem="gEe-dP-e9a" secondAttribute="bottom" constant="14" id="78N-RU-esd"/>
@@ -115,6 +144,8 @@
                 <constraint firstItem="V0R-8G-TCJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="P7l-zO-iNK"/>
                 <constraint firstAttribute="trailing" secondItem="QV4-HU-JN5" secondAttribute="trailing" constant="126" id="RZ8-hv-WNz"/>
                 <constraint firstAttribute="trailing" secondItem="Wnk-g7-Ojf" secondAttribute="trailing" constant="84" id="U0A-tS-CPK"/>
+                <constraint firstItem="BXT-FP-FhY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="76.558886509640615" id="UI5-fI-0jW"/>
+                <constraint firstAttribute="bottom" secondItem="BXT-FP-FhY" secondAttribute="bottom" constant="20" id="YsG-O1-2x9"/>
                 <constraint firstItem="Wnk-g7-Ojf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="84" id="ZOM-dS-tWQ"/>
                 <constraint firstItem="GJd-BL-l8T" firstAttribute="top" secondItem="V0R-8G-TCJ" secondAttribute="bottom" id="h1t-Z7-lWY"/>
                 <constraint firstItem="Wnk-g7-Ojf" firstAttribute="top" secondItem="QV4-HU-JN5" secondAttribute="bottom" id="hQO-n3-b0X"/>
@@ -126,8 +157,162 @@
             </constraints>
             <point key="canvasLocation" x="-51" y="2"/>
         </view>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="eyx-G1-Dep">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P4H-Nu-j5m">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oRy-bV-dOP">
+                    <rect key="frame" x="20" y="50" width="280" height="468"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo3@1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="2MR-FL-T5K">
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="128"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="280" id="Jbw-is-JMs"/>
+                                <constraint firstAttribute="height" constant="128" id="awB-Cr-tW9"/>
+                            </constraints>
+                        </imageView>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ytd-X7-eLo">
+                            <rect key="frame" x="0.0" y="128" width="280" height="340"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <attributedString key="attributedText">
+                                <fragment content="Welcome to ">
+                                    <attributes>
+                                        <font key="NSFont" metaFont="system" size="14"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="TenderWatch">
+                                    <attributes>
+                                        <font key="NSFont" size="14" name=".AppleSystemUIFontEmphasized"/>
+                                        <font key="NSOriginalFont" size="14" name=".AppleSystemUIFontEmphasized"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment>
+                                    <string key="content">, the App that connects Contractors to Clients within their area of work.
+
+As a </string>
+                                    <attributes>
+                                        <font key="NSFont" metaFont="system" size="14"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="Client">
+                                    <attributes>
+                                        <font key="NSFont" size="14" name=".AppleSystemUIFontEmphasized"/>
+                                        <font key="NSOriginalFont" size="14" name=".AppleSystemUIFontEmphasized"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment>
+                                    <string key="content"> you will be able to easily upload any contract / Tender, that will go out to all relevant Contractors in your area. And prospective Contractors will contact you directly and apply for your Contract / tender. All Tenders/ Contracts can be uploaded free of cost, always.
+
+As a </string>
+                                    <attributes>
+                                        <font key="NSFont" metaFont="system" size="14"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="Contractor">
+                                    <attributes>
+                                        <font key="NSFont" size="14" name=".AppleSystemUIFontEmphasized"/>
+                                        <font key="NSOriginalFont" size="14" name=".AppleSystemUIFontEmphasized"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment>
+                                    <string key="content"> once you register on this App and choose the category of your scope of work, all Tenders/ contracts relevant to your scope of work will come to you directly and give you the opportunity to apply for these contracts within your working area. The App will filter and send just relevant Tenders/ contracts to you.
+
+</string>
+                                    <attributes>
+                                        <font key="NSFont" metaFont="system" size="14"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="Tender / Contract">
+                                    <attributes>
+                                        <font key="NSFont" size="14" name=".AppleSystemUIFontEmphasized"/>
+                                        <font key="NSOriginalFont" size="14" name=".AppleSystemUIFontEmphasized"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment>
+                                    <string key="content"> can be any work or service. It could be anything from Supply of different things, to Services required such as Plumbing, Gardening, Repairs &amp; Maintenance etc.
+
+</string>
+                                    <attributes>
+                                        <font key="NSFont" metaFont="system" size="14"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="TenderWatch">
+                                    <attributes>
+                                        <font key="NSFont" size="14" name=".AppleSystemUIFontEmphasized"/>
+                                        <font key="NSOriginalFont" size="14" name=".AppleSystemUIFontEmphasized"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment>
+                                    <string key="content"> is also a unique way of getting Corporate and Government contracts so you don't miss out on any potential Tender / contract within your scope of work.
+
+We are sure this App will help all Contractors and Clients make contact more effectively and conveniently.</string>
+                                    <attributes>
+                                        <font key="NSFont" metaFont="system" size="14"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="2MR-FL-T5K" firstAttribute="top" secondItem="oRy-bV-dOP" secondAttribute="top" id="H8Q-E7-hgW"/>
+                        <constraint firstItem="ytd-X7-eLo" firstAttribute="leading" secondItem="oRy-bV-dOP" secondAttribute="leading" id="Jxf-9l-npG"/>
+                        <constraint firstAttribute="bottom" secondItem="ytd-X7-eLo" secondAttribute="bottom" id="kBf-r8-9te"/>
+                        <constraint firstAttribute="trailing" secondItem="ytd-X7-eLo" secondAttribute="trailing" id="llN-mB-ipA"/>
+                        <constraint firstItem="ytd-X7-eLo" firstAttribute="top" secondItem="2MR-FL-T5K" secondAttribute="bottom" id="nvQ-n7-OpU"/>
+                        <constraint firstItem="2MR-FL-T5K" firstAttribute="leading" secondItem="oRy-bV-dOP" secondAttribute="leading" id="rbJ-42-tTu"/>
+                        <constraint firstAttribute="trailing" secondItem="2MR-FL-T5K" secondAttribute="trailing" id="zIy-vH-AWj"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" clipsSubviews="YES" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tbs-CB-2ua">
+                    <rect key="frame" x="280" y="40" width="30" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="OiD-L5-jHn"/>
+                        <constraint firstAttribute="width" constant="30" id="c4e-M0-Xbq"/>
+                    </constraints>
+                    <state key="normal" image="cancel-button.png"/>
+                    <connections>
+                        <action selector="handleBtnClose:" destination="-1" eventType="touchUpInside" id="TfT-SD-czC"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="oRy-bV-dOP" secondAttribute="trailing" constant="20" id="2Od-tt-Qsw"/>
+                <constraint firstItem="P4H-Nu-j5m" firstAttribute="leading" secondItem="eyx-G1-Dep" secondAttribute="leading" id="36A-fG-8Cb"/>
+                <constraint firstAttribute="bottom" secondItem="P4H-Nu-j5m" secondAttribute="bottom" id="65c-QY-u53"/>
+                <constraint firstItem="oRy-bV-dOP" firstAttribute="top" secondItem="eyx-G1-Dep" secondAttribute="top" constant="50" id="7qr-Qx-uQT"/>
+                <constraint firstAttribute="bottom" secondItem="oRy-bV-dOP" secondAttribute="bottom" constant="50" id="B1i-wc-yFR"/>
+                <constraint firstAttribute="trailing" secondItem="P4H-Nu-j5m" secondAttribute="trailing" id="BG7-0X-sUb"/>
+                <constraint firstAttribute="trailing" secondItem="Tbs-CB-2ua" secondAttribute="trailing" constant="10" id="CdK-uc-0Q9"/>
+                <constraint firstItem="oRy-bV-dOP" firstAttribute="leading" secondItem="eyx-G1-Dep" secondAttribute="leading" constant="20" id="Nwp-RE-gHb"/>
+                <constraint firstItem="P4H-Nu-j5m" firstAttribute="top" secondItem="eyx-G1-Dep" secondAttribute="top" id="Szy-BE-x8j"/>
+                <constraint firstItem="Tbs-CB-2ua" firstAttribute="top" secondItem="eyx-G1-Dep" secondAttribute="top" constant="40" id="rSw-lx-qRA"/>
+            </constraints>
+            <point key="canvasLocation" x="391" y="5"/>
+        </view>
     </objects>
     <resources>
+        <image name="cancel-button.png" width="22" height="22"/>
+        <image name="logo3@1024.png" width="1024" height="1024"/>
         <image name="lookingfor.png" width="46" height="46"/>
         <image name="mainscreen.png" width="46" height="46"/>
     </resources>

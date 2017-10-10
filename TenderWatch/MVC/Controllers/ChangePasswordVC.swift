@@ -27,8 +27,9 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
         txtOldPassword.delegate = self
         txtNewPassword.delegate = self
         txtConfirmPassword.delegate = self
-        
-        
+        txtOldPassword.autocorrectionType = .no
+        txtNewPassword.autocorrectionType = .no
+        txtConfirmPassword.autocorrectionType = .no
     }
     
     override func didReceiveMemoryWarning() {
@@ -75,7 +76,7 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
                 if !((self.txtNewPassword.text?.isEmpty)!) && (self.txtNewPassword.text! == self.txtConfirmPassword.text) && (isValidPassword(strPassword: self.txtNewPassword.text!)){
                     if isNetworkReachable() {
                         self.startActivityIndicator()
-                        Alamofire.request(CHANGE_PASSWORD, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (resp) in
+                        Alamofire.request((BASE_URL)+"users/changePassword/"+(USER!._id)!, method: .post, parameters: param, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (resp) in
                             let data = resp.result.value as! NSObject
                             if(data.value(forKey: "message") as! String) != "Old password is wrong!!!" {
                                 USER?.password = self.txtNewPassword.text

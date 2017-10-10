@@ -16,7 +16,7 @@ class Tender: NSObject, Mappable {
     var category : String?
     var contactNo : String?
     var country : String?
-//    var createdAt: String?
+    var createdAt: String?
     var desc: String?
     var email : String?
     var exp : String?
@@ -42,7 +42,7 @@ class Tender: NSObject, Mappable {
         category        <- map["category"]
         contactNo       <- map["contactNo"]
         country         <- map["country"]
-//        createdAt       <- map["createdAt"]
+        createdAt       <- map["createdAt"]
         desc            <- map["description"]
         email           <- map["email"]
         exp             <- map["expiryDate"]

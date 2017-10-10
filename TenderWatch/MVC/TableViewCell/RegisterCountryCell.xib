@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="29.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tick.png" translatesAutoresizingMaskIntoConstraints="NO" id="qCU-IZ-Iod">
@@ -27,11 +27,14 @@
                             <constraint firstAttribute="width" constant="10" id="tbA-AD-kUi"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7e-Ik-HOn">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7e-Ik-HOn" customClass="MarqueeLabel" customModule="TenderWatch" customModuleProvider="target">
                         <rect key="frame" x="8" y="0.0" width="282" height="30"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="labelize" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>
                 <constraints>
@@ -47,7 +50,7 @@
                 <constraint firstAttribute="bottom" secondItem="F7e-Ik-HOn" secondAttribute="bottom" constant="0.24324324324357605" id="s2M-el-vYk"/>
             </constraints>
             <connections>
-                <outlet property="countryName" destination="F7e-Ik-HOn" id="lW1-pN-GdF"/>
+                <outlet property="countryName" destination="F7e-Ik-HOn" id="6Z2-BJ-ncv"/>
                 <outlet property="imgTick" destination="qCU-IZ-Iod" id="rVr-fG-fFb"/>
             </connections>
         </tableViewCell>

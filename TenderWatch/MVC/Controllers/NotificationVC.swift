@@ -19,7 +19,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet var dwView: UIView!
     @IBOutlet weak var btnDelete: UIButton!
-    var notification: [Notification] = []
+    var notification: [NotificationUser] = []
     var delete: [String] = []
     var count : Int = 0
     
@@ -211,7 +211,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                     } else {
                         self.lblNoNotifications.isHidden = true
                         let data = (resp.result.value as! NSObject)
-                        self.notification = Mapper<Notification>().mapArray(JSONObject: data)!
+                        self.notification = Mapper<NotificationUser>().mapArray(JSONObject: data)!
                         if (self.notification.isEmpty) {
                             self.lblNoNotifications.isHidden = false
                             self.btnEdit.isEnabled = false
