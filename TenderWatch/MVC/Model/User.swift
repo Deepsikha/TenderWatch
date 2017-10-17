@@ -40,6 +40,9 @@ class User: NSObject,NSCoding, Mappable {
     var review: Review?
     var subscribe: subscriptionType?
     
+    var isPayment: Bool?
+    var payment: Float?
+    
     var firstName: String?
     var lastName: String?
     var password: String?
@@ -52,7 +55,7 @@ class User: NSObject,NSCoding, Mappable {
     override init() {
         super.init()
     }
-    
+
     required init(coder aDecoder: NSCoder) {
         super.init()
         authenticationToken = aDecoder.decodeObject(forKey: "token") as? String
@@ -69,6 +72,8 @@ class User: NSObject,NSCoding, Mappable {
         isActive = aDecoder.decodeObject(forKey: "isActive") as? Bool
         subscribe = subscriptionType(rawValue: (aDecoder.decodeObject(forKey: "subscribe") as! String))
 
+        isPayment = aDecoder.decodeObject(forKey: "isPayment") as? Bool
+        payment = aDecoder.decodeObject(forKey: "payment") as? Float
 //        review = aDecoder.decodeObject(forKey: "review") as? Review
         
         firstName = aDecoder.decodeObject(forKey: "firstName") as? String
@@ -90,6 +95,8 @@ class User: NSObject,NSCoding, Mappable {
         aCoder.encode(createdAt, forKey: "createdAt")
         aCoder.encode(isActive, forKey: "isActive")
         aCoder.encode(subscribe?.rawValue, forKey: "subscribe")
+        aCoder.encode(isPayment, forKey: "isPayment")
+        aCoder.encode(payment, forKey: "payment")
 //        aCoder.encode(review, forKey: "review")
         
         aCoder.encode(firstName, forKey: "firstName")
@@ -111,6 +118,8 @@ class User: NSObject,NSCoding, Mappable {
         review                  <- map["review"]
         avg                     <- map["avg"]
         subscribe               <- map["subscribe"]
+        isPayment               <- map["isPayment"]
+        payment                 <- map["payment"]
         
         firstName               <- map["firstName"]
         lastName                <- map["lastName"]

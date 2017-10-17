@@ -34,8 +34,6 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
         self.tblCountries.dataSource = self
         self.tblCountries.tableFooterView = UIView()
         tblCountries.register(UINib(nibName:"RegisterCountryCell",bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
-        
-        self.lblPrice.isHidden = true
     
         btnNext.cornerRedius()
         
@@ -50,10 +48,10 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             self.opnDrwr.isHidden = false
             self.btnBack.isHidden = true
             self.lblName.isHidden = false
-            self.lblPrice.isHidden = false
+            self.lblPrice.isHidden = true
             self.amount = 0
             MappingVC.demoCountry = []
-
+            self.tblCountries.reloadData()
             self.lblPrice.text = USER?.subscribe == subscriptionType.free ? "Trial Version" : "$\(self.amount) / \(USER?.subscribe == subscriptionType.monthly ? "month" : "year")"
         } else {
             self.tblCountries.reloadData()
@@ -103,10 +101,10 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 MappingVC.demoCountry.append(self.country[indexPath.row])
                 
-                if USER?.subscribe != subscriptionType.free {
-                    self.amount = USER?.subscribe == subscriptionType.monthly ? (MappingVC.demoCountry.count * 15 - self.preCountry.count * 15): (MappingVC.demoCountry.count * 120 - self.preCountry.count * 120)
-                    self.lblPrice.text = "$\(self.amount) / \(USER?.subscribe == subscriptionType.monthly ? "month" : "year")"
-                }
+//                if USER?.subscribe != subscriptionType.free {
+////                    self.amount = USER?.subscribe == subscriptionType.monthly ? (MappingVC.demoCountry.count * 15 - self.preCountry.count * 15): (MappingVC.demoCountry.count * 120 - self.preCountry.count * 120)
+////                    self.lblPrice.text = "$\(self.amount) / \(USER?.subscribe == subscriptionType.monthly ? "month" : "year")"
+//                }
             } else {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 
@@ -115,20 +113,19 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                     if let itemToRemoveIndex = MappingVC.demoCountry.index(of: self.country[indexPath.row]) {
                         MappingVC.demoCountry.remove(at: itemToRemoveIndex)
                         
-                        if USER?.subscribe != subscriptionType.free {
-                            if MappingVC.demoCountry.isEmpty {
-                                self.amount = 0
-                                self.lblPrice.text = "$\(self.amount) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
-                            } else {
-                                self.amount = USER?.subscribe == subscriptionType.monthly ? (MappingVC.demoCountry.count * 15 - self.preCountry.count * 15) : (MappingVC.demoCountry.count * 120 - self.preCountry.count * 120)
-                                self.lblPrice.text = "$\(self.amount) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
-                            }
-                        }
+//                        if USER?.subscribe != subscriptionType.free {
+//                            if MappingVC.demoCountry.isEmpty {
+//                                self.amount = 0
+////                                self.lblPrice.text = "$\(self.amount) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
+//                            } else {
+////                                self.amount = USER?.subscribe == subscriptionType.monthly ? (MappingVC.demoCountry.count * 15 - self.preCountry.count * 15) : (MappingVC.demoCountry.count * 120 - self.preCountry.count * 120)
+////                                self.lblPrice.text = "$\(self.amount) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
+//                            }
+//                        }
                     }
                 }
 
             }
-            
         } else {
             if (cell.imgTick.isHidden) {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
@@ -172,13 +169,31 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
     }
     
     @IBAction func btnNextClick(_ sender: Any) {
+        MappingVC.finalAmt = self.amount
         if (USER?.authenticationToken != nil) {
             //Api call
-            self.navigationController?.pushViewController(MappingVC(), animated: false)
+            if USER?.subscribe == subscriptionType.free {
+                if MappingVC.demoCountry.count > 1 {
+                    MessageManager.showAlert(nil, "During Free Trial Period you can choose only 1 Country")
+                } else {
+                    MappingVC.demoCountry = MappingVC.demoCountry.sorted(by: { (a, b) -> Bool in
+                        a.countryName! < b.countryName!
+                    })
+                    self.navigationController?.pushViewController(MappingVC(), animated: true)
+                }
+            } else if MappingVC.demoCountry.isEmpty {
+                MessageManager.showAlert(nil, "During \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "monthly" : "yearly") subscription you can choose at least 1 Country")
+            } else {
+                MappingVC.demoCountry = MappingVC.demoCountry.sorted(by: { (a, b) -> Bool in
+                    a.countryName! < b.countryName!
+                })
+                self.navigationController?.pushViewController(MappingVC(), animated: true)
+            }
         } else {
             if signUpUser.subscribe == subscriptionType.free.rawValue {
                 if MappingVC.demoCountry.count > 1 {
                     MessageManager.showAlert(nil, "During Free Trial Period you can choose only 1 Country")
+                } else if MappingVC.demoCountry.count == 0 {                                        MessageManager.showAlert(nil, "During Free Trial Period you can at least 1 Country")
                 } else {
                     MappingVC.demoCountry = MappingVC.demoCountry.sorted(by: { (a, b) -> Bool in
                         a.countryName! < b.countryName!
@@ -232,7 +247,9 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                     self.services = Mapper<Services>().mapArray(JSONObject: data)!
                     for i in self.services {
                         i.countryId = self.country.filter{$0.countryId == i.countryId}[0].countryName
-                        self.preCountry.append(i.countryId!)
+                        if !self.preCountry.contains(i.countryId!) {
+                            self.preCountry.append(i.countryId!)
+                        }
                     }
                     self.tblCountries.reloadData()
                 }
@@ -275,19 +292,16 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
         
         let action1 = UIAlertAction(title: "1 month free trial", style: .default, handler: { (action) -> Void in
             signUpUser.subscribe = subscriptionType.free.rawValue
-            self.lblPrice.isHidden = false
             self.lblPrice.text = "Trial Version"
         })
         
         let action2 = UIAlertAction(title: "Monthly subscription", style: .default, handler: { (action) -> Void in
             signUpUser.subscribe = subscriptionType.monthly.rawValue
-            self.lblPrice.isHidden = false
             self.lblPrice.text = "$\(self.amount) / month"
         })
         
         let action3 = UIAlertAction(title: "Yearly subscription", style: .default, handler: { (action) -> Void in
             signUpUser.subscribe = subscriptionType.yearly.rawValue
-            self.lblPrice.isHidden = false
             self.lblPrice.text = "$\(self.amount) / year"
         })
         

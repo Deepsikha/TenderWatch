@@ -151,6 +151,14 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let vc = UserDetailVC()
                 vc.id = self.notification[indexPath.row].sender?._id
                 self.present(vc, animated: true, completion: nil)
+            } else {
+                if (self.notification[indexPath.row].tender?.isActive)! {
+                    let vc = TenderWatchDetailVC(nibName: "TenderWatchDetailVC", bundle: nil)
+                    TenderWatchDetailVC.id = self.notification[indexPath.row].tender?.id
+                    self.navigationController?.pushViewController(vc, animated: true)
+                } else {
+                    MessageManager.showAlert(nil, "Tender Deleted.\n\nCan't show tender details.")
+                }
             }
         }
     }

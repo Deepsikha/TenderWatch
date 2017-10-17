@@ -74,6 +74,20 @@
                         <action selector="btnHandleApplePay:" destination="-1" eventType="touchUpInside" id="U1R-15-UeB"/>
                     </connections>
                 </button>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="utG-k7-dKK">
+                    <rect key="frame" x="40" y="295" width="240" height="35"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="ssv-hd-9AI"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="-59" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Bank Account" image="apple.png">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnHandleBankPayment:" destination="-1" eventType="touchUpInside" id="sWN-ke-2xx"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.1292253733" green="0.58360761400000005" blue="0.91861993070000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -81,10 +95,13 @@
                 <constraint firstItem="Wbd-fd-u3V" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="7Dy-D9-yGq"/>
                 <constraint firstItem="lQJ-Os-e9C" firstAttribute="top" secondItem="Wbd-fd-u3V" secondAttribute="bottom" constant="30" id="Dlr-xE-zMU"/>
                 <constraint firstAttribute="trailing" secondItem="Sav-u8-VAN" secondAttribute="trailing" constant="40" id="EnF-4t-hyd"/>
+                <constraint firstAttribute="trailing" secondItem="utG-k7-dKK" secondAttribute="trailing" constant="40" id="H4u-JX-heL"/>
+                <constraint firstItem="utG-k7-dKK" firstAttribute="top" secondItem="lQJ-Os-e9C" secondAttribute="bottom" constant="30" id="KJk-Ba-Ou4"/>
                 <constraint firstItem="lQJ-Os-e9C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="LC4-px-he1"/>
                 <constraint firstItem="Wbd-fd-u3V" firstAttribute="top" secondItem="Sav-u8-VAN" secondAttribute="bottom" constant="30" id="WVj-Wz-NFj"/>
                 <constraint firstAttribute="trailing" secondItem="lQJ-Os-e9C" secondAttribute="trailing" constant="40" id="dFq-ft-5JN"/>
                 <constraint firstItem="Sav-u8-VAN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="hGE-kz-TuR"/>
+                <constraint firstItem="utG-k7-dKK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="rjz-sa-oq2"/>
                 <constraint firstItem="PN4-Zm-z6t" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="tab-O9-1uL"/>
                 <constraint firstAttribute="trailing" secondItem="Wbd-fd-u3V" secondAttribute="trailing" constant="40" id="tjH-gj-dWf"/>
                 <constraint firstItem="Sav-u8-VAN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="wBb-dR-I7F"/>

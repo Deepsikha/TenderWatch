@@ -30,6 +30,7 @@ class Favorite: NSObject, Mappable {
     var readby: [String]?
     var amendRead:[String]?
     var interested: [String]?
+    var city: String?
     
     required init?(map: Map) {
         super.init()
@@ -56,5 +57,6 @@ class Favorite: NSObject, Mappable {
         readby          <- map["readby"]
         amendRead       <- map["amendRead"]
         interested      <- map["interested"]
+        city            <- map["city"]
     }
 }

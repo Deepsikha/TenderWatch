@@ -20,7 +20,7 @@ class TenderDetail: NSObject, Mappable {
     var desc: String?
     var email : String?
     var exp : String?
-    var isActive: String?
+    var isActive: Bool?
     var landlineNo : String?
     var tenderName : String?
     var tenderPhoto : String?
@@ -31,6 +31,7 @@ class TenderDetail: NSObject, Mappable {
     var readby: [String]?
     var interested: [String]?
     var isFollowTender: Bool?
+    var city: String?
     
     required init?(map: Map) {
         super.init()
@@ -58,5 +59,6 @@ class TenderDetail: NSObject, Mappable {
         readby          <- map["readby"]
         interested      <- map["interested"]
         isFollowTender  <- map["isFollowTender"]
+        city            <- map["city"]
     }
 }

@@ -12,9 +12,11 @@ import Alamofire
 
 class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var btnBack: UIButton!
-    @IBOutlet weak var btnMenu: UIButton!
+    @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var tblMappings: UITableView!
+    @IBOutlet weak var btnSave: UIButton!
     
     var sectionTitleList = [String]()
     var country = [Country]()
@@ -25,10 +27,13 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var temp : Dictionary< String, [Bool]> = [:]
     var select = [String : [String]]()
     var selectedIndexArray:[IndexPath] = []
+    var preSelectedIndexArray:[IndexPath] = []
     
     var sendList = NSMutableDictionary()
     var services = [Services]()
-    var updateArray = [String : [String]]()
+    var updateArray: [IndexPath] = []
+    
+    static var finalAmt = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,37 +44,32 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         self.tblMappings.tableFooterView = UIView()
         self.fetchCoutry()
-        
-        //taphandle
-        //        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
-        //        tap.cancelsTouchesInView = false
-        //        self.view.addGestureRecognizer(tap)
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
-        
-        if(USER?.authenticationToken != nil) {
-            self.btnBack.isHidden = false
-            self.btnMenu.isHidden = true
+        self.btnSave.cornerRedius()
+         if(USER?.authenticationToken != nil) {
+            self.btnSave.setTitle("Payment", for: .normal)
+            self.lblName.isHidden = false
+            
+            self.lblPrice.text = USER?.subscribe == subscriptionType.free ? "Trial Version" : "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
         } else {
-            self.btnBack.isHidden = false
-            self.btnMenu.isHidden = true
+            self.btnSave.setTitle("Next", for: .normal)
+            self.lblName.isHidden = true
+             self.lblPrice.text = signUpUser.subscribe == subscriptionType.free.rawValue ? "Trial Version" : "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
         }
     }
     
     //MARK:- TableView Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return self.countryCatDict.count //self.country.count
+        return self.countryCatDict.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let aryForCounting:[Category] = self.countryCatDict[country[section].countryId!]!
         return aryForCounting.count
-        // return self.category.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,13 +77,20 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
         var arrMapping = self.countryCatDict[country[indexPath.section].countryId!]
         let arrList = arrMapping?[indexPath.row]
-//        cell.countryName.labelize = true
-        cell.countryName.text =  arrList?.categoryName //self.category[indexPath.row].categoryName
+        cell.countryName.text =  arrList?.categoryName
         cell.countryName.type = .left
         cell.countryName.speed = .duration(2)
         cell.countryName.animationCurve = .easeInOut
         cell.countryName.fadeLength = 0.0
         cell.countryName.leadingBuffer = 0.0
+        
+        if USER?.authenticationToken != nil {
+            if preSelectedIndexArray.contains(indexPath) {
+                cell.isUserInteractionEnabled = false
+            } else {
+                cell.isUserInteractionEnabled = true
+            }
+        }
         
         if (selectedIndexArray.contains(indexPath)) {
             cell.imgTick.isHidden = false
@@ -100,21 +107,67 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (selectedIndexArray.contains(indexPath))
-        {
+        if (selectedIndexArray.contains(indexPath)) {
+            
             selectedIndexArray.remove(at: selectedIndexArray.index(of: indexPath)!)
+//            self.lblPrice.
+            if USER?.authenticationToken != nil {
+                if updateArray.count > 0 {
+                    updateArray.remove(at: updateArray.index(of: indexPath)!)
+                }
+                if USER?.subscribe == subscriptionType.free {
+                    MappingVC.finalAmt = 0
+                    self.lblPrice.text = "Trial version"
+                } else {
+                    MappingVC.finalAmt = USER?.subscribe == subscriptionType.monthly ? self.updateArray.count * 15 : self.updateArray.count * 120
+                    self.lblPrice.text = "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
+                }
+            } else {
+                if signUpUser.subscribe != subscriptionType.free.rawValue {
+                    if selectedIndexArray.isEmpty {
+                        self.lblPrice.text = "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
+                    } else {
+                        if selectedIndexArray.count > self.country.count {
+                            MappingVC.finalAmt = signUpUser.subscribe == subscriptionType.monthly.rawValue ? selectedIndexArray.count * 15 : selectedIndexArray.count * 120
+                        } else {
+                            MappingVC.finalAmt = signUpUser.subscribe == subscriptionType.monthly.rawValue ? self.country.count * 15 : self.country.count * 120
+                        }
+                        self.lblPrice.text = "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
+                    }
+                }
+            }
+            
         }
-        else
-        {
-            let countryName = country[indexPath.section].countryName!
-            print("name:",countryName)
+        else {
             selectedIndexArray.append(indexPath)
+            
+            if USER?.authenticationToken != nil {
+                updateArray.append(indexPath)
+                if USER?.subscribe == subscriptionType.free {
+                    MappingVC.finalAmt = 0
+                    self.lblPrice.text = "Trial version"
+                } else {
+                    MappingVC.finalAmt = USER?.subscribe == subscriptionType.monthly ? self.updateArray.count * 15 : self.updateArray.count * 120
+                    self.lblPrice.text = "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
+                }
+            } else {
+                if signUpUser.subscribe != subscriptionType.free.rawValue {
+                    if selectedIndexArray.isEmpty {
+                        self.lblPrice.text = "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
+                    } else {
+                        if selectedIndexArray.count > self.country.count {
+                            MappingVC.finalAmt = signUpUser.subscribe == subscriptionType.monthly.rawValue ? selectedIndexArray.count * 15 : selectedIndexArray.count * 120
+                        } else {
+                            MappingVC.finalAmt = signUpUser.subscribe == subscriptionType.monthly.rawValue ? self.country.count * 15 : self.country.count * 120
+                        }
+                        self.lblPrice.text = "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
+                    }
+                }
+            }
             
         }
         tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
-        
     }
-    
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let name = self.country[section]
@@ -129,29 +182,23 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return index
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        
-    }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         for cell in self.tblMappings.visibleCells as! [RegisterCountryCell] {
             cell.countryName.labelize = true
         }
     }
+    
     //MARK:- IBActions
     @IBAction func handleBtnBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func handleBtnMenu(_ sender: Any) {
-        appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
-    }
-    
-    @IBAction func btnSave(_ sender: Any) {
+    @IBAction func handleBtnSave(_ sender: Any) {
 
         select.removeAll()
         if USER?.authenticationToken != nil {
             signUpUser.subscribe = (USER?.subscribe)!.rawValue
+            selectedIndexArray = updateArray
         }
         if selectedIndexArray.count > 0
         {
@@ -216,6 +263,8 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             if signUpUser.subscribe == subscriptionType.free.rawValue {
                 if self.select.count > 1 {
                     MessageManager.showAlert(nil, "During Free Trial Period you can choose only 1 Category.")
+                } else if self.select.count == 0 {
+                    MessageManager.showAlert(nil, "During Free Trial Period you can choose at least 1 Category.")
                 } else {
                     signUpUser.selections = self.select
                     self.navigationController?.pushViewController(RulesVC(), animated: true)
@@ -224,6 +273,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 MessageManager.showAlert(nil, "During \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "monthly" : "yearly") subscription you can choose at least 1 Category.")
             } else {
                 signUpUser.selections = self.select
+                PaymentVC.service = signUpUser.selections
                 self.navigationController?.pushViewController(RulesVC(), animated: true)
             }
         }
@@ -251,9 +301,8 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.country = self.country.sorted(by: { (a, b) -> Bool in
                         a.countryName! < b.countryName!
                     })
-                    if USER?.authenticationToken == nil {
-                        self.country = MappingVC.demoCountry
-                    }
+                    self.country = MappingVC.demoCountry
+                    
                     self.splitDataInToSection()
                     self.stopActivityIndicator()
                     self.fetchCategory()
@@ -316,21 +365,24 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 if(resp.result.value != nil) {
                     let data = (resp.result.value as! NSObject)
                     self.services = Mapper<Services>().mapArray(JSONObject: data)!
-                    for ser in self.services {
-                        self.select[ser.countryId!] = ser.categoryId
-                    }
-                    self.updateArray = self.select
-//                    var arr: [String] = []
-//                    for i in self.services {
-//                        arr.removeAll()
-//                        i.countryId = self.country.filter{$0.countryId == i.countryId}[0].countryName
-//                        for j in i.categoryId! {
-//                            let category = self.category.filter{$0.categoryId == j}[0].categoryName
-//                            arr.append(category!)
-//                        }
-//                        i.categoryId = arr
-//                    }
+                    self.services = self.services.sorted(by: { (a, b) -> Bool in
+                        a.countryId! > b.countryId!
+                    })
                     
+                    var cId = ""
+                    var catId: [String] = []
+                    for ser in self.services {
+                        if cId == ser.countryId {
+                            for i in ser.categoryId! {
+                                catId.append(i)
+                            }
+                            self.select[cId] = catId
+                        } else {
+                            self.select[ser.countryId!] = ser.categoryId
+                            catId = ser.categoryId!
+                        }
+                        cId = ser.countryId!
+                    }
                     print(self.select)
                     self.parse()
                     self.tblMappings.reloadData()
@@ -353,60 +405,20 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 selectedIndexArray.append(IndexPath(row: row!, section: section!))
             }
         }
+        self.preSelectedIndexArray = self.selectedIndexArray
     }
     
     func updateService() {
-        
-        var newSelectArray = [String : [String]]()
-
-        for key1 in self.select.keys {
-            for key2 in updateArray.keys {
-                if key1 == key2 {
-                    let valueArray1 = self.select[key1]
-                    let valueArray2 = updateArray[key2]
-                    let filteredCategoryArray = valueArray1?.filter({ (categoryvalue) -> Bool in
-                        if (valueArray2?.contains(categoryvalue))!{
-                            return false
-                        }
-                        return true
-                    })
-                    
-                    if filteredCategoryArray!.count > 0 {
-                        newSelectArray[key1] = filteredCategoryArray
-                    }
-                } else {
-                    newSelectArray[key1] = self.select[key1]
-                }
-            }
-            
-            print(newSelectArray)
-        }
-        
-//        for i in updateArray {
-//            let data = self.select.filter({ (select) -> Bool in
-//                if select.key == i.key {
-//                    var arr = select.value
-//                    for j in i.value {
-//                            if arr.contains(j) {
-//                                arr.remove(at: i.value.index(of: j)!)
-//                            }
-//                    }
-//                    select.value = arr
-//                }
-//                return true
-//            })
-//        }
-
-        if isNetworkReachable() {
-            Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : newSelectArray], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
-                if (resp.response?.statusCode == 200) {
-                    appDelegate.setHomeViewController()
-                } else {
-                    MessageManager.showAlert(nil, "Services can't Updated.")
-                }
-            })
+        if USER?.subscribe != subscriptionType.free ? self.select.isEmpty : self.preSelectedIndexArray.isEmpty {
+            MessageManager.showAlert(nil, "Select at least one new category")
         } else {
-            MessageManager.showAlert(nil, "No Internet!!!")
+            let vc = PaymentVC(nibName: "PaymentVC", bundle: nil)
+            if USER?.authenticationToken != nil {
+                PaymentVC.service = self.select
+            } else {
+                PaymentVC.service = signUpUser.selections
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

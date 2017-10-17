@@ -32,7 +32,7 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var country = [Country]()
     var param = STPBankAccountParams()
     var done: UIBarButtonItem!
-    static var price: Int!
+    static var price: NSDecimalNumber!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -305,11 +305,11 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     func listBankAccount() {
         if isNetworkReachable() {
             Alamofire.request(PAYMENTS+"bank/charges", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
-                if (resp.response?.statusCode == 500) {
-                    self.stopActivityIndicator()
-                } else {
+                if (resp.response?.statusCode == 200) {
                     self.data = ((resp.result.value as! NSObject).value(forKey: "data") as? [NSDictionary])!
                     self.tblBankPayments.reloadData()
+                    self.stopActivityIndicator()
+                } else {
                     self.stopActivityIndicator()
                 }
             })
@@ -323,13 +323,13 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     func handleDone() {
         if isNetworkReachable() {
             self.startActivityIndicator()
-            Alamofire.request(PAYMENTS+"bank/charges", method: .post, parameters: ["source": (self.data[(tblBankPayments.indexPathForSelectedRow?.row)!] as NSObject).value(forKey: "id")!, "amount": BankPaymentVC.price], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
+            Alamofire.request(PAYMENTS+"bank/charges", method: .post, parameters: ["source": (self.data[(tblBankPayments.indexPathForSelectedRow?.row)!] as NSObject).value(forKey: "id")!, "amount": BankPaymentVC.price.multiplying(by: 100)], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 self.dismiss(animated: true, completion: {
-                    if (resp.response?.statusCode == 500) {
-                        MessageManager.showAlert(nil, "Please Try Again!!!")
+                    if (resp.response?.statusCode == 200) {
+                        self.paymentInfo()
                         self.stopActivityIndicator()
                     } else {
-                        MessageManager.showAlert(nil, "Thank You For Subscribe in Application.")
+                        MessageManager.showAlert(nil, "Please Try Again!!!")
                         self.stopActivityIndicator()
                     }
                 })
@@ -383,6 +383,25 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }) { (errorMessage) in
             print(errorMessage)
             self.stopActivityIndicator()
+        }
+    }
+    
+    func paymentInfo() {
+        if isNetworkReachable() {
+            Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : PaymentVC.service, "payment": 30], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                if (resp.response?.statusCode == 200) {
+                    let tempUser = USER
+                    tempUser?.isPayment = true
+                    tempUser?.payment = (USER?.isPayment!)! ?  NSDecimalNumber(string: "30").adding(USER?.payment as! NSDecimalNumber) as Float : USER?.payment
+                    UserManager.shared.user = tempUser
+                    appDelegate.setHomeViewController()
+                    MessageManager.showAlert(nil, "Thank You.\n\nEnjoy your services in particular country and category.")
+                } else {
+                    MessageManager.showAlert(nil, "Services can't Updated.")
+                }
+            })
+        } else {
+            MessageManager.showAlert(nil, "No Internet!!!")
         }
     }
 }

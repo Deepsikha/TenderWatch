@@ -132,7 +132,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
                     })
                 } else {
                     if (!(self.txtPassword.text! == self.txtConfirmPassword.text)) {
-                        MessageManager.showAlert(nil, "Password can't Match!!!")
+                        MessageManager.showAlert(nil, "Password don't Match!!!")
                     } else if (self.txtConfirmPassword.text?.isEmpty)! {
                         MessageManager.showAlert(nil, "Enter confirm Password")
                     } else {

@@ -16,7 +16,8 @@ class RegisterCountryCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+//        imgTick.image = imgTick.image!.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+//        imgTick.tintColor = UIColor.red
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

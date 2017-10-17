@@ -30,6 +30,7 @@ class Tender: NSObject, Mappable {
     var readby: [String]?
     var amendRead:[String]?
     var interested: [String]?
+    var city: String?
     
     required init?(map: Map) {
         super.init()
@@ -56,6 +57,7 @@ class Tender: NSObject, Mappable {
         readby          <- map["readby"]
         amendRead       <- map["amendRead"]
         interested      <- map["interested"]
+        city            <- map["city"]
     }
 }
 
@@ -63,6 +65,7 @@ class UploadTender: NSObject {
     
     var cId: String = "" //for country
     var ctId: String = "" //for categoty
+    var city: String = "" //for city
     var tenderTitle = ""
     var desc = ""
     var photo = Data()

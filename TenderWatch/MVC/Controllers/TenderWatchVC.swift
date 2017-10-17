@@ -24,55 +24,69 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if USER?.role == RollType.client {
-            self.lblNoTender.text = "No Uploaded Tender.\nYou may upload new Tender / Contract by clicking on the \"+\" button below."
-        }
+//        if (USER?.isPayment)! {
         
-        self.tblTenderList.delegate = self
-        self.tblTenderList.dataSource = self
-        
-        self.tblTenderList.register(UINib(nibName:"TenderListCell",bundle: nil), forCellReuseIdentifier: "TenderListCell")
-        self.tblTenderList.tableFooterView = UIView()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(countmsg(notification:)), name: NSNotification.Name(rawValue : "interested"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(countmsg(notification:)), name: NSNotification.Name(rawValue : "favorite"), object: nil)
-    
-        self.btnUpload.layer.cornerRadius = self.btnUpload.frame.height / 2
-        if appDelegate.isClient! {
-            self.btnUpload.isHidden = false
-        } else {
-            self.btnUpload.isHidden = true
-        }
-        if USER?.role?.rawValue == RollType.contractor.rawValue {
-            let str: String = (USER?.createdAt)!
-            let index = str.index(str.startIndex, offsetBy: 10)
-            let dateString = str.substring(to: index)
-            let date = Date().getDifferenceBtnCurrentDate(date: dateString)
-            if abs(date.day!) >= 30 {
-                if USER?.subscribe == subscriptionType.free {
-                    let alert = UIAlertController(title: "TenderWatch", message: "Your free trial is over please subscribe", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.view.backgroundColor = UIColor.white
-                    alert.view.layer.cornerRadius = 10.0
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-                        
-                    }))
-                    
-                    alert.addAction(UIAlertAction(title: "Subscribe", style: .default, handler: { (action) in
-                        print(action)
-                        
-                    }))
-                    self.present(alert, animated: true, completion: nil)
-                }
+            if USER?.role == RollType.client {
+                self.lblNoTender.text = "No Uploaded Tender.\nYou may upload new Tender / Contract by clicking on the \"+\" button below."
+            }
+            
+            self.tblTenderList.delegate = self
+            self.tblTenderList.dataSource = self
+            
+            self.tblTenderList.register(UINib(nibName:"TenderListCell",bundle: nil), forCellReuseIdentifier: "TenderListCell")
+            self.tblTenderList.tableFooterView = UIView()
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(countmsg(notification:)), name: NSNotification.Name(rawValue : "interested"), object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(countmsg(notification:)), name: NSNotification.Name(rawValue : "favorite"), object: nil)
+            
+            self.btnUpload.layer.cornerRadius = self.btnUpload.frame.height / 2
+            if appDelegate.isClient! {
+                self.btnUpload.isHidden = false
             } else {
+                self.btnUpload.isHidden = true
+            }
+            if USER?.role?.rawValue == RollType.contractor.rawValue {
+                let str: String = (USER?.createdAt)!
+                let index = str.index(str.startIndex, offsetBy: 10)
+                let dateString = str.substring(to: index)
+                let date = Date().getDifferenceBtnCurrentDate(date: dateString)
+                if abs(date.day!) >= 30 {
+                    if USER?.subscribe == subscriptionType.free {
+                        let alert = UIAlertController(title: "TenderWatch", message: "Your free trial is over please subscribe", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.view.backgroundColor = UIColor.white
+                        alert.view.layer.cornerRadius = 10.0
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                            
+                        }))
+                        
+                        alert.addAction(UIAlertAction(title: "Subscribe", style: .default, handler: { (action) in
+                            print(action)
+                            
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.getTender()
+                    }
+                }
+            }else {
                 DispatchQueue.main.async {
                     self.getTender()
                 }
             }
-        }else {
-            DispatchQueue.main.async {
-                self.getTender()
-            }
-        }
+//        } else {
+//            let alert = UIAlertController(title: "TenderWatch", message: "Please Complete Payment process", preferredStyle: UIAlertControllerStyle.alert)
+//            alert.view.backgroundColor = UIColor.white
+//            alert.view.layer.cornerRadius = 10.0
+//            
+//            alert.addAction(UIAlertAction(title: "Payment", style: .default, handler:{ action in
+//                self.navigationController?.pushViewController(PaymentVC(), animated: true)
+//                
+//            }))
+//            
+//            self.present(alert, animated: true, completion: nil)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -123,7 +137,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         cell.imgProfile.sd_setIndicatorStyle(.gray)
         cell.imgProfile.sd_setImage(with: URL(string: (tender.tenderPhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
         })
-
+        
         //Day remainning
         //pass string in "yyyy-MM-dd" format
         
@@ -185,7 +199,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         }
         return cell
     }
- 
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.tender[indexPath.row].isActive! {
             TenderWatchDetailVC.id = self.tender[indexPath.row].id
@@ -304,6 +318,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                         
                         if USER?.role?.rawValue == "contractor" {
                             var i = 0
+                            var arr = [Tender]()
                             for tender in self.tender {
                                 
                                 let str: String = (USER?.createdAt)!
@@ -312,12 +327,15 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                                 
                                 let string = (tender.createdAt?.substring(to: (tender.createdAt?.index((tender.createdAt?.startIndex)!, offsetBy: 10))!))
                                 if !tender.isActive! {
-                                    if Date().compareDate(userCreate: dateString, tenderCreate: string!) {
-                                        self.tender.remove(at: i)
+                                    if !Date().compareDate(userCreate: dateString, tenderCreate: string!) {
+                                        arr.append(tender)
                                     }
+                                } else {
+                                    arr.append(tender)
                                 }
                                 i = i + 1
                             }
+                            self.tender = arr
                         }
                         
                         if self.tender.isEmpty {
@@ -386,7 +404,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             MessageManager.showAlert(nil, "No Internet")
         }
     }
-
+    
     func countmsg(notification: NSNotification) {
         if (notification.userInfo!["tag"]! as! String == "1") {
             if !(notification.userInfo!["id"]! as! String).isEmpty {

@@ -14,6 +14,7 @@
                 <outlet property="btnAboutMe" destination="WFh-or-aTD" id="Bh0-Lg-XIX"/>
                 <outlet property="btnCancel" destination="jXn-Ot-YNS" id="wjj-wN-8Y5"/>
                 <outlet property="btnSubmit" destination="Nra-se-dOV" id="CZq-HT-tel"/>
+                <outlet property="imgScrollView" destination="aiN-2q-Jn9" id="hl9-bM-7vn"/>
                 <outlet property="imgUser" destination="Mrr-CJ-PWE" id="cTF-A0-xsO"/>
                 <outlet property="lblAvg" destination="2Ci-TW-HgR" id="eUm-Gs-EMy"/>
                 <outlet property="lblRatings" destination="dUk-aD-qTC" id="NzK-xS-XEp"/>
@@ -23,6 +24,7 @@
                 <outlet property="txfMobileNo" destination="Dfm-Hi-5qk" id="QNb-SC-PiL"/>
                 <outlet property="txfOccupation" destination="2hr-DH-AGp" id="V6W-Lg-c8r"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="vwImage" destination="vNN-PH-ZCI" id="JO2-EZ-UxO"/>
                 <outlet property="vwStack" destination="Fhz-SQ-CN4" id="Efe-D4-00j"/>
             </connections>
         </placeholder>
@@ -66,7 +68,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </stackView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mrr-CJ-PWE">
+                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mrr-CJ-PWE">
                     <rect key="frame" x="110" y="57" width="100" height="100"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                     <constraints>
@@ -373,7 +375,24 @@
                 <constraint firstItem="Nra-se-dOV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="77" id="uKh-3y-zWQ"/>
                 <constraint firstItem="YRh-60-wzu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="22" id="zaL-ii-ngp"/>
             </constraints>
-            <point key="canvasLocation" x="24" y="52"/>
+            <point key="canvasLocation" x="-90" y="298"/>
+        </view>
+        <view contentMode="scaleToFill" id="vNN-PH-ZCI">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiN-2q-Jn9" customClass="ImageScrollView" customModule="TenderWatch" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="aiN-2q-Jn9" secondAttribute="bottom" id="f6s-ju-bfk"/>
+                <constraint firstAttribute="trailing" secondItem="aiN-2q-Jn9" secondAttribute="trailing" id="gR7-tj-QOI"/>
+                <constraint firstItem="aiN-2q-Jn9" firstAttribute="top" secondItem="vNN-PH-ZCI" secondAttribute="top" id="wpr-mN-42T"/>
+                <constraint firstItem="aiN-2q-Jn9" firstAttribute="leading" secondItem="vNN-PH-ZCI" secondAttribute="leading" id="yjV-8h-bL8"/>
+            </constraints>
+            <point key="canvasLocation" x="393" y="51"/>
         </view>
     </objects>
     <resources>

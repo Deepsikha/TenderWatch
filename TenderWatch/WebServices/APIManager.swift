@@ -157,7 +157,7 @@ class APIManager: NSObject, STPEphemeralKeyProvider {
             }
     }
     
-    func createCharge(_ token: String, amount: Int, completion: @escaping STPJSONResponseCompletionBlock) {
+    func createCharge(_ token: String, amount: NSDecimalNumber, completion: @escaping STPJSONResponseCompletionBlock) {
         
         //Currencry: TZS
         let params: [String: Any] = [

@@ -16,6 +16,7 @@
                 <outlet property="btnDelete" destination="lKr-d4-n8X" id="Xv6-RO-XX0"/>
                 <outlet property="btnInterested" destination="SQf-6c-Phw" id="2nI-Jd-RPQ"/>
                 <outlet property="imgIsFollow" destination="RVQ-m1-7DA" id="Ut5-al-MRy"/>
+                <outlet property="imgScrollView" destination="okC-tH-hrV" id="J0S-tb-eKL"/>
                 <outlet property="imgTenderPhoto" destination="WFe-01-Slr" id="9Bz-BU-7WD"/>
                 <outlet property="lblCategory" destination="Skj-AM-fyv" id="LMF-DV-Zac"/>
                 <outlet property="lblCountry" destination="l5e-oK-UsD" id="mkj-PW-kuE"/>
@@ -325,7 +326,18 @@
         <view contentMode="scaleToFill" id="Quf-4s-Wdy">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okC-tH-hrV" customClass="ImageScrollView" customModule="TenderWatch" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <color key="backgroundColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="okC-tH-hrV" secondAttribute="bottom" id="XUq-Ra-6a9"/>
+                <constraint firstAttribute="trailing" secondItem="okC-tH-hrV" secondAttribute="trailing" id="cwE-bS-onn"/>
+                <constraint firstItem="okC-tH-hrV" firstAttribute="top" secondItem="Quf-4s-Wdy" secondAttribute="top" id="w0H-ei-9VW"/>
+                <constraint firstItem="okC-tH-hrV" firstAttribute="leading" secondItem="Quf-4s-Wdy" secondAttribute="leading" id="zBJ-Qg-Nkj"/>
+            </constraints>
             <point key="canvasLocation" x="393" y="51"/>
         </view>
         <view contentMode="scaleToFill" id="RiD-Kc-EWy">

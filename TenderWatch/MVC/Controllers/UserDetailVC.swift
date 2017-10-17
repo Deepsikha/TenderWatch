@@ -11,7 +11,7 @@ import SDWebImage
 import Alamofire
 import ObjectMapper
 
-class UserDetailVC: UIViewController {
+class UserDetailVC: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var imgUser: UIImageView!
@@ -27,13 +27,16 @@ class UserDetailVC: UIViewController {
     @IBOutlet weak var lblAvg: UILabel!
     @IBOutlet weak var lblRatings: UILabel!
     @IBOutlet weak var btnSubmit: UIButton!
+    
+    @IBOutlet var vwImage: UIView!
+    @IBOutlet weak var imgScrollView: ImageScrollView!
+    
     var id: String!
     static var rate: Int = 0
     var transperentView = UIView()
     var txtVw = UITextView()
     
     var user: User!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if !(appDelegate.isClient!) {
@@ -47,6 +50,17 @@ class UserDetailVC: UIViewController {
         self.btnAboutMe.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         
         NotificationCenter.default.addObserver(self, selector: #selector(rate(notification:)), name: NSNotification.Name(rawValue : "rate"), object: nil)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler(sender:)))
+        tap.cancelsTouchesInView = false
+        self.imgUser.addGestureRecognizer(tap)
+        
+        let btn = UIButton(frame: CGRect(x: 10, y: 30, width: 30, height: 30))
+        btn.setImage(UIImage(named: "cancel-menu"), for: .normal)
+        btn.layer.backgroundColor = UIColor.clear.cgColor
+        btn.addTarget(self, action: #selector(self.tapHandler(sender:)), for: .touchDown)
+        vwImage.addSubview(btn)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,7 +73,13 @@ class UserDetailVC: UIViewController {
             } else {
                 let data = resp.result.value as! NSObject
                 self.user = Mapper<User>().map(JSONObject: data)
-                self.imgUser.sd_setImage(with: URL(string: (self.user.profilePhoto)!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
+                self.imgUser.sd_setImage(with: URL(string: (self.user.profilePhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
+                    if image != nil {
+                        self.imgScrollView.display(image: image!)
+                    } else {
+                        self.imgScrollView.display(image:
+                            UIImage(named: "avtar")!)
+                    }
                 }
                 self.txfEmail.text = self.user.email!
                 
@@ -79,6 +99,8 @@ class UserDetailVC: UIViewController {
     override func viewDidLayoutSubviews() {
         self.transperentView.frame = self.view.frame
         self.txtVw.frame = CGRect(x: self.view.frame.width / 2 - 130, y: self.view.frame.height / 2 - 150, width: 260, height: 300)
+        
+        self.vwImage.frame = self.view.frame
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -136,18 +158,28 @@ class UserDetailVC: UIViewController {
         if !self.view.subviews.contains(self.transperentView) {
             self.view.addSubview(self.transperentView)
         }
-        let tapBtn = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler))
+        let tapBtn = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler(sender:)))
         tapBtn.cancelsTouchesInView = false
+        tapBtn.accessibilityHint = "AboutMe"
         self.transperentView.addGestureRecognizer(tapBtn)
     }
     
     
     
     //MARK:- Custom Method
-    func tapHandler() {
-        if self.view.subviews.contains(self.transperentView) {
-            self.transperentView.removeFromSuperview()
+    func tapHandler(sender: NSObject) {
+        if sender.accessibilityHint == "AboutMe" {
+            if self.view.subviews.contains(self.transperentView) {
+                self.transperentView.removeFromSuperview()
+            }
+        } else {
+            if self.view.subviews.contains(self.vwImage) {
+                self.vwImage.removeFromSuperview()
+            } else {
+                self.view.addSubview(self.vwImage)
+            }
         }
+
     }
     
     func rate(notification: NSNotification) {

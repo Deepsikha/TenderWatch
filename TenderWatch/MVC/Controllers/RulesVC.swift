@@ -146,7 +146,11 @@ class RulesVC: UIViewController {
                                 user?.authenticationToken = token as? String
                                 UserManager.shared.user = user
                                 USER = user
-                                appDelegate.setHomeViewController()
+                                if USER?.role == RollType.client {
+                                    appDelegate.setHomeViewController()
+                                } else {
+                                    self.navigationController?.pushViewController(PaymentVC(), animated: true)
+                                }
                                 self.store()
                                 //                             self.navigationController?.pushViewController(TenderWatchVC(), animated: true)
                                 // self.user = user
