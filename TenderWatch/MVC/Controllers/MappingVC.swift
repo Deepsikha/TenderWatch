@@ -359,9 +359,14 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
 
     func getServices() {
+        var countries: [String] = []
+        let _ = self.country.filter { (a) -> Bool in
+            countries.append(a.countryId!)
+            return true
+        }
         if isNetworkReachable() {
             self.startActivityIndicator()
-            Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+            Alamofire.request(GET_SERVICES, method: .post, parameters: ["countries": countries], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if(resp.result.value != nil) {
                     let data = (resp.result.value as! NSObject)
                     self.services = Mapper<Services>().mapArray(JSONObject: data)!

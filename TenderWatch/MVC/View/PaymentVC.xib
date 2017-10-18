@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PaymentVC" customModule="TenderWatch" customModuleProvider="target">
             <connections>
+                <outlet property="btnBack" destination="PN4-Zm-z6t" id="EzR-nn-QC1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

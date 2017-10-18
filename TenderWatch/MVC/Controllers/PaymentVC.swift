@@ -14,6 +14,7 @@ import ObjectMapper
 
 class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDelegate, STPAddCardViewControllerDelegate, PKPaymentAuthorizationViewControllerDelegate {
     
+    @IBOutlet weak var btnBack: UIButton!
     //PaymentVC var
 //    static var services = [Services]()
     static var service = [String: [String]]()
@@ -59,6 +60,11 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
             self.getServices()
         } else {
             self.paybleAmount()
+        }
+        if (USER?.isPayment)! {
+            self.btnBack.isHidden = false
+        } else {
+            self.btnBack.isHidden = true
         }
     }
     
@@ -196,7 +202,7 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
     
     //MARK:- IBActions
     @IBAction func btnHandleBack(_ sender: UIButton) {
-        appDelegate.setHomeViewController()
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func btnHandlePayPal(_ sender: UIButton) {
@@ -219,7 +225,6 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
     
     //MARK:- Custom Methods
     
-    //MARK: paypaol method
     func paymentMethod() {
 
         self.item = []

@@ -229,7 +229,7 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func getServices() {
         if isNetworkReachable() {
-            Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+            Alamofire.request(GET_SERVICES, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if(resp.response?.statusCode == 200) {
                     let data = (resp.result.value as! NSObject)
                     self.services = Mapper<Services>().mapArray(JSONObject: data)!

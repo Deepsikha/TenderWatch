@@ -8,8 +8,8 @@
 
 import Foundation
 
-//var BASE_URL: String = "http://52.66.136.45:4000/api/"
-var BASE_URL: String = "http://lanetteam.com:4000/api/"
+var BASE_URL: String = "http://52.66.136.45:4000/api/"
+//var BASE_URL: Strsng = "http://lanetteam.com:4000/api/"
 //var BASE_URL: String = "http://192.168.200.18:4000/api/"
 
 var CHECKEMAIL: String = (BASE_URL)+"auth/checkEmail"

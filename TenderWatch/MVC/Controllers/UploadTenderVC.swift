@@ -17,6 +17,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var opnDrwr: UIButton!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var txfTenderTitle: UITextField!
+    @IBOutlet weak var txfCity: UITextField!
     @IBOutlet weak var vwScroll: UIScrollView!
     @IBOutlet weak var btnImage: UIButton!
     @IBOutlet weak var lblDropdown: UILabel!
@@ -43,12 +44,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnFollow: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
-    
-    @IBOutlet weak var vwCity: UIView!
-    @IBOutlet weak var lblDropdownCity: UILabel!
-    @IBOutlet weak var btnSelectCity: UIButton!
-    
-    @IBOutlet var tblCity: UITableView!
     
     let checkedImage = UIImage(named: "chaboxcheked")! as UIImage
     let uncheckedImage = UIImage(named: "chabox")! as UIImage
@@ -89,9 +84,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if UploadTenderVC.isUpdate {
-            self.fetchCountry()
-        }
         self.navigationController?.isNavigationBarHidden = true
         if (UploadTenderVC.isUpdate) {
             self.opnDrwr.isHidden = true
@@ -119,11 +111,10 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         } else {
             self.tblOptions.frame = CGRect(x: self.vwSelectCategory.frame.origin.x, y: self.vwScroll.frame.origin.y + self.vwSelectCategory.frame.origin.y + self.vwSelectCategory.frame.height, width: self.vwSelectCategory.frame.width, height: 250)
         }
-        self.tblCity.frame = CGRect(x: self.vwCity.frame.origin.x, y: self.vwScroll.frame.origin.y + self.vwCity.frame.origin.y + self.vwCity.frame.height, width: self.vwCity.frame.width, height: 250)
         
         self.vwContactPopup.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-//        let widthVwmain = btnImage.frame.size.height
-//        const_vwMain_height.constant = 507 + widthVwmain
+        let widthVwmain = btnImage.frame.size.height
+        const_vwMain_height.constant = 568 + widthVwmain
     }
     
     //MARK:- TextField Delegate
@@ -169,6 +160,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.uploadTender.landLineNo = textField.text!
         } else if textField == self.txfTenderTitle {
             self.uploadTender.tenderTitle = textField.text!
+        } else if textField == self.txfCity {
+            self.uploadTender.city = textField.text!
         }
         return true
     }
@@ -241,33 +234,22 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == self.tblCity {
-            
-            return (self.country.filter {$0.countryName == btnSelectCountry.titleLabel?.text}[0].cities?.count)!
+        if isCountry {
+            return self.country.count
         } else {
-            if isCountry {
-                return self.country.count
-            } else {
-                return self.category.count
-            }
+            return self.category.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MappingCell") as! MappingCell
-        if tableView == self.tblCity {
-            let country = self.country.filter {$0.countryName == btnSelectCountry.titleLabel?.text}[0].cities
-            cell.lblCategory.text = country?[indexPath.row]
+        if isCountry {
+            let country = self.country[indexPath.row]
+            cell.lblCategory.text = country.countryName!
         } else {
-            if isCountry {
-                let country = self.country[indexPath.row]
-                cell.lblCategory.text = country.countryName!
-            } else {
-                let category = self.category[indexPath.row]
-                cell.lblCategory.text = category.categoryName!
-            }
+            let category = self.category[indexPath.row]
+            cell.lblCategory.text = category.categoryName!
         }
-        
         return cell
         
     }
@@ -275,26 +257,16 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! MappingCell
         
-        if tableView == self.tblCity {
-            
-            btnSelectCity.setTitle(cell.lblCategory.text!, for: .normal)
-            lblDropdownCity.text = "▼"
-            self.uploadTender.city = cell.lblCategory.text!
-            self.tblCity.removeFromSuperview()
-
-        } else {
-            if (isCountry) {
-                btnSelectCountry.setTitle(cell.lblCategory.text!, for: .normal)
-                lblDropdown.text = "▼"
-                self.uploadTender.cId = self.country.filter{$0.countryName! == cell.lblCategory.text!}[0].countryId!
-            }else{
-                btnSelectCategory.setTitle(cell.lblCategory.text!, for: .normal)
-                lblDropdownCat.text = "▼"
-                self.uploadTender.ctId = self.category.filter {$0.categoryName! == cell.lblCategory.text!}[0].categoryId!
-            }
-            self.tblOptions.removeFromSuperview()
+        if (isCountry) {
+            btnSelectCountry.setTitle(cell.lblCategory.text!, for: .normal)
+            lblDropdown.text = "▼"
+            self.uploadTender.cId = self.country.filter{$0.countryName! == cell.lblCategory.text!}[0].countryId!
+        }else{
+            btnSelectCategory.setTitle(cell.lblCategory.text!, for: .normal)
+            lblDropdownCat.text = "▼"
+            self.uploadTender.ctId = self.category.filter {$0.categoryName! == cell.lblCategory.text!}[0].categoryId!
         }
-        
+        self.tblOptions.removeFromSuperview()
         self.vwScroll.isScrollEnabled = true
         isDropDownActive = false
     }
@@ -334,9 +306,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func btnSelectCountry(_ sender: Any) {
-        if self.view.subviews.contains(self.tblCity) {
-            self.tblCity.removeFromSuperview()
-        }
         if isDropDownActive == false{
             self.isCountry = true
             lblDropdown.text = "▲"
@@ -356,34 +325,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         
     }
     
-    
-    @IBAction func btnSelectCity(_ sender: Any) {
-        if btnSelectCountry.titleLabel?.text! == "Select Country" {
-            MessageManager.showAlert(nil, "First select country")
-        } else {
-            if isDropDownActive == false {
-                
-                self.tblCity.dataSource = self
-                self.tblCity.delegate = self
-                lblDropdownCity.text = "▲"
-                self.vwScroll.isScrollEnabled = false
-                self.view.addSubview(self.tblCity)
-                
-                self.tblCity.reloadData()
-                self.isDropDownActive = true
-            } else {
-                lblDropdownCity.text = "▼"
-                self.vwScroll.isScrollEnabled = true
-                tblCity.removeFromSuperview()
-                self.isDropDownActive = false
-            }
-        }
-    }
-    
     @IBAction func btnSelectCategory(_ sender: Any) {
-        if self.view.subviews.contains(self.tblCity) {
-            self.tblCity.removeFromSuperview()
-        }
         if isDropDownActive == false{
             self.isCountry = false
             self.vwScroll.isScrollEnabled = false
@@ -440,7 +382,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             let parameter: Parameters = [
                 "country":(self.country.count == 0) ? self.updateCId! :self.uploadTender.cId,
                 "category":(self.category.count == 0) ? self.updateCtId! : self.uploadTender.ctId,
-                "city": self.btnSelectCity.titleLabel!.text! == "Select City" ? "" : self.uploadTender.city,
+                "city": self.txfCity.text!,
                 "tenderName":self.txfTenderTitle.text!,
                 "description":self.tenderDetail.text!,
                 "email": self.uploadTender.email,
@@ -528,8 +470,13 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         //main view
         self.vwSelectCountry.layer.cornerRadius = 5
         self.vwSelectCategory.layer.cornerRadius = 5
-        self.vwCity.layer.cornerRadius = 5
 
+        self.txfCity.delegate = self
+        self.txfCity.layer.cornerRadius = 5
+        self.txfCity.layer.borderColor = UIColor.lightGray.cgColor
+        self.txfCity.layer.borderWidth = 1
+        self.txfCity.autocorrectionType = .no
+        
         self.txfTenderTitle.delegate = self
         self.txfTenderTitle.layer.cornerRadius = 5
         self.txfTenderTitle.layer.borderColor = UIColor.lightGray.cgColor
@@ -558,13 +505,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.tblOptions.layer.borderWidth = 1
         self.tblOptions.layer.cornerRadius = 5
         self.tblOptions.register(UINib(nibName: "MappingCell",bundle: nil), forCellReuseIdentifier: "MappingCell")
-        
-        
-        self.tblCity.tableFooterView = UIView()
-        self.tblCity.layer.borderColor = UIColor.black.cgColor
-        self.tblCity.layer.borderWidth = 1
-        self.tblCity.layer.cornerRadius = 5
-        self.tblCity.register(UINib(nibName: "MappingCell",bundle: nil), forCellReuseIdentifier: "MappingCell")
         
         self.txfEmail.delegate = self
         self.txfEmail.autocorrectionType = .no
@@ -737,12 +677,10 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                         self.btnSelectCountry.setTitle(self.update.country!.countryName!, for: .normal)
                         self.updateCId = self.update.country!.countryId!
                         
-                        self.btnSelectCity.setTitle((self.update.city?.isEmpty)! ? "Select City" : self.update.city, for: .normal)
-                        self.updateCity = self.update.city
-                        
                         self.btnSelectCategory.setTitle(self.update.category!.categoryName!, for: .normal)
                         self.updateCtId = self.update.category!.categoryId!
                         
+                        self.txfCity.text = self.update.city!
                         self.txfTenderTitle.text = self.update.tenderName!
                         self.tenderDetail.text = self.update.desc!
                         self.tenderDetail.textColor = UIColor.black

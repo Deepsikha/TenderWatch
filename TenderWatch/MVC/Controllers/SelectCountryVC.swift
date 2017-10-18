@@ -23,7 +23,7 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
     
     var country = [Country]()
     var services = [Services]()
-    var preCountry: [String] = []
+//    var preCountry: [String] = []
     var selectCountry: [String]!
     var amount = 0
     var sectionTitleList = [String]()
@@ -81,16 +81,16 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
         cell.countryName.text = self.country[indexPath.row].countryName
         cell.imgTick.isHidden = true
         
-        if USER?.authenticationToken != nil {
-            if (self.preCountry.contains(cell.countryName.text!)) {
-                cell.imgTick.isHidden = false
-                MappingVC.demoCountry.append(self.country[indexPath.row])
-                cell.isUserInteractionEnabled = false
-            } else {
-                cell.imgTick.isHidden = true
-                cell.isUserInteractionEnabled = true
-            }
-        }
+//        if USER?.authenticationToken != nil {
+//            if (self.preCountry.contains(cell.countryName.text!)) {
+//                cell.imgTick.isHidden = false
+//                MappingVC.demoCountry.append(self.country[indexPath.row])
+//                cell.isUserInteractionEnabled = false
+//            } else {
+//                cell.imgTick.isHidden = true
+//                cell.isUserInteractionEnabled = true
+//            }
+//        }
         return cell
     }
     
@@ -223,12 +223,12 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                     self.country = self.country.sorted(by: { (a, b) -> Bool in
                         a.countryName! < b.countryName!
                     })
-                    if USER?.authenticationToken != nil {
-                        self.getServices()
-                    } else {
+//                    if USER?.authenticationToken != nil {
+////                        self.getServices()
+//                    } else {
                         self.stopActivityIndicator()
                         self.tblCountries.reloadData()
-                    }
+//                    }
                 }
             }) { (errorMessage) in
                 print(errorMessage)
@@ -239,27 +239,27 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
         }
     }
     
-    func getServices() {
-        if isNetworkReachable() {
-            Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
-                if(resp.result.value != nil) {
-                    let data = (resp.result.value as! NSObject)
-                    self.services = Mapper<Services>().mapArray(JSONObject: data)!
-                    for i in self.services {
-                        i.countryId = self.country.filter{$0.countryId == i.countryId}[0].countryName
-                        if !self.preCountry.contains(i.countryId!) {
-                            self.preCountry.append(i.countryId!)
-                        }
-                    }
-                    self.tblCountries.reloadData()
-                }
-                self.stopActivityIndicator()
-            })
-        } else {
-            MessageManager.showAlert(nil, "No Internet")
-            self.stopActivityIndicator()
-        }
-    }
+//    func getServices() {
+//        if isNetworkReachable() {
+//            Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+//                if(resp.result.value != nil) {
+//                    let data = (resp.result.value as! NSObject)
+//                    self.services = Mapper<Services>().mapArray(JSONObject: data)!
+//                    for i in self.services {
+//                        i.countryId = self.country.filter{$0.countryId == i.countryId}[0].countryName
+//                        if !self.preCountry.contains(i.countryId!) {
+//                            self.preCountry.append(i.countryId!)
+//                        }
+//                    }
+//                    self.tblCountries.reloadData()
+//                }
+//                self.stopActivityIndicator()
+//            })
+//        } else {
+//            MessageManager.showAlert(nil, "No Internet")
+//            self.stopActivityIndicator()
+//        }
+//    }
     
     func splitDataInToSection() {
         
@@ -295,12 +295,12 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             self.lblPrice.text = "Trial Version"
         })
         
-        let action2 = UIAlertAction(title: "Monthly subscription", style: .default, handler: { (action) -> Void in
+        let action2 = UIAlertAction(title: "Monthly subscription ($15 / month)", style: .default, handler: { (action) -> Void in
             signUpUser.subscribe = subscriptionType.monthly.rawValue
             self.lblPrice.text = "$\(self.amount) / month"
         })
         
-        let action3 = UIAlertAction(title: "Yearly subscription", style: .default, handler: { (action) -> Void in
+        let action3 = UIAlertAction(title: "Yearly subscription ($120 / Year)", style: .default, handler: { (action) -> Void in
             signUpUser.subscribe = subscriptionType.yearly.rawValue
             self.lblPrice.text = "$\(self.amount) / year"
         })
