@@ -112,13 +112,17 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     //MARK:- Table Delegate
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return dic.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ClientDetailCell = tableView.dequeueReusableCell(withIdentifier: "ClientDetailCell", for: indexPath) as! ClientDetailCell
-        cell.lblKey.text = (dic as NSDictionary).allKeys[indexPath.row] as? String
+        cell.lblKey.text = (dic as NSDictionary).allKeys[indexPath.section] as? String
         cell.lblValue.text = (dic as NSDictionary).value(forKey: cell.lblKey.text!) as? String
         return cell
     }
@@ -127,6 +131,18 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         return UITableViewAutomaticDimension
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 5
+        } else {
+            return 10
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+
     //MARK:- IBActions
     @IBAction func handleBtnBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)

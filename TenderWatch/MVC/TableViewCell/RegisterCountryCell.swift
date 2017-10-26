@@ -13,6 +13,7 @@ class RegisterCountryCell: UITableViewCell {
     
     @IBOutlet weak var countryName: MarqueeLabel!
     @IBOutlet var imgTick: UIImageView!
+    @IBOutlet weak var imgFlag: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

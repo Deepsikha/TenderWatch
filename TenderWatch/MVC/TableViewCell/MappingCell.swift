@@ -10,7 +10,9 @@ import UIKit
 
 class MappingCell: UITableViewCell {
     
-    @IBOutlet weak var lblCategory: UILabel!
+    @IBOutlet weak var lblCategory: MarqueeLabel!
+    @IBOutlet weak var imgTick: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -101,7 +101,7 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
     }
     
     func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
-        
+
     }
     
     //MARK:- TextField Delegate
@@ -182,7 +182,13 @@ class SignInVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
             }
             self.stopActivityIndicator()
         }) { (errorMessage) in
-            MessageManager.showAlert(nil, "\(errorMessage)")
+            if url == G_LOGIN {
+                self.dismiss(animated: true, completion: { 
+                    MessageManager.showAlert(nil, "\(errorMessage)")
+                })
+            } else {
+                MessageManager.showAlert(nil, "\(errorMessage)")
+            }
             self.stopActivityIndicator()
         }
     }

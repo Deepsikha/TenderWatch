@@ -40,7 +40,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tblMappings.delegate = self
         self.tblMappings.dataSource = self
         
-        self.tblMappings.register(UINib(nibName: "RegisterCountryCell", bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
+        self.tblMappings.register(UINib(nibName: "MappingCell", bundle: nil), forCellReuseIdentifier: "MappingCell")
         
         self.tblMappings.tableFooterView = UIView()
         self.fetchCoutry()
@@ -53,7 +53,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.btnSave.setTitle("Payment", for: .normal)
             self.lblName.isHidden = false
             
-            self.lblPrice.text = USER?.subscribe == subscriptionType.free ? "Trial Version" : "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
+            self.lblPrice.text = USER?.subscribe == subscriptionType.free ? "Trial Version" : "$\(MappingVC.finalAmt) / \(USER?.subscribe == subscriptionType.monthly ? "month" : "year")"
         } else {
             self.btnSave.setTitle("Next", for: .normal)
             self.lblName.isHidden = true
@@ -74,15 +74,15 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MappingCell", for: indexPath) as! MappingCell
         var arrMapping = self.countryCatDict[country[indexPath.section].countryId!]
         let arrList = arrMapping?[indexPath.row]
-        cell.countryName.text =  arrList?.categoryName
-        cell.countryName.type = .left
-        cell.countryName.speed = .duration(2)
-        cell.countryName.animationCurve = .easeInOut
-        cell.countryName.fadeLength = 0.0
-        cell.countryName.leadingBuffer = 0.0
+        cell.lblCategory.text =  arrList?.categoryName
+        cell.lblCategory.type = .left
+        cell.lblCategory.speed = .duration(2)
+        cell.lblCategory.animationCurve = .easeInOut
+        cell.lblCategory.fadeLength = 0.0
+        cell.lblCategory.leadingBuffer = 0.0
         
         if USER?.authenticationToken != nil {
             if preSelectedIndexArray.contains(indexPath) {
@@ -94,12 +94,12 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if (selectedIndexArray.contains(indexPath)) {
             cell.imgTick.isHidden = false
-            cell.countryName.labelize = false
-            cell.countryName.fadeLength = 10.0
-            cell.countryName.leadingBuffer = 0.0
+            cell.lblCategory.labelize = false
+            cell.lblCategory.fadeLength = 10.0
+            cell.lblCategory.leadingBuffer = 0.0
         } else {
             cell.imgTick.isHidden = true
-            cell.countryName.labelize = true
+            cell.lblCategory.labelize = true
         }
         
         return cell
@@ -120,7 +120,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.lblPrice.text = "Trial version"
                 } else {
                     MappingVC.finalAmt = USER?.subscribe == subscriptionType.monthly ? self.updateArray.count * 15 : self.updateArray.count * 120
-                    self.lblPrice.text = "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
+                    self.lblPrice.text = "$\(MappingVC.finalAmt) / \(USER?.subscribe == subscriptionType.monthly ? "month" : "year")"
                 }
             } else {
                 if signUpUser.subscribe != subscriptionType.free.rawValue {
@@ -148,7 +148,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.lblPrice.text = "Trial version"
                 } else {
                     MappingVC.finalAmt = USER?.subscribe == subscriptionType.monthly ? self.updateArray.count * 15 : self.updateArray.count * 120
-                    self.lblPrice.text = "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
+                    self.lblPrice.text = "$\(MappingVC.finalAmt) / \(USER?.subscribe == subscriptionType.monthly ? "month" : "year")"
                 }
             } else {
                 if signUpUser.subscribe != subscriptionType.free.rawValue {
@@ -169,9 +169,25 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let name = self.country[section]
-        return name.countryName
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 26
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let country = self.country[section]
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.groupTableViewBackground
+        let headerFlag = UIImageView(frame: CGRect(x: 4, y: 5, width: 26, height: 16))
+        let headerCountry = UILabel(frame: CGRect(x: 36, y: 0, width: self.tblMappings.frame.width - 36, height: 26))
+        
+        headerView.addSubview(headerFlag)
+        headerView.addSubview(headerCountry)
+        
+        headerCountry.text = country.countryName
+        let string = self.country.filter {$0.countryName == country.countryName}[0].imgString
+        headerFlag.image = UIImage(data: Data(base64Encoded: string!)!)
+        return headerView
+        
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
@@ -183,8 +199,8 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        for cell in self.tblMappings.visibleCells as! [RegisterCountryCell] {
-            cell.countryName.labelize = true
+        for cell in self.tblMappings.visibleCells as! [MappingCell] {
+            cell.lblCategory.labelize = true
         }
     }
     

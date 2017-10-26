@@ -43,11 +43,10 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tblSubscription.delegate = self
         self.tblSubscription.dataSource = self
         
-        self.tblSubscription.register(UINib(nibName: "RegisterCountryCell", bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
+        self.tblSubscription.register(UINib(nibName: "MappingCell", bundle: nil), forCellReuseIdentifier: "MappingCell")
         self.tblSubscription.tableFooterView = UIView()
         
         title = "PayPal SDK Demo"
-        
         
         self.fetchCoutry()
         // Do any additional setup after loading the view.
@@ -77,21 +76,38 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MappingCell", for: indexPath) as! MappingCell
         let ser = self.services[indexPath.section]
 //        cell.countryName.text = self.selection[indexPath.section].categoryId[indexPath.row]
-        cell.countryName.text = ser.categoryId?[indexPath.row]
+        cell.lblCategory.text = ser.categoryId?[indexPath.row]
         cell.imgTick.isHidden = true
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.services[section].countryId
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let country = self.services[section]
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.groupTableViewBackground
+        let headerFlag = UIImageView(frame: CGRect(x: 4, y: 5, width: 26, height: 16))
+        let headerCountry = UILabel(frame: CGRect(x: 36, y: 0, width: self.tblSubscription.frame.width - 36, height: 26))
+        
+        headerView.addSubview(headerFlag)
+        headerView.addSubview(headerCountry)
+        
+        headerCountry.text = country.countryId
+        let string = self.country.filter {$0.countryName == country.countryId}[0].imgString
+        headerFlag.image = UIImage(data: Data(base64Encoded: string!)!)
+        return headerView
+
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return self.sectionTitleList
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 26
     }
     
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {

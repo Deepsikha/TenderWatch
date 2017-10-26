@@ -136,7 +136,7 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func imageTap() {
         appDelegate.drawerController.centerViewController = nav5
         appDelegate.drawerController.closeDrawer(animated: true, completion: { (activation) in
-            if (!(USER?.isPayment)!) {
+            if appDelegate.isClient! ? false : (!(USER?.isPayment)!){
                 let vc = UINavigationController(rootViewController: PaymentVC())
                 self.nav5?.present(vc, animated: true, completion: nil)
             }

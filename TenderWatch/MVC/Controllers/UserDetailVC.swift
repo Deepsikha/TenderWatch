@@ -10,13 +10,14 @@ import UIKit
 import SDWebImage
 import Alamofire
 import ObjectMapper
+import MessageUI
 
-class UserDetailVC: UIViewController, UIScrollViewDelegate {
+class UserDetailVC: UIViewController, UIScrollViewDelegate, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var imgUser: UIImageView!
-    @IBOutlet weak var txfEmail: UITextField!
-    @IBOutlet weak var txfMobileNo: UITextField!
+    @IBOutlet weak var btnEmail: UIButton!
+    @IBOutlet weak var btnPhoneNumber: UIButton!
     @IBOutlet weak var txfOccupation: UITextField!
     @IBOutlet weak var txfCountry: UITextField!
     @IBOutlet weak var btnAboutMe: UIButton!
@@ -81,11 +82,11 @@ class UserDetailVC: UIViewController, UIScrollViewDelegate {
                             UIImage(named: "avtar")!)
                     }
                 }
-                self.txfEmail.text = self.user.email!
+                self.btnEmail.setTitle(self.user.email!, for: .normal)
                 
                 self.txfCountry.text = self.user.country!
                 
-                self.txfMobileNo.text = self.user.contactNo!
+                self.btnPhoneNumber.setTitle(self.user.contactNo!, for: .normal)
                 
                 self.txfOccupation.text = self.user.occupation!
                 
@@ -112,7 +113,62 @@ class UserDetailVC: UIViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK:- MailViewControllerDelegate
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        
+        switch result {
+        case .cancelled:
+            print("Mail cancelled")
+        case .saved:
+            print("Mail saved")
+        case .sent:
+            print("Mail sent")
+        case .failed:
+            print("Mail sent failure:"+(error?.localizedDescription)!)
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     //MARK:- IBAction
+    
+    @IBAction func handleBtnEmail(_ sender: Any) {
+        
+        let emailTitle = "TenderWatch"
+        let messageBody = "Enter Your Message Here"
+        let toRecipents = [self.btnEmail.titleLabel!.text]
+        if MFMailComposeViewController.canSendMail() {
+            let mc: MFMailComposeViewController = MFMailComposeViewController()
+            mc.mailComposeDelegate = self
+            mc.setSubject(emailTitle)
+            mc.setMessageBody(messageBody, isHTML: false)
+            mc.setMessageBody(messageBody, isHTML: false)
+            mc.setToRecipients(toRecipents as? [String])
+            
+            self.present(mc, animated: true, completion: nil)
+        } else {
+            print("Nthi chaltu")
+        }
+        
+    }
+    
+    @IBAction func handleBtnPhoneNumber(_ sender: Any) {
+        let number = (self.btnPhoneNumber.titleLabel?.text?.components(separatedBy: "-").first)! + (self.btnPhoneNumber.titleLabel?.text?.components(separatedBy: "-").last)!
+        let phoneCallURL = URL(string: "telprompt://"+number) //telprompt
+        if phoneCallURL != nil {
+            
+            if UIApplication.shared.canOpenURL(phoneCallURL!) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(phoneCallURL!, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(phoneCallURL!)
+            }
+            } else {
+                print("Nthi chaltu")
+            }
+        }
+    }
+    
     @IBAction func handleBtnRating(_ sender: Any) {
         if isNetworkReachable() {
             self.stopActivityIndicator()

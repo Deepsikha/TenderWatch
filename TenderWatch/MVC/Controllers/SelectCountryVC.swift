@@ -78,8 +78,10 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
-        cell.countryName.text = self.country[indexPath.row].countryName
+        let country = self.country[indexPath.row]
+        cell.countryName.text = country.countryName
         cell.imgTick.isHidden = true
+        cell.imgFlag.image = UIImage(data: Data(base64Encoded: country.imgString!)!)
         
 //        if USER?.authenticationToken != nil {
 //            if (self.preCountry.contains(cell.countryName.text!)) {
@@ -241,7 +243,7 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
     
 //    func getServices() {
 //        if isNetworkReachable() {
-//            Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+//            Alamofire.request(GET_SERVICES, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
 //                if(resp.result.value != nil) {
 //                    let data = (resp.result.value as! NSObject)
 //                    self.services = Mapper<Services>().mapArray(JSONObject: data)!

@@ -46,8 +46,9 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         txfAccountNumber.delegate = self
         txfRoutingNumber.delegate = self
         
-        tblBankPayments.register(UINib(nibName: "RegisterCountryCell", bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
+        tblBankPayments.register(UINib(nibName: "MappingCell", bundle: nil), forCellReuseIdentifier: "MappingCell")
         tblOptions.register(UINib(nibName: "RegisterCountryCell", bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
+        tblOptions.register(UINib(nibName: "MappingCell", bundle: nil), forCellReuseIdentifier: "MappingCell")
         tblBankPayments.tableFooterView = UIView()
         tblOptions.layer.cornerRadius = 5
         tblOptions.layer.borderColor = UIColor.black.cgColor
@@ -106,23 +107,27 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (tableView == self.tblOptions) {
-            let cell: RegisterCountryCell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
             if (self.isCountry) {
-                cell.countryName.text = self.country[indexPath.row].countryName
+                let cell: RegisterCountryCell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
+                let country = self.country[indexPath.row]
+                cell.countryName.text = country.countryName
+                cell.imgFlag.image = UIImage(data: Data(base64Encoded: country.imgString!)!)
+                return cell
             } else {
+                let cell: MappingCell = tableView.dequeueReusableCell(withIdentifier: "MappingCell", for: indexPath) as! MappingCell
                 if indexPath.row == 0 {
-                    cell.countryName.text = "Individual"
+                    cell.lblCategory.text = "Individual"
                 } else {
-                    cell.countryName.text = "Company"
+                    cell.lblCategory.text = "Company"
                 }
+                return cell
             }
-            return cell
         } else {
-            let cell: RegisterCountryCell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
+            let cell: MappingCell = tableView.dequeueReusableCell(withIdentifier: "MappingCell", for: indexPath) as! MappingCell
             if (indexPath.section == 1) {
-                cell.countryName.text = " + Add New Bank Account"
+                cell.lblCategory.text = " + Add New Bank Account"
             } else {
-                cell.countryName.text = (self.data[indexPath.row] as NSObject).value(forKey: "bank_name") as? String
+                cell.lblCategory.text = (self.data[indexPath.row] as NSObject).value(forKey: "bank_name") as? String
                 cell.imgTick.isHidden = true
             }
             return cell
@@ -163,7 +168,7 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             tblOptions.removeFromSuperview()
             isDropDownActive = false
         } else {
-            let cell = tableView.cellForRow(at: indexPath) as! RegisterCountryCell
+            let cell = tableView.cellForRow(at: indexPath) as! MappingCell
             if(cell.imgTick.isHidden){
                 self.done.isEnabled = cell.imgTick.isHidden
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
@@ -178,7 +183,7 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! RegisterCountryCell
+        let cell = tableView.cellForRow(at: indexPath) as! MappingCell
         if tableView == self.tblBankPayments {
             if(!cell.imgTick.isHidden){
                 cell.imgTick.isHidden = !cell.imgTick.isHidden

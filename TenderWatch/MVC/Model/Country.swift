@@ -17,6 +17,7 @@ class Country: NSObject,Mappable {
     var isoCode: String?
     var isoCurrencyCode: String?
     var cities: [String]?
+    var imgString: String?
     
     required init?(map: Map)
     {
@@ -32,6 +33,7 @@ class Country: NSObject,Mappable {
         isoCode         <- map["isoCode"]
         isoCurrencyCode <- map["isoCurrencyCode"]
         cities          <- map["cities"]
+        imgString       <- map["imageString"]
     }
     
 }

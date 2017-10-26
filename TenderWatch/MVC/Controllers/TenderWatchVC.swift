@@ -24,6 +24,17 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if !signUpUser.email.isEmpty {
+            let alert = UIAlertController(title: "TenderWatch", message: "You can swipe right on the Tenders for more options", preferredStyle: .alert)
+            self.present(alert, animated: true, completion: nil)
+            
+            // change to desired number of seconds (in this case 5 seconds)
+            let when = DispatchTime.now() + 3
+            DispatchQueue.main.asyncAfter(deadline: when){
+                // your code with delay
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }
 //        if (USER?.isPayment)! {
         
             if USER?.role == RollType.client {
@@ -368,7 +379,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                     })) {
                         MessageManager.showAlert(nil, "can't add to favorite")
                     } else {
-                        MessageManager.showAlert(nil, "Added Succesfully")
+                        MessageManager.showAlert(nil, "Added Successfully to Favorites")
                         self.tender[index.row].favorite = (resp.result.value as! NSObject).value(forKey: "favorite") as? [String]
                         self.tblTenderList.reloadRows(at: [index], with: .none)
                     }

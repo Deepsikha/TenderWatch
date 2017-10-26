@@ -19,16 +19,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tick.png" translatesAutoresizingMaskIntoConstraints="NO" id="qCU-IZ-Iod">
-                        <rect key="frame" x="297" y="10" width="10" height="10"/>
-                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="10" id="jXI-KU-8iv"/>
-                            <constraint firstAttribute="width" constant="10" id="tbA-AD-kUi"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7e-Ik-HOn" customClass="MarqueeLabel" customModule="TenderWatch" customModuleProvider="target">
-                        <rect key="frame" x="8" y="0.0" width="282" height="30"/>
+                        <rect key="frame" x="42" y="0.0" width="245" height="30"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -36,21 +28,36 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="labelize" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </label>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tick.png" translatesAutoresizingMaskIntoConstraints="NO" id="qCU-IZ-Iod">
+                        <rect key="frame" x="297" y="10" width="10" height="10"/>
+                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="XkD-eh-GGh"/>
+                            <constraint firstAttribute="height" constant="10" id="x3Q-aQ-en6"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HTs-yc-ts9">
+                        <rect key="frame" x="8" y="6" width="26" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="26" id="3mB-dk-St7"/>
+                            <constraint firstAttribute="height" constant="18" id="nY5-UJ-Oiu"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="qCU-IZ-Iod" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="1.9189189189186209" id="3fD-yI-NxQ"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="qCU-IZ-Iod" secondAttribute="bottom" constant="1.581081081081372" id="70x-fr-BPn"/>
-                    <constraint firstItem="qCU-IZ-Iod" firstAttribute="leading" secondItem="F7e-Ik-HOn" secondAttribute="trailing" constant="7" id="eZQ-nL-FO9"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="qCU-IZ-Iod" secondAttribute="trailing" constant="5" id="zzH-ck-haM"/>
+                    <constraint firstItem="qCU-IZ-Iod" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="5KS-qq-4DK"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="F7e-Ik-HOn" secondAttribute="bottom" constant="-8" id="8UI-Cf-6ND"/>
+                    <constraint firstItem="HTs-yc-ts9" firstAttribute="centerY" secondItem="F7e-Ik-HOn" secondAttribute="centerY" id="WaW-VQ-Rm0"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="qCU-IZ-Iod" secondAttribute="trailing" constant="5" id="XNS-u2-ZDi"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="HTs-yc-ts9" secondAttribute="leading" id="mRv-kk-JKj"/>
+                    <constraint firstItem="F7e-Ik-HOn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="qij-sF-7NS"/>
+                    <constraint firstItem="F7e-Ik-HOn" firstAttribute="leading" secondItem="HTs-yc-ts9" secondAttribute="trailing" constant="8" id="rWP-Tm-TKE"/>
+                    <constraint firstItem="qCU-IZ-Iod" firstAttribute="leading" secondItem="F7e-Ik-HOn" secondAttribute="trailing" constant="10" id="zQr-pM-Q2s"/>
                 </constraints>
             </tableViewCellContentView>
-            <constraints>
-                <constraint firstItem="F7e-Ik-HOn" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="-0.24324324324356894" id="AAb-Ci-nvh"/>
-                <constraint firstItem="F7e-Ik-HOn" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="8" id="Oeo-Qf-eCD"/>
-                <constraint firstAttribute="bottom" secondItem="F7e-Ik-HOn" secondAttribute="bottom" constant="0.24324324324357605" id="s2M-el-vYk"/>
-            </constraints>
             <connections>
                 <outlet property="countryName" destination="F7e-Ik-HOn" id="6Z2-BJ-ncv"/>
+                <outlet property="imgFlag" destination="HTs-yc-ts9" id="6Dy-cG-xD0"/>
                 <outlet property="imgTick" destination="qCU-IZ-Iod" id="rVr-fG-fFb"/>
             </connections>
         </tableViewCell>

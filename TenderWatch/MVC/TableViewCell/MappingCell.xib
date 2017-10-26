@@ -19,23 +19,41 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FI7-a2-N0F">
-                        <rect key="frame" x="8" y="0.0" width="304" height="44"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tick.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ncm-dU-Uhg">
+                        <rect key="frame" x="297" y="17.5" width="10" height="10"/>
+                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="5JI-co-UYb"/>
+                            <constraint firstAttribute="height" constant="10.000000000000014" id="des-4V-Mgc"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCh-Ni-Do3" customClass="MarqueeLabel" customModule="TenderWatch" customModuleProvider="target">
+                        <rect key="frame" x="8" y="0.0" width="282" height="44"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="labelize" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="leadingMargin" secondItem="FI7-a2-N0F" secondAttribute="leading" id="Ntf-Ny-QxP"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="FI7-a2-N0F" secondAttribute="bottom" constant="-8" id="e2m-En-ecn"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="FI7-a2-N0F" secondAttribute="trailing" id="eqt-Ml-wZG"/>
-                    <constraint firstItem="FI7-a2-N0F" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="uxQ-T1-pQl"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="cCh-Ni-Do3" secondAttribute="bottom" constant="-8.6176470588236569" id="70B-xc-FKx"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Ncm-dU-Uhg" secondAttribute="trailing" constant="5" id="CGh-ze-QiQ"/>
+                    <constraint firstItem="Ncm-dU-Uhg" firstAttribute="leading" secondItem="cCh-Ni-Do3" secondAttribute="trailing" constant="7.0000000000000568" id="PjV-Ly-iaQ"/>
+                    <constraint firstItem="Ncm-dU-Uhg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="9.4411764705881751" id="RKw-81-4ay"/>
+                    <constraint firstItem="cCh-Ni-Do3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-7.8823529411763502" id="wFG-lU-92b"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="cCh-Ni-Do3" secondAttribute="leading" id="wKX-Yh-dLQ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Ncm-dU-Uhg" secondAttribute="bottom" constant="8.0588235294118107" id="yPF-tN-72k"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="lblCategory" destination="FI7-a2-N0F" id="p9h-7O-WSN"/>
+                <outlet property="imgTick" destination="Ncm-dU-Uhg" id="Ap6-Ec-MTe"/>
+                <outlet property="lblCategory" destination="cCh-Ni-Do3" id="fN3-vQ-fhn"/>
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="tick.png" width="22" height="22"/>
+    </resources>
 </document>

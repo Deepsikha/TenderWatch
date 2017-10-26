@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterCountryVC" customModule="TenderWatch" customModuleProvider="target">
             <connections>
                 <outlet property="btnChoose" destination="mhX-QE-IpN" id="TLC-Gf-Z5k"/>
+                <outlet property="searchCountry" destination="l5Z-et-gau" id="hFv-LE-pkn"/>
                 <outlet property="tblvw" destination="PNa-a1-sFh" id="Ac5-7b-Bz5"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -21,8 +22,18 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Thy-vX-sjF">
+                    <rect key="frame" x="23" y="34" width="62" height="22"/>
+                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Back" image="left-arr.png">
+                        <color key="titleColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                    </state>
+                    <connections>
+                        <action selector="bck:" destination="-1" eventType="touchUpInside" id="tNM-eM-Jxb"/>
+                    </connections>
+                </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PNa-a1-sFh">
-                    <rect key="frame" x="20" y="63" width="280" height="358"/>
+                    <rect key="frame" x="20" y="107" width="280" height="306"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
@@ -39,27 +50,24 @@
                         <action selector="handleBtnChoose:" destination="-1" eventType="touchUpInside" id="flW-wW-zAG"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Thy-vX-sjF">
-                    <rect key="frame" x="23" y="34" width="62" height="22"/>
-                    <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Back" image="left-arr.png">
-                        <color key="titleColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                    </state>
-                    <connections>
-                        <action selector="bck:" destination="-1" eventType="touchUpInside" id="tNM-eM-Jxb"/>
-                    </connections>
-                </button>
+                <searchBar contentMode="redraw" placeholder="Search Country" translatesAutoresizingMaskIntoConstraints="NO" id="l5Z-et-gau">
+                    <rect key="frame" x="20" y="63" width="280" height="44"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="PNa-a1-sFh" firstAttribute="top" secondItem="l5Z-et-gau" secondAttribute="bottom" id="4CP-AB-6Fu"/>
                 <constraint firstItem="mhX-QE-IpN" firstAttribute="centerX" secondItem="PNa-a1-sFh" secondAttribute="centerX" id="92O-Hb-mQg"/>
-                <constraint firstItem="PNa-a1-sFh" firstAttribute="top" secondItem="Thy-vX-sjF" secondAttribute="bottom" constant="7" id="Gbk-38-Zdv"/>
+                <constraint firstItem="l5Z-et-gau" firstAttribute="top" secondItem="Thy-vX-sjF" secondAttribute="bottom" constant="7" id="FMz-jf-9yA"/>
                 <constraint firstAttribute="trailing" secondItem="PNa-a1-sFh" secondAttribute="trailing" constant="20" id="MHB-iB-8E7"/>
                 <constraint firstItem="mhX-QE-IpN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="50" id="Mvf-yp-y8n"/>
                 <constraint firstAttribute="bottom" secondItem="mhX-QE-IpN" secondAttribute="bottom" constant="19" id="ROE-yS-eRN"/>
                 <constraint firstItem="Thy-vX-sjF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="U70-UQ-bta"/>
+                <constraint firstItem="l5Z-et-gau" firstAttribute="trailing" secondItem="PNa-a1-sFh" secondAttribute="trailing" id="VDU-CO-TnP"/>
+                <constraint firstItem="l5Z-et-gau" firstAttribute="leading" secondItem="PNa-a1-sFh" secondAttribute="leading" id="aU7-ix-72j"/>
                 <constraint firstItem="PNa-a1-sFh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="mah-bs-OZZ"/>
-                <constraint firstItem="mhX-QE-IpN" firstAttribute="top" secondItem="PNa-a1-sFh" secondAttribute="bottom" id="oxP-ES-4yq"/>
+                <constraint firstItem="mhX-QE-IpN" firstAttribute="top" secondItem="PNa-a1-sFh" secondAttribute="bottom" constant="8" id="oxP-ES-4yq"/>
                 <constraint firstItem="Thy-vX-sjF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="qb8-nS-oL2"/>
             </constraints>
         </view>

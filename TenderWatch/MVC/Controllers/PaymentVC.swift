@@ -347,7 +347,7 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
     func getServices() {
         if isNetworkReachable() {
             self.startActivityIndicator()
-            Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+            Alamofire.request(GET_SERVICES, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if(resp.result.value != nil) {
                     let data = (resp.result.value as! NSObject)
                     var services = [Services]()
