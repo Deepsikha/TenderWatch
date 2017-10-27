@@ -242,26 +242,31 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MappingCell") as! MappingCell
         if isCountry {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell") as! RegisterCountryCell
             let country = self.country[indexPath.row]
-            cell.lblCategory.text = country.countryName!
+            cell.countryName.text = country.countryName!
+            cell.imgFlag.image = UIImage(data: Data(base64Encoded: country.imgString!)!)
+            return cell
         } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MappingCell") as! MappingCell
+
             let category = self.category[indexPath.row]
             cell.lblCategory.text = category.categoryName!
+            return cell
         }
-        return cell
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! MappingCell
+        
         
         if (isCountry) {
-            btnSelectCountry.setTitle(cell.lblCategory.text!, for: .normal)
+            let cell = tableView.cellForRow(at: indexPath) as! RegisterCountryCell
+            btnSelectCountry.setTitle(cell.countryName.text!, for: .normal)
             lblDropdown.text = "▼"
-            self.uploadTender.cId = self.country.filter{$0.countryName! == cell.lblCategory.text!}[0].countryId!
+            self.uploadTender.cId = self.country.filter{$0.countryName! == cell.countryName.text!}[0].countryId!
         }else{
+            let cell = tableView.cellForRow(at: indexPath) as! MappingCell
             btnSelectCategory.setTitle(cell.lblCategory.text!, for: .normal)
             lblDropdownCat.text = "▼"
             self.uploadTender.ctId = self.category.filter {$0.categoryName! == cell.lblCategory.text!}[0].categoryId!
@@ -271,6 +276,14 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         isDropDownActive = false
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (isCountry) {
+            return 44
+        } else {
+            return UITableViewAutomaticDimension
+        }
+    }
+        
     //MARK:- Image Delegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image : UIImage = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
@@ -306,6 +319,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func btnSelectCountry(_ sender: Any) {
+        lblDropdownCat.text = "▼"
         if isDropDownActive == false{
             self.isCountry = true
             lblDropdown.text = "▲"
@@ -326,6 +340,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func btnSelectCategory(_ sender: Any) {
+        lblDropdown.text = "▼"
         if isDropDownActive == false{
             self.isCountry = false
             self.vwScroll.isScrollEnabled = false
@@ -505,6 +520,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.tblOptions.layer.borderWidth = 1
         self.tblOptions.layer.cornerRadius = 5
         self.tblOptions.register(UINib(nibName: "MappingCell",bundle: nil), forCellReuseIdentifier: "MappingCell")
+        self.tblOptions.register(UINib(nibName: "RegisterCountryCell",bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
         
         self.txfEmail.delegate = self
         self.txfEmail.autocorrectionType = .no
