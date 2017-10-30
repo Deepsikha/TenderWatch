@@ -11,6 +11,7 @@ import SDWebImage
 import Alamofire
 import ObjectMapper
 import MessageUI
+import JTSImageViewController
 
 class UserDetailVC: UIViewController, UIScrollViewDelegate, MFMailComposeViewControllerDelegate {
     
@@ -19,9 +20,9 @@ class UserDetailVC: UIViewController, UIScrollViewDelegate, MFMailComposeViewCon
     @IBOutlet weak var btnEmail: UIButton!
     @IBOutlet weak var btnPhoneNumber: UIButton!
     @IBOutlet weak var txfOccupation: UITextField!
-    @IBOutlet weak var txfCountry: UITextField!
     @IBOutlet weak var btnAboutMe: UIButton!
     
+    @IBOutlet weak var lblCountry: UILabel!
     @IBOutlet weak var vwStack: RatingControl!
     
     @IBOutlet weak var btnCancel: UIButton!
@@ -29,8 +30,6 @@ class UserDetailVC: UIViewController, UIScrollViewDelegate, MFMailComposeViewCon
     @IBOutlet weak var lblRatings: UILabel!
     @IBOutlet weak var btnSubmit: UIButton!
     
-    @IBOutlet var vwImage: UIView!
-    @IBOutlet weak var imgScrollView: ImageScrollView!
     
     var id: String!
     static var rate: Int = 0
@@ -39,12 +38,14 @@ class UserDetailVC: UIViewController, UIScrollViewDelegate, MFMailComposeViewCon
     
     var user: User!
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         if !(appDelegate.isClient!) {
             self.lblTitle.text = "Client Detail"
         } else {
             self.lblTitle.text = "Contractor Detail"
         }
+        self.btnSubmit.cornerRedius()
         self.txtVw.layer.cornerRadius = 5
         self.txtVw.font = UIFont.systemFont(ofSize: 18)
         self.txtVw.isUserInteractionEnabled = false
@@ -60,10 +61,10 @@ class UserDetailVC: UIViewController, UIScrollViewDelegate, MFMailComposeViewCon
         btn.setImage(UIImage(named: "cancel-menu"), for: .normal)
         btn.layer.backgroundColor = UIColor.clear.cgColor
         btn.addTarget(self, action: #selector(self.tapHandler(sender:)), for: .touchDown)
-        vwImage.addSubview(btn)
+//        vwImage.addSubview(btn)
         
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         self.imgUser.layer.cornerRadius = self.imgUser.frame.height / 2
         self.navigationController?.isNavigationBarHidden = true
@@ -75,16 +76,26 @@ class UserDetailVC: UIViewController, UIScrollViewDelegate, MFMailComposeViewCon
                 let data = resp.result.value as! NSObject
                 self.user = Mapper<User>().map(JSONObject: data)
                 self.imgUser.sd_setImage(with: URL(string: (self.user.profilePhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
-                    if image != nil {
-                        self.imgScrollView.display(image: image!)
-                    } else {
-                        self.imgScrollView.display(image:
-                            UIImage(named: "avtar")!)
-                    }
                 }
                 self.btnEmail.setTitle(self.user.email!, for: .normal)
                 
-                self.txfCountry.text = self.user.country!
+                Alamofire.request(GET_ONE_COUNTRY, method: .post, parameters: ["countryName": self.user.country!], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                    if resp.response?.statusCode == 200 {
+                        let data = (resp.result.value as! NSObject)
+                        let country: [Country] = Mapper<Country>().mapArray(JSONObject: data)!
+                        if country.count == 1 {
+                            let attachment = NSTextAttachment()
+                            attachment.image = UIImage(data: Data(base64Encoded: country[0].imgString!)!)
+
+                            attachment.bounds = CGRect(x: -10, y: -5 , width: 30 , height: 20)
+                            let attachmentStr = NSAttributedString(attachment: attachment)
+                            let myString = NSMutableAttributedString(string: "\(self.user.country!)   ")
+                            myString.append(attachmentStr)
+                        
+                            self.lblCountry.attributedText = myString
+                        }
+                    }
+                })
                 
                 self.btnPhoneNumber.setTitle(self.user.contactNo!, for: .normal)
                 
@@ -100,8 +111,6 @@ class UserDetailVC: UIViewController, UIScrollViewDelegate, MFMailComposeViewCon
     override func viewDidLayoutSubviews() {
         self.transperentView.frame = self.view.frame
         self.txtVw.frame = CGRect(x: self.view.frame.width / 2 - 130, y: self.view.frame.height / 2 - 150, width: 260, height: 300)
-        
-        self.vwImage.frame = self.view.frame
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -229,11 +238,18 @@ class UserDetailVC: UIViewController, UIScrollViewDelegate, MFMailComposeViewCon
                 self.transperentView.removeFromSuperview()
             }
         } else {
-            if self.view.subviews.contains(self.vwImage) {
-                self.vwImage.removeFromSuperview()
-            } else {
-                self.view.addSubview(self.vwImage)
-            }
+            let imageInfo = JTSImageInfo()
+            
+            imageInfo.image = imgUser.image
+            
+            imageInfo.referenceRect = imgUser.frame
+            imageInfo.referenceView = imgUser.superview
+            imageInfo.referenceContentMode = imgUser.contentMode
+            imageInfo.referenceCornerRadius = imgUser.layer.cornerRadius
+            // Setup view controller
+            let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: .image, backgroundStyle: .scaled)
+            // Present the view controller.
+            imageViewer?.show(from: self, transition: .fromOriginalPosition)
         }
 
     }

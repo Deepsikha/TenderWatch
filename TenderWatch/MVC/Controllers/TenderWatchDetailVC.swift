@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SDWebImage
 import ObjectMapper
+import JTSImageViewController
 
 class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
@@ -25,8 +26,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var btnDelete: UIButton!
     @IBOutlet weak var btnInterested: UIButton!
     
-    @IBOutlet var vwImage: UIView!
-    @IBOutlet weak var imgScrollView: ImageScrollView!
+//    @IBOutlet weak var imgScrollView: ImageScrollView!
     
     @IBOutlet var vwClientDetail: UIView!
     @IBOutlet weak var imgIsFollow: UIImageView!
@@ -71,13 +71,6 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.tblTenderContactDetail.register(UINib(nibName: "ClientDetailCell", bundle: nil), forCellReuseIdentifier: "ClientDetailCell")
         
-        
-        let btn = UIButton(frame: CGRect(x: 10, y: 30, width: 30, height: 30))
-        btn.setImage(UIImage(named: "cancel-menu"), for: .normal)
-        btn.layer.backgroundColor = UIColor.clear.cgColor
-        btn.addTarget(self, action: #selector(self.tapHandler(sender:)), for: .touchDown)
-        vwImage.addSubview(btn)
-        
         getDetail()
         
         // Do any additional setup after loading the view.
@@ -92,8 +85,6 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         self.transperentView.frame = self.view.frame
 
         self.vwClientDetail.frame = CGRect(x: self.transperentView.center.x - (self.vwClientDetail.frame.width / 2), y: self.transperentView.center.y - 150, width:self.vwClientDetail.frame.width, height: self.vwClientDetail.frame.height)
-        
-        self.vwImage.frame = self.view.frame
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -208,7 +199,7 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                     if (resp.response?.statusCode == 304) {
                         MessageManager.showAlert(nil, "Already interested ")
                     } else {
-                        MessageManager.showAlert(nil, "We have notified the Client about your interest in this Tender./nTo pursue please continue with the process as specified in the Tender Details")
+                        MessageManager.showAlert(nil, "We have notified the Client about your interest in this Tender.\nTo pursue please continue with the process as specified in the Tender Details")
                         self.btnInterested.isEnabled = false
                         self.btnInterested.backgroundColor = UIColor(red: 145/255, green: 216/255, blue: 79/255, alpha: 0.7)
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "interested"), object: nil, userInfo: ["id":"\(self.tenderDetail.id!)","tag":"1"])
@@ -254,6 +245,41 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                         self.lblTenderName.text = self.tenderDetail.tenderName!
                         self.lblCountry.text = self.tenderDetail.country!.countryName!
                         
+                        Alamofire.request(GET_ONE_COUNTRY, method: .post, parameters: ["countryName": self.tenderDetail.country!.countryName!], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                            if resp.response?.statusCode == 200 {
+                                let data = (resp.result.value as! NSObject)
+                                let country: [Country] = Mapper<Country>().mapArray(JSONObject: data)!
+                                if country.count == 1 {
+                                    let attachment = NSTextAttachment()
+                                    attachment.image = UIImage(data: Data(base64Encoded: country[0].imgString!)!)
+                                    
+                                    attachment.bounds = CGRect(x: -10, y: -5 , width: 30, height: 20)
+                                    let attachmentStr = NSAttributedString(attachment: attachment)
+                                    let myString = NSMutableAttributedString(string: "\(self.tenderDetail.country!.countryName!)  ")
+                                    myString.append(attachmentStr)
+                                    self.lblCountry.attributedText = myString
+                                    
+                                }
+                            }
+                        })
+                        
+                        Alamofire.request(GET_ONE_CATEGORY, method: .post, parameters: ["categoryName": self.tenderDetail.category!.categoryName!], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                            if resp.response?.statusCode == 200 {
+                                let data = (resp.result.value as! NSObject)
+                                let category: [Category] = Mapper<Category>().mapArray(JSONObject: data)!
+                                if category.count == 1 {
+                                    let attachment = NSTextAttachment()
+                                    attachment.image = UIImage(data: Data(base64Encoded: category[0].imgString!)!)
+                                    
+                                    attachment.bounds = CGRect(x: -10, y: -5 , width: 30, height: 20)
+                                    let attachmentStr = NSAttributedString(attachment: attachment)
+                                    let myString = NSMutableAttributedString(string: "\(self.tenderDetail.category!.categoryName!)  ")
+                                    myString.append(attachmentStr)
+                                    self.lblCategory.attributedText = myString
+                                    
+                                }
+                            }
+                        })
                         self.lblCategory.text = self.tenderDetail.category!.categoryName!
                     
                         if !(self.tenderDetail.email!.isEmpty)  {
@@ -287,11 +313,6 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                         
                         self.txtDesc.text = self.tenderDetail.desc!
                         self.imgTenderPhoto.sd_setImage(with: URL(string: self.tenderDetail.tenderPhoto!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
-                            if image != nil {
-                                self.imgScrollView.display(image: image!)
-                            } else {
-                                self.imgScrollView.display(image: UIImage(named: "avtar")!)
-                            }
                         })
                     }
                     self.tblTenderContactDetail.reloadData()
@@ -304,35 +325,19 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func generateSubView(sender: NSObject) {
+        let imageInfo = JTSImageInfo()
         
-        let tapBtn = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler(sender:)))
-        tapBtn.cancelsTouchesInView = false
-
-        if sender == self.btnClientDetail {
-            if self.tenderDetail.isFollowTender! {
-                self.transperentView = UIView(frame: self.view.frame)
-                self.transperentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.25)
-                self.transperentView.addSubview(self.vwClientDetail)
-                if !self.view.subviews.contains(self.transperentView) {
-                    self.view.addSubview(self.transperentView)
-                }
-                self.transperentView.addGestureRecognizer(tapBtn)
-            } else {
-                
-            }
-        } else {
-            if !self.view.subviews.contains(self.vwImage) {
-                self.view.addSubview(self.vwImage)
-            }
-        }
+        imageInfo.image = imgTenderPhoto.image
+        
+        imageInfo.referenceRect = imgTenderPhoto.frame
+        imageInfo.referenceView = imgTenderPhoto.superview
+        imageInfo.referenceContentMode = imgTenderPhoto.contentMode
+        imageInfo.referenceCornerRadius = imgTenderPhoto.layer.cornerRadius
+        // Setup view controller
+        let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: .image, backgroundStyle: .scaled)
+        // Present the view controller.
+        imageViewer?.show(from: self, transition: .fromOriginalPosition)
+        
     }
     
-    func tapHandler(sender: NSObject) {
-        if self.view.subviews.contains(self.transperentView) {
-            self.transperentView.removeFromSuperview()
-        }
-        if self.view.subviews.contains(self.vwImage) {
-            self.vwImage.removeFromSuperview()
-        }
-    }
 }

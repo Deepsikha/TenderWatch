@@ -77,6 +77,9 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MappingCell", for: indexPath) as! MappingCell
         var arrMapping = self.countryCatDict[country[indexPath.section].countryId!]
         let arrList = arrMapping?[indexPath.row]
+        
+        cell.imgString.image = UIImage(data: Data(base64Encoded: (arrList?.imgString)!)!)
+        
         cell.lblCategory.text =  arrList?.categoryName
         cell.lblCategory.type = .left
         cell.lblCategory.speed = .duration(2)

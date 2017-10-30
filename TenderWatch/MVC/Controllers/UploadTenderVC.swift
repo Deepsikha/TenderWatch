@@ -253,6 +253,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
 
             let category = self.category[indexPath.row]
             cell.lblCategory.text = category.categoryName!
+            cell.imgString.image = UIImage(data: Data(base64Encoded: category.imgString!)!)
             return cell
         }
     }

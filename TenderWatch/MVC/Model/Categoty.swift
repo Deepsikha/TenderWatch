@@ -14,7 +14,7 @@ class Category: NSObject,Mappable {
     var categoryId : String?
     var categoryName: String?
     var isSelected : Bool?
-    
+    var imgString: String?
     required init?(map: Map)
     {
         super.init()
@@ -22,8 +22,9 @@ class Category: NSObject,Mappable {
     }
     func mapping(map: Map)
     {
-        categoryId <- map["_id"]
-        categoryName <- map["categoryName"]
+        categoryId      <- map["_id"]
+        categoryName    <- map["categoryName"]
+        imgString       <- map["imgString"]
         isSelected = false
     }
 }

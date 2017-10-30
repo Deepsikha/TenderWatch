@@ -28,7 +28,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCh-Ni-Do3" customClass="MarqueeLabel" customModule="TenderWatch" customModuleProvider="target">
-                        <rect key="frame" x="8" y="0.0" width="282" height="44"/>
+                        <rect key="frame" x="42" y="0.0" width="247" height="44"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -36,18 +36,28 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="labelize" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lpT-OX-76r">
+                        <rect key="frame" x="8" y="13" width="26" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="GyU-WX-egc"/>
+                            <constraint firstAttribute="width" constant="26" id="a6u-3i-wW9"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="lpT-OX-76r" firstAttribute="centerY" secondItem="cCh-Ni-Do3" secondAttribute="centerY" id="5AZ-Pc-vGF"/>
                     <constraint firstAttribute="bottomMargin" secondItem="cCh-Ni-Do3" secondAttribute="bottom" constant="-8.6176470588236569" id="70B-xc-FKx"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="lpT-OX-76r" secondAttribute="leading" id="AUn-Pz-Grx"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Ncm-dU-Uhg" secondAttribute="trailing" constant="5" id="CGh-ze-QiQ"/>
                     <constraint firstItem="Ncm-dU-Uhg" firstAttribute="leading" secondItem="cCh-Ni-Do3" secondAttribute="trailing" constant="7.0000000000000568" id="PjV-Ly-iaQ"/>
                     <constraint firstItem="Ncm-dU-Uhg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="9.4411764705881751" id="RKw-81-4ay"/>
+                    <constraint firstItem="cCh-Ni-Do3" firstAttribute="leading" secondItem="lpT-OX-76r" secondAttribute="trailing" constant="8" id="aHd-CD-TmT"/>
                     <constraint firstItem="cCh-Ni-Do3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-7.8823529411763502" id="wFG-lU-92b"/>
-                    <constraint firstAttribute="leadingMargin" secondItem="cCh-Ni-Do3" secondAttribute="leading" id="wKX-Yh-dLQ"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Ncm-dU-Uhg" secondAttribute="bottom" constant="8.0588235294118107" id="yPF-tN-72k"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="imgString" destination="lpT-OX-76r" id="bbn-CE-bPn"/>
                 <outlet property="imgTick" destination="Ncm-dU-Uhg" id="Ap6-Ec-MTe"/>
                 <outlet property="lblCategory" destination="cCh-Ni-Do3" id="fN3-vQ-fhn"/>
             </connections>

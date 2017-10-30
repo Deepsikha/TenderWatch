@@ -30,6 +30,9 @@ var CATEGORY: String = "auth/category"
 var COUNTRY: String = "auth/country"
 
 var TENDER_DETAIL: String = (BASE_URL)+"tender/" //update: put (append id), detail: get
+var GET_ONE_COUNTRY: String = (BASE_URL)+"country/name"
+var GET_ONE_CATEGORY: String = (BASE_URL)+"category/name"
+
 var INTERESTED: String = (BASE_URL)+"tender/interested/"
 
 var READ_NOTIFY: String = (BASE_URL)+"notification" //list:get badge:put

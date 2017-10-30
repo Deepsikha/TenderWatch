@@ -78,7 +78,8 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "MappingCell", for: indexPath) as! MappingCell
         let ser = self.services[indexPath.section]
-//        cell.countryName.text = self.selection[indexPath.section].categoryId[indexPath.row]
+        
+        cell.imgString.image = UIImage(data: Data(base64Encoded: self.category.filter { $0.categoryName! == (ser.categoryId?[indexPath.row])!}[0].imgString!)!)
         cell.lblCategory.text = ser.categoryId?[indexPath.row]
         cell.imgTick.isHidden = true
         

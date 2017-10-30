@@ -53,7 +53,6 @@
 		7D0394481EFB63D300B494EF /* SideMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D0394471EFB63D300B494EF /* SideMenuVC.xib */; };
 		7D03944B1EFB65E800B494EF /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0394491EFB65E800B494EF /* SideMenuCell.swift */; };
 		7D03944C1EFB65E800B494EF /* SideMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D03944A1EFB65E800B494EF /* SideMenuCell.xib */; };
-		7D0FE2FF1F95F074006A84E0 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0FE2FE1F95F074006A84E0 /* ImageScrollView.swift */; };
 		7D13E9ED1F84B4D200686A5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D13E9EC1F84B4D200686A5D /* QuartzCore.framework */; };
 		7D176AFE1EFA13A700B05C99 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D176AFD1EFA13A700B05C99 /* User.swift */; };
 		7D19C4821F457B8D0055DAB0 /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D19C47F1F457B8D0055DAB0 /* emptyStar.png */; };
@@ -328,7 +327,6 @@
 		7D0394471EFB63D300B494EF /* SideMenuVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuVC.xib; sourceTree = "<group>"; };
 		7D0394491EFB65E800B494EF /* SideMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		7D03944A1EFB65E800B494EF /* SideMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuCell.xib; sourceTree = "<group>"; };
-		7D0FE2FE1F95F074006A84E0 /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		7D13E9EC1F84B4D200686A5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7D176AFD1EFA13A700B05C99 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7D19C47F1F457B8D0055DAB0 /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
@@ -765,7 +763,6 @@
 		7D0394301EFB61FF00B494EF /* library */ = {
 			isa = PBXGroup;
 			children = (
-				7D0FE2FE1F95F074006A84E0 /* ImageScrollView.swift */,
 				7DF7A4CD1F84DCDD004561D7 /* MarqueeLabel.swift */,
 				7DA63F7E1F39BAC300432D87 /* KeychainPasswordItem.swift */,
 				7D51890E1F5525FA00A65AE5 /* PayPalMobile */,
@@ -1473,7 +1470,6 @@
 				7D0394391EFB61FF00B494EF /* DrawerBarButtonItem.swift in Sources */,
 				7DCF33011F5D352800FF15BA /* StipePaymentVC.swift in Sources */,
 				7D2E22521F00C53200A0783E /* SubscriptionCell.swift in Sources */,
-				7D0FE2FF1F95F074006A84E0 /* ImageScrollView.swift in Sources */,
 				5C31506C1F03AADB00C96182 /* UploadTenderVC.swift in Sources */,
 				7D03944B1EFB65E800B494EF /* SideMenuCell.swift in Sources */,
 				7D62F3301F8394950087A5A3 /* SelectCountryVC.swift in Sources */,

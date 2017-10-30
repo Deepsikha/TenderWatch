@@ -64,6 +64,7 @@ PODS:
   - GTMSessionFetcher/Full (1.1.10):
     - GTMSessionFetcher/Core (= 1.1.10)
   - IQKeyboardManager (4.0.10)
+  - JTSImageViewController (1.5.1)
   - ObjectMapper (2.2.6)
   - RSKImageCropper (1.6.1)
   - SDWebImage (4.0.0):
@@ -80,6 +81,7 @@ DEPENDENCIES:
   - FacebookShare
   - Google/SignIn
   - IQKeyboardManager
+  - JTSImageViewController
   - ObjectMapper
   - RSKImageCropper
   - SDWebImage
@@ -105,11 +107,12 @@ SPEC CHECKSUMS:
   GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
   IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
+  JTSImageViewController: 1f8ce1cc93dab0d0af8e53badeea7528560cfec9
   ObjectMapper: '042708195cc46c20871cbcbec0453826398273fd'
   RSKImageCropper: 0df8c99e77a8ea7ca7a8b83ef468556f31584254
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   Stripe: 898f83a95d72180c6eb4acd65b2ae6158fc6a8bd
 
-PODFILE CHECKSUM: 828029b3cf4da7afb09da9c2caecc6fcb171fd51
+PODFILE CHECKSUM: 5562ce7103215306d676d581fa98e5196c64e026
 
 COCOAPODS: 1.2.0

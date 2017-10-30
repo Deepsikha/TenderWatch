@@ -12,6 +12,7 @@ class MappingCell: UITableViewCell {
     
     @IBOutlet weak var lblCategory: MarqueeLabel!
     @IBOutlet weak var imgTick: UIImageView!
+    @IBOutlet weak var imgString: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

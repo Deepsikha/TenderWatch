@@ -18,6 +18,7 @@ target 'TenderWatch' do
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'Stripe'
+    pod 'JTSImageViewController'
     
   target 'TenderWatchTests' do
     inherit! :search_paths

@@ -79,16 +79,34 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: "NotificationCell", for: indexPath) as! NotificationCell
         let noti = self.notification[indexPath.row]
-        let string_to_color = noti.message?.components(separatedBy: " ").filter({ (a) -> Bool in
+        let string_to_color_email = noti.message?.components(separatedBy: " ").filter({ (a) -> Bool in
             isValidEmail(strEmail: a)
         })
-        if (string_to_color?.isEmpty)! {
-            cell.lblContent.text = noti.message
+        
+        let query = noti.message
+        let regex = try! NSRegularExpression(pattern:"\"(.*?)\"", options: [])
+        let tmp = query! as NSString
+        var string_to_color_tenderName = [String]()
+        
+        regex.enumerateMatches(in: query!, options: [], range: NSMakeRange(0, (query?.characters.count)!)) { result, flags, stop in
+            if let range = result?.rangeAt(1) {
+                string_to_color_tenderName.append(tmp.substring(with: range))
+            }
+        }
+        
+        if (string_to_color_email?.isEmpty)! {
+            let range = (noti.message! as NSString).range(of: (string_to_color_tenderName[0]))
+            let attributre = NSMutableAttributedString.init(string: noti.message!)
+            attributre.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue , range: range)
+            cell.lblContent.attributedText = attributre
         } else {
-            let range = (noti.message! as NSString).range(of: (string_to_color?[0])!)
-            
+            let range1 = (noti.message! as NSString).range(of: (string_to_color_email?[0])!)
+            let range2 = (noti.message! as NSString).range(of: (string_to_color_tenderName[0]))
+
             let attribute = NSMutableAttributedString.init(string: noti.message!)
-            attribute.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue , range: range)
+            attribute.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue , range: range1)
+            attribute.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue , range: range2)
+
             cell.lblContent.attributedText = attribute
         }
         
@@ -98,10 +116,6 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell.imgSender.sd_setImage(with: URL(string: noti.sender!.profilePhoto!), placeholderImage: nil, options: SDWebImageOptions.progressiveDownload) { (image, error, memory, url) in
         }
-        
-        //        if (components.day! < 0) {
-        //            deleteTender(indexPath.row)
-        //        }
         
         return cell
     }
@@ -131,13 +145,7 @@ class NotificationVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return tableView.isEditing ? UITableViewCellEditingStyle.none : UITableViewCellEditingStyle.delete
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        TenderWatchDetailVC.id = self.notification[indexPath.row]
-//        
-//        self.navigationController?.pushViewController(TenderWatchDetailVC(), animated: true)
-//    }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.tblNotifications.isEditing {
             count = count + 1
