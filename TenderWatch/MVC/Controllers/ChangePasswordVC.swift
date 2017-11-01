@@ -121,8 +121,4 @@ class ChangePasswordVC: UIViewController,UITextFieldDelegate {
         appDelegate.drawerController.toggleDrawerSide(.left, animated: true, completion: nil)
     }
     
-    //    @IBAction func bck(_ sender: Any) {
-    //        self.navigationController?.popViewController(animated: true)
-    //    }
-    
 }

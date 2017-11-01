@@ -43,6 +43,7 @@ class User: NSObject,NSCoding, Mappable {
     var isPayment: Bool?
     var payment: Float?
     
+    var invoiceURL: String?
     var firstName: String?
     var lastName: String?
     var password: String?
@@ -71,7 +72,7 @@ class User: NSObject,NSCoding, Mappable {
         createdAt = aDecoder.decodeObject(forKey: "createdAt") as? String
         isActive = aDecoder.decodeObject(forKey: "isActive") as? Bool
         subscribe = subscriptionType(rawValue: (aDecoder.decodeObject(forKey: "subscribe") as! String))
-
+        invoiceURL = aDecoder.decodeObject(forKey: "invoiceURL") as? String
         isPayment = aDecoder.decodeObject(forKey: "isPayment") as? Bool
         payment = aDecoder.decodeObject(forKey: "payment") as? Float
 //        review = aDecoder.decodeObject(forKey: "review") as? Review
@@ -97,6 +98,9 @@ class User: NSObject,NSCoding, Mappable {
         aCoder.encode(subscribe?.rawValue, forKey: "subscribe")
         aCoder.encode(isPayment, forKey: "isPayment")
         aCoder.encode(payment, forKey: "payment")
+        aCoder.encode(invoiceURL, forKey: "invoiceURL")
+
+        
 //        aCoder.encode(review, forKey: "review")
         
         aCoder.encode(firstName, forKey: "firstName")
@@ -120,7 +124,7 @@ class User: NSObject,NSCoding, Mappable {
         subscribe               <- map["subscribe"]
         isPayment               <- map["isPayment"]
         payment                 <- map["payment"]
-        
+        invoiceURL              <- map["invoiceURL"]
         firstName               <- map["firstName"]
         lastName                <- map["lastName"]
         password                <- map["password"]

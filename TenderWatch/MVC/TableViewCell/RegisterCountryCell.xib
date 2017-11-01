@@ -47,6 +47,7 @@
                 <constraints>
                     <constraint firstItem="qCU-IZ-Iod" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="5KS-qq-4DK"/>
                     <constraint firstAttribute="bottomMargin" secondItem="F7e-Ik-HOn" secondAttribute="bottom" constant="-8" id="8UI-Cf-6ND"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="qCU-IZ-Iod" secondAttribute="bottom" constant="1.5" id="Sxe-1x-lMJ"/>
                     <constraint firstItem="HTs-yc-ts9" firstAttribute="centerY" secondItem="F7e-Ik-HOn" secondAttribute="centerY" id="WaW-VQ-Rm0"/>
                     <constraint firstAttribute="trailingMargin" secondItem="qCU-IZ-Iod" secondAttribute="trailing" constant="5" id="XNS-u2-ZDi"/>
                     <constraint firstAttribute="leadingMargin" secondItem="HTs-yc-ts9" secondAttribute="leading" id="mRv-kk-JKj"/>

@@ -98,9 +98,6 @@ class RulesVC: UIViewController {
                     
                     multipartFormData.append(signUpUser.photo, withName: "image",fileName: imgname, mimeType: "image/jpeg")
                 }
-                //                for (key, value) in self.parameters {
-                //                    multipartFormData.append((value as AnyObject).data(using: UInt(String.Encoding.utf8.hashValue))!, withName: key)
-                //                }
                 for (key, value) in self.parameters {
                     
                     if let stringValue = value as? String {
@@ -136,8 +133,6 @@ class RulesVC: UIViewController {
                                 self.stopActivityIndicator()
                                 self.btnSignUp.isEnabled = true
                             } else {
-                                //Set User remaining
-                                // if (USER?.authenticationToken != nil) {
                                 self.btnSignUp.isEnabled = true
                                 self.stopActivityIndicator()
                                 let data = (resp.result.value as! NSObject).value(forKey: "user")!
@@ -152,11 +147,6 @@ class RulesVC: UIViewController {
                                     self.navigationController?.pushViewController(PaymentVC(), animated: true)
                                 }
                                 self.store()
-                                //                             self.navigationController?.pushViewController(TenderWatchVC(), animated: true)
-                                // self.user = user
-                                // USER = user
-                                                               // }
-                                
                             }
                         }
                     }
@@ -173,7 +163,6 @@ class RulesVC: UIViewController {
     }
     
     func store() {
-        // Check that text has been entered into both the account and password fields.
         if !signUpUser.email.isEmpty && !signUpUser.password.isEmpty {
             let passwordItem = KeychainPasswordItem(service: KeychainConfig.service, account: signUpUser.email, accessGroup: KeychainConfig.accessGroup)
             do {

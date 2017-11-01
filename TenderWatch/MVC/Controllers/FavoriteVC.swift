@@ -67,7 +67,6 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             cell.imgProfile.sd_setShowActivityIndicatorView(true)
             cell.imgProfile.sd_setIndicatorStyle(.gray)
-            //                (tender.tenderPhoto)!
             cell.imgProfile.sd_setImage(with: URL(string: (fv.tenderPhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
             })
             
@@ -97,9 +96,6 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     cell.exp_day.font = UIFont.systemFont(ofSize: cell.exp_day.font.pointSize)
                 }
             }
-            //        if (components.day! < 0) {
-            //            deleteTender(indexPath.row)
-            //        }
             if !(appDelegate.isClient!) {
                 if (fv.amendRead != nil) {
                     if !(fv.amendRead?.contains((USER!._id)!))! {
@@ -129,11 +125,6 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 cell.imgIndicator.isHidden = true
             }
         }
-        
-        //        if (components.day! < 0) {
-        //            deleteTender(indexPath.row)
-        //        }
-        
         return cell
     }
     
@@ -218,8 +209,6 @@ class FavoriteVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     if (self.favorite.isEmpty) {
                         self.lblNoFavorite.isHidden = false
                     }
-                    
-                    //                        MessageManager.showAlert(nil, "delete Succesfully")
                 }
                 self.stopActivityIndicator()
             }

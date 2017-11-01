@@ -23,7 +23,6 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
     
     var country = [Country]()
     var services = [Services]()
-//    var preCountry: [String] = []
     var selectCountry: [String]!
     var amount = 0
     var sectionTitleList = [String]()
@@ -34,13 +33,11 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
         self.tblCountries.dataSource = self
         self.tblCountries.tableFooterView = UIView()
         tblCountries.register(UINib(nibName:"RegisterCountryCell",bundle: nil), forCellReuseIdentifier: "RegisterCountryCell")
-    
+        
         btnNext.cornerRedius()
         
         self.getCountry()
-        if USER?.authenticationToken == nil {
-            self.takeSubscription()
-        }
+        self.takeSubscription()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,24 +49,21 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             self.amount = 0
             MappingVC.demoCountry = []
             self.tblCountries.reloadData()
-            self.lblPrice.text = USER?.subscribe == subscriptionType.free ? "Trial Version" : "$\(self.amount) / \(USER?.subscribe == subscriptionType.monthly ? "month" : "year")"
         } else {
             self.tblCountries.reloadData()
             MappingVC.demoCountry = []
             self.amount = 0
-            
-            self.lblPrice.text = signUpUser.subscribe == subscriptionType.free.rawValue ? "Trial Version" : "$\(self.amount) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
-            
             self.opnDrwr.isHidden = true
             self.btnBack.isHidden = false
             self.lblName.isHidden = true
         }
+        self.lblPrice.text = signUpUser.subscribe == subscriptionType.free.rawValue ? "Trial Version" : "$\(self.amount) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
         self.navigationController?.isNavigationBarHidden = true
     }
     
     //MARK: - TableView Method(s)
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1//self.sectionTitleList.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,16 +77,6 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
         cell.imgTick.isHidden = true
         cell.imgFlag.image = UIImage(data: Data(base64Encoded: country.imgString!)!)
         
-//        if USER?.authenticationToken != nil {
-//            if (self.preCountry.contains(cell.countryName.text!)) {
-//                cell.imgTick.isHidden = false
-//                MappingVC.demoCountry.append(self.country[indexPath.row])
-//                cell.isUserInteractionEnabled = false
-//            } else {
-//                cell.imgTick.isHidden = true
-//                cell.isUserInteractionEnabled = true
-//            }
-//        }
         return cell
     }
     
@@ -102,11 +86,6 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             if (cell.imgTick.isHidden) {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 MappingVC.demoCountry.append(self.country[indexPath.row])
-                
-//                if USER?.subscribe != subscriptionType.free {
-////                    self.amount = USER?.subscribe == subscriptionType.monthly ? (MappingVC.demoCountry.count * 15 - self.preCountry.count * 15): (MappingVC.demoCountry.count * 120 - self.preCountry.count * 120)
-////                    self.lblPrice.text = "$\(self.amount) / \(USER?.subscribe == subscriptionType.monthly ? "month" : "year")"
-//                }
             } else {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 
@@ -114,19 +93,9 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                     
                     if let itemToRemoveIndex = MappingVC.demoCountry.index(of: self.country[indexPath.row]) {
                         MappingVC.demoCountry.remove(at: itemToRemoveIndex)
-                        
-//                        if USER?.subscribe != subscriptionType.free {
-//                            if MappingVC.demoCountry.isEmpty {
-//                                self.amount = 0
-////                                self.lblPrice.text = "$\(self.amount) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
-//                            } else {
-////                                self.amount = USER?.subscribe == subscriptionType.monthly ? (MappingVC.demoCountry.count * 15 - self.preCountry.count * 15) : (MappingVC.demoCountry.count * 120 - self.preCountry.count * 120)
-////                                self.lblPrice.text = "$\(self.amount) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
-//                            }
-//                        }
                     }
                 }
-
+                
             }
         } else {
             if (cell.imgTick.isHidden) {
@@ -173,7 +142,6 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
     @IBAction func btnNextClick(_ sender: Any) {
         MappingVC.finalAmt = self.amount
         if (USER?.authenticationToken != nil) {
-            //Api call
             if USER?.subscribe == subscriptionType.free {
                 if MappingVC.demoCountry.count > 1 {
                     MessageManager.showAlert(nil, "During Free Trial Period you can choose only 1 Country")
@@ -225,12 +193,10 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                     self.country = self.country.sorted(by: { (a, b) -> Bool in
                         a.countryName! < b.countryName!
                     })
-//                    if USER?.authenticationToken != nil {
-////                        self.getServices()
-//                    } else {
-                        self.stopActivityIndicator()
-                        self.tblCountries.reloadData()
-//                    }
+                    
+                    self.stopActivityIndicator()
+                    self.tblCountries.reloadData()
+                    
                 }
             }) { (errorMessage) in
                 print(errorMessage)
@@ -240,28 +206,6 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             self.stopActivityIndicator()
         }
     }
-    
-//    func getServices() {
-//        if isNetworkReachable() {
-//            Alamofire.request(GET_SERVICES, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
-//                if(resp.result.value != nil) {
-//                    let data = (resp.result.value as! NSObject)
-//                    self.services = Mapper<Services>().mapArray(JSONObject: data)!
-//                    for i in self.services {
-//                        i.countryId = self.country.filter{$0.countryId == i.countryId}[0].countryName
-//                        if !self.preCountry.contains(i.countryId!) {
-//                            self.preCountry.append(i.countryId!)
-//                        }
-//                    }
-//                    self.tblCountries.reloadData()
-//                }
-//                self.stopActivityIndicator()
-//            })
-//        } else {
-//            MessageManager.showAlert(nil, "No Internet")
-//            self.stopActivityIndicator()
-//        }
-//    }
     
     func splitDataInToSection() {
         
@@ -276,7 +220,6 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                 self.sectionTitleList.append(sectionTitle)
             }
         }
-        // self.tblMappings.reloadData()
     }
     
     func takeSubscription() {
@@ -284,7 +227,6 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                                       message: "",
                                       preferredStyle: .alert)
         
-        // Change font of the title and message
         let titleFont:[String : AnyObject] = [ NSFontAttributeName : UIFont(name: "AmericanTypewriter", size: 18)! ]
         let messageFont:[String : AnyObject] = [ NSFontAttributeName : UIFont(name: "HelveticaNeue-Thin", size: 14)! ]
         let attributedTitle = NSMutableAttributedString(string: "TenderWatch", attributes: titleFont)
@@ -307,18 +249,14 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             self.lblPrice.text = "$\(self.amount) / year"
         })
         
-        
-        // Restyle the view of the Alert
-        //        alert.view.tintColor = UIColor.brown  // change text color of the buttons
-        //        alert.view.backgroundColor = UIColor.cyan  // change background color
         alert.view.layer.cornerRadius = 25   // change corner radius
-        
-        //         Add action buttons and present the Alert
-        alert.addAction(action1)
+        if USER?.authenticationToken == nil {
+            alert.addAction(action1)
+        }
         alert.addAction(action2)
         alert.addAction(action3)
         
         present(alert, animated: true, completion: nil)
     }
-
+    
 }

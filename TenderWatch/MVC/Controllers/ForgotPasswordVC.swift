@@ -20,7 +20,6 @@ class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
         txfEmail.becomeFirstResponder()
         txfEmail.delegate = self
         self.txfEmail.autocorrectionType = .no
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,7 +60,6 @@ class ForgotPasswordVC: UIViewController, UITextFieldDelegate {
                     self.stopActivityIndicator()
                     self.navigationController?.popViewController(animated: true)
                 } else {
-//                    let  msg = resp.result.value as 
                     self.stopActivityIndicator()
                     MessageManager.showAlert(nil, (resp.result.value as! NSObject).value(forKey: "message")! as! String)
                 }

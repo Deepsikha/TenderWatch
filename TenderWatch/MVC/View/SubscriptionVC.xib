@@ -14,6 +14,7 @@
                 <outlet property="btnPayment" destination="n8l-6b-0qq" id="f43-Qz-bZc"/>
                 <outlet property="tblSubscription" destination="Bpl-e2-3qn" id="ftl-7X-qI1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="vwPDF" destination="YPO-WL-SyE" id="7aP-bD-BcC"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -53,20 +54,28 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bpl-e2-3qn">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Bpl-e2-3qn">
                     <rect key="frame" x="16" y="67" width="304" height="413"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YPO-WL-SyE">
+                    <rect key="frame" x="0.0" y="67" width="320" height="413"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="n8l-6b-0qq" secondAttribute="trailing" constant="16" id="0Kl-KF-wSr"/>
                 <constraint firstItem="n8l-6b-0qq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="9MK-A1-EEa"/>
+                <constraint firstAttribute="trailing" secondItem="YPO-WL-SyE" secondAttribute="trailing" id="CUj-ft-FlF"/>
+                <constraint firstItem="YPO-WL-SyE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EU0-It-UEP"/>
                 <constraint firstItem="Bpl-e2-3qn" firstAttribute="top" secondItem="lOv-mX-AMb" secondAttribute="bottom" constant="4" id="I8c-dC-N48"/>
+                <constraint firstAttribute="bottom" secondItem="YPO-WL-SyE" secondAttribute="bottom" id="Sf5-R4-yzf"/>
                 <constraint firstItem="lOv-mX-AMb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14.5" id="ZLC-wL-dT8"/>
                 <constraint firstItem="lOv-mX-AMb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="hfv-q2-W3o"/>
                 <constraint firstAttribute="trailing" secondItem="Bpl-e2-3qn" secondAttribute="trailing" id="khT-K9-JMc"/>
+                <constraint firstItem="YPO-WL-SyE" firstAttribute="top" secondItem="lOv-mX-AMb" secondAttribute="bottom" constant="4" id="pTH-de-JBH"/>
                 <constraint firstItem="SCC-Hy-p5k" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="qLN-mM-y56"/>
                 <constraint firstItem="Bpl-e2-3qn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="wdr-FA-BQt"/>
                 <constraint firstItem="SCC-Hy-p5k" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="wgX-aK-Igu"/>

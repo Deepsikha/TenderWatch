@@ -19,6 +19,7 @@ target 'TenderWatch' do
     pod 'Crashlytics'
     pod 'Stripe'
     pod 'JTSImageViewController'
+    pod 'PDFReader'
     
   target 'TenderWatchTests' do
     inherit! :search_paths

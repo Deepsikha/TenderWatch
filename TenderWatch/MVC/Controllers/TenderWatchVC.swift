@@ -28,10 +28,8 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             let alert = UIAlertController(title: "TenderWatch", message: "You can swipe right on the Tenders for more options", preferredStyle: .alert)
             self.present(alert, animated: true, completion: nil)
             
-            // change to desired number of seconds (in this case 5 seconds)
             let when = DispatchTime.now() + 3
             DispatchQueue.main.asyncAfter(deadline: when){
-                // your code with delay
                 alert.dismiss(animated: true, completion: nil)
             }
         }
@@ -149,9 +147,6 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         cell.imgProfile.sd_setImage(with: URL(string: (tender.tenderPhoto)!), placeholderImage: UIImage(named: "avtar"), options: SDWebImageOptions.progressiveDownload, completed: { (image, error, memory, url) in
         })
         
-        //Day remainning
-        //pass string in "yyyy-MM-dd" format
-        
         let components = Date().getDifferenceBtnCurrentDate(date: (tender.exp?.substring(to: (tender.exp?.index((tender.exp?.startIndex)!, offsetBy: 10))!))!)
         
         cell.lblTender.text = (components.day == 0) ? (components.month == 1) ? "30 Days" : "Last Day" : (components.day == 1) ? "\(components.day!) day" : "\(components.day!) days"
@@ -177,9 +172,6 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                 cell.exp_day.font = UIFont.systemFont(ofSize: cell.exp_day.font.pointSize)
             }
         }
-        //        if (components.day! < 0) {
-        //            deleteTender(indexPath.row)
-        //        }
         if !(appDelegate.isClient!) {
             if (tender.amendRead != nil) {
                 if !(tender.amendRead?.contains((USER!._id)!))! {
@@ -227,10 +219,6 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             self.navigationController?.pushViewController(TenderWatchDetailVC(), animated: true)
         }
     }
-    
-    //    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    //        return UITableViewAutomaticDimension
-    //    }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let fav = UITableViewRowAction(style: .normal, title: "Favorites") { action, index in
@@ -312,7 +300,6 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             Alamofire.request(GET_TENDER, method: .post, parameters: ["role" : appDelegate.isClient! ? "client" : "contractor"], encoding: JSONEncoding.default, headers: ["Authorization":"Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
                 if(resp.result.value != nil) {
                     if resp.result.value is NSDictionary {
-                        //                        MessageManager.showAlert(nil,"\(String(describing: (resp.result.value as AnyObject).value(forKey: "message"))))")
                         self.lblNoTender.isHidden = false
                         if USER?.role == RollType.contractor {
                             if !signUpUser.email.isEmpty {
@@ -406,7 +393,6 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                         if (self.tender.isEmpty) {
                             self.lblNoTender.isHidden = false
                         }
-                        //                        MessageManager.showAlert(nil, "delete Succesfully")
                     }
                     self.stopActivityIndicator()
                 }

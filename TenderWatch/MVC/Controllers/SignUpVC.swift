@@ -86,11 +86,12 @@ class SignUpVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
             self.txtEmail.text = user.profile.email
             if user.profile.hasImage {
                 SDWebImageManager.shared().imageDownloader?.downloadImage(with: user?.profile.imageURL(withDimension: 500), options: SDWebImageDownloaderOptions.progressiveDownload, progress: nil, completed: { (image, data, error, true) in
-                    signUpUser.photo = data!
+                    if data != nil {
+                        signUpUser.photo = data!
+                    }
                 })
             }
             self.stopActivityIndicator()
-//            self.Login(G_LOGIN, parameters)
             self.dismiss(animated: true, completion: nil)
             GIDSignIn.sharedInstance().signOut()
         } else {
@@ -100,7 +101,6 @@ class SignUpVC: UIViewController, UITextFieldDelegate, GIDSignInUIDelegate, GIDS
     
     func sign(_ signIn: GIDSignIn!,
               present viewController: UIViewController!) {
-        // Present a view that prompts the user to sign in with Google
         self.present(viewController, animated: true, completion: nil)
     }
     

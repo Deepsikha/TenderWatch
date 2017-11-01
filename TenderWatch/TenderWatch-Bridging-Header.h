@@ -12,7 +12,6 @@
 #import <Google/SignIn.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import "FZAccordionTableView.h"
 #import "PayPalMobile.h"
 
 #endif /* TenderWatch_Bridging_Header_h */

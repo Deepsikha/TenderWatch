@@ -66,6 +66,7 @@ PODS:
   - IQKeyboardManager (4.0.10)
   - JTSImageViewController (1.5.1)
   - ObjectMapper (2.2.6)
+  - PDFReader (2.4.0)
   - RSKImageCropper (1.6.1)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
@@ -83,6 +84,7 @@ DEPENDENCIES:
   - IQKeyboardManager
   - JTSImageViewController
   - ObjectMapper
+  - PDFReader
   - RSKImageCropper
   - SDWebImage
   - Stripe
@@ -109,10 +111,11 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
   JTSImageViewController: 1f8ce1cc93dab0d0af8e53badeea7528560cfec9
   ObjectMapper: '042708195cc46c20871cbcbec0453826398273fd'
+  PDFReader: 0bb6be11c8876c6cea2598f0a0ab9b6640a8a018
   RSKImageCropper: 0df8c99e77a8ea7ca7a8b83ef468556f31584254
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   Stripe: 898f83a95d72180c6eb4acd65b2ae6158fc6a8bd
 
-PODFILE CHECKSUM: 5562ce7103215306d676d581fa98e5196c64e026
+PODFILE CHECKSUM: 5651899687d9ec412d87e332109a16370523defc
 
 COCOAPODS: 1.2.0

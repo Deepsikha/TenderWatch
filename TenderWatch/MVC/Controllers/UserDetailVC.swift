@@ -57,12 +57,6 @@ class UserDetailVC: UIViewController, UIScrollViewDelegate, MFMailComposeViewCon
         tap.cancelsTouchesInView = false
         self.imgUser.addGestureRecognizer(tap)
         
-        let btn = UIButton(frame: CGRect(x: 10, y: 30, width: 30, height: 30))
-        btn.setImage(UIImage(named: "cancel-menu"), for: .normal)
-        btn.layer.backgroundColor = UIColor.clear.cgColor
-        btn.addTarget(self, action: #selector(self.tapHandler(sender:)), for: .touchDown)
-//        vwImage.addSubview(btn)
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -111,10 +105,6 @@ class UserDetailVC: UIViewController, UIScrollViewDelegate, MFMailComposeViewCon
     override func viewDidLayoutSubviews() {
         self.transperentView.frame = self.view.frame
         self.txtVw.frame = CGRect(x: self.view.frame.width / 2 - 130, y: self.view.frame.height / 2 - 150, width: 260, height: 300)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        //store rating
     }
     
     override func didReceiveMemoryWarning() {
@@ -246,9 +236,7 @@ class UserDetailVC: UIViewController, UIScrollViewDelegate, MFMailComposeViewCon
             imageInfo.referenceView = imgUser.superview
             imageInfo.referenceContentMode = imgUser.contentMode
             imageInfo.referenceCornerRadius = imgUser.layer.cornerRadius
-            // Setup view controller
             let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: .image, backgroundStyle: .scaled)
-            // Present the view controller.
             imageViewer?.show(from: self, transition: .fromOriginalPosition)
         }
 

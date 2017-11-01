@@ -46,7 +46,6 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         nav2 = UINavigationController(rootViewController: SubscriptionVC())
         
-//        nav3 = UINavigationController(rootViewController: MappingVC())
         nav4 = UINavigationController(rootViewController: UploadTenderVC())
         
         nav5 = UINavigationController(rootViewController: SignUpVC2())
@@ -154,7 +153,12 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             })
         } else if item == "Subscription Details" {
             appDelegate.drawerController.centerViewController = nav2
-            appDelegate.drawerController.closeDrawer(animated: true, completion: nil)
+            appDelegate.drawerController.closeDrawer(animated: true, completion: { (activation) in
+                if appDelegate.isClient! ? false : (!(USER?.isPayment)!) {
+                    let vc = UINavigationController(rootViewController: PaymentVC())
+                    self.nav2?.present(vc, animated: true, completion: nil)
+                }
+            })
         } else if  item == "Upload Tender" {
             appDelegate.drawerController.centerViewController = nav4
             appDelegate.drawerController.closeDrawer(animated: true, completion: { (activation) in
@@ -213,7 +217,6 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
             UserManager.shared.logoutCurrentUser()
-            //            let nav = UINavigationController(rootViewController: HomeVC())
             
             appDelegate.drawerController.centerViewController = nav9
             self.nav1 = nil

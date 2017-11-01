@@ -16,7 +16,6 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
     
     @IBOutlet weak var btnBack: UIButton!
     //PaymentVC var
-//    static var services = [Services]()
     static var service = [String: [String]]()
     
     //paypal 
@@ -57,6 +56,7 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
         payPalConfig.payPalShippingAddressOption = .payPal;
         
         if PaymentVC.service.isEmpty {
+            signUpUser.subscribe = (USER?.subscribe?.rawValue)!
             self.getServices()
         } else {
             self.paybleAmount()
@@ -88,7 +88,6 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
     func payPalPaymentViewController(_ paymentViewController: PayPalPaymentViewController, didComplete completedPayment: PayPalPayment) {
         print("PayPal Payment Success !")
         paymentViewController.dismiss(animated: true, completion: { () -> Void in
-            // send completed confirmaion to your server
             self.sendToServer(completedPayment.confirmation)
             self.resultText = completedPayment.description
             self.updateServicesAfterPayment()
@@ -104,7 +103,6 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
     func payPalProfileSharingViewController(_ profileSharingViewController: PayPalProfileSharingViewController, userDidLogInWithAuthorization profileSharingAuthorization: [AnyHashable: Any]) {
         print("PayPal Profile Sharing Authorization Success!")
         
-        // send authorization to your server
         
         profileSharingViewController.dismiss(animated: true, completion: { () -> Void in
             self.resultText = profileSharingAuthorization.description
@@ -115,7 +113,6 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
     
     //MARK:- Card Delegate
     func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
-        // Dismiss add card view controller
         dismiss(animated: true)
     }
     
@@ -230,14 +227,13 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
         self.item = []
         for i in PaymentVC.service {
             for j in i.value {
-                let item = PayPalItem(name: "\(String(describing: i.key)) -> \(j)", withQuantity: 1, withPrice: NSDecimalNumber(string: USER?.subscribe == subscriptionType.monthly ? "15" : "120"), withCurrency: "USD", withSku: "")
+                let item = PayPalItem(name: "\(String(describing: i.key)) -> \(j)", withQuantity: 1, withPrice: NSDecimalNumber(string: signUpUser.subscribe == subscriptionType.monthly.rawValue ? "15" : "120"), withCurrency: "USD", withSku: "")
                 self.item.append(item)
             }
         }
         
         let subtotal = PayPalItem.totalPrice(forItems: self.item)
 
-        // Optional: include payment details
         let shipping = NSDecimalNumber(string: "0.00")
         let tax = NSDecimalNumber(string: "0.00")
         let paymentDetails = PayPalPaymentDetails(subtotal: subtotal, withShipping: shipping, withTax: tax)
@@ -267,12 +263,11 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
         self.item = []
         for i in PaymentVC.service {
             for j in i.value {
-                let item = PayPalItem(name: "\(String(describing: i.key)) -> \(j)", withQuantity: 1, withPrice: NSDecimalNumber(string: USER?.subscribe == subscriptionType.monthly ? "15" : "120"), withCurrency: "USD", withSku: "")
+                let item = PayPalItem(name: "\(String(describing: i.key)) -> \(j)", withQuantity: 1, withPrice: NSDecimalNumber(string: signUpUser.subscribe == subscriptionType.monthly.rawValue ? "15" : "120"), withCurrency: "USD", withSku: "")
                 self.item.append(item)
             }
         }
         resultText = ""
-        // Optional: include multiple items
         self.totalamount = PayPalItem.totalPrice(forItems: self.item)
     }
     
@@ -281,7 +276,6 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
         let addCardViewController = STPAddCardViewController()
         addCardViewController.delegate = self
         addCardViewController.title = "CreDit Card"
-        // Present add card view controller
         let navigationController = UINavigationController(rootViewController: addCardViewController)
         self.present(navigationController, animated: true)
     }
@@ -311,12 +305,8 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
     func summaryItems(for shippingMethod: PKShippingMethod) -> [Any] {
         let shirtItem = PKPaymentSummaryItem(label: "Stripe", amount: self.totalamount)
         let total: NSDecimalNumber? = shirtItem.amount.adding(shippingMethod.amount)
-        let totalItem = PKPaymentSummaryItem(label: "Stripe Shirt Shop", amount: total!)
+        let totalItem = PKPaymentSummaryItem(label: "For Subscription", amount: total!)
         return [shirtItem, shippingMethod, totalItem]
-    }
-    //notify the server
-    func donePayment() {
-        
     }
     
     func sendToServer(_ param: [AnyHashable: Any]) {
@@ -327,16 +317,21 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
     
     func updateServicesAfterPayment() {
         if isNetworkReachable() {
-            Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : PaymentVC.service, "payment": self.totalamount], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+            self.startActivityIndicator()
+            Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : PaymentVC.service, "payment": self.totalamount, "subscribe": signUpUser.subscribe], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if (resp.response?.statusCode == 200) {
+                    let string = (resp.result.value as! NSObject).value(forKey: "url") as! String
                     let tempUser = USER
                     tempUser?.isPayment = true
                     tempUser?.payment = (USER?.isPayment!)! ?  self.totalamount.adding(USER?.payment as! NSDecimalNumber) as Float : USER?.payment
+                    tempUser?.invoiceURL = string
                     UserManager.shared.user = tempUser
                     appDelegate.setHomeViewController()
                     MessageManager.showAlert(nil, "Thank You.\n\nEnjoy your services in particular country and category.")
+                    self.stopActivityIndicator()
                 } else {
                     MessageManager.showAlert(nil, "Services can't Updated.")
+                    self.stopActivityIndicator()
                 }
             })
         } else {

@@ -10,32 +10,20 @@ import UIKit
 import Alamofire
 import ObjectMapper
 import PassKit
-import Stripe
+import PDFReader
 
-class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSource, STPPaymentContextDelegate {
+class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var btnPayment: UIButton!
     @IBOutlet weak var tblSubscription: UITableView!
     
+    @IBOutlet weak var vwPDF: UIView!
     var country = [Country]()
     var category = [Category]()
-    var selection = [Selections]()
     var sectionTitleList = [String]()
     var services = [Services]()
     
     var shippingManager = ShippingManager()
-    var payButton: UIButton?
-    var applePaySucceeded: Bool?
-    var applePayError: NSError?
-    
-    private var customerContext : STPCustomerContext?
-    private var paymentContext : STPPaymentContext?
-    private var price: Int = 0 {
-        didSet {
-            // Forward value to payment context
-            paymentContext?.paymentAmount = price
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +34,9 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tblSubscription.register(UINib(nibName: "MappingCell", bundle: nil), forCellReuseIdentifier: "MappingCell")
         self.tblSubscription.tableFooterView = UIView()
         
-        title = "PayPal SDK Demo"
-        
+        title = "Invoice"
         self.fetchCoutry()
-        // Do any additional setup after loading the view.
+        self.createPDF()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,56 +101,6 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         return index
     }
-    
-    //MARK:- STPPaymentContext Delegate
-    func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
-        // Use generic error message
-        print("[ERROR]: Unrecognized error while loading payment context: \(error)");
-        
-        present(UIAlertController(message: "Could not retrieve payment information", retryHandler: { (action) in
-            // Retry payment context loading
-            paymentContext.retryLoading()
-        }), animated: true)
-    }
-    
-    func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
-        // Reload related components
-//        reloadPaymentButtonContent()
-        //        switch paymentContext.selectedPaymentMethod.label :
-        //        case
-    }
-    
-    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
-        // Create charge using payment result
-        
-        APIManager.shared.completeCharge(paymentResult, amount: self.price) { (resp, error) in
-            guard error == nil else {
-                // Error while requesting ride
-                completion(error)
-                return
-            }
-            
-            // Save ride info to display after payment finished
-            print("start payment")
-            completion(nil)
-        }
-    }
-    
-    func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
-        switch status {
-        case .success:
-            print("success!!!")
-            break
-        case .error:
-            // Use generic error message
-            print("[ERROR]: Unrecognized error while finishing payment: \(String(describing: error))");
-            MessageManager.showAlert(nil, "Could not request ride")
-            break
-            
-        case .userCancellation:
-            break
-        }
-    }
    
     //MARK:- IBActions
     @IBAction func handleBtnMenu(_ sender: Any) {
@@ -172,40 +109,7 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func handleBtnPayment(_ sender: Any) {
         let vc = UINavigationController(rootViewController: SelectCountryVC())
-////        let vc = SelectCountryVC(nibName: "SelectCountryVC", bundle: nil)
         self.present(vc, animated: true, completion: nil)
-
-//        let option = UIAlertController(title: nil, message: "Payment Options", preferredStyle: .actionSheet)
-//        
-//        let paypal = UIAlertAction(title: "PayPal", style: .default) { (action) in
-//            MessageManager.showAlert(nil, "Coming Soon!!!")
-//        }
-//        
-//        let cards = UIAlertAction(title: "Debit/Credit Card", style: .default) { (action) in
-//           MessageManager.showAlert(nil, "Coming Soon!!!")
-//        }
-//        
-//        let applePay = UIAlertAction(title: "ApplePay", style: .default) { (action) in
-//            MessageManager.showAlert(nil, "Coming Soon!!!")
-//        }
-//        
-//        let bank = UIAlertAction(title: "Using Bank a/c", style: .default) { (action) in
-//            let nv = UINavigationController(rootViewController: BankPaymentVC())
-//            BankPaymentVC.price = self.price
-//            self.present(nv, animated: true, completion: nil)
-//        }
-//        
-//        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//        })
-//        
-//        option.addAction(paypal)
-//        option.addAction(cards)
-//        option.addAction(applePay)
-//        option.addAction(bank)
-//        option.addAction(cancel)
-//        self.present(option, animated: true, completion: nil)
-        
     }
     
     //MARK:- Custom Methods
@@ -276,10 +180,10 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             i.categoryId = arr
         }
         
-        self.price = count * 12000
         self.services = self.services.sorted(by: { (a, b) -> Bool in
             a.countryId! < b.countryId!
         })
+        
         var cId: String = ""
         var catId: [String] = []
         var arrSelectSort = [Services]()
@@ -314,38 +218,17 @@ class SubscriptionVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tblSubscription.reloadData()
     }
     
-    func sendToServer(_ param: [AnyHashable: Any]) {
-        Alamofire.request(PAYPAL, method: .post, parameters: param as? Parameters, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON { (resp) in
-            print("Here is your proof of payment:\n\n\(param)\n\nSend this to your server for confirmation and fulfillment.")
+    func createPDF() {
+        if USER?.invoiceURL != nil {
+         let data = PDFDocument(url: URL(string: (USER?.invoiceURL)!)!)
+            let cntrl = PDFViewController.createNew(with: data!, title: "Subscription")
+            cntrl.scrollDirection = .vertical
+            cntrl.backgroundColor = UIColor.white
+            self.addChildViewController(cntrl)
+            cntrl.view.frame = self.vwPDF.bounds
+            self.vwPDF.addSubview(cntrl.view)
         }
     }
-    
-    func setEnvForStripe() {
-        customerContext = STPCustomerContext(keyProvider: APIManager.shared)
-        paymentContext = STPPaymentContext(customerContext: customerContext!)
-        paymentContext?.delegate = self
-        paymentContext?.hostViewController = self
-        
-        presentPaymentMethodsViewController()
-    }
-    
-    func presentPaymentMethodsViewController() {
-        guard !STPPaymentConfiguration.shared().publishableKey.isEmpty else {
-            // Present error immediately because publishable key needs to be set
-            MessageManager.showAlert(nil, "Please assign a value to `publishableKey` before continuing. See `AppDelegate.swift`.")
-            return
-        }
-        
-        guard !BASE_URL.isEmpty else {
-            // Present error immediately because base url needs to be set
-            MessageManager.showAlert(nil, "Please assign a value to `MainAPIClient.shared.baseURLString` before continuing. See `AppDelegate.swift`.")
-            return
-        }
-        
-        // Present the Stripe payment methods view controller to enter payment details
-        paymentContext?.presentPaymentMethodsViewController()
-    }
-    
 }
 
 class ShippingManager: NSObject {

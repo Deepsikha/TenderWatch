@@ -124,7 +124,6 @@
     
     override func viewWillDisappear(_ animated: Bool) {
         if(SignUpVC2.updated) {
-            //        self.btnnext.isEnabled = false
             self.btnnext.alpha = 0.5
             SignUpVC2.isUpdated = false
         }

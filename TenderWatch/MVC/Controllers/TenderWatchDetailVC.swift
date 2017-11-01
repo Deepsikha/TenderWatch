@@ -26,8 +26,6 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var btnDelete: UIButton!
     @IBOutlet weak var btnInterested: UIButton!
     
-//    @IBOutlet weak var imgScrollView: ImageScrollView!
-    
     @IBOutlet var vwClientDetail: UIView!
     @IBOutlet weak var imgIsFollow: UIImageView!
     
@@ -67,13 +65,11 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         self.tblTenderContactDetail.dataSource = self
         
         self.tblTenderContactDetail.estimatedRowHeight = 100
-//        self.tblTenderContactDetail.rowHeight = UITableViewAutomaticDimension
         
         self.tblTenderContactDetail.register(UINib(nibName: "ClientDetailCell", bundle: nil), forCellReuseIdentifier: "ClientDetailCell")
         
         getDetail()
         
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidLayoutSubviews() {
@@ -203,14 +199,9 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
                         self.btnInterested.isEnabled = false
                         self.btnInterested.backgroundColor = UIColor(red: 145/255, green: 216/255, blue: 79/255, alpha: 0.7)
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "interested"), object: nil, userInfo: ["id":"\(self.tenderDetail.id!)","tag":"1"])
-                        
-                        
-                        //fire notification
-                        //work remaining based on client req.
                     }
                 }
             })
-            
         }
     }
     
@@ -333,11 +324,8 @@ class TenderWatchDetailVC: UIViewController, UITableViewDelegate, UITableViewDat
         imageInfo.referenceView = imgTenderPhoto.superview
         imageInfo.referenceContentMode = imgTenderPhoto.contentMode
         imageInfo.referenceCornerRadius = imgTenderPhoto.layer.cornerRadius
-        // Setup view controller
         let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: .image, backgroundStyle: .scaled)
-        // Present the view controller.
         imageViewer?.show(from: self, transition: .fromOriginalPosition)
-        
     }
-    
+
 }

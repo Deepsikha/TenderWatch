@@ -72,11 +72,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         picker = UIImagePickerController()
         picker.delegate = self
         picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        
-        //let tap = UITapGestureRecognizer(target: self, action: #selector(self.mainTap))
-        //tap.cancelsTouchesInView = false
-        //self.view.addGestureRecognizer(tap)
-        
+                
         self.btnContact.setTitle((self.btnContact.titleLabel!.text)!+"   ▼   ", for: .normal)
         if UploadTenderVC.isUpdate {
             self.getDetail()
@@ -478,9 +474,11 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             self.isChecked = !isChecked
         }
     }
+    
     @IBAction func handleBtnCancel(_ sender: Any) {
         appDelegate.setHomeViewController()
     }
+    
     //MARK:- Custom Method
     func registerNib(){
         //main view
@@ -580,9 +578,6 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                                     MessageManager.showAlert(nil, "\(err)")
                                     self.stopActivityIndicator()
                                 } else {
-//                                    let data = (resp.result.value as! NSObject)
-                                    //data parsing remianing because of unique response
-                                    //                            USER = Mapper<User>().map(JSON: data as! [String : Any])!
                                     self.stopActivityIndicator()
                                     UploadTenderVC.isUpdate = false
                                     appDelegate.setHomeViewController()

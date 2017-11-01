@@ -55,7 +55,6 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         tblOptions.layer.borderWidth = 1
         listBankAccount()
         self.startActivityIndicator()
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -393,11 +392,13 @@ class BankPaymentVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func paymentInfo() {
         if isNetworkReachable() {
-            Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : PaymentVC.service, "payment": 30], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+            Alamofire.request(GET_SERVICES, method: .put, parameters: ["selections" : PaymentVC.service, "payment": 30, "subscribe": signUpUser.subscribe], encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
                 if (resp.response?.statusCode == 200) {
+                    let string = (resp.result.value as! NSObject).value(forKey: "url") as! String
                     let tempUser = USER
                     tempUser?.isPayment = true
                     tempUser?.payment = (USER?.isPayment!)! ?  NSDecimalNumber(string: "30").adding(USER?.payment as! NSDecimalNumber) as Float : USER?.payment
+                    tempUser?.invoiceURL = string
                     UserManager.shared.user = tempUser
                     appDelegate.setHomeViewController()
                     MessageManager.showAlert(nil, "Thank You.\n\nEnjoy your services in particular country and category.")

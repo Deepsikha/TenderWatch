@@ -52,13 +52,11 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
          if(USER?.authenticationToken != nil) {
             self.btnSave.setTitle("Payment", for: .normal)
             self.lblName.isHidden = false
-            
-            self.lblPrice.text = USER?.subscribe == subscriptionType.free ? "Trial Version" : "$\(MappingVC.finalAmt) / \(USER?.subscribe == subscriptionType.monthly ? "month" : "year")"
         } else {
             self.btnSave.setTitle("Next", for: .normal)
             self.lblName.isHidden = true
-             self.lblPrice.text = signUpUser.subscribe == subscriptionType.free.rawValue ? "Trial Version" : "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
         }
+        self.lblPrice.text = signUpUser.subscribe == subscriptionType.free.rawValue ? "Trial Version" : "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
     }
     
     //MARK:- TableView Delegate
@@ -113,7 +111,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if (selectedIndexArray.contains(indexPath)) {
             
             selectedIndexArray.remove(at: selectedIndexArray.index(of: indexPath)!)
-//            self.lblPrice.
             if USER?.authenticationToken != nil {
                 if updateArray.count > 0 {
                     updateArray.remove(at: updateArray.index(of: indexPath)!)
@@ -122,8 +119,8 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     MappingVC.finalAmt = 0
                     self.lblPrice.text = "Trial version"
                 } else {
-                    MappingVC.finalAmt = USER?.subscribe == subscriptionType.monthly ? self.updateArray.count * 15 : self.updateArray.count * 120
-                    self.lblPrice.text = "$\(MappingVC.finalAmt) / \(USER?.subscribe == subscriptionType.monthly ? "month" : "year")"
+                    MappingVC.finalAmt = signUpUser.subscribe == subscriptionType.monthly.rawValue ? self.updateArray.count * 15 : self.updateArray.count * 120
+                    self.lblPrice.text = "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
                 }
             } else {
                 if signUpUser.subscribe != subscriptionType.free.rawValue {
@@ -150,8 +147,8 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     MappingVC.finalAmt = 0
                     self.lblPrice.text = "Trial version"
                 } else {
-                    MappingVC.finalAmt = USER?.subscribe == subscriptionType.monthly ? self.updateArray.count * 15 : self.updateArray.count * 120
-                    self.lblPrice.text = "$\(MappingVC.finalAmt) / \(USER?.subscribe == subscriptionType.monthly ? "month" : "year")"
+                    MappingVC.finalAmt = signUpUser.subscribe == subscriptionType.monthly.rawValue ? self.updateArray.count * 15 : self.updateArray.count * 120
+                    self.lblPrice.text = "$\(MappingVC.finalAmt) / \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "month" : "year")"
                 }
             } else {
                 if signUpUser.subscribe != subscriptionType.free.rawValue {
@@ -216,7 +213,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         select.removeAll()
         if USER?.authenticationToken != nil {
-            signUpUser.subscribe = (USER?.subscribe)!.rawValue
             selectedIndexArray = updateArray
         }
         if selectedIndexArray.count > 0
@@ -243,7 +239,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             }
             print("dictionary:->",select)
-            //selectedIndexArray.removeAll()
             } else {
                 if (signUpUser.subscribe == subscriptionType.free.rawValue){
                     if selectedIndexArray.count > 1 {
@@ -374,7 +369,6 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.sectionTitleList.append(sectionTitle)
             }
         }
-        // self.tblMappings.reloadData()
     }
 
     func getServices() {
