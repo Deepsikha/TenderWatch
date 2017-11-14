@@ -115,7 +115,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 if updateArray.count > 0 {
                     updateArray.remove(at: updateArray.index(of: indexPath)!)
                 }
-                if USER?.subscribe == subscriptionType.free {
+                if signUpUser.subscribe == subscriptionType.free.rawValue {
                     MappingVC.finalAmt = 0
                     self.lblPrice.text = "Trial version"
                 } else {
@@ -143,7 +143,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             if USER?.authenticationToken != nil {
                 updateArray.append(indexPath)
-                if USER?.subscribe == subscriptionType.free {
+                if signUpUser.subscribe == subscriptionType.free.rawValue {
                     MappingVC.finalAmt = 0
                     self.lblPrice.text = "Trial version"
                 } else {
@@ -278,13 +278,13 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 if self.select.count > 1 {
                     MessageManager.showAlert(nil, "During Free Trial Period you can choose only 1 Category.")
                 } else if self.select.count == 0 {
-                    MessageManager.showAlert(nil, "During Free Trial Period you can choose at least 1 Category.")
+                    MessageManager.showAlert(nil, "During Free Trial Period You need to choose 1 Category.")
                 } else {
                     signUpUser.selections = self.select
                     self.navigationController?.pushViewController(RulesVC(), animated: true)
                 }
             } else if self.select.isEmpty {
-                MessageManager.showAlert(nil, "During \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "monthly" : "yearly") subscription you can choose at least 1 Category.")
+                MessageManager.showAlert(nil, "You have to choose at least 1 Category")
             } else {
                 signUpUser.selections = self.select
                 PaymentVC.service = signUpUser.selections
@@ -427,7 +427,7 @@ class MappingVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func updateService() {
-        if USER?.subscribe != subscriptionType.free ? self.select.isEmpty : self.preSelectedIndexArray.isEmpty {
+        if self.select.isEmpty {
             MessageManager.showAlert(nil, "Select at least one new category")
         } else {
             let vc = PaymentVC(nibName: "PaymentVC", bundle: nil)

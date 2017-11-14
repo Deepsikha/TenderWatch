@@ -33,6 +33,10 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                 alert.dismiss(animated: true, completion: nil)
             }
         }
+        
+        if signUpUser.subscribe == subscriptionType.free.rawValue {
+            self.generatePDFFree()
+        }
 //        if (USER?.isPayment)! {
         
             if USER?.role == RollType.client {
@@ -413,6 +417,28 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                 let tender = self.tender.filter{$0.id == (notification.userInfo!["tenderId"]! as! String)}[0]
                 tender.favorite = tender.favorite?.filter{ _ in USER!._id! != (notification.userInfo!["id"]! as! String)}
             }
+        }
+    }
+    
+    func generatePDFFree() {
+        if isNetworkReachable() {
+            self.startActivityIndicator()
+            Alamofire.request(GET_SERVICES, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": "Bearer \(UserManager.shared.user!.authenticationToken!)"]).responseJSON(completionHandler: { (resp) in
+                if (resp.response?.statusCode == 200) {
+                    let string = (resp.result.value as! NSObject).value(forKey: "invoiceURL") as! String
+                    let tempUser = USER
+                    tempUser?.isPayment = true
+                    tempUser?.payment = 0
+                    tempUser?.invoiceURL = string
+                    UserManager.shared.user = tempUser
+                    self.stopActivityIndicator()
+                } else {
+                    MessageManager.showAlert(nil, "Services can't Updated.")
+                    self.stopActivityIndicator()
+                }
+            })
+        } else {
+            MessageManager.showAlert(nil, "No Internet!!!")
         }
     }
 }

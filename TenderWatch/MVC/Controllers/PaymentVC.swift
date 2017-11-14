@@ -325,6 +325,9 @@ class PaymentVC: UIViewController, PayPalPaymentDelegate, PayPalProfileSharingDe
                     tempUser?.isPayment = true
                     tempUser?.payment = (USER?.isPayment!)! ?  self.totalamount.adding(USER?.payment as! NSDecimalNumber) as Float : USER?.payment
                     tempUser?.invoiceURL = string
+                    if USER?.subscribe == subscriptionType.free {
+                        tempUser?.subscribe = subscriptionType(rawValue: signUpUser.subscribe)
+                    }
                     UserManager.shared.user = tempUser
                     appDelegate.setHomeViewController()
                     MessageManager.showAlert(nil, "Thank You.\n\nEnjoy your services in particular country and category.")

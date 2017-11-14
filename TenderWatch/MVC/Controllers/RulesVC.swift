@@ -144,7 +144,11 @@ class RulesVC: UIViewController {
                                 if USER?.role == RollType.client {
                                     appDelegate.setHomeViewController()
                                 } else {
-                                    self.navigationController?.pushViewController(PaymentVC(), animated: true)
+                                    if USER?.subscribe == subscriptionType.free {
+                                        appDelegate.setHomeViewController()
+                                    } else {
+                                        self.navigationController?.pushViewController(PaymentVC(), animated: true)
+                                    }
                                 }
                                 self.store()
                             }

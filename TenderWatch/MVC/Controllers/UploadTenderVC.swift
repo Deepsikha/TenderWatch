@@ -535,7 +535,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func submit(_ url: String, _ reqMethod: HTTPMethod, _ param: Parameters, _ message: String) {
-        if !(UploadTenderVC.isUpdate) ? ((!(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 9)) || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty) || self.btnFollow.imageView?.image == checkedImage)) : ((!(self.btnSelectCountry.titleLabel!.text!.isEmpty) && !(self.btnSelectCategory.titleLabel!.text!.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 9)) || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty) || self.btnFollow.imageView!.image! == checkedImage)) {
+        if !(UploadTenderVC.isUpdate) ? ((!(self.uploadTender.ctId.isEmpty) && !(self.uploadTender.cId.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)! && !(self.txfCity.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 9)) || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty) || self.btnFollow.imageView?.image == checkedImage)) : ((!(self.btnSelectCountry.titleLabel!.text!.isEmpty) && !(self.btnSelectCategory.titleLabel!.text!.isEmpty) && !(self.txfTenderTitle.text?.isEmpty)! && !(self.txfCity.text?.isEmpty)!) && (!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 9)) || !(self.txfLandLineNo.text?.isEmpty)! || (!(self.txtvwAddress.text == "Address") && !self.txtvwAddress.text.isEmpty) || self.btnFollow.imageView!.image! == checkedImage)) {
             
             if isNetworkReachable() {
                 self.startActivityIndicator()
@@ -605,6 +605,8 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
                 MessageManager.showAlert(nil, "Select Category")
             } else if !(!(self.txfEmail.text?.isEmpty)! || (!(self.txfMobileNo.text?.isEmpty)! && isValidNumber(self.txfMobileNo.text!, length: 9)) || !(self.txfLandLineNo.text?.isEmpty)! || !(self.txtvwAddress.text == "Address")  || self.btnFollow.imageView!.image! == checkedImage){
                 MessageManager.showAlert(nil, "Enter valid Contact Details")
+            } else if (self.txfCity.text?.isEmpty)! {
+                MessageManager.showAlert(nil, "Enter Valid City Name")
             } else {
                 MessageManager.showAlert(nil, "Enter Title")
             }

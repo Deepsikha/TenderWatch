@@ -97,6 +97,7 @@ class RegisterCountryVC: UIViewController, UITableViewDataSource, UITableViewDel
             signUpUser.country = (country?.countryName!)!
             RegisterCountryVC.countryCode = "+"+(country?.countryCode!)!
         }
+        self.searchCountry.resignFirstResponder()
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

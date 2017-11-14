@@ -136,8 +136,10 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         appDelegate.drawerController.centerViewController = nav5
         appDelegate.drawerController.closeDrawer(animated: true, completion: { (activation) in
             if appDelegate.isClient! ? false : (!(USER?.isPayment)!){
-                let vc = UINavigationController(rootViewController: PaymentVC())
-                self.nav5?.present(vc, animated: true, completion: nil)
+                if USER?.subscribe != subscriptionType.free {
+                    let vc = UINavigationController(rootViewController: PaymentVC())
+                    self.nav5?.present(vc, animated: true, completion: nil)
+                }
             }
         })
     }
@@ -147,48 +149,60 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             appDelegate.drawerController.centerViewController = nav1
             appDelegate.drawerController.closeDrawer(animated: true, completion: { (activation) in
                 if appDelegate.isClient! ? false : (!(USER?.isPayment)!) {
-                    let vc = UINavigationController(rootViewController: PaymentVC())
-                    self.nav1?.present(vc, animated: true, completion: nil)
+                    if USER?.subscribe != subscriptionType.free {
+                        let vc = UINavigationController(rootViewController: PaymentVC())
+                        self.nav1?.present(vc, animated: true, completion: nil)
+                    }
                 }
             })
         } else if item == "Subscription Details" {
             appDelegate.drawerController.centerViewController = nav2
             appDelegate.drawerController.closeDrawer(animated: true, completion: { (activation) in
                 if appDelegate.isClient! ? false : (!(USER?.isPayment)!) {
-                    let vc = UINavigationController(rootViewController: PaymentVC())
-                    self.nav2?.present(vc, animated: true, completion: nil)
+                    if USER?.subscribe != subscriptionType.free {
+                        let vc = UINavigationController(rootViewController: PaymentVC())
+                        self.nav2?.present(vc, animated: true, completion: nil)
+                    }
                 }
             })
         } else if  item == "Upload Tender" {
             appDelegate.drawerController.centerViewController = nav4
             appDelegate.drawerController.closeDrawer(animated: true, completion: { (activation) in
                 if appDelegate.isClient! ? false : (!(USER?.isPayment)!) {
-                    let vc = UINavigationController(rootViewController: PaymentVC())
-                    self.nav4?.present(vc, animated: true, completion: nil)
+                    if USER?.subscribe != subscriptionType.free {
+                        let vc = UINavigationController(rootViewController: PaymentVC())
+                        self.nav4?.present(vc, animated: true, completion: nil)
+                    }
                 }
             })
         } else if item == "Edit Profile" {
             appDelegate.drawerController.centerViewController = nav5
             appDelegate.drawerController.closeDrawer(animated: true, completion: { (activation) in
                 if appDelegate.isClient! ? false : (!(USER?.isPayment)!) {
-                    let vc = UINavigationController(rootViewController: PaymentVC())
-                    self.nav5?.present(vc, animated: true, completion: nil)
+                    if USER?.subscribe != subscriptionType.free {
+                        let vc = UINavigationController(rootViewController: PaymentVC())
+                        self.nav5?.present(vc, animated: true, completion: nil)
+                    }
                 }
             })
         } else if item == "Change Password" {
             appDelegate.drawerController.centerViewController = nav6
             appDelegate.drawerController.closeDrawer(animated: true, completion: { (activation) in
                 if appDelegate.isClient! ? false : (!(USER?.isPayment)!) {
-                    let vc = UINavigationController(rootViewController: PaymentVC())
-                    self.nav6?.present(vc, animated: true, completion: nil)
+                    if USER?.subscribe != subscriptionType.free {
+                        let vc = UINavigationController(rootViewController: PaymentVC())
+                        self.nav6?.present(vc, animated: true, completion: nil)
+                    }
                 }
             })
         } else if item == "Favorites" {
             appDelegate.drawerController.centerViewController = nav7
             appDelegate.drawerController.closeDrawer(animated: true, completion: { (activation) in
                 if appDelegate.isClient! ? false : (!(USER?.isPayment)!) {
-                    let vc = UINavigationController(rootViewController: PaymentVC())
-                    self.nav7?.present(vc, animated: true, completion: nil)
+                    if USER?.subscribe != subscriptionType.free {
+                        let vc = UINavigationController(rootViewController: PaymentVC())
+                        self.nav7?.present(vc, animated: true, completion: nil)
+                    }
                 }
             })
         } else if item == "Notifications" {
@@ -197,8 +211,10 @@ class SideMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             appDelegate.drawerController.centerViewController = nav8
             appDelegate.drawerController.closeDrawer(animated: true, completion: { (activation) in
                 if appDelegate.isClient! ? false : (!(USER?.isPayment)!) {
-                    let vc = UINavigationController(rootViewController: PaymentVC())
-                    self.nav7?.present(vc, animated: true, completion: nil)
+                    if USER?.subscribe != subscriptionType.free {
+                        let vc = UINavigationController(rootViewController: PaymentVC())
+                        self.nav7?.present(vc, animated: true, completion: nil)
+                    }
                 }
             })
         } else if item == "Contact Support Team" {

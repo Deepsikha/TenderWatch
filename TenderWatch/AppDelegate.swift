@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var drawerController = DrawerController()
-    var isClient: Bool?
+	var isClient: Bool?
     var isGoogle: Bool?
     var token: String!
     var notiNumber: Int!

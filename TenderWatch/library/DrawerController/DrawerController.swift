@@ -54,7 +54,6 @@ public extension UIViewController {
                 }
             }
         }
-        
         return CGRect.null
     }
 }

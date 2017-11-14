@@ -152,7 +152,7 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                     self.navigationController?.pushViewController(MappingVC(), animated: true)
                 }
             } else if MappingVC.demoCountry.isEmpty {
-                MessageManager.showAlert(nil, "During \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "monthly" : "yearly") subscription you can choose at least 1 Country")
+                MessageManager.showAlert(nil, "You have to choose at least 1 Country")
             } else {
                 MappingVC.demoCountry = MappingVC.demoCountry.sorted(by: { (a, b) -> Bool in
                     a.countryName! < b.countryName!
@@ -163,7 +163,7 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             if signUpUser.subscribe == subscriptionType.free.rawValue {
                 if MappingVC.demoCountry.count > 1 {
                     MessageManager.showAlert(nil, "During Free Trial Period you can choose only 1 Country")
-                } else if MappingVC.demoCountry.count == 0 {                                        MessageManager.showAlert(nil, "During Free Trial Period you can at least 1 Country")
+                } else if MappingVC.demoCountry.count == 0 {                                        MessageManager.showAlert(nil, "During Free Trial Period you have to choose 1 Country")
                 } else {
                     MappingVC.demoCountry = MappingVC.demoCountry.sorted(by: { (a, b) -> Bool in
                         a.countryName! < b.countryName!
@@ -171,7 +171,7 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                     self.navigationController?.pushViewController(MappingVC(), animated: true)
                 }
             } else if MappingVC.demoCountry.isEmpty {
-                MessageManager.showAlert(nil, "During \(signUpUser.subscribe == subscriptionType.monthly.rawValue ? "monthly" : "yearly") subscription you can choose at least 1 Country")
+                MessageManager.showAlert(nil, "You have to choose at least 1 Country ")
             } else {
                 MappingVC.demoCountry = MappingVC.demoCountry.sorted(by: { (a, b) -> Bool in
                     a.countryName! < b.countryName!
@@ -249,12 +249,18 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             self.lblPrice.text = "$\(self.amount) / year"
         })
         
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }
         alert.view.layer.cornerRadius = 25   // change corner radius
         if USER?.authenticationToken == nil {
             alert.addAction(action1)
         }
         alert.addAction(action2)
         alert.addAction(action3)
+        if USER?.authenticationToken != nil {
+            alert.addAction(cancel)
+        }
         
         present(alert, animated: true, completion: nil)
     }

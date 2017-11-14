@@ -59,9 +59,14 @@ extension Date {
         dateFormatter.dateFormat = "yyyy-MM-dd"     //yyyy-MM-dd'T'HH:mm:ss.SSSZ
     
         let endDate: Date = dateFormatter.date(from: date)! as Date
-        
-        let components = NSCalendar.current.dateComponents([.month, .day, .hour, .minute, .second], from: Date(), to: endDate as Date)
 
+        let calendar = NSCalendar.current
+        
+        // Replace the hour (time) of both dates with 00:00
+        let date1 = calendar.startOfDay(for: Date())
+        let date2 = calendar.startOfDay(for: endDate)
+        
+        let components = calendar.dateComponents([.day], from: date1, to: date2)
         return components
     }
     
@@ -171,6 +176,7 @@ extension UIAlertController {
     convenience init(message: String?, retryHandler: @escaping (UIAlertAction) -> Void) {
         self.init(title: "Oops", message: message, preferredStyle: .alert)
         
+
         let retryAction = UIAlertAction(title: "Retry", style: .default, handler: retryHandler)
         addAction(retryAction)
         
