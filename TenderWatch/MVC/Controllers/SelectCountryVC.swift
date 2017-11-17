@@ -20,8 +20,10 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
     
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet var opnDrwr: UIButton!
+    @IBOutlet weak var searchCountry: UISearchBar!
     
     var country = [Country]()
+    var filterCountry = [Country]()
     var services = [Services]()
     var selectCountry: [String]!
     var amount = 0
@@ -61,37 +63,80 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
         self.navigationController?.isNavigationBarHidden = true
     }
     
+    //MARK: SearchBar Delegate
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        self.searchCountry.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty{
+            filterCountry = country.filter {($0.countryName?.contains(searchText))!}
+            if filterCountry.count > 0 {
+                tblCountries.reloadData()
+            }
+        }else{
+            filterCountry = country
+            tblCountries.reloadData()
+        }
+    }
+    
     //MARK: - TableView Method(s)
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return country.count
+        if(filterCountry.count > 0){
+            return filterCountry.count
+        }else{
+            return country.count
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
-        let country = self.country[indexPath.row]
-        cell.countryName.text = country.countryName
-        cell.imgTick.isHidden = true
-        cell.imgFlag.image = UIImage(data: Data(base64Encoded: country.imgString!)!)
+        if filterCountry.count > 0{
+            let country = self.filterCountry[indexPath.row]
+            cell.countryName.text = country.countryName
+            cell.imgTick.isHidden = true
+            cell.imgFlag.image = UIImage(data: Data(base64Encoded: country.imgString!)!)
+            if MappingVC.demoCountry.contains(self.filterCountry[indexPath.row]) {
+                cell.imgTick.isHidden = false
+            }
+        }else{
+            let country = self.country[indexPath.row]
+            cell.countryName.text = country.countryName
+            cell.imgTick.isHidden = true
+            cell.imgFlag.image = UIImage(data: Data(base64Encoded: country.imgString!)!)
+            if MappingVC.demoCountry.contains(self.country[indexPath.row]) {
+                cell.imgTick.isHidden = false
+            }
+        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! RegisterCountryCell
+        var arrCountry = [Country]()
+        if(filterCountry.count > 0){
+            arrCountry = filterCountry
+        }else{
+            arrCountry = country
+        }
         if (USER?.authenticationToken != nil) {
             if (cell.imgTick.isHidden) {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
-                MappingVC.demoCountry.append(self.country[indexPath.row])
+                MappingVC.demoCountry.append(arrCountry[indexPath.row])
             } else {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 
-                if MappingVC.demoCountry.contains(self.country[indexPath.row]) {
+                if MappingVC.demoCountry.contains(arrCountry[indexPath.row]) {
                     
-                    if let itemToRemoveIndex = MappingVC.demoCountry.index(of: self.country[indexPath.row]) {
+                    if let itemToRemoveIndex = MappingVC.demoCountry.index(of: arrCountry[indexPath.row]) {
                         MappingVC.demoCountry.remove(at: itemToRemoveIndex)
                     }
                 }
@@ -101,7 +146,7 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             if (cell.imgTick.isHidden) {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 
-                MappingVC.demoCountry.append(self.country[indexPath.row])
+                MappingVC.demoCountry.append(arrCountry[indexPath.row])
                 
                 if signUpUser.subscribe != subscriptionType.free.rawValue {
                     self.amount = signUpUser.subscribe == subscriptionType.monthly.rawValue ? MappingVC.demoCountry.count * 15 : MappingVC.demoCountry.count * 120
@@ -110,9 +155,9 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             } else {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 
-                if MappingVC.demoCountry.contains(self.country[indexPath.row]) {
+                if MappingVC.demoCountry.contains(arrCountry[indexPath.row]) {
                     
-                    if let itemToRemoveIndex = MappingVC.demoCountry.index(of: self.country[indexPath.row]) {
+                    if let itemToRemoveIndex = MappingVC.demoCountry.index(of: arrCountry[indexPath.row]) {
                         MappingVC.demoCountry.remove(at: itemToRemoveIndex)
                         
                         if signUpUser.subscribe != subscriptionType.free.rawValue {

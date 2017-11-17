@@ -12,7 +12,7 @@ import ObjectMapper
 import RSKImageCropper
 import SDWebImage
 
-class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, RSKImageCropViewControllerDelegate {
+class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, RSKImageCropViewControllerDelegate,UISearchBarDelegate {
     
     @IBOutlet weak var opnDrwr: UIButton!
     @IBOutlet weak var lblName: UILabel!
@@ -31,6 +31,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var vwSelectCategory: UIView!
     @IBOutlet weak var vwMain: UIView!
     @IBOutlet var vwContactPopup: UIView!
+    @IBOutlet var vwSearchbar: UIView!
     @IBOutlet var tblOptions: UITableView!
     @IBOutlet weak var txfEmail: UITextField!
     @IBOutlet weak var lblCountryCode: UILabel!
@@ -44,6 +45,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnFollow: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var searchCountry: UISearchBar!
     
     let checkedImage = UIImage(named: "chaboxcheked")! as UIImage
     let uncheckedImage = UIImage(named: "chabox")! as UIImage
@@ -52,6 +54,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     var arrDropDown = [String]()
     var tender = [Tender]()
     var country = [Country]()
+    var filterdCountry = [Country]()
     var category = [Category]()
     var uploadTender = UploadTender()
     var picker: UIImagePickerController!
@@ -223,6 +226,28 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
             }
         }
     }
+    //MARK: SearchBar Delegate
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        filterdCountry = country
+        tblOptions.reloadData()
+        self.searchCountry.resignFirstResponder()
+    }
+   
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty{
+            filterdCountry = country.filter {($0.countryName?.contains(searchText))!}
+            if country.count > 0 {
+                tblOptions.reloadData()
+            }
+        }else{
+            filterdCountry = country
+            tblOptions.reloadData()
+        }
+    }
     
     // MARK:- Tableview Delegate
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -231,7 +256,13 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isCountry {
-            return self.country.count
+            if(filterdCountry.count > 0)
+            {
+                return self.filterdCountry.count
+            }else{
+                return self.country.count
+            }
+            
         } else {
             return self.category.count
         }
@@ -240,9 +271,16 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if isCountry {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell") as! RegisterCountryCell
-            let country = self.country[indexPath.row]
-            cell.countryName.text = country.countryName!
-            cell.imgFlag.image = UIImage(data: Data(base64Encoded: country.imgString!)!)
+            if(filterdCountry.count > 0)
+            {
+                let country = self.filterdCountry[indexPath.row]
+                cell.countryName.text = country.countryName!
+                cell.imgFlag.image = UIImage(data: Data(base64Encoded: country.imgString!)!)
+            }else{
+                let country = self.country[indexPath.row]
+                cell.countryName.text = country.countryName!
+                cell.imgFlag.image = UIImage(data: Data(base64Encoded: country.imgString!)!)
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MappingCell") as! MappingCell
@@ -316,6 +354,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func btnSelectCountry(_ sender: Any) {
+        self.tblOptions.tableHeaderView = vwSearchbar
         lblDropdownCat.text = "▼"
         if isDropDownActive == false{
             self.isCountry = true
@@ -337,6 +376,7 @@ class UploadTenderVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     @IBAction func btnSelectCategory(_ sender: Any) {
+        self.tblOptions.tableHeaderView = nil
         lblDropdown.text = "▼"
         if isDropDownActive == false{
             self.isCountry = false

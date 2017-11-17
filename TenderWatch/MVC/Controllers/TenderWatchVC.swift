@@ -25,7 +25,7 @@ class TenderWatchVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     override func viewDidLoad() {
         super.viewDidLoad()
         if !signUpUser.email.isEmpty {
-            let alert = UIAlertController(title: "TenderWatch", message: "You can swipe right on the Tenders for more options", preferredStyle: .alert)
+            let alert = UIAlertController(title: "TenderWatch", message: "You can swipe left on the Tenders for more options", preferredStyle: .alert)
             self.present(alert, animated: true, completion: nil)
             
             let when = DispatchTime.now() + 3

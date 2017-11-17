@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -58,8 +58,15 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="3u7-Po-3E2">
+                    <rect key="frame" x="16" y="157" width="288" height="44"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="rag-68-izp"/>
+                    </connections>
+                </searchBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yca-x6-xbb">
-                    <rect key="frame" x="16" y="173" width="288" height="292"/>
+                    <rect key="frame" x="16" y="201" width="288" height="264"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
@@ -104,15 +111,18 @@
                 <constraint firstItem="ldF-Ex-RgF" firstAttribute="centerY" secondItem="S60-sY-cBi" secondAttribute="centerY" id="4Wg-xQ-AcN"/>
                 <constraint firstItem="Jyt-OP-2hY" firstAttribute="leading" secondItem="8yJ-wh-Y2i" secondAttribute="leading" constant="51" id="69Y-WL-A7A"/>
                 <constraint firstItem="cHm-H8-z6y" firstAttribute="leading" secondItem="8yJ-wh-Y2i" secondAttribute="leading" constant="16" id="CBT-1B-McQ"/>
+                <constraint firstItem="3u7-Po-3E2" firstAttribute="leading" secondItem="8yJ-wh-Y2i" secondAttribute="leading" constant="16" id="FNY-lR-2Nm"/>
                 <constraint firstItem="TJm-Yn-TYf" firstAttribute="top" secondItem="8yJ-wh-Y2i" secondAttribute="top" constant="34" id="Hut-L4-6Qr"/>
                 <constraint firstAttribute="trailing" secondItem="S60-sY-cBi" secondAttribute="trailing" constant="16" id="IAs-Au-OX1"/>
                 <constraint firstItem="cHm-H8-z6y" firstAttribute="top" secondItem="yvy-50-DEv" secondAttribute="bottom" constant="8" id="MdY-gu-vJD"/>
                 <constraint firstItem="yvy-50-DEv" firstAttribute="top" secondItem="8yJ-wh-Y2i" secondAttribute="top" constant="64" id="NLg-C4-8Lr"/>
                 <constraint firstItem="Jyt-OP-2hY" firstAttribute="top" secondItem="yca-x6-xbb" secondAttribute="bottom" constant="29" id="NOz-2v-fmH"/>
-                <constraint firstItem="yca-x6-xbb" firstAttribute="top" secondItem="cHm-H8-z6y" secondAttribute="bottom" constant="16" id="QnD-fA-JmM"/>
                 <constraint firstItem="ldF-Ex-RgF" firstAttribute="centerX" secondItem="8yJ-wh-Y2i" secondAttribute="centerX" id="SWN-H3-nCF"/>
+                <constraint firstItem="3u7-Po-3E2" firstAttribute="top" secondItem="cHm-H8-z6y" secondAttribute="bottom" id="Uoi-OM-abV"/>
                 <constraint firstAttribute="bottom" secondItem="Jyt-OP-2hY" secondAttribute="bottom" constant="38" id="e7b-dY-4PY"/>
+                <constraint firstItem="yca-x6-xbb" firstAttribute="top" secondItem="3u7-Po-3E2" secondAttribute="bottom" id="gp5-D1-Yh7"/>
                 <constraint firstItem="S60-sY-cBi" firstAttribute="top" secondItem="8yJ-wh-Y2i" secondAttribute="top" constant="31" id="iix-Tf-KG5"/>
+                <constraint firstAttribute="trailing" secondItem="3u7-Po-3E2" secondAttribute="trailing" constant="16" id="lDq-N1-rf1"/>
                 <constraint firstItem="yca-x6-xbb" firstAttribute="leading" secondItem="8yJ-wh-Y2i" secondAttribute="leading" constant="16" id="nRA-mO-Ezc"/>
                 <constraint firstItem="ldF-Ex-RgF" firstAttribute="top" secondItem="8yJ-wh-Y2i" secondAttribute="top" constant="25" id="pO7-gp-Ym7"/>
                 <constraint firstAttribute="trailing" secondItem="yca-x6-xbb" secondAttribute="trailing" constant="16" id="r27-9k-bkE"/>
