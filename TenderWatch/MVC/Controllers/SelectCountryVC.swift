@@ -10,7 +10,7 @@ import UIKit
 import ObjectMapper
 import Alamofire
 
-class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate {
     
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
@@ -28,6 +28,7 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
     var selectCountry: [String]!
     var amount = 0
     var sectionTitleList = [String]()
+    var indexCountry = Dictionary<String, [Country]>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,79 +65,66 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
     }
     
     //MARK: SearchBar Delegate
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
-        searchBar.text = ""
-        self.searchCountry.resignFirstResponder()
-    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let textField:UITextField = searchBar.value(forKey: "_searchField") as! UITextField
+        textField.clearButtonMode = .never
         if !searchText.isEmpty{
             filterCountry = country.filter {($0.countryName?.contains(searchText))!}
             if filterCountry.count > 0 {
-                tblCountries.reloadData()
+                self.splitDataInToSection(country: self.filterCountry)
             }
         }else{
             filterCountry = country
-            tblCountries.reloadData()
+            self.splitDataInToSection(country: country)
+            searchBar.resignFirstResponder()
         }
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    
+    
     
     //MARK: - TableView Method(s)
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return sectionTitleList.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(filterCountry.count > 0){
-            return filterCountry.count
-        }else{
-            return country.count
-        }
-        
+        let index = sectionTitleList[section]
+        return self.indexCountry[index]!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let  cell = tableView.dequeueReusableCell(withIdentifier: "RegisterCountryCell", for: indexPath) as! RegisterCountryCell
-        if filterCountry.count > 0{
-            let country = self.filterCountry[indexPath.row]
-            cell.countryName.text = country.countryName
-            cell.imgTick.isHidden = true
-            cell.imgFlag.image = UIImage(data: Data(base64Encoded: country.imgString!)!)
-            if MappingVC.demoCountry.contains(self.filterCountry[indexPath.row]) {
-                cell.imgTick.isHidden = false
-            }
-        }else{
-            let country = self.country[indexPath.row]
-            cell.countryName.text = country.countryName
-            cell.imgTick.isHidden = true
-            cell.imgFlag.image = UIImage(data: Data(base64Encoded: country.imgString!)!)
-            if MappingVC.demoCountry.contains(self.country[indexPath.row]) {
-                cell.imgTick.isHidden = false
-            }
+        let index = sectionTitleList[indexPath.section]
+        let country = self.indexCountry[index]?[indexPath.row]
+        cell.countryName.text = country?.countryName
+        cell.imgTick.isHidden = true
+        cell.imgFlag.image = UIImage(data: Data(base64Encoded: (country?.imgString!)!)!)
+        if MappingVC.demoCountry.contains(country!) {
+            cell.imgTick.isHidden = false
         }
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! RegisterCountryCell
-        var arrCountry = [Country]()
-        if(filterCountry.count > 0){
-            arrCountry = filterCountry
-        }else{
-            arrCountry = country
-        }
+        let index = sectionTitleList[indexPath.section]
+        let country = self.indexCountry[index]?[indexPath.row]
         if (USER?.authenticationToken != nil) {
             if (cell.imgTick.isHidden) {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
-                MappingVC.demoCountry.append(arrCountry[indexPath.row])
+                MappingVC.demoCountry.append(country!)
             } else {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 
-                if MappingVC.demoCountry.contains(arrCountry[indexPath.row]) {
+                if MappingVC.demoCountry.contains(country!) {
                     
-                    if let itemToRemoveIndex = MappingVC.demoCountry.index(of: arrCountry[indexPath.row]) {
+                    if let itemToRemoveIndex = MappingVC.demoCountry.index(of: country!) {
                         MappingVC.demoCountry.remove(at: itemToRemoveIndex)
                     }
                 }
@@ -146,7 +134,7 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             if (cell.imgTick.isHidden) {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 
-                MappingVC.demoCountry.append(arrCountry[indexPath.row])
+                MappingVC.demoCountry.append(country!)
                 
                 if signUpUser.subscribe != subscriptionType.free.rawValue {
                     self.amount = signUpUser.subscribe == subscriptionType.monthly.rawValue ? MappingVC.demoCountry.count * 15 : MappingVC.demoCountry.count * 120
@@ -155,9 +143,9 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             } else {
                 cell.imgTick.isHidden = !cell.imgTick.isHidden
                 
-                if MappingVC.demoCountry.contains(arrCountry[indexPath.row]) {
+                if MappingVC.demoCountry.contains(country!) {
                     
-                    if let itemToRemoveIndex = MappingVC.demoCountry.index(of: arrCountry[indexPath.row]) {
+                    if let itemToRemoveIndex = MappingVC.demoCountry.index(of: country!) {
                         MappingVC.demoCountry.remove(at: itemToRemoveIndex)
                         
                         if signUpUser.subscribe != subscriptionType.free.rawValue {
@@ -173,6 +161,21 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                 }
             }
         }
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.sectionTitleList[section]
+    }
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return self.sectionTitleList
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 26
+    }
+    
+    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return index
     }
     
     //MARK: - IBButtonAction
@@ -238,7 +241,7 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                     self.country = self.country.sorted(by: { (a, b) -> Bool in
                         a.countryName! < b.countryName!
                     })
-                    
+                    self.splitDataInToSection(country: self.country)
                     self.stopActivityIndicator()
                     self.tblCountries.reloadData()
                     
@@ -252,19 +255,27 @@ class SelectCountryVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
         }
     }
     
-    func splitDataInToSection() {
-        
+    func splitDataInToSection(country: [Country]) {
         var sectionTitle: String = ""
-        for i in 0..<self.country.count {
-            
-            let currentRecord = self.country[i].countryName
+        var arr: [Country] = []
+        self.indexCountry = [:]
+        self.sectionTitleList = []
+        for i in country {
+            let currentRecord = i.countryName
             let firstChar = currentRecord?[(currentRecord?.startIndex)!]
             let firstCharString = "\(String(describing: firstChar!))"
             if firstCharString != sectionTitle {
+                arr = []
                 sectionTitle = firstCharString
+                arr.append(i)
+                self.indexCountry[sectionTitle] = arr
                 self.sectionTitleList.append(sectionTitle)
+            } else {
+                arr.append(i)
+                self.indexCountry[sectionTitle] = arr
             }
         }
+        self.tblCountries.reloadData()
     }
     
     func takeSubscription() {
