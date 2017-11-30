@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -47,7 +48,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIT-fI-plB">
-                    <rect key="frame" x="23" y="34" width="70" height="22"/>
+                    <rect key="frame" x="23" y="25" width="70" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="FZT-Hp-MW7"/>
                     </constraints>
@@ -127,9 +128,9 @@
                 <constraint firstAttribute="trailing" secondItem="D68-5B-CQy" secondAttribute="trailing" constant="16" id="CvG-ui-3NJ"/>
                 <constraint firstItem="fBO-fB-7zh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="22.760171306209941" id="JmM-5U-JgP"/>
                 <constraint firstItem="PcS-WD-EYF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="QQY-Dj-0zR"/>
+                <constraint firstItem="jQf-T0-nZy" firstAttribute="top" secondItem="XIT-fI-plB" secondAttribute="top" constant="-5" id="XMt-xN-bgg"/>
                 <constraint firstItem="upb-J9-TqC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="90" id="afL-28-41U"/>
                 <constraint firstItem="D68-5B-CQy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="beT-0x-N55"/>
-                <constraint firstItem="XIT-fI-plB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="cOa-j0-11w"/>
                 <constraint firstAttribute="trailing" secondItem="fBO-fB-7zh" secondAttribute="trailing" constant="23.239828693790173" id="gjR-SI-S9y"/>
                 <constraint firstItem="upb-J9-TqC" firstAttribute="leading" secondItem="xBu-c2-hUY" secondAttribute="trailing" constant="21" id="iDv-Z4-7wA"/>
                 <constraint firstItem="D68-5B-CQy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="kCG-Y1-GNM"/>
@@ -138,6 +139,7 @@
                 <constraint firstItem="XIT-fI-plB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="sKl-B4-ZcR"/>
                 <constraint firstItem="fBO-fB-7zh" firstAttribute="top" secondItem="D68-5B-CQy" secondAttribute="bottom" constant="8" id="vZ4-Nd-pHv"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="jQf-T0-nZy"/>
         </view>
     </objects>
     <resources>

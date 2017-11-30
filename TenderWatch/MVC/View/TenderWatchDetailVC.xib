@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -36,7 +37,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="So2-zm-mG3">
-                    <rect key="frame" x="10" y="34" width="70" height="22"/>
+                    <rect key="frame" x="10" y="28.5" width="70" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="dva-c3-I8l"/>
                         <constraint firstAttribute="height" constant="22" id="h9t-27-Bm9"/>
@@ -297,7 +298,7 @@
                     </constraints>
                 </scrollView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tender Detail" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iLd-BN-g4i">
-                    <rect key="frame" x="88" y="31" width="144" height="29"/>
+                    <rect key="frame" x="88" y="25" width="144" height="29"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="144.00000000000011" id="fgL-Px-t0V"/>
                     </constraints>
@@ -308,17 +309,18 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="iLd-BN-g4i" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30.5" id="3FG-vh-SNj"/>
                 <constraint firstAttribute="bottom" secondItem="Lwt-hA-Ox7" secondAttribute="bottom" id="4Mz-j9-pRI"/>
                 <constraint firstItem="Lwt-hA-Ox7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5jw-tb-nJ8"/>
-                <constraint firstItem="Lwt-hA-Ox7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="9Tu-Ua-y5c"/>
+                <constraint firstItem="So2-zm-mG3" firstAttribute="centerY" secondItem="iLd-BN-g4i" secondAttribute="centerY" id="9Pp-7q-ZLK"/>
                 <constraint firstAttribute="trailing" secondItem="VYd-Wc-jJm" secondAttribute="trailing" id="9oU-Fx-USS"/>
                 <constraint firstItem="iLd-BN-g4i" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="CD7-nM-kLX"/>
                 <constraint firstItem="So2-zm-mG3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="ExI-Xk-qJr"/>
-                <constraint firstItem="So2-zm-mG3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="fN7-4U-aEr"/>
+                <constraint firstItem="Uxu-bV-nyW" firstAttribute="top" secondItem="iLd-BN-g4i" secondAttribute="top" constant="-5" id="SRs-xg-cZL"/>
+                <constraint firstItem="Lwt-hA-Ox7" firstAttribute="top" secondItem="So2-zm-mG3" secondAttribute="bottom" constant="13.5" id="XNj-ZI-iZU"/>
                 <constraint firstItem="VYd-Wc-jJm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ijS-jf-pR5"/>
                 <constraint firstAttribute="trailing" secondItem="Lwt-hA-Ox7" secondAttribute="trailing" id="yzq-Nd-6uU"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="Uxu-bV-nyW"/>
             <point key="canvasLocation" x="24" y="51"/>
         </view>
         <view contentMode="scaleToFill" id="RiD-Kc-EWy">
@@ -338,6 +340,7 @@
                 <constraint firstAttribute="bottom" secondItem="RVQ-m1-7DA" secondAttribute="bottom" id="sC2-AG-Ovn"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="hjo-q2-kAW"/>
             <point key="canvasLocation" x="444" y="67"/>
         </view>
     </objects>

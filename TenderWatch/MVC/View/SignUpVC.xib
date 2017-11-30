@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,7 +31,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldp-64-8dd">
-                    <rect key="frame" x="23" y="34" width="70" height="22"/>
+                    <rect key="frame" x="23" y="25" width="70" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="TLP-NL-IDi"/>
                     </constraints>
@@ -246,12 +247,12 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="ldp-64-8dd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="0kS-fa-B5S"/>
                 <constraint firstItem="VMC-rD-5tL" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="1o3-fq-cX9"/>
                 <constraint firstItem="u6E-kX-nSF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="3XX-F9-Tcy"/>
                 <constraint firstItem="f4p-Td-vfb" firstAttribute="top" secondItem="U8M-ob-Shj" secondAttribute="bottom" constant="20" id="4Wg-Xp-dZf"/>
                 <constraint firstItem="u6E-kX-nSF" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5Vp-cr-IxJ"/>
                 <constraint firstItem="f4p-Td-vfb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="6jh-zT-cPe"/>
+                <constraint firstItem="fXZ-fT-iJy" firstAttribute="top" secondItem="ldp-64-8dd" secondAttribute="top" constant="-5" id="Btg-Ny-hur"/>
                 <constraint firstItem="U8M-ob-Shj" firstAttribute="top" secondItem="VMC-rD-5tL" secondAttribute="bottom" constant="15" id="ELX-Zi-D9e"/>
                 <constraint firstAttribute="trailing" secondItem="U8M-ob-Shj" secondAttribute="trailing" constant="40" id="EYX-ro-gpE"/>
                 <constraint firstAttribute="trailing" secondItem="u6E-kX-nSF" secondAttribute="trailing" constant="40" id="H7t-5z-YFr"/>
@@ -265,6 +266,7 @@
                 <constraint firstItem="VMC-rD-5tL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="70" id="nqg-0B-5qe"/>
                 <constraint firstItem="f4p-Td-vfb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="pWd-O1-cIe"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="fXZ-fT-iJy"/>
             <point key="canvasLocation" x="-81.5" y="-10.5"/>
         </view>
     </objects>
